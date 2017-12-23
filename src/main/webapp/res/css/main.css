@@ -1,0 +1,250 @@
+@charset "utf-8";
+
+.navbar {
+	min-height: 30px;
+	margin-bottom: 5px;
+}
+
+.navbar-header {
+	width: 100%;
+}
+
+.navbar-brand {
+	height: auto;
+	padding: 10px 15px;
+	font-size: 20px;
+	line-height: 20px;
+}
+
+.navbar-text {
+	margin: 10px 20px;
+}
+
+.navbar-toggle {
+	margin: 2px;
+	padding: 6px 10px;
+}
+
+.navbar-nav > li > a {
+	padding-top: 5px;
+	padding-bottom: 3px;
+}
+
+.btn {
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+}
+
+form .required:after {
+    display: inline;
+    color: #e32;
+    content: " *";
+}
+
+.well {
+	margin-bottom: 0px;
+}
+
+.dropdown-menu li {
+	cursor: pointer;
+	padding-left: 2px;
+}
+
+.dropdown-menu li:hover {
+	background-color: #ffeeee;
+}
+
+.dropdown-menu li.active {
+	background-color: #eeeeff;
+	font-weight: bold;
+}
+.dropdown-menu li.divider {
+	margin: 3px 0;
+}
+
+body {
+	background-color: white;
+}
+
+h2 {
+	margin: 15px 0px 5px;
+	font-size: 18pt;
+	cursor: pointer;
+}
+
+h2 .toggle-icon {
+	vertical-align: 2pt;
+	font-size: 11pt;
+}
+
+#localeMenu {
+	float: right;
+}
+
+#exp {
+	z-index: 1;
+	background-color: white;
+}
+
+#expHeader {
+	text-align: right;
+}
+
+#v {
+	width: 100%;
+	height: 10em;
+}
+
+#follow {
+	cursor: pointer;
+}
+
+#follow.active {
+	display: inline-block;
+	-moz-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	color: #4169e1; /* royalblue */
+}
+
+#link {
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+#link.active {
+	color:  #4169e1; /* royalblue */
+}
+
+#vLen {
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+#vLen.active {
+	background-color:  #4169e1; /* royalblue */
+}
+
+#oeGroup {
+	margin-right: 3px;
+}
+
+#nlGroup {
+	margin-right: 3px;
+}
+
+table.dencoded-list {
+	table-layout: fixed;
+	width: 100%;
+	max-width: 100%;
+}
+
+table.dencoded-list tbody {
+	border-bottom: 1px solid #ccc;
+}
+
+table.dencoded-list tr {
+	border-bottom: 1px dashed #ccc;
+	color: black;
+	background-color: white;
+	cursor: pointer;
+}
+
+table.dencoded-list tr.selection {
+	background-color: #fff0f5;
+}
+
+table.dencoded-list tr.invalid-value {
+	color: #999 !important;
+	background-color: #eee !important;
+	cursor: auto !important;
+}
+
+table.dencoded-list th {
+	width: 21ex;
+	text-align: left;
+	word-break: keep-all;
+	word-wrap: normal;
+	white-space: nowrap;
+}
+
+table.dencoded-list td {
+	width: auto;
+}
+
+table.dencoded-list td .for-disp {
+	/*
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: normal;
+	*/
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+		-webkit-text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+}
+
+table.dencoded-list td .for-copy {
+	width: 100%;
+	height: 5em;
+}
+
+#link {
+	color: black;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+footer {
+	margin-top: 1em;
+	padding: 2px;
+	border-top: 1px solid #ddd;
+	background-color: #f5f5f5;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+@media only screen
+		and (min-device-width: 320px)
+		and (max-device-width: 568px) {
+	table.dencoded-list th {
+		height: 2em;
+	}
+}
+
+@media only screen
+		and (min-device-width: 320px)
+		and (max-device-width: 568px)
+		and (orientation : portrait) {
+	.navbar-text {
+		display: none;
+	}
+}

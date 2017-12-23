@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Eclipse
+/.project
+/.classpath
+/.settings/
+/.externalToolBuilders/
+
+# Maven
+/target/
+
+# Gradle
+/.gradle/
+/build/
+
+# Java
+*.class
+
+# Others
+*.bak
+/bin/
