@@ -373,7 +373,7 @@
 </div>
 
 <footer>
-	© DenCode
+	© <a href="https://github.com/mozq/dencode-web" target="_blank">Mozq</a>
 </footer>
 
 <script id="messagesTmpl" type="text/template">
