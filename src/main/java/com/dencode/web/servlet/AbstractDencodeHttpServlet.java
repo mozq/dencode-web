@@ -107,12 +107,12 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 			return attrLocale;
 		}
 		
-    	Locale locale = reqres.request().getLocale();
-    	if (locale != null) {
-    		return locale;
-    	}
-    	
-    	return Locale.getDefault();
+		Locale locale = reqres.request().getLocale();
+		if (locale != null) {
+			return locale;
+		}
+		
+		return Locale.getDefault();
 	}
 	
 	private static List<Locale> getLocales(Locale primaryLocale, HttpReqRes reqres) {
@@ -129,19 +129,19 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 				locales.add(locale);
 			}
 		}
-    	
-    	return locales;
+		
+		return locales;
 	}
 	
 	private static TimeZone getTimeZone(Locale locale) {
-    	if (locale != null) {
-	    	TimeZone timeZone = DateUtilz.localeToTimeZone(locale);
-	    	if (timeZone != null) {
-	    		return timeZone;
-	    	}
-    	}
-    	
-    	return TimeZone.getDefault();
+		if (locale != null) {
+			TimeZone timeZone = DateUtilz.localeToTimeZone(locale);
+			if (timeZone != null) {
+				return timeZone;
+			}
+		}
+		
+		return TimeZone.getDefault();
 	}
 	
 	protected void responseAsJson(Object response) {
@@ -160,20 +160,10 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		res.setStatus(statusCode);
 		
 		res.setHeader("Content-Type", "application/json; charset=UTF-8");
-		OutputStream out = null;
-		try {
-			out = res.getOutputStream();
+		try (OutputStream out = res.getOutputStream()) {
 			writeAsJson(out, responseModel);
 		} catch (IOException e) {
 			throw new MifmiServletException(e);
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-					throw new MifmiServletException(e);
-				}
-			}
 		}
 	}
 
