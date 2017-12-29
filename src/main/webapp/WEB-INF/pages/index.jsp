@@ -11,16 +11,17 @@
 	<meta name="description" content="${mf:h(msg[mf:strcat('site.desc.', type)])}" />
 	<meta name="robots" content="index,follow,noarchive" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
-	<meta property="og:url" content="http://dencode.com${pageContext.request.contextPath}/${mf:h(type)}" />
-	<meta property="og:image" content="http://dencode.com${pageContext.request.contextPath}/res/img/icons/favicon200px.png" />
+	<meta property="og:url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
+	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/res/img/icons/favicon200px.png" />
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
 	<meta property="og:locale:alternate" content="en_US" />
 	<meta property="og:locale:alternate" content="ja_JP" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}" />
 	<meta property="og:description" content="${mf:h(msg[mf:strcat('site.desc.', method)])}" />
-	<link rel="alternate" href="${pageContext.request.contextPath}/ja/${mf:h(type)}" hreflang="ja" />
-	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(type)}" hreflang="x-default" />
+	<link rel="alternate" href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}" hreflang="en" />
+	<link rel="alternate" href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}" hreflang="ja" />
+	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="${pageContext.request.contextPath}/res/img/icons/favicon144px.png" />
