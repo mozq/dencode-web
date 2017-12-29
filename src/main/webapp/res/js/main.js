@@ -34,6 +34,7 @@ $(document).ready(function () {
 	var $decIndicator = $("#decodingIndicator");
 	var $encIndicator = $("#encodingIndicator");
 	var $listRows = $(".dencoded-list").find("tr");
+	var $otherDencodeLink = $("#otherDencodeLink");
 	
 	var hash = location.hash;
 	if (hash !== null && hash.lastIndexOf("#v=", 0) === 0) {
@@ -327,6 +328,17 @@ $(document).ready(function () {
 				oneByte: (bytes == 1)
 			});
 		}
+	});
+	
+	$otherDencodeLink.on("click", function (e) {
+		var parentMethod = $otherDencodeLink.data("parent-dencode-method");
+		
+		var $menuLinks = $("li[data-dencode-method='" + parentMethod + "'] a");
+		if (0 < $menuLinks.length) {
+			$menuLinks[0].click();
+		}
+		
+		e.preventDefault();
 	});
 	
 	dencode();

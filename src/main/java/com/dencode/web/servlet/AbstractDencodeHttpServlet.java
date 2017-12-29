@@ -57,8 +57,8 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		useMessagesResource("messages", "msg");
 		setResponseMessagesAttributeName("messages");
 		
-		Config defaultLocaleMedsages = new ResourceBundleConfig("messages", reqres().request().getLocales());
-		reqres().setAttribute("defaultLocaleName", defaultLocaleMedsages.get("locale.name"));
+		Config defaultLocaleMessages = new ResourceBundleConfig("messages", getLocales(getDefaultLocale(reqres()), reqres()));
+		reqres().setAttribute("defaultLocaleName", defaultLocaleMessages.get("locale.name"));
 	}
 
 	@Override
@@ -107,6 +107,10 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 			return attrLocale;
 		}
 		
+		return getDefaultLocale(reqres);
+	}
+	
+	private static Locale getDefaultLocale(HttpReqRes reqres) {
 		Locale locale = reqres.request().getLocale();
 		if (locale != null) {
 			return locale;
@@ -142,6 +146,23 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		}
 		
 		return TimeZone.getDefault();
+	}
+	
+	protected static String getRequestSubPath(HttpReqRes reqres) {
+		String path = reqres.request().getServletPath();
+		if (path == null) {
+			path = "";
+		} else {
+			if (path.startsWith("/")) {
+				path = path.substring(1);
+			}
+			String pathInfo = reqres.request().getPathInfo();
+			if (pathInfo != null) {
+				path += pathInfo;
+			}
+		}
+		
+		return path;
 	}
 	
 	protected void responseAsJson(Object response) {

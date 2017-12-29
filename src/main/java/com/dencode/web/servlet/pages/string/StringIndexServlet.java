@@ -142,6 +142,10 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 		reqres().setAttribute("hasEncoded", hasEncoded);
 		reqres().setAttribute("hasDecoded", hasDecoded);
 		
+		if (reqres().attribute("currentPath") == null) {
+			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));
+		}
+		
 		forward("/index");
 	}
 }

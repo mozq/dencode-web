@@ -223,6 +223,14 @@ table.dencoded-list td .for-copy {
 	text-decoration: underline;
 }
 
+#otherDencodeNav {
+	margin-top: 1em;
+}
+
+#otherDencodeLink:before {
+	content: ">> "
+}
+
 footer {
 	margin-top: 1em;
 	padding: 2px;

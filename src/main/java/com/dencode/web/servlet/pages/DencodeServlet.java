@@ -180,8 +180,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	
 	@Override
 	protected void doPost() throws Exception {
-		String type = reqres().param("t", "");
-		String method = reqres().param("m", "");
+		String type = reqres().param("t", "all");
+		String method = reqres().param("m", "all");
 		String val = reqres().param("v", "");
 		String oe = reqres().param("oe", "utf8");
 		String nl = reqres().param("nl", "crlf");
@@ -220,8 +220,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		DencodeModel dencode = new DencodeModel();
 		dencode.setTextLength(getTextLength(val) + textLengthDiff);
 		dencode.setTextByteLength(binValue.length);
-		if (type.equals("") || type.equals("string")) {
-			boolean all = (method.equals("") || method.equals("string"));
+		if (type.equals("all") || type.equals("string")) {
+			boolean all = (method.equals("all") || method.equals("string.all"));
 			
 			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue));
 			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue));
@@ -259,8 +259,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.unicodeNormalization")) dencode.setDecUnicodeNFC(decUnicodeNFC(val));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setDecUnicodeNFKC(decUnicodeNFKC(val));
 		}
-		if (type.equals("") || type.equals("number")) {
-			boolean all = (method.equals("") || method.equals("number"));
+		if (type.equals("all") || type.equals("number")) {
+			boolean all = (method.equals("all") || method.equals("number.all"));
 			
 			if (all || method.equals("number.bin")) dencode.setEncNumBin(encNumBin(val));
 			if (all || method.equals("number.oct")) dencode.setEncNumOct(encNumOct(val));
@@ -273,15 +273,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("number.hex")) dencode.setDecNumHex(decNumHex(val));
 			if (all || method.equals("number.japanese")) dencode.setDecNumJP(decNumJP(val));
 		}
-		if (type.equals("") || type.equals("date")) {
-			boolean all = (method.equals("") || method.equals("date"));
+		if (type.equals("all") || type.equals("date")) {
+			boolean all = (method.equals("all") || method.equals("date.all"));
 			
 			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601(val, timeZone));
 			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(val, timeZone));
 		}
-		if (type.equals("") || type.equals("color")) {
-			boolean all = (method.equals("") || method.equals("color"));
+		if (type.equals("all") || type.equals("color")) {
+			boolean all = (method.equals("all") || method.equals("color.all"));
 			
 			if (all || method.equals("color.name")) dencode.setEncColorName(encColorName(rgb));
 			if (all || method.equals("color.rgb")) dencode.setEncColorRGBHex3(encColorRGBHex3(rgb));
@@ -293,8 +293,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("color.cmy")) dencode.setEncColorCMYFn(encColorCMYFn(rgb));
 			if (all || method.equals("color.cmyk")) dencode.setEncColorCMYKFn(encColorCMYKFn(rgb));
 		}
-		if (type.equals("") || type.equals("hash")) {
-			boolean all = (method.equals("") || method.equals("hash"));
+		if (type.equals("all") || type.equals("hash")) {
+			boolean all = (method.equals("all") || method.equals("hash.all"));
 			
 			if (all || method.equals("hash.md2")) dencode.setEncMD2(hash(binValue, "MD2"));
 			if (all || method.equals("hash.md5")) dencode.setEncMD5(hash(binValue, "MD5"));

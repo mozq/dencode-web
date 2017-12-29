@@ -47,12 +47,12 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		
 		String type = reqres().attribute("type");
 		if (type == null) {
-			type = "";
+			type = "all";
 		}
 
 		String method = reqres().attribute("method");
 		if (method == null) {
-			method = "";
+			method = "all";
 		}
 		
 		String[] tzList = TimeZone.getAvailableIDs();
@@ -103,7 +103,11 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		reqres().setAttribute("tz", tz);
 		reqres().setAttribute("tzMap", tzMapList);
 		
-		if (type.isEmpty() && method.isEmpty()) {
+		if (reqres().attribute("currentPath") == null) {
+			reqres().setAttribute("currentPath", "");
+		}
+		
+		if (type.equals("all")) {
 			reqres().setAttribute("useOe", true);
 			reqres().setAttribute("useNl", true);
 			reqres().setAttribute("useTz", true);

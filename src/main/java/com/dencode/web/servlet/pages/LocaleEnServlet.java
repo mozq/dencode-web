@@ -32,11 +32,12 @@ public class LocaleEnServlet extends AbstractDencodeHttpServlet {
 	
 	@Override
 	protected void doGet() throws Exception {
-		
 		String path = reqres().pathParam("");
 
 		reqres().setAttribute("localeName", LOCALE_NAME);
 		reqres().setAttribute("locale", LOCALE);
+		
+		reqres().setAttribute("currentPath", path);
 		
 		forward("/" + path);
 	}
