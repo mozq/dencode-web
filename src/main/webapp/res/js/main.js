@@ -356,9 +356,13 @@ $(document).ready(function () {
 		var oex = $oexMenuItems.filter(".active").data("oe");
 		var nl = $nlGroupBtns.filter(".active").data("nl");
 		var tz = $tz.val();
+
+		if (!type) {
+			type = "all";
+		}
 		
 		if (!method) {
-			method = "";
+			method = "all";
 		}
 		
 		if (v === _v && oe === _oe && nl === _nl && tz === _tz) {
