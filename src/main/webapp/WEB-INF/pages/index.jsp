@@ -10,6 +10,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<meta name="description" content="${mf:h(msg[mf:strcat('site.desc.', type)])}" />
 	<meta name="robots" content="index,follow,noarchive" />
+	<meta name="application-name" content="${mf:h(msg['site.name'])}" />
+	<meta name="apple-mobile-web-app-title" content="${mf:h(msg['site.name'])}" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
 	<meta property="og:url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
 	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/res/img/icons/favicon200px.png" />
