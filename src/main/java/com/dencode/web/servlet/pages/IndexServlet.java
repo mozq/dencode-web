@@ -42,7 +42,12 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		String nl = reqres().param("nl", reqres().cookie("nl", ""));
 		String tz = reqres().param("tz", reqres().cookie("tz", null));
 		if (tz == null) {
-			tz = DateUtilz.localeToTimeZone(request().getLocale()).getID();
+			TimeZone timeZone = DateUtilz.localeToTimeZone(request().getLocale());
+			if (timeZone == null) {
+				tz = "UTC";
+			} else {
+				tz = timeZone.getID();
+			}
 		}
 		
 		String type = reqres().attribute("type");
