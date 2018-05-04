@@ -597,7 +597,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (dateVal == null) {
 			return null;
 		}
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		
+		long time = dateVal.getTime();
+		long millisOfSec = time - ((time / 1000) * 1000);
+		DateFormat dateFormat = new SimpleDateFormat((millisOfSec == 0) ? "yyyy-MM-dd'T'HH:mm:ssXXX" : "yyyy-MM-dd'T'HH:mm:ss,SSSXXX");
 		dateFormat.setTimeZone(timeZone);
 		return dateFormat.format(dateVal);
 	}
