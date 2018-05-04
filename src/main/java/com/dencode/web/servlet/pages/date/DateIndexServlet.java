@@ -55,6 +55,12 @@ public class DateIndexServlet extends AbstractDencodeHttpServlet {
 			useNl = false;
 			hasDecoded = false;
 			break;
+		case "ctime":
+			method = "date.ctime";
+			useOe = false;
+			useNl = false;
+			hasDecoded = false;
+			break;
 		default:
 			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;

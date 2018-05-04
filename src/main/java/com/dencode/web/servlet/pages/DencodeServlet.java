@@ -64,11 +64,16 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
 	
 	private static final String[] DATE_PARSE_PATTERNS = {
-		"EEE MMM d HH:mm:ss z yyyy",
+		"EEE MMM dd HH:mm:ss z yyyy",
+		"EEE MMM dd HH:mm:ss yyyy",
 		"EEE, dd MMM yyy HH:mm:ss zzz",
 		"EEE, dd MMM yyy HH:mm zzz",
+		"EEE, dd MMM yyy HH:mm:ss",
+		"EEE, dd MMM yyy HH:mm",
 		"dd MMM yyy HH:mm:ss zzz",
 		"dd MMM yyy HH:mm zzz",
+		"dd MMM yyy HH:mm:ss",
+		"dd MMM yyy HH:mm",
 		"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
 		"yyyy-MM-dd'T'HH:mm:ss,SSSXXX",
 		"yyyy-MM-dd'T'HH:mm:ssXXX",
@@ -279,6 +284,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601(val, timeZone));
 			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(val, timeZone));
+			if (all || method.equals("date.ctime")) dencode.setEncDateCTime(encDateCTime(val, timeZone));
 		}
 		if (type.equals("all") || type.equals("color")) {
 			boolean all = (method.equals("all") || method.equals("color.all"));
@@ -614,6 +620,19 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			timeZone = TimeZone.getTimeZone("GMT");
 		}
 		DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyy HH:mm:ss zzz", Locale.US);
+		dateFormat.setTimeZone(timeZone);
+		return dateFormat.format(dateVal);
+	}
+
+	private static String encDateCTime(String val, TimeZone timeZone) {
+		Date dateVal = parseDate(val, timeZone);
+		if (dateVal == null) {
+			return null;
+		}
+		if (timeZone.getID().equals("UTC")) {
+			timeZone = TimeZone.getTimeZone("GMT");
+		}
+		DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
 		dateFormat.setTimeZone(timeZone);
 		return dateFormat.format(dateVal);
 	}

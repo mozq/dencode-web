@@ -70,6 +70,7 @@ public class DencodeModel {
 	private String encDateUnixTime;
 	private String encDateISO8601;
 	private String encDateRFC2822;
+	private String encDateCTime;
 	private String encColorName;
 	private String encColorRGBHex3;
 	private String encColorRGBHex6;
@@ -491,6 +492,14 @@ public class DencodeModel {
 
 	public void setEncDateRFC2822(String encDateRFC2822) {
 		this.encDateRFC2822 = encDateRFC2822;
+	}
+
+	public String getEncDateCTime() {
+		return encDateCTime;
+	}
+
+	public void setEncDateCTime(String encDateCTime) {
+		this.encDateCTime = encDateCTime;
 	}
 
 	public String getEncColorName() {
