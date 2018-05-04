@@ -64,7 +64,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
 	
 	private static final String[] DATE_PARSE_PATTERNS = {
-		"EEE MMM　d HH:mm:ss z yyyy",
+		"EEE MMM d HH:mm:ss z yyyy",
 		"EEE, dd MMM yyy HH:mm:ss zzz",
 		"EEE, dd MMM yyy HH:mm zzz",
 		"dd MMM yyy HH:mm:ss zzz",
