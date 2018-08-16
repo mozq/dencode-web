@@ -23,6 +23,7 @@
 	<meta property="og:description" content="${mf:h(msg[mf:strcat('site.desc.', method)])}" />
 	<link rel="alternate" href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}" hreflang="en" />
 	<link rel="alternate" href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}" hreflang="ja" />
+	<link rel="alternate" href="${pageContext.request.contextPath}/hi/${mf:h(currentPath)}" hreflang="hi" />
 	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
@@ -63,6 +64,7 @@
 							<li class="divider"></li>
 							<li class="${(localeName eq 'en') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}">English</a></li>
 							<li class="${(localeName eq 'ja') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}">日本語</a></li>
+							<li class="${(localeName eq 'hi') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/hi/${mf:h(currentPath)}">हिन्दी</a></li>
 						</ul>
 					</li>
 				</ul>
