@@ -20,12 +20,12 @@ apply plugin: 'com.google.cloud.tools.appengine'
 dependencies {
   providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
   providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
+  providedCompile 'jstl:jstl:1.2'
   
-  compile 'jstl:jstl:1.2'
   compile 'org.mifmi:mifmi-commons4j:0.2.0'
-  compile 'commons-codec:commons-codec:1.5'
-  compile 'org.apache.commons:commons-lang3:3.1'
-  compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+  compile 'commons-codec:commons-codec:1.11'
+  compile 'org.apache.commons:commons-lang3:3.8.1'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
   
   testCompile 'junit:junit:4.12'
 }
@@ -41,14 +41,16 @@ appengine {
   }
 
   deploy {
-    stopPreviousVersion = false
+    projectId = "GCLOUD_CONFIG"
+    version = 'GCLOUD_CONFIG'
     promote = false
+    stopPreviousVersion = false
   }
 }
 
 
-group = "com.dencode"
-version = "0.1.0-SNAPSHOT"
+group = 'com.dencode'
+version = '0.1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
