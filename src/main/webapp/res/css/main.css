@@ -227,7 +227,7 @@ table.dencoded-list td .for-copy {
 	margin-top: 1em;
 }
 
-#otherDencodeLink:before {
+#otherDencodeNav .other-dencode-link:before {
 	content: ">> "
 }
 

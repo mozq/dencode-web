@@ -382,7 +382,31 @@
 		
 		<div id="otherDencodeNav">
 			<c:if test="${type ne 'all'}">
-				<a id="otherDencodeLink" href="#" data-parent-dencode-method="${mf:h((fn:endsWith(method, '.all')) ? 'all' : mf:strcat(type, '.all'))}">${mf:h(msg[mf:strcat('label.otherDencodeLink.', (fn:endsWith(method, '.all')) ? 'all' : mf:strcat(type, '.all'))])}</a>
+				<div>
+					<a class="other-dencode-link" href="#" data-other-dencode-method="${mf:h((fn:endsWith(method, '.all')) ? 'all' : mf:strcat(type, '.all'))}">${mf:h(msg[mf:strcat('label.otherDencodeLink.', (fn:endsWith(method, '.all')) ? 'all' : mf:strcat(type, '.all'))])}</a>
+				</div>
+			</c:if>
+			
+			<c:if test="${method eq 'string.bin'}">
+				<div>
+					<a class="other-dencode-link" href="#" data-other-dencode-method="number.bin">${mf:h(msg['label.otherDencodeLink.number.bin'])}</a>
+				</div>
+			</c:if>
+			<c:if test="${method eq 'string.hex'}">
+				<div>
+					<a class="other-dencode-link" href="#" data-other-dencode-method="number.hex">${mf:h(msg['label.otherDencodeLink.number.hex'])}</a>
+				</div>
+			</c:if>
+			
+			<c:if test="${method eq 'number.bin'}">
+				<div>
+					<a class="other-dencode-link" href="#" data-other-dencode-method="string.bin">${mf:h(msg['label.otherDencodeLink.string.bin'])}</a>
+				</div>
+			</c:if>
+			<c:if test="${method eq 'number.hex'}">
+				<div>
+					<a class="other-dencode-link" href="#" data-other-dencode-method="string.hex">${mf:h(msg['label.otherDencodeLink.string.hex'])}</a>
+				</div>
 			</c:if>
 		</div>
 	</div>
