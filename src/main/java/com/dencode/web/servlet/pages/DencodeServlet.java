@@ -1219,9 +1219,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				}
 				return new String(binValue, 0, binLen, charset);
 			} else {
-				val = val.replace('\r', ' ');
-				val = val.replace('\n', ' ');
-				String[] vals = val.split(" ", -1);
+				String[] vals = StringUtilz.split(val, "\\s+");
 				int valsLen = vals.length;
 				
 				boolean is4bit = true;
@@ -1237,9 +1235,6 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 					byte[] binValue = new byte[valsLen / 2 + 1];
 					for (int i = 0; i < valsLen; i++) {
 						String v = vals[i];
-						if (v.isEmpty()) {
-							continue;
-						}
 						int high = Integer.parseInt(v, 2);
 						
 						i++;
@@ -1292,9 +1287,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				}
 				return new String(binValue, 0, binLen, charset);
 			} else {
-				val = val.replace('\r', ' ');
-				val = val.replace('\n', ' ');
-				String[] vals = val.split(" ", -1);
+				String[] vals = StringUtilz.split(val, "\\s+");
 				int valsLen = vals.length;
 
 				int binLen = 0;
