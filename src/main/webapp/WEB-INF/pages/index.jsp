@@ -348,6 +348,8 @@
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.unixTime'}"><tr><th>${mf:h(msg['label.encDateUnixTime'])}</th><td><span id="encDateUnixTime" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.iso8601'}"><tr><th>${mf:h(msg['label.encDateISO8601'])}</th><td><span id="encDateISO8601" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.iso8601'}"><tr><th>${mf:h(msg['label.encDateISO8601Ext'])}</th><td><span id="encDateISO8601Ext" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.iso8601'}"><tr><th>${mf:h(msg['label.encDateISO8601Week'])}</th><td><span id="encDateISO8601Week" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.rfc2822'}"><tr><th>${mf:h(msg['label.encDateRFC2822'])}</th><td><span id="encDateRFC2822" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.ctime'}"><tr><th>${mf:h(msg['label.encDateCTime'])}</th><td><span id="encDateCTime" class="for-disp"></span></td></tr></c:if>
 						</tbody>

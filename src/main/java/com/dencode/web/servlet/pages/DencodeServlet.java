@@ -349,7 +349,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			boolean all = (method.equals("all") || method.equals("date.all"));
 			
 			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(val, timeZone));
-			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601(val, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601Basic(val, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ext(encDateISO8601Ext(val, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Week(encDateISO8601Week(val, timeZone));
 			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(val, timeZone));
 			if (all || method.equals("date.ctime")) dencode.setEncDateCTime(encDateCTime(val, timeZone));
 		}
@@ -665,7 +667,19 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return String.valueOf(dateVal.getTime());
 	}
 
-	private static String encDateISO8601(String val, TimeZone timeZone) {
+	private static String encDateISO8601Basic(String val, TimeZone timeZone) {
+		return encDateISO8601(val, "yyyyMMdd'T'HHmmssXX", "yyyyMMdd'T'HHmmss,SSSXX", timeZone);
+	}
+
+	private static String encDateISO8601Ext(String val, TimeZone timeZone) {
+		return encDateISO8601(val, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss,SSSXXX", timeZone);
+	}
+
+	private static String encDateISO8601Week(String val, TimeZone timeZone) {
+		return encDateISO8601(val, "yyyy-'W'ww-u'T'HH:mm:ssXXX", "yyyy-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
+	}
+
+	private static String encDateISO8601(String val, String pattern, String patternWithMsec, TimeZone timeZone) {
 		Date dateVal = parseDate(val, timeZone);
 		if (dateVal == null) {
 			return null;
@@ -673,7 +687,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		long time = dateVal.getTime();
 		long millisOfSec = time - ((time / 1000) * 1000);
-		DateFormat dateFormat = new SimpleDateFormat((millisOfSec == 0) ? "yyyy-MM-dd'T'HH:mm:ssXXX" : "yyyy-MM-dd'T'HH:mm:ss,SSSXXX");
+		DateFormat dateFormat = new SimpleDateFormat((millisOfSec == 0) ? pattern : patternWithMsec);
 		dateFormat.setTimeZone(timeZone);
 		return dateFormat.format(dateVal);
 	}
