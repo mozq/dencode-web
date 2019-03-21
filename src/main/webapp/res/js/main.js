@@ -2,6 +2,7 @@
 
 var _lengthTmpl = Hogan.compile($("#lengthTmpl").html());
 var _permanentLinkTmpl = Hogan.compile($("#permanentLinkTmpl").html());
+var _forCopyTmpl = Hogan.compile($("#forCopyTmpl").html());
 
 $(document).ready(function () {
 	var _inProc = false;
@@ -11,17 +12,16 @@ $(document).ready(function () {
 	var _tz = null;
 	
 	var $window = $(window);
-	var $html = $("html");
-	var $popovers = $('[data-toggle="popover"]');
+	var $document = $(document);
 	var $localeMenuLinks = $("#localeMenu .dropdown-menu a");
-	var $typeMenuItems = $("#typeMenu ul.nav > li");
-	var $typeMenuLinks = $("#typeMenu a");
-	var $typeMenuLabels = $("#typeMenu .dropdown-menu-label");
-	var $methodMenuItems = $("#typeMenu ul.nav > li ul.dropdown-menu > li");
+	var $typeMenu = $("#typeMenu");
+	var $typeMenuItems = $typeMenu.find("li[data-dencode-type]");
+	var $typeMenuLinks = $typeMenu.find("a");
+	var $typeMenuLabels = $typeMenu.find(".dropdown-menu-label");
+	var $methodMenuItems = $typeMenu.find("li[data-dencode-method]");
 	var $top = $("#top");
 	var $exp = $("#exp");
 	var $follow = $("#follow");
-	var $link = $("#link");
 	var $vLen = $("#vLen");
 	var $v = $("#v");
 	var $tz = $("#tz");
@@ -31,6 +31,7 @@ $(document).ready(function () {
 	var $oexMenuItems = $("#oexMenu li:not(.divider)");
 	var $nlGroup = $("#nlGroup");
 	var $nlGroupBtns = $nlGroup.find(".btn");
+	var $subHeaders = $("h2");
 	var $decIndicator = $("#decodingIndicator");
 	var $encIndicator = $("#encodingIndicator");
 	var $listRows = $(".dencoded-list").find("tr");
@@ -70,26 +71,8 @@ $(document).ready(function () {
 		}
 	};
 	
-	$window.on("resize", function () {
-		hidePopover($popovers);
-	});
-	
-	$window.on("click", function (ev) {
-		var $target = $(ev.target);
-
-		// hide popover when other area clicked
-		if ($target.data("toggle") !== "popover"
-			&& $target.parents('[data-toggle="popover"]').length === 0
-			&& $target.parents(".popover.in").length === 0) {
-			hidePopover($popovers);
-		}
-	});
-	
 	if (window.File) {
-		$html.on("drop", function (ev) {
-			ev.preventDefault();
-			ev.stopPropagation();
-			
+		$document.on("drop", function (ev) {
 			var oeIana = $oeGroupBtns.filter(".active").data("oe-iana");
 			
 			var file = ev.originalEvent.dataTransfer.files[0];
@@ -98,22 +81,76 @@ $(document).ready(function () {
 				$v.text(ev.target.result);
 			};
 			reader.readAsText(file, oeIana);
+			
+			return false;
 		});
 		
-		$html.on("dragenter dragover dragleave dragend", function (ev) {
-			ev.preventDefault();
-			ev.stopPropagation();
-		});
+		$document.on("dragenter dragover dragleave dragend", false);
 	}
 	
-	$popovers.on("show.bs.popover", function () {
+	$window.on("resize", function () {
+		hidePopover($(".popover-toggle.active"));
+	});
+	
+	$document.on("click", function (ev) {
+		var $target = $(ev.target);
+
+		// hide popover when other area clicked
+		if ($target.closest(".popover-toggle, .popover").length === 0) {
+			hidePopover($(".popover-toggle.active"));
+		}
+	});
+	
+	/*
+	$document.on("focus", ".select-on-focus", function () {
+		setTimeout(function() {
+			selectAllTextValue(this);
+		}.bind(this), 1);
+	});
+	*/
+	
+	$document.on("click", ".copy-to-clipboard", function () {
 		var $this = $(this);
 		
-		hidePopover($popovers.not($this));
+		copyToClipboard($this);
+		$this.focus();
+		
+		return false;
+	});
+	
+	$document.on("click", ".popover-toggle.permanent-link", function () {
+		var $this = $(this);
+		
+		if ($this.hasClass("active")) {
+			hidePopover($this);
+		} else {
+			var method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+			if (!$this.data("bs.popover")) {
+				$this.popover({
+					trigger: "manual",
+					container: "body",
+					placement: "auto left",
+					html: true,
+					content: function () {
+						return _permanentLinkTmpl.render({
+							permanentLink: getPermanentLink(method)
+						});
+					}
+				});
+			}
+			$this.popover("show");
+		}
+	});
+	
+	$document.on("show.bs.popover", ".popover-toggle", function () {
+		var $this = $(this);
+		
+		hidePopover($(".popover-toggle.active").not($this));
+		
 		$this.addClass("active");
 	});
 	
-	$popovers.on("hide.bs.popover", function () {
+	$document.on("hidden.bs.popover", ".popover-toggle", function () {
 		var $this = $(this);
 		
 		$this.removeClass("active");
@@ -147,14 +184,13 @@ $(document).ready(function () {
 		}
 	});
 	
-	$typeMenuLabels.on("click", function (ev) {
+	$typeMenuLabels.on("click", function () {
 		var $this = $(this);
 		
 		var $dropdownMenuLink = $this.closest("li").find("ul.dropdown-menu li:first a");
 		$dropdownMenuLink[0].click();
 		
-		ev.preventDefault();
-		ev.stopPropagation();
+		return false;
 	});
 	
 	if (/*@cc_on @if(@_jscript_version <= 5.8) ! @end @*/false) {
@@ -238,7 +274,7 @@ $(document).ready(function () {
 		});
 	}
 	
-	$("h2").on("click", function () {
+	$subHeaders.on("click", function () {
 		var $this = $(this);
 		var $toggleIcon = $this.children(".toggle-icon");
 		var $toggleShow = $($this.data("toggle-show"));
@@ -251,38 +287,29 @@ $(document).ready(function () {
 			$toggleIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
 		}
 	});
-
-	$listRows.on("click", function () {
+	
+	$listRows.on("click", function (ev) {
+		if ($(ev.target).closest(".for-copy").length !== 0) {
+			return;
+		}
+		
 		var $row = $(this);
-
+		
 		if ($row.hasClass("invalid-value")) {
 			return;
 		}
-		if ($row.hasClass("selection")) {
-			removeCopyTextareaElm($row.find(".for-copy"));
-			$row.removeClass("selection");
-			return;
+		
+		hidePopover($(".popover-toggle.active"));
+		
+		if ($row.hasClass("active")) {
+			unselectRow($row);
+		} else {
+			$listRows.filter(".active").each(function () {
+				unselectRow($(this));
+			});
+			
+			selectRow($row);
 		}
-
-		$row.addClass("selection");
-		
-		var $disp = $row.find(".for-disp");
-		var id = $disp.attr("id");
-		var val = $disp.text();
-		
-		var $copy = $("<textarea>");
-		$copy.addClass("for-copy");
-		$copy.data("id", id);
-		$copy.text(val);
-		$copy.on("click", function (ev) {
-			ev.stopPropagation();
-		});
-		$copy.on("focusout", removeCopyTextarea);
-		$copy.on("focus", selectAllTextValue); // for iOS
-
-		$disp.hide();
-		$disp.after($copy);
-		$copy.select();
 	});
 	
 	$follow.on("click", function () {
@@ -292,30 +319,18 @@ $(document).ready(function () {
 		toggleFollow();
 	}
 	
-	$link.on("shown.bs.popover", function () {
-		var $linkURL = $("#linkURL");
+	$vLen.on("click", function () {
+		var $this = $(this);
 		
-		$linkURL.on("click", function (ev) {
-			ev.stopPropagation();
-		});
-		$linkURL.on("focus", selectAllTextValue);
-		$linkURL.focus();
-		$linkURL.select();
-	});
-	
-	$link.popover({
-		trigger: "click",
-		placement: "left",
-		html: true,
-		content: function () {
-			return _permanentLinkTmpl.render({
-				permanentLink: getPermanentLink()
-			});
+		if ($this.hasClass("active")) {
+			$this.popover("hide");
+		} else {
+			$this.popover("show");
 		}
 	});
 	
 	$vLen.popover({
-		trigger: "click",
+		trigger: "manual",
 		placement: "left",
 		html: false,
 		content: function () {
@@ -330,16 +345,16 @@ $(document).ready(function () {
 		}
 	});
 	
-	$otherDencodeLinks.on("click", function (e) {
+	$otherDencodeLinks.on("click", function (ev) {
 		var $this = $(this);
 		var method = $this.data("other-dencode-method");
 		
-		var $menuLinks = $("li[data-dencode-method='" + method + "'] a");
+		var $menuLinks = $methodMenuItems.filter("[data-dencode-method='" + method + "']").find("a");
 		if (0 < $menuLinks.length) {
 			$menuLinks[0].click();
 		}
 		
-		e.preventDefault();
+		ev.preventDefault();
 	});
 	
 	dencode();
@@ -462,21 +477,32 @@ $(document).ready(function () {
 		}
 	}
 	
-	function getPermanentLink() {
+	function getPermanentLink(method) {
 		var v = $v.val();
 		
-		var url = location.protocol + "//" + location.host + location.pathname;
+		var $methodMenuItem = $methodMenuItems.filter("[data-dencode-method='" + method + "']");
+		var $typeMenuItem = $methodMenuItem.closest("[data-dencode-type]");
+		var oeEnabled = $typeMenuItem.data("dencode-enable-oe");
+		var nlEnabled = $typeMenuItem.data("dencode-enable-nl");
+		var tzEnabled = $typeMenuItem.data("dencode-enable-tz");
+		
+		var path = $methodMenuItem.find("a").attr("href");
+		if (!path) {
+			path = location.pathname;
+		}
+		
+		var url = location.protocol + "//" + location.host + path;
 		url += "?v=" + encodeURIComponent(v);
 		
-		if ($oeGroup.data("enable")) {
+		if (oeEnabled) {
 			var oe = $oeGroupBtns.filter(".active").data("oe");
 			url += "&oe=" + encodeURIComponent(oe);
 		}
-		if ($nlGroup.data("enable")) {
+		if (nlEnabled) {
 			var nl = $nlGroupBtns.filter(".active").data("nl");
 			url += "&nl=" + encodeURIComponent(nl);
 		}
-		if ($tz.data("enable")) {
+		if (tzEnabled) {
 			var tz = $tz.val();
 			url += "&tz=" + encodeURIComponent(tz);
 		}
@@ -487,47 +513,151 @@ $(document).ready(function () {
 
 
 function setResponseValue(id, value) {
-	var dispElm = document.getElementById(id);
-	if (dispElm === null) {
+	var forDispElm = document.getElementById(id);
+	if (forDispElm === null) {
 		return;
 	}
 	
-	var $disp = $(dispElm);
-	var $row = $disp.closest("tr");
+	var $forDisp = $(forDispElm);
+	
+	var $row = $forDisp.closest("tr");
 	if (value === null) {
 		$row.addClass("invalid-value");
-		$disp.text("");
+		$forDisp.text("");
 	} else {
 		$row.removeClass("invalid-value");
-		$disp.text(value);
+		$forDisp.text(value);
+	}
+	
+	var forCopyTextareaElm = document.getElementById(id + "ForCopy");
+	if (forCopyTextareaElm) {
+		$(forCopyTextareaElm).val(value);
 	}
 }
 
-function removeCopyTextarea() {
-	removeCopyTextareaElm(this);
+function selectRow($row) {
+	$row.addClass("active");
+	
+	var $forDisp = $row.find(".for-disp");
+	var id = $forDisp.attr("id");
+	var val = $forDisp.text();
+	
+	var forCopyHtml = _forCopyTmpl.render({
+		id: id,
+		value: val
+	});
+	
+	var $forCopy = $(forCopyHtml);
+	$forDisp.after($forCopy);
 }
 
-function removeCopyTextareaElm(copyElm) {
+function unselectRow($row) {
+	$row.removeClass("active");
+	
+	var $forCopy = $row.find(".for-copy");
+	$forCopy.remove();
+}
+
+function selectAllTextValue(elm) {
+	if (elm.select) {
+		elm.select();
+	}
+	
+	if (document.createRange && window.getSelection) {
+		var range = document.createRange();
+		range.selectNode(elm);
+		var selection = window.getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
+	
+	if (elm.setSelectionRange) {
+		elm.setSelectionRange(0, 2147483647);
+	}
+}
+
+function clearSelection(elm) {
+	if (window.getSelection) {
+		var selection = window.getSelection();
+		selection.removeAllRanges();
+	}
+	
+	if (elm.setSelectionRange) {
+		elm.setSelectionRange(0, 0);
+	}
+}
+
+function hidePopover($popovers) {
+	$popovers.popover("destroy");
+}
+
+function showTooltip($elm, message, time) {
+	var title = $elm.attr("title");
+	$elm.removeAttr("title");
+	
+	$elm.tooltip({
+		trigger: "manual",
+		container: "body",
+		title: message
+	});
+	$elm.tooltip("show");
+	
+	setTimeout(function() {
+		$elm.tooltip("destroy");
+		$elm.attr("title", title);
+	}, time);
+}
+
+function copyToClipboard($elm) {
+
+	var copyElm = document.getElementById($elm.attr("data-copy-id"));
 	var $copy = $(copyElm);
-	var $row = $copy.closest("tr");
-	var id = $copy.data("id");
-	var $disp = $(document.getElementById(id));
-	$copy.remove();
-	$disp.show();
-	$row.removeClass("selection");
-}
-
-function selectAllTextValue() {
-	if (this.setSelectionRange) {
-		this.setSelectionRange(0, 2147483647);
+	var msg = $elm.attr("data-copy-message");
+	var errMsg = $elm.attr("data-copy-error-message");
+	
+	$copy.removeClass("copying");
+	$copy.removeClass("copied");
+	
+	$copy.addClass("copying");
+	setTimeout(function () {
+		$copy.addClass("copied");
+	}, 1);
+	
+	if (navigator.clipboard) {
+		navigator.clipboard.writeText(copyElm.value).then(function() {
+			showTooltip($elm, msg, 2000);
+		}).catch(function (err) {
+			showTooltip($elm, errMsg, 2000);
+		});
 	} else {
-		$(this).select();
+		var readOnly = copyElm.readOnly;
+		var contentEditable = copyElm.contentEditable;
+		
+		copyElm.readOnly = true;
+		copyElm.contentEditable = true;
+		
+		copyElm.focus();
+		selectAllTextValue(copyElm);
+		
+		try {
+			document.execCommand("copy");
+			
+			showTooltip($elm, msg, 2000);
+		} catch (ex) {
+			showTooltip($elm, errMsg, 2000);
+		} finally {
+			copyElm.readOnly = readOnly;
+			copyElm.contentEditable = contentEditable;
+			
+			clearSelection(copyElm);
+			$copy.blur();
+		}
 	}
-}
-
-function hidePopover($popover) {
-	$popover.popover("hide");
-	$popover.removeClass("active");
+	
+	setTimeout(function () {
+		$copy.removeClass("copying");
+		$copy.removeClass("copied");
+	}, 1000);
 }
 
 function setCookie(name, value) {
