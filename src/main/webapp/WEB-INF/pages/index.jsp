@@ -225,7 +225,8 @@
 						<li class="${(oex eq 'euccn') ? 'active' : ''}" data-oe="euccn" data-oe-iana="GB2312">EUC-CN (GB2312)</li>
 						<li class="${(oex eq 'big5hkscs') ? 'active' : ''}" data-oe="big5hkscs" data-oe-iana="Big5-HKSCS">Big5-HKSCS</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'euckr') ? 'active' : ''}" data-oe="euckr" data-oe-iana="EUC-KR">EUC-KR</li>
+						<li class="${(oex eq 'euckr') ? 'active' : ''}" data-oe="euckr" data-oe-iana="EUC-KR">EUC-KR (KS C 5601)</li>
+						<li class="${(oex eq 'iso2022kr') ? 'active' : ''}" data-oe="iso2022kr" data-oe-iana="ISO-2022-KR">ISO-2022-KR</li>
 						<li class="divider"></li>
 						<li class="${(oex eq 'iso88595') ? 'active' : ''}" data-oe="iso88595" data-oe-iana="ISO-8859-5">ISO-8859-5</li>
 						<li class="${(oex eq 'cp1251') ? 'active' : ''}" data-oe="cp1251" data-oe-iana="windows-1251">Windows-1251</li>

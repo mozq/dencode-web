@@ -449,6 +449,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return "GB18030";
 		} else if (oe.equals("euckr")) {
 			return "EUC-KR";
+		} else if (oe.equals("iso2022kr")) {
+			return "ISO-2022-KR";
 		} else if (oe.equals("tis620")) {
 			return "TIS-620";
 		} else {
