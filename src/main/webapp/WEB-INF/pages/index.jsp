@@ -468,6 +468,7 @@
 		<div class="input-group">
 			<input id="linkURL" class="form-control" type="text" value="{{permanentLink}}" readonly />
 			<span class="input-group-btn">
+				<a class="btn btn-default" href="{{permanentLink}}" target="_blank" title="${mf:h(msg['label.openNewPage'])}"><span class="glyphicon glyphicon glyphicon-new-window"></span></a>
 				<button type="button" class="btn btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon glyphicon-duplicate"></span></button>
 			</span>
 		</div>
