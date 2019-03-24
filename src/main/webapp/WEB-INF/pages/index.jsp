@@ -190,7 +190,7 @@
 					<textarea id="v" class="form-control copy-value" placeholder="${mf:h(msg[mf:strcat('label.val.tooltip.', method)])}">${mf:h(v)}</textarea>
 					<span class="input-group-addon">
 						<span class="btn-group-vertical">
-							<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon glyphicon-duplicate"></span></button>
+							<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
 							<button type="button" class="btn permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}"><span class="glyphicon glyphicon-link"></span></button>
 						</span>
 					</span>
@@ -446,7 +446,7 @@
 				<textarea id="{{id}}ForCopy" class="form-control copy-value" rows="2" readonly>{{value}}</textarea>
 				<span class="input-group-addon">
 					<span class="btn-group-vertical">
-						<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon glyphicon-duplicate"></span></button>
+						<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
 						<button type="button" class="btn permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}"><span class="glyphicon glyphicon-link"></span></button>
 					</span>
 				</span>
@@ -468,8 +468,17 @@
 		<div class="input-group">
 			<input id="linkURL" class="form-control" type="text" value="{{permanentLink}}" readonly />
 			<span class="input-group-btn">
-				<a class="btn btn-default" href="{{permanentLink}}" target="_blank" title="${mf:h(msg['label.openNewPage'])}"><span class="glyphicon glyphicon glyphicon-new-window"></span></a>
-				<button type="button" class="btn btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon glyphicon-duplicate"></span></button>
+				<button type="button" class="btn btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<span class="glyphicon glyphicon-share-alt"></span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="{{permanentLink}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span> ${mf:h(msg['label.openNewPage'])}</a></li>
+					<li><a href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}"><span class="glyphicon glyphicon-envelope"></span> ${mf:h(msg['label.sendByEmail'])}</a></li>
+					<li><a href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank"><span class="glyphicon glyphicon-share"></span> ${mf:h(msg['label.shareOnTwitter'])}</a></li>
+					<li><a href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank"><span class="glyphicon glyphicon-share"></span> ${mf:h(msg['label.shareOnFacebook'])}</a></li>
+				</ul>
 			</span>
 		</div>
 	</form>

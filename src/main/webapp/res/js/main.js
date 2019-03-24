@@ -132,8 +132,10 @@ $(document).ready(function () {
 					placement: "auto left",
 					html: true,
 					content: function () {
+						var permanentLink = getPermanentLink(method);
 						return _permanentLinkTmpl.render({
-							permanentLink: getPermanentLink(method)
+							permanentLink: permanentLink,
+							permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
 						});
 					}
 				});
@@ -492,19 +494,21 @@ $(document).ready(function () {
 		}
 		
 		var url = location.protocol + "//" + location.host + path;
-		url += "?v=" + encodeURIComponent(v);
-		
-		if (oeEnabled) {
-			var oe = $oeGroupBtns.filter(".active").data("oe");
-			url += "&oe=" + encodeURIComponent(oe);
-		}
-		if (nlEnabled) {
-			var nl = $nlGroupBtns.filter(".active").data("nl");
-			url += "&nl=" + encodeURIComponent(nl);
-		}
-		if (tzEnabled) {
-			var tz = $tz.val();
-			url += "&tz=" + encodeURIComponent(tz);
+		if (0 < v.length) {
+			url += "?v=" + encodeURIComponent(v);
+			
+			if (oeEnabled) {
+				var oe = $oeGroupBtns.filter(".active").data("oe");
+				url += "&oe=" + encodeURIComponent(oe);
+			}
+			if (nlEnabled) {
+				var nl = $nlGroupBtns.filter(".active").data("nl");
+				url += "&nl=" + encodeURIComponent(nl);
+			}
+			if (tzEnabled) {
+				var tz = $tz.val();
+				url += "&tz=" + encodeURIComponent(tz);
+			}
 		}
 		
 		return url;
