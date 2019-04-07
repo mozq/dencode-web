@@ -12,9 +12,13 @@
 	<meta name="robots" content="index,follow,noarchive" />
 	<meta name="application-name" content="${mf:h(msg['site.name'])}" />
 	<meta name="apple-mobile-web-app-title" content="${mf:h(msg['site.name'])}" />
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-square70x70logo" content="${pageContext.request.contextPath}/res/img/icons/favicon70px.png" />
+	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/res/img/icons/favicon150px.png" />
+	<meta name="msapplication-square310x310logo" content="${pageContext.request.contextPath}/res/img/icons/favicon310px.png" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
 	<meta property="og:url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
-	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/res/img/icons/favicon200px.png" />
+	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/res/img/icons/favicon310px.png" />
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
 	<meta property="og:locale:alternate" content="en_US" />
 	<meta property="og:locale:alternate" content="ja_JP" />
@@ -27,10 +31,8 @@
 	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="${pageContext.request.contextPath}/res/img/icons/favicon144px.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath}/res/img/icons/favicon114px.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="${pageContext.request.contextPath}/res/img/icons/favicon72px.png" />
-	<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/res/img/icons/favicon57px.png" />
+	<link rel="icon" type="image/png" sizes="192x192"  href="${pageContext.request.contextPath}/res/img/icons/favicon192px.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/res/img/icons/favicon180px.png" />
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
