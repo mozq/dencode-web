@@ -434,16 +434,16 @@ $(document).ready(function () {
 			var r = parseInt(bgColor.substring(1, 3), 16);
 			var g = parseInt(bgColor.substring(3, 5), 16);
 			var b = parseInt(bgColor.substring(5, 7), 16);
+			var a = (7 < bgColor.length) ? parseInt(bgColor.substring(7), 16) / 255.0 : 1.0;
 			
-			if (382 < r + g + b) {
+			if (382 < (r + g + b) || a < 0.5) {
 				color = "black";
 			} else {
 				color = "white";
 			}
-
-			if (7 < bgColor.length) {
-				bgColor = bgColor.substring(0, 7);
-			}
+			
+			// Temporary code: convert the color format #RRGGBBAA (CSS4) to rgba(R,G,B,A) (CSS3)
+			bgColor = "rgba(" + r + "," + g + "," + b + "," + (Math.round(a * 100) / 100) + ")";
 		}
 		$v.css("color", color);
 		$v.css("background-color", bgColor);
