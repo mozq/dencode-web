@@ -51,6 +51,7 @@ import org.mifmi.commons4j.graphics.color.RGBColor;
 import org.mifmi.commons4j.util.DateUtilz;
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
+import org.mifmi.commons4j.util.exception.NumberParseException;
 
 import com.dencode.web.model.DencodeModel;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
@@ -62,6 +63,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final char PROGRAM_STRING_ESCAPE_CHAR = '\\';
 	private static final char[] PROGRAM_STRING_TARGET_CHARS = {'\0', '\u0007', '\b', '\t', '\n', '\u000B', '\f', '\r', '\"', '\''};
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
+	
 	
 	private static final String[] DATE_PARSE_PATTERNS = {
 		"EEE MMM dd HH:mm:ss z yyyy",
@@ -337,12 +339,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("number.bin")) dencode.setEncNumBin(encNumBin(val));
 			if (all || method.equals("number.oct")) dencode.setEncNumOct(encNumOct(val));
 			if (all || method.equals("number.hex")) dencode.setEncNumHex(encNumHex(val));
+			if (all || method.equals("number.english")) dencode.setEncNumEnShortScale(encNumEnShortScale(val, false));
+			if (all || method.equals("number.english")) dencode.setEncNumEnShortScaleFraction(encNumEnShortScale(val, true));
 			if (all || method.equals("number.japanese")) dencode.setEncNumJP(encNumJP(val));
 			if (all || method.equals("number.japanese")) dencode.setEncNumJPDaiji(encNumJPDaiji(val));
 
 			if (all || method.equals("number.bin")) dencode.setDecNumBin(decNumBin(val));
 			if (all || method.equals("number.oct")) dencode.setDecNumOct(decNumOct(val));
 			if (all || method.equals("number.hex")) dencode.setDecNumHex(decNumHex(val));
+			if (all || method.equals("number.english")) dencode.setDecNumEnShortScale(decNumEnShortScale(val));
 			if (all || method.equals("number.japanese")) dencode.setDecNumJP(decNumJP(val));
 		}
 		if (type.equals("all") || type.equals("date")) {
@@ -623,11 +628,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				if (vals[i].isEmpty()) {
 					continue;
 				}
-				BigInteger bigInt = parseNum(vals[i]);
-				if (bigInt == null) {
+				BigDecimal bigDec = parseNum(vals[i]);
+				if (bigDec == null) {
 					return null;
 				}
-				vals[i] = bigInt.toString(radix);
+				vals[i] = bigDec.toPlainString();
 			}
 			return StringUtilz.join(" ", (Object[])vals);
 		} catch (NumberFormatException e) {
@@ -635,29 +640,70 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encNumJP(String val) {
-		BigInteger bigInt = parseNum(val);
-		if (bigInt == null) {
+	private static String encNumEnShortScale(String val, boolean fractionDec) {
+		BigDecimal bigDec = parseNum(val);
+		if (bigDec == null) {
 			return null;
 		}
-		return NumberUtilz.toJPNum(bigInt, false, false, false);
+		
+		try {
+			return NumberUtilz.toEnNumShortScale(bigDec, fractionDec);
+		} catch (NumberParseException e) {
+			return null;
+		}
+	}
+	
+	private static String encNumJP(String val) {
+		BigDecimal bigDec = parseNum(val);
+		if (bigDec == null) {
+			return null;
+		}
+		
+		try {
+			return NumberUtilz.toJPNum(bigDec, false, false, false);
+		} catch (NumberParseException e) {
+			return null;
+		}
 	}
 	
 	private static String encNumJPDaiji(String val) {
-		BigInteger bigInt = parseNum(val);
-		if (bigInt == null) {
+		BigDecimal bigDec = parseNum(val);
+		if (bigDec == null) {
 			return null;
 		}
-		return NumberUtilz.toJPNum(bigInt, false, true, false);
+		
+		try {
+			return NumberUtilz.toJPNum(bigDec, true, true, false);
+		} catch (NumberParseException e) {
+			return null;
+		}
 	}
 	
-	private static BigInteger parseNum(String val) {
+	private static BigDecimal parseNum(String val) {
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		val = val.replace(",", "");
 		try {
-			return new BigInteger(val);
+			// Standard Format
+			return new BigDecimal(val);
 		} catch (NumberFormatException e) {
-			return NumberUtilz.parseJPNum(val);
+			BigDecimal enNum;
+			try {
+				// English Format
+				enNum = NumberUtilz.parseEnNumShortScale(val);
+			} catch (NumberParseException e1) {
+				enNum = null;
+			}
+			
+			if (enNum != null) {
+				return enNum;
+			}
+			
+			// Japanese Format
+			try {
+				return NumberUtilz.parseJPNum(val);
+			} catch (NumberParseException e1) {
+				return null;
+			}
 		}
 	}
 
@@ -1428,12 +1474,32 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decNumJP(String val) {
-		BigInteger bigInt = NumberUtilz.parseJPNum(val);
-		if (bigInt == null) {
+	private static String decNumEnShortScale(String val) {
+		BigDecimal bigDec;
+		try {
+			bigDec = NumberUtilz.parseEnNumShortScale(val);
+		} catch (NumberParseException e) {
 			return null;
 		}
-		return bigInt.toString(10);
+		
+		if (bigDec == null) {
+			return null;
+		}
+		return bigDec.toPlainString();
+	}
+	
+	private static String decNumJP(String val) {
+		BigDecimal bigDec;
+		try {
+			bigDec = NumberUtilz.parseJPNum(val);
+		} catch (NumberParseException e) {
+			return null;
+		}
+		
+		if (bigDec == null) {
+			return null;
+		}
+		return bigDec.toPlainString();
 	}
 	
 	private static String toBinString(byte[] binary) {

@@ -53,6 +53,12 @@ public class NumberIndexServlet extends AbstractDencodeHttpServlet {
 			useNl = false;
 			useTz = false;
 			break;
+		case "english":
+			method = "number.english";
+			useOe = false;
+			useNl = false;
+			useTz = false;
+			break;
 		case "japanese":
 			method = "number.japanese";
 			useOe = false;

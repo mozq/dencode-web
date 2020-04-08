@@ -22,7 +22,7 @@ dependencies {
   providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
   providedCompile 'jstl:jstl:1.2'
   
-  compile 'org.mifmi:mifmi-commons4j:0.2.0'
+  compile 'org.mifmi:mifmi-commons4j:0.2.2'
   compile 'commons-codec:commons-codec:1.11'
   compile 'org.apache.commons:commons-lang3:3.8.1'
   compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'

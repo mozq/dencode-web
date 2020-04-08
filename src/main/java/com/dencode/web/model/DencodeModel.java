@@ -35,6 +35,7 @@ public class DencodeModel {
 	private String decNumBin;
 	private String decNumOct;
 	private String decNumHex;
+	private String decNumEnShortScale;
 	private String decNumJP;
 
 	private String encBin;
@@ -65,6 +66,8 @@ public class DencodeModel {
 	private String encNumBin;
 	private String encNumOct;
 	private String encNumHex;
+	private String encNumEnShortScale;
+	private String encNumEnShortScaleFraction;
 	private String encNumJP;
 	private String encNumJPDaiji;
 	private String encDateUnixTime;
@@ -222,6 +225,14 @@ public class DencodeModel {
 
 	public void setDecNumHex(String decNumHex) {
 		this.decNumHex = decNumHex;
+	}
+
+	public String getDecNumEnShortScale() {
+		return decNumEnShortScale;
+	}
+
+	public void setDecNumEnShortScale(String decNumEnShortScale) {
+		this.decNumEnShortScale = decNumEnShortScale;
 	}
 
 	public String getDecNumJP() {
@@ -454,6 +465,22 @@ public class DencodeModel {
 
 	public void setEncNumHex(String encNumHex) {
 		this.encNumHex = encNumHex;
+	}
+
+	public String getEncNumEnShortScale() {
+		return encNumEnShortScale;
+	}
+
+	public void setEncNumEnShortScale(String encNumEnShortScale) {
+		this.encNumEnShortScale = encNumEnShortScale;
+	}
+
+	public String getEncNumEnShortScaleFraction() {
+		return encNumEnShortScaleFraction;
+	}
+
+	public void setEncNumEnShortScaleFraction(String encNumEnShortScaleFraction) {
+		this.encNumEnShortScaleFraction = encNumEnShortScaleFraction;
 	}
 
 	public String getEncNumJP() {
