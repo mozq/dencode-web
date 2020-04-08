@@ -25,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -97,6 +98,21 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"yyyy-MM-dd'T'HH:mm:ss",
 		"yyyy-MM-dd'T'HH:mm",
 		"yyyy-MM-dd'T'HH",
+		"YYYY-'W'ww-u'T'HH:mm:ss.SSSXXX",
+		"YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX",
+		"YYYY-'W'ww-u'T'HH:mm:ssXXX",
+		"YYYY-'W'ww-u'T'HH:mmXXX",
+		"YYYY-'W'ww-u'T'HHXXX",
+		"YYYY-'W'ww-u'T'HH:mm:ss.SSSZ",
+		"YYYY-'W'ww-u'T'HH:mm:ss,SSSZ",
+		"YYYY-'W'ww-u'T'HH:mm:ssZ",
+		"YYYY-'W'ww-u'T'HH:mmZ",
+		"YYYY-'W'ww-u'T'HHZ",
+		"YYYY-'W'ww-u'T'HH:mm:ss.SSS",
+		"YYYY-'W'ww-u'T'HH:mm:ss,SSS",
+		"YYYY-'W'ww-u'T'HH:mm:ss",
+		"YYYY-'W'ww-u'T'HH:mm",
+		"YYYY-'W'ww-u'T'HH",
 		"yyyyMMdd'T'HHmmssSSSXXX",
 		"yyyyMMdd'T'HHmmssXXX",
 		"yyyyMMdd'T'HHmmXXX",
@@ -109,6 +125,18 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"yyyyMMdd'T'HHmmss",
 		"yyyyMMdd'T'HHmm",
 		"yyyyMMdd'T'HH",
+		"YYYY'W'wwu'T'HHmmssSSSXXX",
+		"YYYY'W'wwu'T'HHmmssXXX",
+		"YYYY'W'wwu'T'HHmmXXX",
+		"YYYY'W'wwu'T'HHXXX",
+		"YYYY'W'wwu'T'HHmmssSSSZ",
+		"YYYY'W'wwu'T'HHmmssZ",
+		"YYYY'W'wwu'T'HHmmZ",
+		"YYYY'W'wwu'T'HHZ",
+		"YYYY'W'wwu'T'HHmmssSSS",
+		"YYYY'W'wwu'T'HHmmss",
+		"YYYY'W'wwu'T'HHmm",
+		"YYYY'W'wwu'T'HH",
 		"yyyy-MM-dd HH:mm:ss.SSSXXX",
 		"yyyy-MM-dd HH:mm:ss,SSSXXX",
 		"yyyy-MM-dd HH:mm:ssXXX",
@@ -164,6 +192,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"yyyy.MM.dd",
 		"yyyy.MM",
 		"YYYY-'W'ww-u",
+		"YYYY'W'wwu",
 		"hh:mm:ss.SSS a, XXX",
 		"hh:mm:ss,SSS a, XXX",
 		"hh:mm:ss a, XXX",
@@ -628,7 +657,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				if (vals[i].isEmpty()) {
 					continue;
 				}
-				BigDecimal bigDec = parseNum(vals[i]);
+				BigDecimal bigDec = parseNumDec(vals[i]);
 				if (bigDec == null) {
 					return null;
 				}
@@ -641,7 +670,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encNumEnShortScale(String val, boolean fractionDec) {
-		BigDecimal bigDec = parseNum(val);
+		BigDecimal bigDec = parseNumDec(val);
 		if (bigDec == null) {
 			return null;
 		}
@@ -654,7 +683,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encNumJP(String val) {
-		BigDecimal bigDec = parseNum(val);
+		BigDecimal bigDec = parseNumDec(val);
 		if (bigDec == null) {
 			return null;
 		}
@@ -667,7 +696,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encNumJPDaiji(String val) {
-		BigDecimal bigDec = parseNum(val);
+		BigDecimal bigDec = parseNumDec(val);
 		if (bigDec == null) {
 			return null;
 		}
@@ -679,7 +708,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static BigDecimal parseNum(String val) {
+	private static BigDecimal parseNumDec(String val) {
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		val = val.replace(",", "");
 		try {
@@ -724,7 +753,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 
 	private static String encDateISO8601Week(String val, TimeZone timeZone) {
-		return encDateISO8601(val, "yyyy-'W'ww-u'T'HH:mm:ssXXX", "yyyy-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
+		return encDateISO8601(val, "YYYY-'W'ww-u'T'HH:mm:ssXXX", "YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
 	}
 
 	private static String encDateISO8601(String val, String pattern, String patternWithMsec, TimeZone timeZone) {
@@ -735,8 +764,16 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		long time = dateVal.getTime();
 		long millisOfSec = time - ((time / 1000) * 1000);
-		DateFormat dateFormat = new SimpleDateFormat((millisOfSec == 0) ? pattern : patternWithMsec);
-		dateFormat.setTimeZone(timeZone);
+		
+		String formatPattern = (millisOfSec == 0) ? pattern : patternWithMsec;
+		
+		Calendar calendar = Calendar.getInstance(timeZone);
+		calendar.setMinimalDaysInFirstWeek(4);
+		calendar.setFirstDayOfWeek(Calendar.MONDAY);
+		
+		DateFormat dateFormat = new SimpleDateFormat(formatPattern, Locale.US);
+		dateFormat.setCalendar(calendar);
+		
 		return dateFormat.format(dateVal);
 	}
 
@@ -771,9 +808,14 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		try {
 			return new Date(Long.parseLong(val));
 		} catch (NumberFormatException e) {
-			Date date = DateUtilz.parseDate(val, true, timeZone, Locale.US, DATE_PARSE_PATTERNS);
+			Calendar calendar = Calendar.getInstance(timeZone);
+			calendar.setMinimalDaysInFirstWeek(4);
+			calendar.setFirstDayOfWeek(Calendar.MONDAY);
+			calendar.setLenient(false);
+			
+			Date date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_PARSE_PATTERNS);
 			if (date == null) {
-				date = DateUtilz.parseDate(val, true, timeZone, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
+				date = DateUtilz.parseDate(val, calendar, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
 			}
 			return date;
 		}
