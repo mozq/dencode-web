@@ -40,9 +40,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
 import org.apache.commons.codec.net.URLCodec;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.mifmi.commons4j.graphics.color.CMYColor;
 import org.mifmi.commons4j.graphics.color.CMYKColor;
 import org.mifmi.commons4j.graphics.color.HSLColor;
@@ -53,6 +51,7 @@ import org.mifmi.commons4j.util.DateUtilz;
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
+import org.mifmi.commons4j.web.util.HTMLUtilz;
 
 import com.dencode.web.model.DencodeModel;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
@@ -501,7 +500,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encHTMLEscape(String val) {
-		return StringEscapeUtils.escapeXml(val);
+		return HTMLUtilz.escapeBasicHTML(val);
 	}
 	
 	private static String encURLEncoding(String val, String charset) {
@@ -592,11 +591,19 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encUpperCase(String val) {
-		return StringUtils.upperCase(val);
+		if (val == null || val.length() == 0) {
+			return val;
+		}
+		
+		return val.toUpperCase(Locale.US);
 	}
 	
 	private static String encLowerCase(String val) {
-		return StringUtils.lowerCase(val);
+		if (val == null || val.length() == 0) {
+			return val;
+		}
+		
+		return val.toLowerCase(Locale.US);
 	}
 	
 	private static String encSwapCase(String val) {
@@ -612,7 +619,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encReverse(String val) {
-		return StringUtils.reverse(val);
+		if (val == null || val.length() <= 1) {
+			return val;
+		}
+		
+		return new StringBuilder(val).reverse().toString();
 	}
 	
 	private static String encCamelCase(String val, boolean firstCapital) {
@@ -1401,8 +1412,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String decHTMLEscape(String val) {
-		String v = (val == null) ? null : val.replace("&apos;", "'");
-		return StringEscapeUtils.unescapeHtml4(v);
+		return HTMLUtilz.unescapeHTML5(val);
 	}
 	
 	private static String decURLEncoding(String val, String charset) {
@@ -1426,6 +1436,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		try {
 			byte[] decodedValue = Base64.decodeBase64(val);
 			return new String(decodedValue, charset);
+		} catch (IllegalArgumentException e) {
+			return null;
 		} catch (UnsupportedEncodingException e) {
 			return null;
 		}
