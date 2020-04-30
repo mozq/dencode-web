@@ -74,6 +74,7 @@ public class DencodeModel {
 	private String encDateISO8601;
 	private String encDateISO8601Ext;
 	private String encDateISO8601Week;
+	private String encDateISO8601Ordinal;
 	private String encDateRFC2822;
 	private String encDateCTime;
 	private String encColorName;
@@ -529,6 +530,14 @@ public class DencodeModel {
 
 	public void setEncDateISO8601Week(String encDateISO8601Week) {
 		this.encDateISO8601Week = encDateISO8601Week;
+	}
+
+	public String getEncDateISO8601Ordinal() {
+		return encDateISO8601Ordinal;
+	}
+
+	public void setEncDateISO8601Ordinal(String encDateISO8601Ordinal) {
+		this.encDateISO8601Ordinal = encDateISO8601Ordinal;
 	}
 
 	public String getEncDateRFC2822() {

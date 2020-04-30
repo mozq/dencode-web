@@ -64,6 +64,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final char[] PROGRAM_STRING_TARGET_CHARS = {'\0', '\u0007', '\b', '\t', '\n', '\u000B', '\f', '\r', '\"', '\''};
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
 	
+	private static final Pattern DATE_ISO8601_ORDINAL_PATTERN = Pattern.compile("^[0-9]{4}-[0-9]{3}$");
+	private static final String DATE_ISO8601_ORDINAL_PARSE_PATTERN = "yyyy-DDD";
 	
 	private static final String[] DATE_PARSE_PATTERNS = {
 		"EEE MMM dd HH:mm:ss z yyyy",
@@ -112,6 +114,21 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"YYYY-'W'ww-u'T'HH:mm:ss",
 		"YYYY-'W'ww-u'T'HH:mm",
 		"YYYY-'W'ww-u'T'HH",
+		"yyyy-DDD'T'HH:mm:ss.SSSXXX",
+		"yyyy-DDD'T'HH:mm:ss,SSSXXX",
+		"yyyy-DDD'T'HH:mm:ssXXX",
+		"yyyy-DDD'T'HH:mmXXX",
+		"yyyy-DDD'T'HHXXX",
+		"yyyy-DDD'T'HH:mm:ss.SSSZ",
+		"yyyy-DDD'T'HH:mm:ss,SSSZ",
+		"yyyy-DDD'T'HH:mm:ssZ",
+		"yyyy-DDD'T'HH:mmZ",
+		"yyyy-DDD'T'HHZ",
+		"yyyy-DDD'T'HH:mm:ss.SSS",
+		"yyyy-DDD'T'HH:mm:ss,SSS",
+		"yyyy-DDD'T'HH:mm:ss",
+		"yyyy-DDD'T'HH:mm",
+		"yyyy-DDD'T'HH",
 		"yyyyMMdd'T'HHmmssSSSXXX",
 		"yyyyMMdd'T'HHmmssXXX",
 		"yyyyMMdd'T'HHmmXXX",
@@ -385,6 +402,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601Basic(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ext(encDateISO8601Ext(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Week(encDateISO8601Week(val, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ordinal(encDateISO8601Ordinal(val, timeZone));
 			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(val, timeZone));
 			if (all || method.equals("date.ctime")) dencode.setEncDateCTime(encDateCTime(val, timeZone));
 		}
@@ -767,6 +785,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return encDateISO8601(val, "YYYY-'W'ww-u'T'HH:mm:ssXXX", "YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
 	}
 
+	private static String encDateISO8601Ordinal(String val, TimeZone timeZone) {
+		return encDateISO8601(val, "yyyy-DDD'T'HH:mm:ssXXX", "yyyy-DDD'T'HH:mm:ss,SSSXXX", timeZone);
+	}
+
 	private static String encDateISO8601(String val, String pattern, String patternWithMsec, TimeZone timeZone) {
 		Date dateVal = parseDate(val, timeZone);
 		if (dateVal == null) {
@@ -824,9 +846,16 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			calendar.setFirstDayOfWeek(Calendar.MONDAY);
 			calendar.setLenient(false);
 			
-			Date date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_PARSE_PATTERNS);
+			Date date = null;
+			
+			if (DATE_ISO8601_ORDINAL_PATTERN.matcher(val).matches()) {
+				date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_ISO8601_ORDINAL_PARSE_PATTERN);
+			}
 			if (date == null) {
-				date = DateUtilz.parseDate(val, calendar, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
+				date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_PARSE_PATTERNS);
+				if (date == null) {
+					date = DateUtilz.parseDate(val, calendar, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
+				}
 			}
 			return date;
 		}
