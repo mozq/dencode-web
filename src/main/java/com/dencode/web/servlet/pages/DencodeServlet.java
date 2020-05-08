@@ -183,6 +183,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"yyyy/MM/dd HH:mm:ss",
 		"yyyy/MM/dd HH:mm",
 		"yyyy/MM/dd HH",
+		"yyyy年MM月dd日HH時mm分ss秒",
+		"yyyy年MM月dd日HH時mm分",
+		"yyyy年MM月dd日HH時",
 		"EEE, MMM dd, yyyy",
 		"EEE, MMM dd yyyy",
 		"EEE MMM dd, yyyy",
@@ -209,6 +212,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"yyyy.MM",
 		"YYYY-'W'ww-u",
 		"YYYY'W'wwu",
+		"yyyy年MM月dd日",
+		"yyyy年MM月",
+		"yyyy年",
 		"hh:mm:ss.SSS a, XXX",
 		"hh:mm:ss,SSS a, XXX",
 		"hh:mm:ss a, XXX",
@@ -252,38 +258,33 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"HH:mm:ss,SSS",
 		"HH:mm:ss",
 		"HH:mm",
-	};
-	
-	private static final String[] DATE_PARSE_PATTERNS_JP = {
-		"GGGGyyyy年MM月dd日HH時mm分ss秒",
-		"GGGGyyyy年MM月dd日HH時mm分",
-		"GGGGyyyy年MM月dd日HH時",
-		"GGGGyyyy年MM月dd日",
-		"GGGGyyyy年MM月",
-		"GGGGyyyy年",
-		"Gyyyy年MM月dd日HH時mm分ss秒",
-		"Gyyyy年MM月dd日HH時mm分",
-		"Gyyyy年MM月dd日HH時",
-		"Gyyyy年MM月dd日",
-		"Gyyyy年MM月",
-		"Gyyyy年",
-		"yyyy年MM月dd日HH時mm分ss秒",
-		"yyyy年MM月dd日HH時mm分",
-		"yyyy年MM月dd日HH時",
-		"yyyy年MM月dd日",
-		"yyyy年MM月",
-		"yyyy年",
-		"GGGGyyyy.MM.dd",
-		"GGGGyyyy.MM",
-		"GGGGyyyy",
-		"Gyyyy.MM.dd",
-		"Gyyyy",
 		"HH時mm分ss秒",
 		"HH時mm分",
 		"HH時",
 	};
 	
-	private static final Locale LOCALE_JP = new Locale("ja", "JP", "JP");
+	private static final String[] DATE_PARSE_PATTERNS_JP = {
+		"GGGGy年MM月dd日HH時mm分ss秒",
+		"GGGGy年MM月dd日HH時mm分",
+		"GGGGy年MM月dd日HH時",
+		"GGGGy年MM月dd日",
+		"GGGGy年MM月",
+		"GGGGy年",
+		"Gy年MM月dd日HH時mm分ss秒",
+		"Gy年MM月dd日HH時mm分",
+		"Gy年MM月dd日HH時",
+		"Gy年MM月dd日",
+		"Gy年MM月",
+		"Gy年",
+		"GGGGy.MM.dd",
+		"GGGGy.MM",
+		"GGGGy",
+		"Gy.MM.dd",
+		"Gy.MM",
+		"Gy",
+	};
+	
+	private static final Locale LOCALE_JP = Locale.forLanguageTag("ja-JP-u-ca-japanese");
 
 	private static final Pattern COLOR_RGB_HEX3_PATTERN = Pattern.compile("^#?([0-9a-f])([0-9a-f])([0-9a-f])([0-9a-f])?$");
 	private static final Pattern COLOR_RGB_HEX6_PATTERN = Pattern.compile("^#?([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])?$");
@@ -854,7 +855,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (date == null) {
 				date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_PARSE_PATTERNS);
 				if (date == null) {
-					date = DateUtilz.parseDate(val, calendar, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
+					date = DateUtilz.parseDate(val, true, timeZone, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
 				}
 			}
 			return date;
