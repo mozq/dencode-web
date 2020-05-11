@@ -40,7 +40,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
 import org.apache.commons.codec.net.URLCodec;
-import org.apache.commons.text.WordUtils;
 import org.mifmi.commons4j.graphics.color.CMYColor;
 import org.mifmi.commons4j.graphics.color.CMYKColor;
 import org.mifmi.commons4j.graphics.color.HSLColor;
@@ -59,7 +58,9 @@ import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 @WebServlet("/dencode")
 public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private static final Pattern WHITESPACE_CHARS_PATTERN = Pattern.compile("\\s+");
+	
 	private static final char PROGRAM_STRING_ESCAPE_CHAR = '\\';
 	private static final char[] PROGRAM_STRING_TARGET_CHARS = {'\0', '\u0007', '\b', '\t', '\n', '\u000B', '\f', '\r', '\"', '\''};
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
@@ -626,15 +627,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encSwapCase(String val) {
-		return WordUtils.swapCase(val);
+		return StringUtilz.swapCase(val);
 	}
 	
 	private static String encCapitalize(String val) {
-		return WordUtils.capitalizeFully(val);
+		return StringUtilz.capitalize(val, true);
 	}
 	
 	private static String encInitials(String val) {
-		return WordUtils.initials(val);
+		return StringUtilz.initials(val);
 	}
 	
 	private static String encReverse(String val) {
@@ -1350,7 +1351,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				}
 				return new String(binValue, 0, binLen, charset);
 			} else {
-				String[] vals = StringUtilz.split(val, "\\s+");
+				String[] vals = StringUtilz.split(val, WHITESPACE_CHARS_PATTERN);
 				int valsLen = vals.length;
 				
 				boolean is4bit = true;
@@ -1418,7 +1419,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				}
 				return new String(binValue, 0, binLen, charset);
 			} else {
-				String[] vals = StringUtilz.split(val, "\\s+");
+				String[] vals = StringUtilz.split(val, WHITESPACE_CHARS_PATTERN);
 				int valsLen = vals.length;
 
 				int binLen = 0;
