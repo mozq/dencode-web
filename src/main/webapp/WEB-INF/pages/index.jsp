@@ -502,9 +502,9 @@
 
 	setDefaultErrorMessage(newMessage(
 			null,
-			"${mf:h(msg['default.error.level'])}",
-			"${mf:h(msg['default.error'])}",
-			"${mf:h(msg['default.error.detail'])}"
+			"${mf:jsstr(msg['default.error.level'])}",
+			"${mf:jsstr(msg['default.error'])}",
+			"${mf:jsstr(msg['default.error.detail'])}"
 			));
 </script>
 <script type="text/javascript">

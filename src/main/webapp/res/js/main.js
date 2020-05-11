@@ -55,6 +55,7 @@ $(document).ready(function () {
 		cache: false,
 		dataType: "json",
 		success: function (data, dataType) {
+			clearMessages();
 			handleAjaxSuccess(data, dataType);
 			render(data.response);
 		},
