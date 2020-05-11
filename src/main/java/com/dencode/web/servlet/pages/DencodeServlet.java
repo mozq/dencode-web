@@ -310,19 +310,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		int textLengthDiff = 0;
 		if (nl.equals("lf")) {
-			val = val.replace("\r\n", "\n").replace("\r", "\n");
+			val = StringUtilz.replaceAll(val, new String[] {"\r\n", "\r"}, "\n");
 		} else if (nl.equals("cr")) {
-			val = val.replace("\r\n", "\r").replace("\n", "\r");
+			val = StringUtilz.replaceAll(val, new String[] {"\r\n", "\n"}, "\r");
 		} else {
 			// crlf
-			val = val.replace("\r\n", "\n").replace("\r", "\n");
-			for (int i = 0; i < val.length(); i++) {
-				char c = val.charAt(i);
-				if (c == '\n') {
-					textLengthDiff--;
-				}
-			}
-			val = val.replace("\n", "\r\n");
+			val = StringUtilz.replaceAll(val, new String[] {"\r\n", "\r", "\n"}, "\r\n");
+			textLengthDiff = -StringUtilz.count(val, "\r\n");
 		}
 		
 		TimeZone timeZone = TimeZone.getTimeZone(tz);
@@ -1336,8 +1330,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 		try {
 			if (val.indexOf(' ') == -1) {
-				val = val.replace("\r", "");
-				val = val.replace("\n", "");
+				val = StringUtilz.replaceAll(val, new String[] {"\r", "\n"}, "");
 				int len = val.length();
 				int binLen = 0;
 				byte[] binValue = new byte[len / 8 + 1];
@@ -1405,8 +1398,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 		try {
 			if (val.indexOf(' ') == -1) {
-				val = val.replace("\r", "");
-				val = val.replace("\n", "");
+				val = StringUtilz.replaceAll(val, new String[] {"\r", "\n"}, "");
 				int len = val.length();
 				int binLen = 0;
 				byte[] binValue = new byte[len / 2 + 1];
