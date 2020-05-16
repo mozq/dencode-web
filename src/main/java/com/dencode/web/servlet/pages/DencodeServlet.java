@@ -25,8 +25,12 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -308,15 +312,21 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String nl = reqres().param("nl", "crlf");
 		String tz = reqres().param("tz", "UTC");
 		
+		String[] valLines = StringUtilz.split(val, new String[] {"\r\n", "\r", "\n"});
+		
+		String lineBreak;
 		int textLengthDiff = 0;
 		if (nl.equals("lf")) {
-			val = StringUtilz.replaceAll(val, new String[] {"\r\n", "\r"}, "\n");
+			lineBreak = "\n";
 		} else if (nl.equals("cr")) {
-			val = StringUtilz.replaceAll(val, new String[] {"\r\n", "\n"}, "\r");
+			lineBreak = "\r";
 		} else {
 			// crlf
-			val = StringUtilz.replaceAll(val, new String[] {"\r\n", "\r", "\n"}, "\r\n");
-			textLengthDiff = -StringUtilz.count(val, "\r\n");
+			lineBreak = "\r\n";
+			textLengthDiff = -(valLines.length - 1);
+		}
+		if (1 < valLines.length) {
+			val = StringUtilz.join(lineBreak, (Object[])valLines);
 		}
 		
 		TimeZone timeZone = TimeZone.getTimeZone(tz);
@@ -362,6 +372,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.chainCase")) dencode.setEncLowerChainCase(encChainCase(val, false));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFC(encUnicodeNFC(val));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFKC(encUnicodeNFKC(val));
+			if (all || method.equals("string.lineSort")) dencode.setEncLineSortAsc(encLineSortAsc(valLines, lineBreak));
+			if (all || method.equals("string.lineSort")) dencode.setEncLineSortDesc(encLineSortDesc(valLines, lineBreak));
+			if (all || method.equals("string.lineSort")) dencode.setEncLineSortReverse(encLineSortReverse(valLines, lineBreak));
+			if (all || method.equals("string.lineUnique")) dencode.setEncLineUnique(encLineUnique(valLines, lineBreak));
 			
 			if (all || method.equals("string.bin")) dencode.setDecBin(decBin(val, charset));
 			if (all || method.equals("string.hex")) dencode.setDecHex(decHex(val, charset));
@@ -658,6 +672,47 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	
 	private static String encUnicodeNFKC(String val) {
 		return Normalizer.normalize(val, Normalizer.Form.NFKC);
+	}
+	
+	private static String encLineSortAsc(String[] varLines, String lineBreak) {
+		String[] lines = Arrays.copyOf(varLines, varLines.length);
+		
+		Arrays.sort(lines, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);
+			}
+		});
+		
+		return StringUtilz.join(lineBreak, (Object[])lines);
+	}
+	
+	private static String encLineSortDesc(String[] varLines, String lineBreak) {
+		String[] lines = Arrays.copyOf(varLines, varLines.length);
+		
+		Arrays.sort(lines, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o2.compareTo(o1);
+			}
+		});
+		
+		return StringUtilz.join(lineBreak, (Object[])lines);
+	}
+	
+	private static String encLineSortReverse(String[] varLines, String lineBreak) {
+		String[] lines = Arrays.copyOf(varLines, varLines.length);
+		
+		List<String> lineList = Arrays.asList(lines);
+		Collections.reverse(lineList);
+		
+		return StringUtilz.join(lineBreak, lineList);
+	}
+	
+	private static String encLineUnique(String[] varLines, String lineBreak) {
+		Object[] objLines = Arrays.stream(varLines).distinct().toArray();
+		
+		return StringUtilz.join(lineBreak, objLines);
 	}
 
 	private static String encNumBin(String val) {

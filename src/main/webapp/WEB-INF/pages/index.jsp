@@ -106,6 +106,9 @@
 							<li class="${(method eq 'string.textReverse') ? 'active' : ''}" data-dencode-method="string.textReverse"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/text-reverse">${mf:h(msg['label.method.string.textReverse'])}</a></li>
 							<li class="divider"></li>
 							<li class="${(method eq 'string.unicodeNormalization') ? 'active' : ''}" data-dencode-method="string.unicodeNormalization"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/unicode-normalization">${mf:h(msg['label.method.string.unicodeNormalization'])}</a></li>
+							<li class="divider"></li>
+							<li class="${(method eq 'string.lineSort') ? 'active' : ''}" data-dencode-method="string.lineSort"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/line-sort">${mf:h(msg['label.method.string.lineSort'])}</a></li>
+							<li class="${(method eq 'string.lineUnique') ? 'active' : ''}" data-dencode-method="string.lineUnique"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/line-unique">${mf:h(msg['label.method.string.lineUnique'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number" data-dencode-enable-oe="false" data-dencode-enable-nl="false" data-dencode-enable-tz="false">
@@ -347,6 +350,12 @@
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicodeNormalization'}"><tr data-dencode-method="string.unicodeNormalization"><th>${mf:h(msg['label.encUnicodeNFC'])}</th><td><span id="encUnicodeNFC" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicodeNormalization'}"><tr data-dencode-method="string.unicodeNormalization"><th>${mf:h(msg['label.encUnicodeNFKC'])}</th><td><span id="encUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.lineSort'}"><tr data-dencode-method="string.lineSort"><th>${mf:h(msg['label.encLineSortAsc'])}</th><td><span id="encLineSortAsc" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.lineSort'}"><tr data-dencode-method="string.lineSort"><th>${mf:h(msg['label.encLineSortDesc'])}</th><td><span id="encLineSortDesc" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.lineSort'}"><tr data-dencode-method="string.lineSort"><th>${mf:h(msg['label.encLineSortReverse'])}</th><td><span id="encLineSortReverse" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.lineUnique'}"><tr data-dencode-method="string.lineUnique"><th>${mf:h(msg['label.encLineUnique'])}</th><td><span id="encLineUnique" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'number'}">

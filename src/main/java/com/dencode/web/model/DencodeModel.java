@@ -63,6 +63,10 @@ public class DencodeModel {
 	private String encLowerChainCase;
 	private String encUnicodeNFC;
 	private String encUnicodeNFKC;
+	private String encLineSortAsc;
+	private String encLineSortDesc;
+	private String encLineSortReverse;
+	private String encLineUnique;
 	private String encNumBin;
 	private String encNumOct;
 	private String encNumHex;
@@ -442,6 +446,38 @@ public class DencodeModel {
 
 	public void setEncUnicodeNFKC(String encUnicodeNFKC) {
 		this.encUnicodeNFKC = encUnicodeNFKC;
+	}
+
+	public String getEncLineSortAsc() {
+		return encLineSortAsc;
+	}
+
+	public void setEncLineSortAsc(String encLineSortAsc) {
+		this.encLineSortAsc = encLineSortAsc;
+	}
+
+	public String getEncLineSortDesc() {
+		return encLineSortDesc;
+	}
+
+	public void setEncLineSortDesc(String encLineSortDesc) {
+		this.encLineSortDesc = encLineSortDesc;
+	}
+
+	public String getEncLineSortReverse() {
+		return encLineSortReverse;
+	}
+
+	public void setEncLineSortReverse(String encLineSortReverse) {
+		this.encLineSortReverse = encLineSortReverse;
+	}
+
+	public String getEncLineUnique() {
+		return encLineUnique;
+	}
+
+	public void setEncLineUnique(String encLineUnique) {
+		this.encLineUnique = encLineUnique;
 	}
 
 	public String getEncNumBin() {

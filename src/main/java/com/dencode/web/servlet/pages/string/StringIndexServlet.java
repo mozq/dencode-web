@@ -126,6 +126,20 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			useNl = false;
 			useTz = false;
 			break;
+		case "line-sort":
+			method = "string.lineSort";
+			useOe = false;
+			useNl = false;
+			useTz = false;
+			hasDecoded = false;
+			break;
+		case "line-unique":
+			method = "string.lineUnique";
+			useOe = false;
+			useNl = false;
+			useTz = false;
+			hasDecoded = false;
+			break;
 		default:
 			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
