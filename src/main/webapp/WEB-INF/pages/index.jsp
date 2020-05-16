@@ -193,7 +193,7 @@
 			</div>
 			<form id="expValue" action="#">
 				<div class="input-group">
-					<textarea id="v" class="form-control copy-value" placeholder="${mf:h(msg[mf:strcat('label.val.tooltip.', method)])}">${mf:h(v)}</textarea>
+					<textarea id="v" class="form-control" placeholder="${mf:h(msg[mf:strcat('label.val.tooltip.', method)])}">${mf:h(v)}</textarea>
 					<span class="input-group-addon">
 						<span class="btn-group-vertical">
 							<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
@@ -459,7 +459,7 @@
 	<div class="for-copy">
 		<form action="#">
 			<div class="input-group">
-				<textarea id="{{id}}ForCopy" class="form-control copy-value" rows="2" readonly>{{value}}</textarea>
+				<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
 				<span class="input-group-addon">
 					<span class="btn-group-vertical">
 						<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
@@ -482,7 +482,7 @@
 <script id="permanentLinkTmpl" type="text/template">
 	<form action="#">
 		<div class="input-group">
-			<input id="linkURL" class="form-control" type="text" value="{{permanentLink}}" readonly />
+			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
 			<span class="input-group-btn">
 				<button type="button" class="btn btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

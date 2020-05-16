@@ -102,13 +102,11 @@ $(document).ready(function () {
 		}
 	});
 	
-	/*
 	$document.on("focus", ".select-on-focus", function () {
 		setTimeout(function() {
 			selectAllTextValue(this);
 		}.bind(this), 1);
 	});
-	*/
 	
 	$document.on("click", ".copy-to-clipboard", function () {
 		var $this = $(this);
