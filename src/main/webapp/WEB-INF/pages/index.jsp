@@ -324,6 +324,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.htmlEscape'}"><tr data-dencode-method="string.htmlEscape"><th>${mf:h(msg['label.encHTMLEscape'])}</th><td><span id="encHTMLEscape" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.htmlEscape'}"><tr data-dencode-method="string.htmlEscape"><th>${mf:h(msg['label.encHTMLEscapeFully'])}</th><td><span id="encHTMLEscapeFully" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.urlEncoding'}"><tr data-dencode-method="string.urlEncoding"><th>${mf:h(msg['label.encURLEncoding'])}</th><td><span id="encURLEncoding" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encBase64Encoding'])}</th><td><span id="encBase64Encoding" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quotedPrintable'}"><tr data-dencode-method="string.quotedPrintable"><th>${mf:h(msg['label.encQuotedPrintable'])}</th><td><span id="encQuotedPrintable" class="for-disp"></span></td></tr></c:if>

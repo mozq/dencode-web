@@ -351,6 +351,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue));
 			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue));
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
+			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
 			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(val, charset));
 			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue));
 			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(val, charset));
@@ -529,6 +530,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	
 	private static String encHTMLEscape(String val) {
 		return HTMLUtilz.escapeBasicHTML(val);
+	}
+	
+	private static String encHTMLEscapeFully(String val) {
+		return HTMLUtilz.escapeHTML5Fully(val);
 	}
 	
 	private static String encURLEncoding(String val, String charset) {

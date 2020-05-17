@@ -41,6 +41,7 @@ public class DencodeModel {
 	private String encBin;
 	private String encHex;
 	private String encHTMLEscape;
+	private String encHTMLEscapeFully;
 	private String encURLEncoding;
 	private String encBase64Encoding;
 	private String encMIMEEncode;
@@ -270,6 +271,14 @@ public class DencodeModel {
 
 	public void setEncHTMLEscape(String encHTMLEscape) {
 		this.encHTMLEscape = encHTMLEscape;
+	}
+
+	public String getEncHTMLEscapeFully() {
+		return encHTMLEscapeFully;
+	}
+
+	public void setEncHTMLEscapeFully(String encHTMLEscapeFully) {
+		this.encHTMLEscapeFully = encHTMLEscapeFully;
 	}
 
 	public String getEncURLEncoding() {
