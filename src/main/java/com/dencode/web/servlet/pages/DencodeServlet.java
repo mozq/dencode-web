@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -352,9 +353,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue));
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
-			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(val, charset));
+			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
 			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue));
-			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(val, charset));
+			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
 			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val));
 			if (all || method.equals("string.programString")) dencode.setEncProgramString(encProgramString(val));
 			if (all || method.equals("string.characterWidth")) dencode.setEncHalfWidth(encHalfWidth(val));
@@ -536,17 +537,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return HTMLUtilz.escapeHTML5Fully(val);
 	}
 	
-	private static String encURLEncoding(String val, String charset) {
+	private static String encURLEncoding(byte[] binValue) {
 		URLCodec urlCodec = new URLCodec();
-		try {
-			String encodedURL = urlCodec.encode(val, charset);
-			if (encodedURL.indexOf('+') != -1) {
-				encodedURL = encodedURL.replace("+", "%20");
-			}
-			return encodedURL;
-		} catch (UnsupportedEncodingException e) {
-			return null;
+		String encodedURL = new String(urlCodec.encode(binValue), StandardCharsets.US_ASCII);
+		if (encodedURL.indexOf('+') != -1) {
+			encodedURL = encodedURL.replace("+", "%20");
 		}
+		return encodedURL;
 	}
 	
 	private static String encBase64Encoding(byte[] binValue) {
@@ -554,13 +551,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return base64.encodeAsString(binValue);
 	}
 	
-	private static String encQuotedPrintable(String val, String charset) {
-		try {
-			QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
-			return quotedPrintableCodec.encode(val, charset);
-		} catch (UnsupportedEncodingException e) {
-			return null;
-		}
+	private static String encQuotedPrintable(byte[] binValue) {
+		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
+		return new String(quotedPrintableCodec.encode(binValue), StandardCharsets.US_ASCII);
 	}
 	
 	private static String encProgramString(String val) {
@@ -746,7 +739,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				if (bigDec == null) {
 					return null;
 				}
-				vals[i] = bigDec.toPlainString();
+				
+				if (NumberUtilz.digitLengthDecimalPart(bigDec) != 0) {
+					// Decimal
+					return null;
+				}
+				
+				vals[i] = bigDec.toBigInteger().toString(radix);
 			}
 			return StringUtilz.join(" ", (Object[])vals);
 		} catch (NumberFormatException e) {

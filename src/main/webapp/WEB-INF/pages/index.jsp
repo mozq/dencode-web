@@ -43,6 +43,7 @@
 	<!--[if lt IE 9]>  
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+	<script data-ad-client="ca-pub-6871955725174244" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
 <body data-dencode-type="${type}" data-dencode-method="${method}">
