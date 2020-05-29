@@ -365,12 +365,12 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.letterCase")) dencode.setEncCapitalize(encCapitalize(val));
 			if (all || method.equals("string.textInitials")) dencode.setEncInitials(encInitials(val));
 			if (all || method.equals("string.textReverse")) dencode.setEncReverse(encReverse(val));
-			if (all || method.equals("string.camelCase")) dencode.setEncUpperCamelCase(encCamelCase(val, true));
-			if (all || method.equals("string.camelCase")) dencode.setEncLowerCamelCase(encCamelCase(val, false));
-			if (all || method.equals("string.snakeCase")) dencode.setEncUpperSnakeCase(encSnakeCase(val, true));
-			if (all || method.equals("string.snakeCase")) dencode.setEncLowerSnakeCase(encSnakeCase(val, false));
-			if (all || method.equals("string.chainCase")) dencode.setEncUpperChainCase(encChainCase(val, true));
-			if (all || method.equals("string.chainCase")) dencode.setEncLowerChainCase(encChainCase(val, false));
+			if (all || method.equals("string.namingConvention") || method.equals("string.camelCase")) dencode.setEncUpperCamelCase(encCamelCase(val, true));
+			if (all || method.equals("string.namingConvention") || method.equals("string.camelCase")) dencode.setEncLowerCamelCase(encCamelCase(val, false));
+			if (all || method.equals("string.namingConvention") || method.equals("string.snakeCase")) dencode.setEncUpperSnakeCase(encSnakeCase(val, true));
+			if (all || method.equals("string.namingConvention") || method.equals("string.snakeCase")) dencode.setEncLowerSnakeCase(encSnakeCase(val, false));
+			if (all || method.equals("string.namingConvention") || method.equals("string.chainCase")) dencode.setEncUpperChainCase(encChainCase(val, true));
+			if (all || method.equals("string.namingConvention") || method.equals("string.chainCase")) dencode.setEncLowerChainCase(encChainCase(val, false));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFC(encUnicodeNFC(val));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFKC(encUnicodeNFKC(val));
 			if (all || method.equals("string.lineSort")) dencode.setEncLineSortAsc(encLineSortAsc(valLines, lineBreak));

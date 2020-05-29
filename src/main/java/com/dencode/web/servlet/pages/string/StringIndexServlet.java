@@ -71,6 +71,13 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			useOe = false;
 			useTz = false;
 			break;
+		case "naming-convention":
+			method = "string.namingConvention";
+			useOe = false;
+			useNl = false;
+			useTz = false;
+			hasDecoded = false;
+			break;
 		case "camel-case":
 			method = "string.camelCase";
 			useOe = false;
