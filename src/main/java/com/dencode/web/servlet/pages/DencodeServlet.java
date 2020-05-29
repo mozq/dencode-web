@@ -746,7 +746,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				if (bigDec == null) {
 					return null;
 				}
-				vals[i] = bigDec.toPlainString();
+				
+				if (NumberUtilz.digitLengthDecimalPart(bigDec) == 0) {
+					// Integer
+					vals[i] = bigDec.toBigInteger().toString(radix);
+				}
 			}
 			return StringUtilz.join(" ", (Object[])vals);
 		} catch (NumberFormatException e) {
