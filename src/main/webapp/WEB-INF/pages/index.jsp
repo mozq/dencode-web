@@ -43,7 +43,6 @@
 	<!--[if lt IE 9]>  
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<script data-ad-client="ca-pub-6871955725174244" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
 <body data-dencode-type="${type}" data-dencode-method="${method}">
@@ -205,11 +204,11 @@
 				</div>
 			</form>
 			<div id="oeGroup" class="btn-group btn-group-xs" data-enable="${(useOe) ? 'true' : 'false'}" style="display: none;">
-				<button class="btn ${(oe eq 'utf8' or oe eq '') ? 'active' : ''}" data-oe="utf8" data-oe-iana="UTF-8">UTF-8</button>
+				<button class="btn ${(oe eq 'utf8') ? 'active' : ''}" data-oe="utf8" data-oe-iana="UTF-8">UTF-8</button>
 				<button class="btn ${(oe eq 'utf16') ? 'active' : ''}" data-oe="utf16" data-oe-iana="UTF-16">UTF-16</button>
 				<button class="btn ${(oe eq 'utf32') ? 'active' : ''}" data-oe="utf32" data-oe-iana="UTF-32">UTF-32</button>
 				<div class="btn-group btn-group-xs">
-					<button id="oex" class="btn ${(oe eq oex) ? 'active' : ''}" data-oe="" data-oe-iana="" style="display: none;"></button>
+					<button id="oex" class="btn ${(oe eq oex) ? 'active' : ''}" data-oe="" data-oe-iana=""></button>
 					<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>

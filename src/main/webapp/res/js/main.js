@@ -235,14 +235,14 @@ $(document).ready(function () {
 			
 			dencode();
 		});
+		
 		var $oexMenuItem = $oexMenuItems.filter(".active");
 		if ($oexMenuItem.length === 0) {
-			$oexMenuItem = $oexMenuItems.get(0);
+			$oexMenuItem = $oexMenuItems.eq(0);
 		}
 		$oexBtn.text($oexMenuItem.text());
 		$oexBtn.data("oe", $oexMenuItem.data("oe"));
 		$oexBtn.data("oe-iana", $oexMenuItem.data("oe-iana"));
-		$oexBtn.show();
 	}
 
 	if ($nlGroup.data("enable")) {

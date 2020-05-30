@@ -37,7 +37,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	@Override
 	protected void doGet() throws Exception {
 		String v = reqres().param("v", "");
-		String oe = reqres().param("oe", reqres().cookie("oe", ""));
+		String oe = reqres().param("oe", reqres().cookie("oe", "utf8"));
 		String oex = (!oe.startsWith("utf")) ? oe : reqres().cookie("oex", message("oe.ext.default"));
 		String nl = reqres().param("nl", reqres().cookie("nl", ""));
 		String tz = reqres().param("tz", reqres().cookie("tz", null));
