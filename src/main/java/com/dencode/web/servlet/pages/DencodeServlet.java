@@ -552,7 +552,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encQuotedPrintable(byte[] binValue) {
-		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
+		boolean strict = (3 <= binValue.length);
+		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec(strict);
 		return new String(quotedPrintableCodec.encode(binValue), StandardCharsets.US_ASCII);
 	}
 	
