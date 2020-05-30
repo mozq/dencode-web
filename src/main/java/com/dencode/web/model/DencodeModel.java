@@ -76,6 +76,7 @@ public class DencodeModel {
 	private String encNumJP;
 	private String encNumJPDaiji;
 	private String encDateUnixTime;
+	private String encDateW3CDTF;
 	private String encDateISO8601;
 	private String encDateISO8601Ext;
 	private String encDateISO8601Week;
@@ -551,6 +552,14 @@ public class DencodeModel {
 
 	public void setEncDateUnixTime(String encDateUnixTime) {
 		this.encDateUnixTime = encDateUnixTime;
+	}
+
+	public String getEncDateW3CDTF() {
+		return encDateW3CDTF;
+	}
+
+	public void setEncDateW3CDTF(String encDateW3CDTF) {
+		this.encDateW3CDTF = encDateW3CDTF;
 	}
 
 	public String getEncDateISO8601() {

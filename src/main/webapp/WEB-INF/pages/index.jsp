@@ -136,6 +136,7 @@
 							<li class="${(method eq 'date.all') ? 'active' : ''}" data-dencode-method="date.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date">${mf:h(msg['label.method.date.all'])}</a></li>
 							<li class="divider"></li>
 							<li class="${(method eq 'date.unixTime') ? 'active' : ''}" data-dencode-method="date.unixTime"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/unix-time">${mf:h(msg['label.method.date.unixTime'])}</a></li>
+							<li class="${(method eq 'date.w3cdtf') ? 'active' : ''}" data-dencode-method="date.w3cdtf"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/w3cdtf">${mf:h(msg['label.method.date.w3cdtf'])}</a></li>
 							<li class="${(method eq 'date.iso8601') ? 'active' : ''}" data-dencode-method="date.iso8601"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/iso8601">${mf:h(msg['label.method.date.iso8601'])}</a></li>
 							<li class="${(method eq 'date.rfc2822') ? 'active' : ''}" data-dencode-method="date.rfc2822"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/rfc2822">${mf:h(msg['label.method.date.rfc2822'])}</a></li>
 							<li class="${(method eq 'date.ctime') ? 'active' : ''}" data-dencode-method="date.ctime"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/ctime">${mf:h(msg['label.method.date.ctime'])}</a></li>
@@ -374,6 +375,7 @@
 					<c:if test="${type eq 'all' or type eq 'date'}">
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.unixTime'}"><tr data-dencode-method="date.unixTime"><th>${mf:h(msg['label.encDateUnixTime'])}</th><td><span id="encDateUnixTime" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.w3cdtf'}"><tr data-dencode-method="date.w3cdtf"><th>${mf:h(msg['label.encDateW3CDTF'])}</th><td><span id="encDateW3CDTF" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.iso8601'}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601'])}</th><td><span id="encDateISO8601" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.iso8601'}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ext'])}</th><td><span id="encDateISO8601Ext" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'date.all' or method eq 'date.iso8601'}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Week'])}</th><td><span id="encDateISO8601Week" class="for-disp"></span></td></tr></c:if>

@@ -411,6 +411,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			boolean all = (method.equals("all") || method.equals("date.all"));
 			
 			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(val, timeZone));
+			if (all || method.equals("date.w3cdtf")) dencode.setEncDateW3CDTF(encDateW3CDTF(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601Basic(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ext(encDateISO8601Ext(val, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Week(encDateISO8601Week(val, timeZone));
@@ -827,6 +828,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return null;
 		}
 		return String.valueOf(dateVal.getTime());
+	}
+
+	private static String encDateW3CDTF(String val, TimeZone timeZone) {
+		return encDateISO8601(val, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timeZone);
 	}
 
 	private static String encDateISO8601Basic(String val, TimeZone timeZone) {

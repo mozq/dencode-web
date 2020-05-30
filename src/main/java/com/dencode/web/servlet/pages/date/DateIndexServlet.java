@@ -43,6 +43,12 @@ public class DateIndexServlet extends AbstractDencodeHttpServlet {
 			useNl = false;
 			hasDecoded = false;
 			break;
+		case "w3cdtf":
+			method = "date.w3cdtf";
+			useOe = false;
+			useNl = false;
+			hasDecoded = false;
+			break;
 		case "iso8601":
 			method = "date.iso8601";
 			useOe = false;
