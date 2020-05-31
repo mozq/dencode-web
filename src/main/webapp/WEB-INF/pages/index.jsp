@@ -198,8 +198,14 @@
 					<textarea id="v" class="form-control" placeholder="${mf:h(msg[mf:strcat('label.val.tooltip.', method)])}">${mf:h(v)}</textarea>
 					<span class="input-group-addon">
 						<span class="btn-group-vertical">
-							<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
-							<button type="button" class="btn permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}"><span class="glyphicon glyphicon-link"></span></button>
+							<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
+								<span class="glyphicon glyphicon-duplicate"></span>
+								<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+							</button>
+							<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}">
+								<span class="glyphicon glyphicon-link"></span>
+								<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
+							</button>
 						</span>
 					</span>
 				</div>
@@ -466,8 +472,14 @@
 				<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
 				<span class="input-group-addon">
 					<span class="btn-group-vertical">
-						<button type="button" class="btn copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
-						<button type="button" class="btn permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}"><span class="glyphicon glyphicon-link"></span></button>
+						<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
+							<span class="glyphicon glyphicon-duplicate"></span>
+							<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+						</button>
+						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}">
+							<span class="glyphicon glyphicon-link"></span>
+							<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
+						</button>
 					</span>
 				</span>
 			</div>

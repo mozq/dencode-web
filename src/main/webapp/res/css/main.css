@@ -59,6 +59,24 @@
   box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
 }
 
+.btn-v-icon-label {
+	width: 38px !important;
+	height: 2.5em !important;
+	padding: 2px 0 0;
+	line-height: 1;
+}
+
+.btn-v-icon-label .glyphicon {
+	display: block;
+	mergin: 0;
+	padding: 0;
+}
+
+.btn-v-icon-label .btn-label {
+	font-size: 10px;
+	line-height: 1;
+}
+
 form .required:after {
     display: inline;
     color: #e32;
@@ -134,10 +152,6 @@ h2 .toggle-icon {
 #expValue .input-group-addon {
 	margin: 0 !important;
 	padding: 0 !important;
-}
-
-#expValue .input-group-addon .btn {
-	height: 2.5em !important;
 }
 
 #follow {
@@ -252,10 +266,6 @@ table.dencoded-list td .for-copy textarea {
 table.dencoded-list td .for-copy .input-group-addon {
 	margin: 0 !important;
 	padding: 0 !important;
-}
-
-table.dencoded-list td .for-copy .input-group-addon .btn {
-	height: 2.5em !important;
 }
 
 #linkURL {
