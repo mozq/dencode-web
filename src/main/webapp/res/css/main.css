@@ -104,6 +104,10 @@ form .required:after {
 	margin: 3px 0;
 }
 
+.popover {
+    max-width: 50%;
+}
+
 body {
 	background-color: white;
 }
@@ -301,6 +305,10 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 		and (max-device-width: 568px) {
 	table.dencoded-list th {
 		height: 2em;
+	}
+	
+	.popover {
+ 	   max-width: 80%;
 	}
 }
 
