@@ -278,7 +278,8 @@ table.dencoded-list td .for-copy .input-group-addon {
 }
 
 #otherDencodeNav {
-	margin-top: 1em;
+	margin: 1em 0;
+	font-weight: bold;
 }
 
 #otherDencodeNav .other-dencode-link:before {
@@ -309,6 +310,10 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 	
 	.popover {
  	   max-width: 80%;
+	}
+	
+	#v {
+		height: 7em;
 	}
 }
 
