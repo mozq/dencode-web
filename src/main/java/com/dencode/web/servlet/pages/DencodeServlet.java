@@ -324,7 +324,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		} else {
 			// crlf
 			lineBreak = "\r\n";
-			textLengthDiff = -(valLines.length - 1);
+			textLengthDiff = (valLines.length == 0) ? 0 : -(valLines.length - 1);
 		}
 		if (1 < valLines.length) {
 			val = StringUtilz.join(lineBreak, (Object[])valLines);
