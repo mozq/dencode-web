@@ -491,12 +491,16 @@
 </script>
 <script id="permanentLinkTmpl" type="text/template">
 	<form action="#">
-		<div class="input-group">
+		<div class="permanent-link input-group">
 			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
 			<span class="input-group-btn">
-				<button type="button" class="btn btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}"><span class="glyphicon glyphicon-duplicate"></span></button>
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<button type="button" class="btn btn-v-icon-label btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
+					<span class="glyphicon glyphicon-duplicate"></span>
+					<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+				</button>
+				<button type="button" class="btn btn-v-icon-label btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 					<span class="glyphicon glyphicon-share-alt"></span>
+					<span class="btn-label">${mf:h(msg['label.share.buttonLabel'])}</span>
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">

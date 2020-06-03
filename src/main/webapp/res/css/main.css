@@ -60,9 +60,7 @@
 }
 
 .btn-v-icon-label {
-	width: 38px !important;
-	height: 2.5em !important;
-	padding: 2px 0 0;
+	padding: 2px 8px 0;
 	line-height: 1;
 }
 
@@ -156,6 +154,10 @@ h2 .toggle-icon {
 #expValue .input-group-addon {
 	margin: 0 !important;
 	padding: 0 !important;
+}
+
+#expValue .input-group-addon .btn {
+	height: 2.5em;
 }
 
 #follow {
@@ -272,9 +274,18 @@ table.dencoded-list td .for-copy .input-group-addon {
 	padding: 0 !important;
 }
 
+table.dencoded-list td .for-copy .input-group-addon .btn {
+	height: 2.5em;
+}
+
 #linkURL {
+	height: 2.5em;
 	color: black;
 	background-color: white;
+}
+
+.permanent-link .btn {
+	height: 2.5em;
 }
 
 #otherDencodeNav {
