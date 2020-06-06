@@ -92,8 +92,8 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			useTz = false;
 			hasDecoded = false;
 			break;
-		case "chain-case":
-			method = "string.chainCase";
+		case "kebab-case":
+			method = "string.kebabCase";
 			useOe = false;
 			useNl = false;
 			useTz = false;

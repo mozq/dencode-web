@@ -370,8 +370,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.namingConvention") || method.equals("string.camelCase")) dencode.setEncLowerCamelCase(encCamelCase(val, false));
 			if (all || method.equals("string.namingConvention") || method.equals("string.snakeCase")) dencode.setEncUpperSnakeCase(encSnakeCase(val, true));
 			if (all || method.equals("string.namingConvention") || method.equals("string.snakeCase")) dencode.setEncLowerSnakeCase(encSnakeCase(val, false));
-			if (all || method.equals("string.namingConvention") || method.equals("string.chainCase")) dencode.setEncUpperChainCase(encChainCase(val, true));
-			if (all || method.equals("string.namingConvention") || method.equals("string.chainCase")) dencode.setEncLowerChainCase(encChainCase(val, false));
+			if (all || method.equals("string.namingConvention") || method.equals("string.kebabCase")) dencode.setEncUpperKebabCase(encKebabCase(val, true));
+			if (all || method.equals("string.namingConvention") || method.equals("string.kebabCase")) dencode.setEncLowerKebabCase(encKebabCase(val, false));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFC(encUnicodeNFC(val));
 			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFKC(encUnicodeNFKC(val));
 			if (all || method.equals("string.lineSort")) dencode.setEncLineSortAsc(encLineSortAsc(valLines, lineBreak));
@@ -662,7 +662,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.toSnakeCase(val, false, Boolean.valueOf(upper));
 	}
 	
-	private static String encChainCase(String val, boolean upper) {
+	private static String encKebabCase(String val, boolean upper) {
 		return StringUtilz.toChainCase(val, false, Boolean.valueOf(upper));
 	}
 	

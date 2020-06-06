@@ -99,7 +99,7 @@
 							<li class="${(method eq 'string.namingConvention') ? 'active' : ''}" data-dencode-method="string.namingConvention"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/naming-convention">${mf:h(msg['label.method.string.namingConvention'])}</a></li>
 							<li class="${(method eq 'string.camelCase') ? 'active' : ''}" data-dencode-method="string.camelCase"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/camel-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.camelCase'])}</a></li>
 							<li class="${(method eq 'string.snakeCase') ? 'active' : ''}" data-dencode-method="string.snakeCase"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/snake-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.snakeCase'])}</a></li>
-							<li class="${(method eq 'string.chainCase') ? 'active' : ''}" data-dencode-method="string.chainCase"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/chain-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.chainCase'])}</a></li>
+							<li class="${(method eq 'string.kebabCase') ? 'active' : ''}" data-dencode-method="string.kebabCase"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/kebab-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.kebabCase'])}</a></li>
 							<li class="divider"></li>
 							<li class="${(method eq 'string.characterWidth') ? 'active' : ''}" data-dencode-method="string.characterWidth"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/character-width">${mf:h(msg['label.method.string.characterWidth'])}</a></li>
 							<li class="${(method eq 'string.letterCase') ? 'active' : ''}" data-dencode-method="string.letterCase"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/letter-case">${mf:h(msg['label.method.string.letterCase'])}</a></li>
@@ -343,8 +343,8 @@
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.camelCase'}"><tr data-dencode-method="string.camelCase"><th>${mf:h(msg['label.encLowerCamelCase'])}</th><td><span id="encLowerCamelCase" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.snakeCase'}"><tr data-dencode-method="string.snakeCase"><th>${mf:h(msg['label.encUpperSnakeCase'])}</th><td><span id="encUpperSnakeCase" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.snakeCase'}"><tr data-dencode-method="string.snakeCase"><th>${mf:h(msg['label.encLowerSnakeCase'])}</th><td><span id="encLowerSnakeCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.chainCase'}"><tr data-dencode-method="string.chainCase"><th>${mf:h(msg['label.encUpperChainCase'])}</th><td><span id="encUpperChainCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.chainCase'}"><tr data-dencode-method="string.chainCase"><th>${mf:h(msg['label.encLowerChainCase'])}</th><td><span id="encLowerChainCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.kebabCase'}"><tr data-dencode-method="string.kebabCase"><th>${mf:h(msg['label.encUpperKebabCase'])}</th><td><span id="encUpperKebabCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.namingConvention' or method eq 'string.kebabCase'}"><tr data-dencode-method="string.kebabCase"><th>${mf:h(msg['label.encLowerKebabCase'])}</th><td><span id="encLowerKebabCase" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.characterWidth'}"><tr data-dencode-method="string.characterWidth"><th>${mf:h(msg['label.encHalfWidth'])}</th><td><span id="encHalfWidth" class="for-disp"></span></td></tr></c:if>
@@ -426,7 +426,7 @@
 				<div><a class="other-dencode-link" href="#" data-other-dencode-method="string.bin">${mf:h(msg['label.otherDencodeLink.string.bin'])}</a></div>
 			</c:if>
 			
-			<c:if test="${method eq 'string.camelCase' or method eq 'string.snakeCase' or method eq 'string.chainCase'}">
+			<c:if test="${method eq 'string.camelCase' or method eq 'string.snakeCase' or method eq 'string.kebabCase'}">
 				<div><a class="other-dencode-link" href="#" data-other-dencode-method="string.namingConvention">${mf:h(msg['label.otherDencodeLink.string.namingConvention'])}</a></div>
 			</c:if>
 			

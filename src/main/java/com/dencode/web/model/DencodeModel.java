@@ -60,8 +60,8 @@ public class DencodeModel {
 	private String encLowerCamelCase;
 	private String encUpperSnakeCase;
 	private String encLowerSnakeCase;
-	private String encUpperChainCase;
-	private String encLowerChainCase;
+	private String encUpperKebabCase;
+	private String encLowerKebabCase;
 	private String encUnicodeNFC;
 	private String encUnicodeNFKC;
 	private String encLineSortAsc;
@@ -426,20 +426,20 @@ public class DencodeModel {
 		this.encLowerSnakeCase = encLowerSnakeCase;
 	}
 
-	public String getEncUpperChainCase() {
-		return encUpperChainCase;
+	public String getEncUpperKebabCase() {
+		return encUpperKebabCase;
 	}
 
-	public void setEncUpperChainCase(String encUpperChainCase) {
-		this.encUpperChainCase = encUpperChainCase;
+	public void setEncUpperKebabCase(String encUpperKebabCase) {
+		this.encUpperKebabCase = encUpperKebabCase;
 	}
 
-	public String getEncLowerChainCase() {
-		return encLowerChainCase;
+	public String getEncLowerKebabCase() {
+		return encLowerKebabCase;
 	}
 
-	public void setEncLowerChainCase(String encLowerChainCase) {
-		this.encLowerChainCase = encLowerChainCase;
+	public void setEncLowerKebabCase(String encLowerKebabCase) {
+		this.encLowerKebabCase = encLowerKebabCase;
 	}
 
 	public String getEncUnicodeNFC() {
