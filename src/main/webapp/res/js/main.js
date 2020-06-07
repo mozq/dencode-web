@@ -493,21 +493,20 @@ $(document).ready(function () {
 		}
 		
 		var url = location.protocol + "//" + location.host + path;
-		if (0 < v.length) {
-			url += "?v=" + encodeURIComponent(v);
-			
-			if (oeEnabled) {
-				var oe = $oeGroupBtns.filter(".active").data("oe");
-				url += "&oe=" + encodeURIComponent(oe);
-			}
-			if (nlEnabled) {
-				var nl = $nlGroupBtns.filter(".active").data("nl");
-				url += "&nl=" + encodeURIComponent(nl);
-			}
-			if (tzEnabled) {
-				var tz = $tz.val();
-				url += "&tz=" + encodeURIComponent(tz);
-			}
+		
+		url += "?v=" + encodeURIComponent(v);
+		
+		if (oeEnabled) {
+			var oe = $oeGroupBtns.filter(".active").data("oe");
+			url += "&oe=" + encodeURIComponent(oe);
+		}
+		if (nlEnabled) {
+			var nl = $nlGroupBtns.filter(".active").data("nl");
+			url += "&nl=" + encodeURIComponent(nl);
+		}
+		if (tzEnabled) {
+			var tz = $tz.val();
+			url += "&tz=" + encodeURIComponent(tz);
 		}
 		
 		return url;
