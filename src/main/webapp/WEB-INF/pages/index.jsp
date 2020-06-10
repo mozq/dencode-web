@@ -452,7 +452,25 @@
 
 <footer>
 	© <a href="https://github.com/mozq/dencode-web" target="_blank">Mozq</a>
+	| <a href="#" data-toggle="modal" data-target="#policyDialog">${mf:h(msg['label.policy'])}</a>
 </footer>
+
+<div id="policyDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="policyDialogLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span id="policyDialogLabel" class="modal-title">${mf:h(msg['label.policy'])}</span>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<jsp:include page="policy_${msg['lang']}.inc.jsp" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">${mf:h(msg['label.close'])}</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script id="messagesTmpl" type="text/template">
 	<div class="alert {{#type}}alert-{{type}}{{/type}}">
