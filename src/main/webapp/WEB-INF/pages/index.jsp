@@ -34,7 +34,6 @@
 	<link rel="icon" type="image/png" sizes="192x192"  href="${pageContext.request.contextPath}/res/img/icons/favicon192px.png" />
 	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/res/img/icons/favicon180px.png" />
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/main.css" />
 	<script type="text/javascript">
