@@ -35,9 +35,7 @@
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/main.css" />
-	<script type="text/javascript">
-	var contextPath = "${pageContext.request.contextPath}";
-	</script>
+	<script>var contextPath = "${pageContext.request.contextPath}";</script>
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
 <body data-dencode-type="${type}" data-dencode-method="${method}">
@@ -532,13 +530,13 @@
 	</form>
 </script>
 
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/res/js/core.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/res/js/main.js"></script>
-<script type="text/javascript">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/res/js/core.js"></script>
+<script src="${pageContext.request.contextPath}/res/js/main.js"></script>
+<script>
 	"use strict";
 
 	setDefaultErrorMessage(newMessage(
@@ -548,16 +546,16 @@
 			"${mf:jsstr(msg['default.error.detail'])}"
 			));
 </script>
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-44831029-1', 'dencode.com');
-  ga('send', 'pageview');
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-44831029-1', 'dencode.com');
+	ga('send', 'pageview');
 </script>
-<script type="text/javascript">
+<script>
 	"use strict";
 	// Lazy load AdSense
 	(function (w, d) {

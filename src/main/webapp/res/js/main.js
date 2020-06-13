@@ -130,6 +130,9 @@ $(document).ready(function () {
 					container: "body",
 					placement: "auto left",
 					html: true,
+					sanitizeFn: function (content) {
+						return content;
+					},
 					content: function () {
 						var permanentLink = getPermanentLink(method);
 						return _permanentLinkTmpl.render({
@@ -327,6 +330,9 @@ $(document).ready(function () {
 		trigger: "manual",
 		placement: "left",
 		html: false,
+		sanitizeFn: function (content) {
+			return content;
+		},
 		content: function () {
 			var chars = Number($vLen.data("len-chars"));
 			var bytes = Number($vLen.data("len-bytes"));
