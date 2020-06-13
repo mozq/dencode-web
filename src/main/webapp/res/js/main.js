@@ -193,17 +193,10 @@ $(document).ready(function () {
 		
 		return false;
 	});
-	
-	if (/*@cc_on @if(@_jscript_version <= 5.8) ! @end @*/false) {
-		// for <=IE8
-		$v.on("keyup", function () {
-			dencode();
-		});
-	} else {
-		$v.on("input paste", function () {
-			dencode();
-		});
-	}
+
+	$v.on("input paste", function () {
+		dencode();
+	});
 
 	if ($oeGroup.data("enable")) {
 		$oeGroup.show();

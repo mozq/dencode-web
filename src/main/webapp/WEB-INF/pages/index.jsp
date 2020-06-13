@@ -6,7 +6,6 @@
 <html lang="${mf:h(msg['lang'])}" prefix="og: http://ogp.me/ns#">
 <head>
 	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<meta name="description" content="${mf:h(msg[mf:strcat('site.desc.', method)])}" />
 	<meta name="robots" content="index,follow,noarchive" />
@@ -39,9 +38,6 @@
 	<script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
 	</script>
-	<!--[if lt IE 9]>  
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
 <body data-dencode-type="${type}" data-dencode-method="${method}">
