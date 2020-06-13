@@ -438,7 +438,6 @@
 		</div>
 		
 		<div class="ad-bottom" style="margin: 1em 0;">
-			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="5289392761" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
 			<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 		</div>
@@ -557,6 +556,19 @@
 
   ga('create', 'UA-44831029-1', 'dencode.com');
   ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+	"use strict";
+	// Lazy load AdSense
+	(function (w, d) {
+		$(w).on("keydown.ads click.ads mousedown.ads mousemove.ads touchstart.ads scroll.ads", function() {
+			$(w).off(".ads");
+			
+			var s = d.createElement("script");
+			s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+			d.body.appendChild(s);
+		});
+	})(window, document);
 </script>
 </body>
 </html>
