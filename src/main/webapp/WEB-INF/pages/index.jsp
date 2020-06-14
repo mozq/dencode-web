@@ -437,7 +437,6 @@
 		
 		<div class="ad-bottom" style="margin: 1em 0;">
 			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="5289392761" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
-			<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 		</div>
 	</div>
 </div>
@@ -530,7 +529,7 @@
 	</form>
 </script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
@@ -547,6 +546,7 @@
 			));
 </script>
 <script>
+	// Google Analytics
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -557,14 +557,21 @@
 </script>
 <script>
 	"use strict";
-	// Lazy load AdSense
+	// Google AdSense
 	(function (w, d) {
-		$(w).on("keydown.ads click.ads mousedown.ads mousemove.ads touchstart.ads scroll.ads", function() {
-			$(w).off(".ads");
+		// Lazy load adsbygoogle.js
+		$(w).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads touchstart.lzads scroll.lzads", function() {
+			$(w).off(".lzads");
 			
 			var s = d.createElement("script");
 			s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+			s.async = true;
 			d.body.appendChild(s);
+		});
+		
+		// Init Ads
+		$(".adsbygoogle").each(function () {
+			(w.adsbygoogle = w.adsbygoogle || []).push({});
 		});
 	})(window, document);
 </script>
