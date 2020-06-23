@@ -11,6 +11,7 @@
 	<meta name="robots" content="index,follow,noarchive" />
 	<meta name="application-name" content="${mf:h(msg['site.name'])}" />
 	<meta name="apple-mobile-web-app-title" content="${mf:h(msg['site.name'])}" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="msapplication-TileColor" content="#ffffff" />
 	<meta name="msapplication-square70x70logo" content="${pageContext.request.contextPath}/res/img/icons/favicon70px.png" />
 	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/res/img/icons/favicon150px.png" />
