@@ -506,23 +506,23 @@
 </script>
 <script id="permanentLinkTmpl" type="text/template">
 	<form action="#">
-		<div class="permanent-link input-group">
+		<div id="permanentLink" class="input-group">
 			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
 			<span class="input-group-btn">
-				<button type="button" class="btn btn-v-icon-label btn-default copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
+				<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
 					<span class="glyphicon glyphicon-duplicate"></span>
 					<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
 				</button>
-				<button type="button" class="btn btn-v-icon-label btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<button type="button" class="btn btn-v-icon-label dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 					<span class="glyphicon glyphicon-share-alt"></span>
 					<span class="btn-label">${mf:h(msg['label.share.buttonLabel'])}</span>
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="{{permanentLink}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span> ${mf:h(msg['label.openNewPage'])}</a></li>
-					<li><a href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}"><span class="glyphicon glyphicon-envelope"></span> ${mf:h(msg['label.sendByEmail'])}</a></li>
-					<li><a href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank"><span class="glyphicon glyphicon-share"></span> ${mf:h(msg['label.shareOnTwitter'])}</a></li>
-					<li><a href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank"><span class="glyphicon glyphicon-share"></span> ${mf:h(msg['label.shareOnFacebook'])}</a></li>
+					<li><a class="share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage"><span class="glyphicon glyphicon-new-window"></span> ${mf:h(msg['label.openNewPage'])}</a></li>
+					<li><a class="share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail"><span class="glyphicon glyphicon-envelope"></span> ${mf:h(msg['label.sendByEmail'])}</a></li>
+					<li><a class="share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter"><span class="glyphicon glyphicon-share"></span> ${mf:h(msg['label.shareOnTwitter'])}</a></li>
+					<li><a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook"><span class="glyphicon glyphicon-share"></span> ${mf:h(msg['label.shareOnFacebook'])}</a></li>
 				</ul>
 			</span>
 		</div>
@@ -553,6 +553,7 @@
 			));
 </script>
 <script>
+	"use strict";
 	// Google Analytics
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -561,6 +562,56 @@
 	
 	ga('create', 'UA-44831029-1', 'dencode.com');
 	ga('send', 'pageview');
+	
+	(function (w, d) {
+		$(d).ready(function () {
+			$(d).on("click", ".popover-toggle.permanent-link", function () {
+				var $this = $(this);
+				if ($this.hasClass("active")) {
+					var method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+					ga("send", "event", "permanent-link", "show", method);
+				}
+			});
+			
+			$(d).on("click", "#permanentLink .share-link", function () {
+				var $this = $(this);
+				var shareMethod = $this.attr("data-share-method");
+				ga("send", "event", "permanent-link", "share", shareMethod);
+			});
+			
+			$(d).on("click", ".copy-to-clipboard", function () {
+				var $this = $(this);
+				var id = $this.attr("data-copy-id");
+				ga("send", "event", "value", "copy-to-clipboard", id);
+			});
+			
+			$("#vLen").on("click", function () {
+				var $this = $(this);
+				if ($this.hasClass("active")) {
+					ga("send", "event", "v-len", "show");
+				}
+			});
+			
+			$("#follow").on("click", function () {
+				var $this = $(this);
+				if ($this.hasClass("active")) {
+					ga("send", "event", "follow", "turn-on");
+				}
+			});
+			
+			$("#decodedList").find("tr").on("selectrow.dencode", function () {
+				var $row = $(this);
+				var method = $row.attr("data-dencode-method");
+				ga("send", "event", "decoded-list", "select-row", method);
+			});
+			
+			$("#encodedList").find("tr").on("selectrow.dencode", function () {
+				var $row = $(this);
+				var method = $row.attr("data-dencode-method");
+				ga("send", "event", "encoded-list", "select-row", method);
+			});
+		});
+	})(window, document);
 </script>
 <script>
 	"use strict";
