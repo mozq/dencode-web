@@ -296,17 +296,42 @@ $(document).ready(function () {
 			return;
 		}
 		
-		hidePopover($(".popover-toggle.active"));
-		
 		if ($row.hasClass("active")) {
-			unselectRow($row);
+			$row.trigger("deselectrow.dencode");
 		} else {
 			$listRows.filter(".active").each(function () {
-				unselectRow($(this));
+				$(this).trigger("deselectrow.dencode");
 			});
 			
-			selectRow($row);
+			$row.trigger("selectrow.dencode");
 		}
+	});
+	
+	$listRows.on("selectrow.dencode", function () {
+		var $row = $(this);
+		
+		$row.addClass("active");
+		
+		var $forDisp = $row.find(".for-disp");
+		var id = $forDisp.attr("id");
+		var val = $forDisp.text();
+		
+		var forCopyHtml = _forCopyTmpl.render({
+			id: id,
+			value: val
+		});
+		
+		var $forCopy = $(forCopyHtml);
+		$forDisp.after($forCopy);
+	});
+	
+	$listRows.on("deselectrow.dencode", function () {
+		var $row = $(this);
+		
+		$row.removeClass("active");
+		
+		var $forCopy = $row.find(".for-copy");
+		$forCopy.remove();
 	});
 	
 	$follow.on("click", function () {
@@ -534,29 +559,6 @@ function setResponseValue(id, value) {
 	if (forCopyTextareaElm) {
 		$(forCopyTextareaElm).val(value);
 	}
-}
-
-function selectRow($row) {
-	$row.addClass("active");
-	
-	var $forDisp = $row.find(".for-disp");
-	var id = $forDisp.attr("id");
-	var val = $forDisp.text();
-	
-	var forCopyHtml = _forCopyTmpl.render({
-		id: id,
-		value: val
-	});
-	
-	var $forCopy = $(forCopyHtml);
-	$forDisp.after($forCopy);
-}
-
-function unselectRow($row) {
-	$row.removeClass("active");
-	
-	var $forCopy = $row.find(".for-copy");
-	$forCopy.remove();
 }
 
 function selectAllTextValue(elm) {

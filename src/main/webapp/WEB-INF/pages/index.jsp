@@ -435,7 +435,7 @@
 			</c:if>
 		</div>
 		
-		<div class="ad-bottom" style="margin: 1em 0;">
+		<div id="adBottom" style="margin: 1em 0;">
 			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="5289392761" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
 		</div>
 	</div>
@@ -528,6 +528,13 @@
 		</div>
 	</form>
 </script>
+<script id="adMiddleTmpl" type="text/template">
+	<tr id="adMiddle">
+		<td colspan="2" style="padding: 2em 0">
+			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="8967889103" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+		</td>
+	</tr>
+</script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -559,6 +566,7 @@
 	"use strict";
 	// Google AdSense
 	(function (w, d) {
+		
 		// Lazy load adsbygoogle.js
 		$(w).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads touchstart.lzads scroll.lzads", function() {
 			$(w).off(".lzads");
@@ -569,9 +577,44 @@
 			d.body.appendChild(s);
 		});
 		
-		// Init Ads
-		$(".adsbygoogle").each(function () {
-			(w.adsbygoogle = w.adsbygoogle || []).push({});
+		$(d).ready(function () {
+			var $listRows = $(".dencoded-list").find("tr");
+			
+			// Init Ads
+			$(".adsbygoogle").each(function () {
+				(w.adsbygoogle = w.adsbygoogle || []).push({});
+			});
+			
+			// Show AdMiddle
+			$listRows.on("selectrow.dencode", function () {
+				var $row = $(this);
+				
+				var $window = $(w);
+				var $adBottom = $("#adBottom");
+				if ($adBottom.offset().top > $window.scrollTop() + $window.height()) {
+					// AdBottom is out of display
+					
+					if ($adBottom.children().length) {
+						// Can load Ad
+						
+						// Show AdMiddle
+						var $adMiddle = $("#adMiddle");
+						if ($adMiddle.length) {
+							$adMiddle.detach().insertAfter($row).show();
+						} else {
+							var adMiddleHtml = $("#adMiddleTmpl").html();
+							$row.after(adMiddleHtml);
+							(w.adsbygoogle = w.adsbygoogle || []).push({});
+						}
+					}
+				}
+			});
+
+			// Hide AdMiddle
+			$listRows.on("deselectrow.dencode", function () {
+				var $adMiddle = $("#adMiddle");
+				$adMiddle.hide();
+			});
 		});
 	})(window, document);
 </script>
