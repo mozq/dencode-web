@@ -438,7 +438,7 @@
 			</c:if>
 		</div>
 		
-		<div id="adBottom" style="margin: 1em 0;">
+		<div id="adBottom" style="margin: 2em 0 1em;">
 			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="5289392761" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
 		</div>
 	</div>
