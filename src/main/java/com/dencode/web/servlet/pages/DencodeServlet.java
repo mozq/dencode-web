@@ -69,6 +69,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final char PROGRAM_STRING_ESCAPE_CHAR = '\\';
 	private static final char[] PROGRAM_STRING_TARGET_CHARS = {'\0', '\u0007', '\b', '\t', '\n', '\u000B', '\f', '\r', '\"', '\''};
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
+
+	private static final int DATE_MAX_LENGTH = 50;
 	
 	private static final Pattern DATE_ISO8601_ORDINAL_PATTERN = Pattern.compile("^[0-9]{4}-[0-9]{3}$");
 	private static final String DATE_ISO8601_ORDINAL_PARSE_PATTERN = "yyyy-DDD";
@@ -189,6 +191,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		"yyyy/MM/dd HH:mm:ss",
 		"yyyy/MM/dd HH:mm",
 		"yyyy/MM/dd HH",
+		"yyyy年MM月dd日HH時mm分ss.SSS秒 Z",
+		"yyyy年MM月dd日HH時mm分ss秒 Z",
+		"yyyy年MM月dd日HH時mm分 Z",
+		"yyyy年MM月dd日HH時 Z",
+		"yyyy年MM月dd日HH時mm分ss.SSS秒",
 		"yyyy年MM月dd日HH時mm分ss秒",
 		"yyyy年MM月dd日HH時mm分",
 		"yyyy年MM月dd日HH時",
@@ -270,24 +277,17 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	};
 	
 	private static final String[] DATE_PARSE_PATTERNS_JP = {
+		"GGGGy年MM月dd日HH時mm分ss.SSS秒 Z",
+		"GGGGy年MM月dd日HH時mm分ss秒 Z",
+		"GGGGy年MM月dd日HH時mm分 Z",
+		"GGGGy年MM月dd日HH時 Z",
+		"GGGGy年MM月dd日HH時mm分ss.SSS秒",
 		"GGGGy年MM月dd日HH時mm分ss秒",
 		"GGGGy年MM月dd日HH時mm分",
 		"GGGGy年MM月dd日HH時",
 		"GGGGy年MM月dd日",
 		"GGGGy年MM月",
 		"GGGGy年",
-		"Gy年MM月dd日HH時mm分ss秒",
-		"Gy年MM月dd日HH時mm分",
-		"Gy年MM月dd日HH時",
-		"Gy年MM月dd日",
-		"Gy年MM月",
-		"Gy年",
-		"GGGGy.MM.dd",
-		"GGGGy.MM",
-		"GGGGy",
-		"Gy.MM.dd",
-		"Gy.MM",
-		"Gy",
 	};
 	
 	private static final Locale LOCALE_JP = Locale.forLanguageTag("ja-JP-u-ca-japanese");
@@ -410,14 +410,17 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (type.equals("all") || type.equals("date")) {
 			boolean all = (method.equals("all") || method.equals("date.all"));
 			
-			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(val, timeZone));
-			if (all || method.equals("date.w3cdtf")) dencode.setEncDateW3CDTF(encDateW3CDTF(val, timeZone));
-			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601Basic(val, timeZone));
-			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ext(encDateISO8601Ext(val, timeZone));
-			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Week(encDateISO8601Week(val, timeZone));
-			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ordinal(encDateISO8601Ordinal(val, timeZone));
-			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(val, timeZone));
-			if (all || method.equals("date.ctime")) dencode.setEncDateCTime(encDateCTime(val, timeZone));
+			Date dateVal = parseDate(val, timeZone);
+			
+			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(dateVal, timeZone));
+			if (all || method.equals("date.w3cdtf")) dencode.setEncDateW3CDTF(encDateW3CDTF(dateVal, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601Basic(dateVal, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ext(encDateISO8601Ext(dateVal, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Week(encDateISO8601Week(dateVal, timeZone));
+			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ordinal(encDateISO8601Ordinal(dateVal, timeZone));
+			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(dateVal, timeZone));
+			if (all || method.equals("date.ctime")) dencode.setEncDateCTime(encDateCTime(dateVal, timeZone));
+			if (all || method.equals("date.japaneseEra")) dencode.setEncDateJapaneseEra(encDateJapaneseEra(dateVal, timeZone));
 		}
 		if (type.equals("all") || type.equals("color")) {
 			boolean all = (method.equals("all") || method.equals("color.all"));
@@ -822,36 +825,35 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 
-	private static String encDateUnixTime(String val, TimeZone timeZone) {
-		Date dateVal = parseDate(val, timeZone);
+	private static String encDateUnixTime(Date dateVal, TimeZone timeZone) {
 		if (dateVal == null) {
 			return null;
 		}
+		
 		return String.valueOf(dateVal.getTime());
 	}
 
-	private static String encDateW3CDTF(String val, TimeZone timeZone) {
-		return encDateISO8601(val, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timeZone);
+	private static String encDateW3CDTF(Date dateVal, TimeZone timeZone) {
+		return encDateISO8601(dateVal, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timeZone);
 	}
 
-	private static String encDateISO8601Basic(String val, TimeZone timeZone) {
-		return encDateISO8601(val, "yyyyMMdd'T'HHmmssXX", "yyyyMMdd'T'HHmmss,SSSXX", timeZone);
+	private static String encDateISO8601Basic(Date dateVal, TimeZone timeZone) {
+		return encDateISO8601(dateVal, "yyyyMMdd'T'HHmmssXX", "yyyyMMdd'T'HHmmss,SSSXX", timeZone);
 	}
 
-	private static String encDateISO8601Ext(String val, TimeZone timeZone) {
-		return encDateISO8601(val, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss,SSSXXX", timeZone);
+	private static String encDateISO8601Ext(Date dateVal, TimeZone timeZone) {
+		return encDateISO8601(dateVal, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss,SSSXXX", timeZone);
 	}
 
-	private static String encDateISO8601Week(String val, TimeZone timeZone) {
-		return encDateISO8601(val, "YYYY-'W'ww-u'T'HH:mm:ssXXX", "YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
+	private static String encDateISO8601Week(Date dateVal, TimeZone timeZone) {
+		return encDateISO8601(dateVal, "YYYY-'W'ww-u'T'HH:mm:ssXXX", "YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
 	}
 
-	private static String encDateISO8601Ordinal(String val, TimeZone timeZone) {
-		return encDateISO8601(val, "yyyy-DDD'T'HH:mm:ssXXX", "yyyy-DDD'T'HH:mm:ss,SSSXXX", timeZone);
+	private static String encDateISO8601Ordinal(Date dateVal, TimeZone timeZone) {
+		return encDateISO8601(dateVal, "yyyy-DDD'T'HH:mm:ssXXX", "yyyy-DDD'T'HH:mm:ss,SSSXXX", timeZone);
 	}
 
-	private static String encDateISO8601(String val, String pattern, String patternWithMsec, TimeZone timeZone) {
-		Date dateVal = parseDate(val, timeZone);
+	private static String encDateISO8601(Date dateVal, String pattern, String patternWithMsec, TimeZone timeZone) {
 		if (dateVal == null) {
 			return null;
 		}
@@ -871,11 +873,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return dateFormat.format(dateVal);
 	}
 
-	private static String encDateRFC2822(String val, TimeZone timeZone) {
-		Date dateVal = parseDate(val, timeZone);
+	private static String encDateRFC2822(Date dateVal, TimeZone timeZone) {
 		if (dateVal == null) {
 			return null;
 		}
+		
 		if (timeZone.getID().equals("UTC")) {
 			timeZone = TimeZone.getTimeZone("GMT");
 		}
@@ -884,11 +886,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return dateFormat.format(dateVal);
 	}
 
-	private static String encDateCTime(String val, TimeZone timeZone) {
-		Date dateVal = parseDate(val, timeZone);
+	private static String encDateCTime(Date dateVal, TimeZone timeZone) {
 		if (dateVal == null) {
 			return null;
 		}
+		
 		if (timeZone.getID().equals("UTC")) {
 			timeZone = TimeZone.getTimeZone("GMT");
 		}
@@ -896,8 +898,27 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		dateFormat.setTimeZone(timeZone);
 		return dateFormat.format(dateVal);
 	}
+
+	private static String encDateJapaneseEra(Date dateVal, TimeZone timeZone) {
+		if (dateVal == null) {
+			return null;
+		}
+		
+		long time = dateVal.getTime();
+		long millisOfSec = time - ((time / 1000) * 1000);
+		
+		String formatPattern = (millisOfSec == 0) ? "GGGGy年MM月dd日HH時mm分ss秒 z" : "GGGGy年MM月dd日HH時mm分ss.SSS秒 z";
+		
+		DateFormat dateFormat = new SimpleDateFormat(formatPattern, LOCALE_JP);
+		dateFormat.setTimeZone(timeZone);
+		return dateFormat.format(dateVal).replaceAll("([^0-9])1年", "$1元年");
+	}
 	
 	private static Date parseDate(String val, TimeZone timeZone) {
+		if (DATE_MAX_LENGTH < val.length()) {
+			return null;
+		}
+		
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		try {
 			return new Date(Long.parseLong(val));

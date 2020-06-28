@@ -67,6 +67,12 @@ public class DateIndexServlet extends AbstractDencodeHttpServlet {
 			useNl = false;
 			hasDecoded = false;
 			break;
+		case "japanese-era":
+			method = "date.japaneseEra";
+			useOe = false;
+			useNl = false;
+			hasDecoded = false;
+			break;
 		default:
 			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;

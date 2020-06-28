@@ -83,6 +83,7 @@ public class DencodeModel {
 	private String encDateISO8601Ordinal;
 	private String encDateRFC2822;
 	private String encDateCTime;
+	private String encDateJapaneseEra;
 	private String encColorName;
 	private String encColorRGBHex3;
 	private String encColorRGBHex6;
@@ -608,6 +609,14 @@ public class DencodeModel {
 
 	public void setEncDateCTime(String encDateCTime) {
 		this.encDateCTime = encDateCTime;
+	}
+
+	public String getEncDateJapaneseEra() {
+		return encDateJapaneseEra;
+	}
+
+	public void setEncDateJapaneseEra(String encDateJapaneseEra) {
+		this.encDateJapaneseEra = encDateJapaneseEra;
 	}
 
 	public String getEncColorName() {
