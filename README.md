@@ -14,7 +14,7 @@ Open shell or command line and execute following commands on the project root di
 Run on local machine:
 
 ```
-./gradlew appengineRun
+./gradlew appRunStage
 ```
 
 Deploy to Google App Engine:

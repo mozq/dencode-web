@@ -8,48 +8,73 @@ buildscript {
   }
 }
 
+plugins {
+  id 'java'
+  id 'java-library'
+  id 'war'
+}
+
+apply plugin: 'com.google.cloud.tools.appengine-appyaml'
+
+
 repositories {
   jcenter()
 }
 
-apply plugin: 'java'
-apply plugin: 'war'
-apply plugin: 'com.google.cloud.tools.appengine'
-
-
 dependencies {
-  providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
-  providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
-  providedCompile 'jstl:jstl:1.2'
+  providedCompile 'org.eclipse.jetty:jetty-server:9.4.30.v20200611'
+  providedCompile 'org.eclipse.jetty:jetty-webapp:9.4.30.v20200611'
+  providedCompile 'org.eclipse.jetty:jetty-util:9.4.30.v20200611'
+  providedCompile 'org.eclipse.jetty:jetty-annotations:9.4.30.v20200611'
+  providedCompile 'org.eclipse.jetty:apache-jsp:9.4.30.v20200611'
   
-  compile 'org.mifmi:mifmi-commons4j:0.2.5'
-  compile 'commons-codec:commons-codec:1.14'
-  compile 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
-  
-  testCompile 'junit:junit:4.12'
+  implementation 'jstl:jstl:1.2'
+  implementation 'org.mifmi:mifmi-commons4j:0.2.5'
+  api 'commons-codec:commons-codec:1.14'
+  api 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
 }
 
-
-appengineRun.dependsOn test
-appengineDeploy.dependsOn test
-appengineStage.dependsOn test
-
 appengine {
-  run {
-    port = 8080
-  }
-
   deploy {
-    projectId = "GCLOUD_CONFIG"
+    projectId = 'GCLOUD_CONFIG'
     version = 'GCLOUD_CONFIG'
     promote = false
     stopPreviousVersion = false
   }
 }
 
+jar {
+  manifest {
+    attributes 'Main-Class': 'com.dencode.web.server.ServerMain'
+  }
+}
+
+task copyJar(type: Copy) {
+  dependsOn jar
+  
+  from project.libsDir
+  include '*.jar'
+  into appengine.stage.stagingDirectory
+}
+
+task copyDependencies(type: Copy) {
+  from configurations.providedCompile
+  into appengine.stage.stagingDirectory
+}
+
+appengineStage.finalizedBy copyJar, copyDependencies
+
+task appRunStage(type: JavaExec) {
+  dependsOn appengineStage
+  
+  environment PORT: 8080
+  workingDir appengine.stage.stagingDirectory
+  classpath "${appengine.stage.stagingDirectory}/*"
+  main = 'com.dencode.web.server.ServerMain'
+}
 
 group = 'com.dencode'
-version = '0.1.0-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
