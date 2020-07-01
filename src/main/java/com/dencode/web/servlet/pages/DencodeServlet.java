@@ -920,8 +920,16 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static Date parseDate(String val, TimeZone timeZone) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
+		
 		if (DATE_MAX_LENGTH < val.length()) {
 			return null;
+		}
+		
+		if (val.equalsIgnoreCase("now")) {
+			return new Date();
 		}
 		
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
