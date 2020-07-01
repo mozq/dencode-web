@@ -291,7 +291,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	};
 	
 	private static final Locale LOCALE_JP = Locale.forLanguageTag("ja-JP-u-ca-japanese");
-
+	
+	private static final int COLOR_MAX_LENGTH = 50;
+	
 	private static final Pattern COLOR_RGB_HEX3_PATTERN = Pattern.compile("^#?([0-9a-f])([0-9a-f])([0-9a-f])([0-9a-f])?$");
 	private static final Pattern COLOR_RGB_HEX6_PATTERN = Pattern.compile("^#?([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])?$");
 	private static final Pattern COLOR_RGB_COMMA_PATTERN = Pattern.compile("^((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)(?:\\s*,\\s*(\\+?[0-9\\.]+))?$");
@@ -340,8 +342,6 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			responseAsJson(500, null);
 			return;
 		}
-		
-		RGBColor rgb = parseColor(val);
 		
 		DencodeModel dencode = new DencodeModel();
 		dencode.setTextLength(getTextLength(val) + textLengthDiff);
@@ -393,14 +393,16 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (type.equals("all") || type.equals("number")) {
 			boolean all = (method.equals("all") || method.equals("number.all"));
 			
+			BigDecimal bigDec = parseNumDec(val);
+			
 			if (all || method.equals("number.bin")) dencode.setEncNumBin(encNumBin(val));
 			if (all || method.equals("number.oct")) dencode.setEncNumOct(encNumOct(val));
 			if (all || method.equals("number.hex")) dencode.setEncNumHex(encNumHex(val));
-			if (all || method.equals("number.english")) dencode.setEncNumEnShortScale(encNumEnShortScale(val, false));
-			if (all || method.equals("number.english")) dencode.setEncNumEnShortScaleFraction(encNumEnShortScale(val, true));
-			if (all || method.equals("number.japanese")) dencode.setEncNumJP(encNumJP(val));
-			if (all || method.equals("number.japanese")) dencode.setEncNumJPDaiji(encNumJPDaiji(val));
-
+			if (all || method.equals("number.english")) dencode.setEncNumEnShortScale(encNumEnShortScale(bigDec, false));
+			if (all || method.equals("number.english")) dencode.setEncNumEnShortScaleFraction(encNumEnShortScale(bigDec, true));
+			if (all || method.equals("number.japanese")) dencode.setEncNumJP(encNumJP(bigDec));
+			if (all || method.equals("number.japanese")) dencode.setEncNumJPDaiji(encNumJPDaiji(bigDec));
+			
 			if (all || method.equals("number.bin")) dencode.setDecNumBin(decNumBin(val));
 			if (all || method.equals("number.oct")) dencode.setDecNumOct(decNumOct(val));
 			if (all || method.equals("number.hex")) dencode.setDecNumHex(decNumHex(val));
@@ -424,6 +426,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 		if (type.equals("all") || type.equals("color")) {
 			boolean all = (method.equals("all") || method.equals("color.all"));
+			
+			RGBColor rgb = parseColor(val);
 			
 			if (all || method.equals("color.name")) dencode.setEncColorName(encColorName(rgb));
 			if (all || method.equals("color.rgb")) dencode.setEncColorRGBHex3(encColorRGBHex3(rgb));
@@ -622,7 +626,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encUpperCase(String val) {
-		if (val == null || val.length() == 0) {
+		if (val == null || val.isEmpty()) {
 			return val;
 		}
 		
@@ -630,7 +634,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encLowerCase(String val) {
-		if (val == null || val.length() == 0) {
+		if (val == null || val.isEmpty()) {
 			return val;
 		}
 		
@@ -758,8 +762,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encNumEnShortScale(String val, boolean fractionDec) {
-		BigDecimal bigDec = parseNumDec(val);
+	private static String encNumEnShortScale(BigDecimal bigDec, boolean fractionDec) {
 		if (bigDec == null) {
 			return null;
 		}
@@ -771,8 +774,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encNumJP(String val) {
-		BigDecimal bigDec = parseNumDec(val);
+	private static String encNumJP(BigDecimal bigDec) {
 		if (bigDec == null) {
 			return null;
 		}
@@ -784,8 +786,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encNumJPDaiji(String val) {
-		BigDecimal bigDec = parseNumDec(val);
+	private static String encNumJPDaiji(BigDecimal bigDec) {
 		if (bigDec == null) {
 			return null;
 		}
@@ -798,6 +799,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static BigDecimal parseNumDec(String val) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
+		
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		val = val.replace(",", "");
 		try {
@@ -1193,7 +1198,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return null;
 		}
 		
-		if (50 < val.length()) {
+		if (COLOR_MAX_LENGTH < val.length()) {
 			return null;
 		}
 		
