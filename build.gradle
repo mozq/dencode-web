@@ -12,6 +12,8 @@ plugins {
   id 'java'
   id 'java-library'
   id 'war'
+  id 'com.eriwen.gradle.css' version '2.14.0'
+  id 'eu.butter.gradle.js' version '2.15.1'
 }
 
 apply plugin: 'com.google.cloud.tools.appengine-appyaml'
@@ -36,10 +38,49 @@ dependencies {
 
 appengine {
   deploy {
-    projectId = 'GCLOUD_CONFIG'
-    version = 'GCLOUD_CONFIG'
-    promote = false
-    stopPreviousVersion = false
+    projectId 'GCLOUD_CONFIG'
+    version 'GCLOUD_CONFIG'
+    promote false
+    stopPreviousVersion false
+  }
+}
+
+combineCss {
+  source "${webAppDirName}/res/css/main.css"
+  dest "${buildDir}/minify/css/all.css"
+}
+
+minifyCss {
+  source combineCss
+  dest "${buildDir}/minify/css/all.min.css"
+}
+
+combineJs {
+  encoding 'UTF-8'
+  source "${webAppDirName}/res/js/analytics.js"
+  source "${webAppDirName}/res/js/core.js"
+  source "${webAppDirName}/res/js/main.js"
+  source "${webAppDirName}/res/js/adsense.js"
+  dest "${buildDir}/minify/js/all.js"
+}
+
+minifyJs {
+  source combineJs
+  dest "${buildDir}/minify/js/all.min.js"
+  sourceMap "${buildDir}/minify/js/all.sourcemap.json"
+}
+
+war {
+  dependsOn minifyCss, minifyJs
+  
+  webInf {
+    from "${buildDir}/minify/css/"
+    into "/res/css/"
+  }
+  
+  webInf {
+    from "${buildDir}/minify/js/"
+    into "/res/js/"
   }
 }
 
@@ -70,7 +111,7 @@ task appRunStage(type: JavaExec) {
   environment PORT: 8080
   workingDir appengine.stage.stagingDirectory
   classpath "${appengine.stage.stagingDirectory}/*"
-  main = 'com.dencode.web.server.ServerMain'
+  main 'com.dencode.web.server.ServerMain'
 }
 
 group = 'com.dencode'

@@ -35,7 +35,7 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/res/img/icons/favicon180px.png" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/all.min.css" />
 	<script>var contextPath = "${pageContext.request.contextPath}";</script>
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
@@ -543,8 +543,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/res/js/core.js"></script>
-<script src="${pageContext.request.contextPath}/res/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/res/js/all.min.js"></script>
 <script>
 	"use strict";
 
@@ -554,123 +553,6 @@
 			"${mf:jsstr(msg['default.error'])}",
 			"${mf:jsstr(msg['default.error.detail'])}"
 			));
-</script>
-<script>
-	"use strict";
-	// Google Analytics
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	
-	ga('create', 'UA-44831029-1', 'dencode.com');
-	ga('send', 'pageview');
-	
-	(function (w, d) {
-		$(d).ready(function () {
-			$(d).on("click", ".popover-toggle.permanent-link", function () {
-				var $this = $(this);
-				if ($this.hasClass("active")) {
-					var method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
-					ga("send", "event", "permanent-link", "show", method);
-				}
-			});
-			
-			$(d).on("click", "#permanentLink .share-link", function () {
-				var $this = $(this);
-				var shareMethod = $this.attr("data-share-method");
-				ga("send", "event", "permanent-link", "share", shareMethod);
-			});
-			
-			$(d).on("click", ".copy-to-clipboard", function () {
-				var $this = $(this);
-				var id = $this.attr("data-copy-id");
-				ga("send", "event", "value", "copy-to-clipboard", id);
-			});
-			
-			$("#vLen").on("click", function () {
-				var $this = $(this);
-				if ($this.hasClass("active")) {
-					ga("send", "event", "v-len", "show");
-				}
-			});
-			
-			$("#follow").on("click", function () {
-				var $this = $(this);
-				if ($this.hasClass("active")) {
-					ga("send", "event", "follow", "turn-on");
-				}
-			});
-			
-			$("#decodedList").find("tr").on("selectrow.dencode", function () {
-				var $row = $(this);
-				var method = $row.attr("data-dencode-method");
-				ga("send", "event", "decoded-list", "select-row", method);
-			});
-			
-			$("#encodedList").find("tr").on("selectrow.dencode", function () {
-				var $row = $(this);
-				var method = $row.attr("data-dencode-method");
-				ga("send", "event", "encoded-list", "select-row", method);
-			});
-		});
-	})(window, document);
-</script>
-<script>
-	"use strict";
-	// Google AdSense
-	(function (w, d) {
-		
-		// Lazy load adsbygoogle.js
-		$(w).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads touchstart.lzads scroll.lzads", function() {
-			$(w).off(".lzads");
-			
-			var s = d.createElement("script");
-			s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-			s.async = true;
-			d.body.appendChild(s);
-		});
-		
-		$(d).ready(function () {
-			var $listRows = $(".dencoded-list").find("tr");
-			
-			// Init Ads
-			$(".adsbygoogle").each(function () {
-				(w.adsbygoogle = w.adsbygoogle || []).push({});
-			});
-			
-			// Show AdMiddle
-			$listRows.on("selectrow.dencode", function () {
-				var $row = $(this);
-				
-				var $window = $(w);
-				var $adBottom = $("#adBottom");
-				if ($adBottom.offset().top > $window.scrollTop() + $window.height()) {
-					// AdBottom is out of display
-					
-					if ($adBottom.children().length) {
-						// Can load Ad
-						
-						// Show AdMiddle
-						var $adMiddle = $("#adMiddle");
-						if ($adMiddle.length) {
-							$adMiddle.detach().insertAfter($row).show();
-						} else {
-							var adMiddleHtml = $("#adMiddleTmpl").html();
-							$row.after(adMiddleHtml);
-							(w.adsbygoogle = w.adsbygoogle || []).push({});
-						}
-					}
-				}
-			});
-
-			// Hide AdMiddle
-			$listRows.on("deselectrow.dencode", function () {
-				var $adMiddle = $("#adMiddle");
-				$adMiddle.hide();
-			});
-		});
-	})(window, document);
 </script>
 </body>
 </html>
