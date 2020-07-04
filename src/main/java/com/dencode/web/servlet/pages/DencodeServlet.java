@@ -42,6 +42,7 @@ import java.util.zip.CRC32;
 import javax.servlet.annotation.WebServlet;
 
 import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.net.QuotedPrintableCodec;
@@ -356,6 +357,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
 			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
 			if (all || method.equals("string.punycode")) dencode.setEncPunycode(encPunycode(valLines));
+			if (all || method.equals("string.base32")) dencode.setEncBase32Encoding(encBase32Encoding(binValue));
 			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue));
 			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
 			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val));
@@ -386,6 +388,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.htmlEscape")) dencode.setDecHTMLEscape(decHTMLEscape(val));
 			if (all || method.equals("string.urlEncoding")) dencode.setDecURLEncoding(decURLEncoding(val, charset));
 			if (all || method.equals("string.punycode")) dencode.setDecPunycode(decPunycode(valLines));
+			if (all || method.equals("string.base32")) dencode.setDecBase32Encoding(decBase32Encoding(val, charset));
 			if (all || method.equals("string.base64")) dencode.setDecBase64Encoding(decBase64Encoding(val, charset));
 			if (all || method.equals("string.quotedPrintable")) dencode.setDecQuotedPrintable(decQuotedPrintable(val, charset));
 			if (all || method.equals("string.unicodeEscape")) dencode.setDecUnicodeEscape(decUnicodeEscape(val));
@@ -565,8 +568,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
+	private static String encBase32Encoding(byte[] binValue) {
+		Base32 base32 = new Base32();
+		return base32.encodeAsString(binValue);
+	}
+	
 	private static String encBase64Encoding(byte[] binValue) {
-		Base64 base64 = new Base64(76);
+		Base64 base64 = new Base64(Base64.MIME_CHUNK_SIZE);
 		return base64.encodeAsString(binValue);
 	}
 	
@@ -1570,12 +1578,34 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
-	private static String decBase64Encoding(String val, String charset) {
-		if (!Base64.isBase64(val)) {
+	private static String decBase32Encoding(String val, String charset) {
+		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
+		
+		Base32 base32 = new Base32();
+		if (!base32.isInAlphabet(bin, true)) {
 			return null;
 		}
+		
 		try {
-			byte[] decodedValue = Base64.decodeBase64(val);
+			byte[] decodedValue = base32.decode(bin);
+			return new String(decodedValue, charset);
+		} catch (IllegalArgumentException e) {
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			return null;
+		}
+	}
+	
+	private static String decBase64Encoding(String val, String charset) {
+		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
+		
+		Base64 base64 = new Base64();
+		if (!base64.isInAlphabet(bin, true)) {
+			return null;
+		}
+		
+		try {
+			byte[] decodedValue = base64.decode(bin);
 			return new String(decodedValue, charset);
 		} catch (IllegalArgumentException e) {
 			return null;

@@ -26,8 +26,8 @@ public class DencodeModel {
 	private String decHTMLEscape;
 	private String decURLEncoding;
 	private String decPunycode;
+	private String decBase32Encoding;
 	private String decBase64Encoding;
-	private String decMIMEEncode;
 	private String decQuotedPrintable;
 	private String decUnicodeEscape;
 	private String decProgramString;
@@ -45,8 +45,8 @@ public class DencodeModel {
 	private String encHTMLEscapeFully;
 	private String encURLEncoding;
 	private String encPunycode;
+	private String encBase32Encoding;
 	private String encBase64Encoding;
-	private String encMIMEEncode;
 	private String encQuotedPrintable;
 	private String encUnicodeEscape;
 	private String encProgramString;
@@ -165,20 +165,20 @@ public class DencodeModel {
 		this.decPunycode = decPunycode;
 	}
 
+	public String getDecBase32Encoding() {
+		return decBase32Encoding;
+	}
+
+	public void setDecBase32Encoding(String decBase32Encoding) {
+		this.decBase32Encoding = decBase32Encoding;
+	}
+
 	public String getDecBase64Encoding() {
 		return decBase64Encoding;
 	}
 
 	public void setDecBase64Encoding(String decBase64Encoding) {
 		this.decBase64Encoding = decBase64Encoding;
-	}
-
-	public String getDecMIMEEncode() {
-		return decMIMEEncode;
-	}
-
-	public void setDecMIMEEncode(String decMIMEEncode) {
-		this.decMIMEEncode = decMIMEEncode;
 	}
 
 	public String getDecQuotedPrintable() {
@@ -309,20 +309,20 @@ public class DencodeModel {
 		this.encPunycode = encPunycode;
 	}
 
+	public String getEncBase32Encoding() {
+		return encBase32Encoding;
+	}
+
+	public void setEncBase32Encoding(String encBase32Encoding) {
+		this.encBase32Encoding = encBase32Encoding;
+	}
+
 	public String getEncBase64Encoding() {
 		return encBase64Encoding;
 	}
 
 	public void setEncBase64Encoding(String encBase64Encoding) {
 		this.encBase64Encoding = encBase64Encoding;
-	}
-
-	public String getEncMIMEEncode() {
-		return encMIMEEncode;
-	}
-
-	public void setEncMIMEEncode(String encMIMEEncode) {
-		this.encMIMEEncode = encMIMEEncode;
 	}
 
 	public String getEncQuotedPrintable() {
