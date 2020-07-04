@@ -53,6 +53,12 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			method = "string.urlEncoding";
 			useTz = false;
 			break;
+		case "punycode":
+			method = "string.punycode";
+			useOe = false;
+			useNl = false;
+			useTz = false;
+			break;
 		case "base64":
 			method = "string.base64";
 			useTz = false;

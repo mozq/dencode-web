@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.net.IDN;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -354,6 +355,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
 			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
+			if (all || method.equals("string.punycode")) dencode.setEncPunycode(encPunycode(valLines));
 			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue));
 			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
 			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val));
@@ -383,6 +385,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.hex")) dencode.setDecHex(decHex(val, charset));
 			if (all || method.equals("string.htmlEscape")) dencode.setDecHTMLEscape(decHTMLEscape(val));
 			if (all || method.equals("string.urlEncoding")) dencode.setDecURLEncoding(decURLEncoding(val, charset));
+			if (all || method.equals("string.punycode")) dencode.setDecPunycode(decPunycode(valLines));
 			if (all || method.equals("string.base64")) dencode.setDecBase64Encoding(decBase64Encoding(val, charset));
 			if (all || method.equals("string.quotedPrintable")) dencode.setDecQuotedPrintable(decQuotedPrintable(val, charset));
 			if (all || method.equals("string.unicodeEscape")) dencode.setDecUnicodeEscape(decUnicodeEscape(val));
@@ -552,6 +555,14 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			encodedURL = encodedURL.replace("+", "%20");
 		}
 		return encodedURL;
+	}
+	
+	private static String encPunycode(String[] vals) {
+		String[] decVals = new String[vals.length];
+		for (int i = 0; i < vals.length; i++) {
+			decVals[i] = IDN.toASCII(vals[i], IDN.ALLOW_UNASSIGNED);
+		}
+		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
 	private static String encBase64Encoding(byte[] binValue) {
@@ -1549,6 +1560,14 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		} catch (DecoderException e) {
 			return null;
 		}
+	}
+	
+	private static String decPunycode(String[] vals) {
+		String[] decVals = new String[vals.length];
+		for (int i = 0; i < vals.length; i++) {
+			decVals[i] = IDN.toUnicode(vals[i], IDN.ALLOW_UNASSIGNED);
+		}
+		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
 	private static String decBase64Encoding(String val, String charset) {

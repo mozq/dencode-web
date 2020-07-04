@@ -25,6 +25,7 @@ public class DencodeModel {
 	private String decHex;
 	private String decHTMLEscape;
 	private String decURLEncoding;
+	private String decPunycode;
 	private String decBase64Encoding;
 	private String decMIMEEncode;
 	private String decQuotedPrintable;
@@ -43,6 +44,7 @@ public class DencodeModel {
 	private String encHTMLEscape;
 	private String encHTMLEscapeFully;
 	private String encURLEncoding;
+	private String encPunycode;
 	private String encBase64Encoding;
 	private String encMIMEEncode;
 	private String encQuotedPrintable;
@@ -153,6 +155,14 @@ public class DencodeModel {
 
 	public void setDecURLEncoding(String decURLEncoding) {
 		this.decURLEncoding = decURLEncoding;
+	}
+
+	public String getDecPunycode() {
+		return decPunycode;
+	}
+
+	public void setDecPunycode(String decPunycode) {
+		this.decPunycode = decPunycode;
 	}
 
 	public String getDecBase64Encoding() {
@@ -289,6 +299,14 @@ public class DencodeModel {
 
 	public void setEncURLEncoding(String encURLEncoding) {
 		this.encURLEncoding = encURLEncoding;
+	}
+
+	public String getEncPunycode() {
+		return encPunycode;
+	}
+
+	public void setEncPunycode(String encPunycode) {
+		this.encPunycode = encPunycode;
 	}
 
 	public String getEncBase64Encoding() {
