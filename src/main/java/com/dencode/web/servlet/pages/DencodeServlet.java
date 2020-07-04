@@ -561,11 +561,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String encPunycode(String[] vals) {
-		String[] decVals = new String[vals.length];
-		for (int i = 0; i < vals.length; i++) {
-			decVals[i] = IDN.toASCII(vals[i], IDN.ALLOW_UNASSIGNED);
+		try {
+			String[] decVals = new String[vals.length];
+			for (int i = 0; i < vals.length; i++) {
+				decVals[i] = IDN.toASCII(vals[i], IDN.ALLOW_UNASSIGNED);
+			}
+			return StringUtilz.join("\r\n", (Object[])decVals);
+		} catch (IllegalArgumentException e) {
+			return null;
 		}
-		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
 	private static String encBase32Encoding(byte[] binValue) {
