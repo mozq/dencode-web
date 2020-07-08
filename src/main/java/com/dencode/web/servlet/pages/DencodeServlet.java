@@ -16,11 +16,11 @@
  */
 package com.dencode.web.servlet.pages;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.IDN;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -59,6 +59,7 @@ import org.mifmi.commons4j.util.StringUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
 import org.mifmi.commons4j.web.util.HTMLUtilz;
 
+import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.model.DencodeModel;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
@@ -313,7 +314,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String type = reqres().param("t", "all");
 		String method = reqres().param("m", "all");
 		String val = reqres().param("v", "");
-		String oe = reqres().param("oe", "utf8");
+		String oe = CommonLogic.mapShortCharsetName(reqres().param("oe", "UTF-8"));
 		String nl = reqres().param("nl", "crlf");
 		String tz = reqres().param("tz", "UTC");
 		
@@ -336,14 +337,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		TimeZone timeZone = TimeZone.getTimeZone(tz);
 		
-		String charset = toCharset(oe);
-		byte[] binValue;
-		try {
-			binValue = val.getBytes(charset);
-		} catch (UnsupportedEncodingException e) {
-			responseAsJson(500, null);
-			return;
-		}
+		Charset charset = Charset.forName(toCharsetName(oe));
+		
+		byte[] binValue = val.getBytes(charset);
 		
 		DencodeModel dencode = new DencodeModel();
 		dencode.setTextLength(getTextLength(val) + textLengthDiff);
@@ -460,78 +456,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		responseAsJson(dencode);
 	}
 
-	private static String toCharset(String oe) {
+	private static String toCharsetName(String oe) {
 		if (oe == null) {
 			return "UTF-8";
 		}
-		if (oe.equals("utf8")) {
-			return "UTF-8";
-		} else if (oe.equals("utf16")) {
-			return "UTF-16BE";
-		} else if (oe.equals("utf32")) {
-			return "UTF-32BE";
-		} else if (oe.equals("eucjp")) {
-			return "EUC-JP";
-		} else if (oe.equals("sjis")) {
-			return "MS932";
-		} else if (oe.equals("iso2022jp")) {
-			return "ISO-2022-JP";
-		} else if (oe.equals("iso88591")) {
-			return "ISO-8859-1";
-		} else if (oe.equals("iso88592")) {
-			return "ISO-8859-2";
-		} else if (oe.equals("iso88594")) {
-			return "ISO-8859-4";
-		} else if (oe.equals("iso88595")) {
-			return "ISO-8859-5";
-		} else if (oe.equals("iso88596")) {
-			return "ISO-8859-6";
-		} else if (oe.equals("iso88597")) {
-			return "ISO-8859-7";
-		} else if (oe.equals("iso88598")) {
-			return "ISO-8859-8";
-		} else if (oe.equals("iso88599")) {
-			return "ISO-8859-9";
-		} else if (oe.equals("iso885913")) {
-			return "ISO-8859-13";
-		} else if (oe.equals("iso885915")) {
-			return "ISO-8859-15";
-		} else if (oe.equals("cp874")) {
-			return "x-IBM874";
-		} else if (oe.equals("cp1250")) {
-			return "windows-1250";
-		} else if (oe.equals("cp1251")) {
-			return "windows-1251";
-		} else if (oe.equals("cp1253")) {
-			return "windows-1253";
-		} else if (oe.equals("cp1254")) {
-			return "windows-1254";
-		} else if (oe.equals("cp1255")) {
-			return "windows-1255";
-		} else if (oe.equals("cp1256")) {
-			return "windows-1256";
-		} else if (oe.equals("cp1257")) {
-			return "windows-1257";
-		} else if (oe.equals("cp1258")) {
-			return "windows-1258";
-		} else if (oe.equals("koi8r")) {
-			return "KOI8-R";
-		} else if (oe.equals("koi8u")) {
-			return "KOI8-U";
-		} else if (oe.equals("big5hkscs")) {
-			return "Big5-HKSCS";
-		} else if (oe.equals("euccn")) {
-			return "GB2312";
-		} else if (oe.equals("gb18030")) {
-			return "GB18030";
-		} else if (oe.equals("euckr")) {
-			return "EUC-KR";
-		} else if (oe.equals("iso2022kr")) {
-			return "ISO-2022-KR";
-		} else if (oe.equals("tis620")) {
-			return "TIS-620";
-		} else {
-			return "UTF-8";
+		
+		switch (oe) {
+			case "Shift_JIS": return "windows-31j";
+			case "windows-874": return "x-windows-874";
+			default: return oe;
 		}
 	}
 
@@ -1446,7 +1379,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	
-	private static String decBin(String val, String charset) {
+	private static String decBin(String val, Charset charset) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -1509,12 +1442,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			}
 		} catch (NumberFormatException e) {
 			return null;
-		} catch (UnsupportedEncodingException e) {
-			return null;
 		}
 	}
 	
-	private static String decHex(String val, String charset) {
+	private static String decHex(String val, Charset charset) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -1551,8 +1482,6 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			}
 		} catch (NumberFormatException e) {
 			return null;
-		} catch (UnsupportedEncodingException e) {
-			return null;
 		}
 	}
 	
@@ -1560,15 +1489,17 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return HTMLUtilz.unescapeHTML5(val);
 	}
 	
-	private static String decURLEncoding(String val, String charset) {
+	private static String decURLEncoding(String val, Charset charset) {
 		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}
+		
+		byte[] bin = val.getBytes(StandardCharsets.US_ASCII);
+		
 		URLCodec urlCodec = new URLCodec();
 		try {
-			return urlCodec.decode(val, charset);
-		} catch (UnsupportedEncodingException e) {
-			return null;
+			byte[] decodedValue = urlCodec.decode(bin);
+			return new String(decodedValue, charset);
 		} catch (DecoderException e) {
 			return null;
 		}
@@ -1582,7 +1513,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
-	private static String decBase32Encoding(String val, String charset) {
+	private static String decBase32Encoding(String val, Charset charset) {
 		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
 		
 		Base32 base32 = new Base32();
@@ -1595,12 +1526,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return new String(decodedValue, charset);
 		} catch (IllegalArgumentException e) {
 			return null;
-		} catch (UnsupportedEncodingException e) {
-			return null;
 		}
 	}
 	
-	private static String decBase64Encoding(String val, String charset) {
+	private static String decBase64Encoding(String val, Charset charset) {
 		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
 		
 		Base64 base64 = new Base64();
@@ -1613,21 +1542,18 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return new String(decodedValue, charset);
 		} catch (IllegalArgumentException e) {
 			return null;
-		} catch (UnsupportedEncodingException e) {
-			return null;
 		}
 	}
 	
-	private static String decQuotedPrintable(String val, String charset) {
+	private static String decQuotedPrintable(String val, Charset charset) {
 		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}
+		
+		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
 		try {
-			QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
 			return quotedPrintableCodec.decode(val, charset);
 		} catch (DecoderException e) {
-			return null;
-		} catch (UnsupportedEncodingException e) {
 			return null;
 		}
 	}

@@ -208,58 +208,60 @@
 				</div>
 			</form>
 			<div id="oeGroup" class="btn-group btn-group-xs" data-enable="${(useOe) ? 'true' : 'false'}" style="display: none;">
-				<button class="btn ${(oe eq 'utf8') ? 'active' : ''}" data-oe="utf8" data-oe-iana="UTF-8">UTF-8</button>
-				<button class="btn ${(oe eq 'utf16') ? 'active' : ''}" data-oe="utf16" data-oe-iana="UTF-16">UTF-16</button>
-				<button class="btn ${(oe eq 'utf32') ? 'active' : ''}" data-oe="utf32" data-oe-iana="UTF-32">UTF-32</button>
+				<button class="btn ${(oe eq 'UTF-8') ? 'active' : ''}" data-oe="UTF-8">UTF-8</button>
+				<button class="btn ${(oe eq 'UTF-16BE') ? 'active' : ''}" data-oe="UTF-16BE">UTF-16</button>
+				<button class="btn ${(oe eq 'UTF-32BE') ? 'active' : ''}" data-oe="UTF-32BE">UTF-32</button>
 				<div class="btn-group btn-group-xs">
-					<button id="oex" class="btn ${(oe eq oex) ? 'active' : ''}" data-oe="" data-oe-iana=""></button>
+					<button id="oex" class="btn ${(oe eq oex) ? 'active' : ''}" data-oe=""></button>
 					<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>
 					<ul id="oexMenu" class="dropdown-menu" role="menu">
-						<li class="${(oex eq 'iso88591') ? 'active' : ''}" data-oe="iso88591" data-oe-iana="ISO-8859-1">ISO-8859-1 (Latin-1)</li>
-						<li class="${(oex eq 'iso885915') ? 'active' : ''}" data-oe="iso885915" data-oe-iana="ISO-8859-15">ISO-8859-15 (Latin-9)</li>
-						<li class="${(oex eq 'cp1252') ? 'active' : ''}" data-oe="cp1252" data-oe-iana="windows-1252">Windows-1252</li>
+						<li class="${(oex eq 'ISO-8859-1') ? 'active' : ''}" data-oe="ISO-8859-1">ISO-8859-1 (Latin-1)</li>
+						<li class="${(oex eq 'ISO-8859-15') ? 'active' : ''}" data-oe="ISO-8859-15">ISO-8859-15 (Latin-9)</li>
+						<li class="${(oex eq 'windows-1252') ? 'active' : ''}" data-oe="windows-1252">Windows-1252</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88592') ? 'active' : ''}" data-oe="iso88592" data-oe-iana="ISO-8859-2">ISO-8859-2 (Latin-2)</li>
-						<li class="${(oex eq 'cp1250') ? 'active' : ''}" data-oe="cp1250" data-oe-iana="windows-1250">Windows-1250</li>
+						<li class="${(oex eq 'ISO-8859-2') ? 'active' : ''}" data-oe="ISO-8859-2">ISO-8859-2 (Latin-2)</li>
+						<li class="${(oex eq 'windows-1250') ? 'active' : ''}" data-oe="windows-1250">Windows-1250</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88594') ? 'active' : ''}" data-oe="iso88594" data-oe-iana="ISO-8859-4">ISO-8859-4 (Latin-4)</li>
-						<li class="${(oex eq 'iso885913') ? 'active' : ''}" data-oe="iso885913" data-oe-iana="ISO-8859-13">ISO-8859-13 (Latin-7)</li>
-						<li class="${(oex eq 'cp1257') ? 'active' : ''}" data-oe="cp1257" data-oe-iana="windows-1257">Windows-1257</li>
+						<li class="${(oex eq 'ISO-8859-3') ? 'active' : ''}" data-oe="ISO-8859-3">ISO-8859-3 (Latin-3)</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'sjis') ? 'active' : ''}" data-oe="sjis" data-oe-iana="Shift_JIS">Shift_JIS</li>
-						<li class="${(oex eq 'eucjp') ? 'active' : ''}" data-oe="eucjp" data-oe-iana="EUC-JP">EUC-JP</li>
-						<li class="${(oex eq 'iso2022jp') ? 'active' : ''}" data-oe="iso2022jp" data-oe-iana="ISO-2022-JP">ISO-2022-JP (JIS)</li>
+						<li class="${(oex eq 'ISO-8859-4') ? 'active' : ''}" data-oe="ISO-8859-4">ISO-8859-4 (Latin-4)</li>
+						<li class="${(oex eq 'ISO-8859-13') ? 'active' : ''}" data-oe="ISO-8859-13">ISO-8859-13 (Latin-7)</li>
+						<li class="${(oex eq 'windows-1257') ? 'active' : ''}" data-oe="windows-1257">Windows-1257</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'gb18030') ? 'active' : ''}" data-oe="gb18030" data-oe-iana="GB18030">GB18030</li>
-						<li class="${(oex eq 'euccn') ? 'active' : ''}" data-oe="euccn" data-oe-iana="GB2312">EUC-CN (GB2312)</li>
-						<li class="${(oex eq 'big5hkscs') ? 'active' : ''}" data-oe="big5hkscs" data-oe-iana="Big5-HKSCS">Big5-HKSCS</li>
+						<li class="${(oex eq 'Shift_JIS') ? 'active' : ''}" data-oe="Shift_JIS">Shift_JIS</li>
+						<li class="${(oex eq 'EUC-JP') ? 'active' : ''}" data-oe="EUC-JP">EUC-JP</li>
+						<li class="${(oex eq 'ISO-2022-JP') ? 'active' : ''}" data-oe="ISO-2022-JP">ISO-2022-JP (JIS)</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'euckr') ? 'active' : ''}" data-oe="euckr" data-oe-iana="EUC-KR">EUC-KR (KS C 5601)</li>
-						<li class="${(oex eq 'iso2022kr') ? 'active' : ''}" data-oe="iso2022kr" data-oe-iana="ISO-2022-KR">ISO-2022-KR</li>
+						<li class="${(oex eq 'GB2312') ? 'active' : ''}" data-oe="GB2312">GB2312 (EUC-CN)</li>
+						<li class="${(oex eq 'GB18030') ? 'active' : ''}" data-oe="GB18030">GB18030</li>
+						<li class="${(oex eq 'Big5-HKSCS') ? 'active' : ''}" data-oe="Big5-HKSCS">Big5-HKSCS</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88595') ? 'active' : ''}" data-oe="iso88595" data-oe-iana="ISO-8859-5">ISO-8859-5</li>
-						<li class="${(oex eq 'cp1251') ? 'active' : ''}" data-oe="cp1251" data-oe-iana="windows-1251">Windows-1251</li>
-						<li class="${(oex eq 'koi8r') ? 'active' : ''}" data-oe="koi8r" data-oe-iana="KOI8-R">KOI8-R</li>
-						<li class="${(oex eq 'koi8u') ? 'active' : ''}" data-oe="koi8u" data-oe-iana="KOI8-U">KOI8-U</li>
+						<li class="${(oex eq 'EUC-KR') ? 'active' : ''}" data-oe="EUC-KR">EUC-KR (KS X 1001)</li>
+						<li class="${(oex eq 'ISO-2022-KR') ? 'active' : ''}" data-oe="ISO-2022-KR">ISO-2022-KR</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88596') ? 'active' : ''}" data-oe="iso88596" data-oe-iana="ISO-8859-6">ISO-8859-6</li>
-						<li class="${(oex eq 'cp1256') ? 'active' : ''}" data-oe="cp1256" data-oe-iana="windows-1256">Windows-1256</li>
+						<li class="${(oex eq 'ISO-8859-5') ? 'active' : ''}" data-oe="ISO-8859-5">ISO-8859-5</li>
+						<li class="${(oex eq 'windows-1251') ? 'active' : ''}" data-oe="windows-1251">Windows-1251</li>
+						<li class="${(oex eq 'KOI8-R') ? 'active' : ''}" data-oe="KOI8-R">KOI8-R</li>
+						<li class="${(oex eq 'KOI8-U') ? 'active' : ''}" data-oe="KOI8-U">KOI8-U</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88597') ? 'active' : ''}" data-oe="iso88597" data-oe-iana="ISO-8859-7">ISO-8859-7</li>
-						<li class="${(oex eq 'cp1253') ? 'active' : ''}" data-oe="cp1253" data-oe-iana="windows-1253">Windows-1253</li>
+						<li class="${(oex eq 'ISO-8859-6') ? 'active' : ''}" data-oe="ISO-8859-6">ISO-8859-6</li>
+						<li class="${(oex eq 'windows-1256') ? 'active' : ''}" data-oe="windows-1256">Windows-1256</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88598') ? 'active' : ''}" data-oe="iso88598" data-oe-iana="ISO-8859-8">ISO-8859-8</li>
-						<li class="${(oex eq 'cp1255') ? 'active' : ''}" data-oe="cp1255" data-oe-iana="windows-1255">Windows-1255</li>
+						<li class="${(oex eq 'ISO-8859-7') ? 'active' : ''}" data-oe="ISO-8859-7">ISO-8859-7</li>
+						<li class="${(oex eq 'windows-1253') ? 'active' : ''}" data-oe="windows-1253">Windows-1253</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'iso88599') ? 'active' : ''}" data-oe="iso88599" data-oe-iana="ISO-8859-9">ISO-8859-9</li>
-						<li class="${(oex eq 'cp1254') ? 'active' : ''}" data-oe="cp1254" data-oe-iana="windows-1254">Windows-1254</li>
+						<li class="${(oex eq 'ISO-8859-8') ? 'active' : ''}" data-oe="ISO-8859-8">ISO-8859-8</li>
+						<li class="${(oex eq 'windows-1255') ? 'active' : ''}" data-oe="windows-1255">Windows-1255</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'tis620') ? 'active' : ''}" data-oe="tis620" data-oe-iana="TIS-620">TIS-620</li>
-						<li class="${(oex eq 'cp874') ? 'active' : ''}" data-oe="cp874" data-oe-iana="windows-874">Windows-874</li>
+						<li class="${(oex eq 'ISO-8859-9') ? 'active' : ''}" data-oe="ISO-8859-9">ISO-8859-9 (Latin-5)</li>
+						<li class="${(oex eq 'windows-1254') ? 'active' : ''}" data-oe="windows-1254">Windows-1254</li>
 						<li class="divider"></li>
-						<li class="${(oex eq 'cp1258') ? 'active' : ''}" data-oe="cp1258" data-oe-iana="windows-1258">Windows-1258</li>
+						<li class="${(oex eq 'TIS-620') ? 'active' : ''}" data-oe="TIS-620">TIS-620</li>
+						<li class="${(oex eq 'windows-874') ? 'active' : ''}" data-oe="windows-874">Windows-874</li>
+						<li class="divider"></li>
+						<li class="${(oex eq 'windows-1258') ? 'active' : ''}" data-oe="windows-1258">Windows-1258</li>
 					</ul>
 				</div>
 			</div>

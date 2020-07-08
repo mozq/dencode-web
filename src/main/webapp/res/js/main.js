@@ -74,14 +74,14 @@ $(document).ready(function () {
 	
 	if (window.File) {
 		$document.on("drop", function (ev) {
-			var oeIana = $oeGroupBtns.filter(".active").data("oe-iana");
+			var encoding = $oeGroupBtns.filter(".active").data("oe");
 			
 			var file = ev.originalEvent.dataTransfer.files[0];
 			var reader = new FileReader();
 			reader.onload = function (ev) {
 				$v.text(ev.target.result);
 			};
-			reader.readAsText(file, oeIana);
+			reader.readAsText(file, encoding);
 			
 			return false;
 		});

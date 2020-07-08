@@ -28,6 +28,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.mifmi.commons4j.util.DateUtilz;
 
+import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
 @WebServlet("/index")
@@ -37,8 +38,8 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	@Override
 	protected void doGet() throws Exception {
 		String v = reqres().param("v", "");
-		String oe = reqres().param("oe", reqres().cookie("oe", "utf8"));
-		String oex = (!oe.startsWith("utf")) ? oe : reqres().cookie("oex", message("oe.ext.default"));
+		String oe = CommonLogic.mapShortCharsetName(reqres().param("oe", reqres().cookie("oe", "UTF-8")));
+		String oex = (!oe.startsWith("UTF")) ? oe : reqres().cookie("oex", message("oe.ext.default"));
 		String nl = reqres().param("nl", reqres().cookie("nl", ""));
 		String tz = reqres().param("tz", reqres().cookie("tz", null));
 		if (tz == null) {
