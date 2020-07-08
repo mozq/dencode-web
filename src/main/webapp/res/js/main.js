@@ -1,15 +1,15 @@
 "use strict";
 
-var _lengthTmpl = Hogan.compile($("#lengthTmpl").html());
-var _permanentLinkTmpl = Hogan.compile($("#permanentLinkTmpl").html());
-var _forCopyTmpl = Hogan.compile($("#forCopyTmpl").html());
-
 $(document).ready(function () {
 	var _inProc = false;
 	var _v = null;
 	var _oe = null;
 	var _nl = null;
 	var _tz = null;
+	
+	var _lengthTmpl = null;
+	var _permanentLinkTmpl = null;
+	var _forCopyTmpl = null;
 	
 	var $window = $(window);
 	var $document = $(document);
@@ -135,7 +135,7 @@ $(document).ready(function () {
 					},
 					content: function () {
 						var permanentLink = getPermanentLink(method);
-						return _permanentLinkTmpl.render({
+						return getPermanentLinkTmpl().render({
 							permanentLink: permanentLink,
 							permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
 						});
@@ -316,7 +316,7 @@ $(document).ready(function () {
 		var id = $forDisp.attr("id");
 		var val = $forDisp.text();
 		
-		var forCopyHtml = _forCopyTmpl.render({
+		var forCopyHtml = getForCopyTmpl().render({
 			id: id,
 			value: val
 		});
@@ -361,7 +361,7 @@ $(document).ready(function () {
 		content: function () {
 			var chars = Number($vLen.data("len-chars"));
 			var bytes = Number($vLen.data("len-bytes"));
-			return _lengthTmpl.render({
+			return getLengthTmpl().render({
 				chars: chars,
 				oneChar: (chars == 1),
 				bytes: bytes,
@@ -535,6 +535,28 @@ $(document).ready(function () {
 		
 		return url;
 	}
+	
+	function getLengthTmpl() {
+		if (_lengthTmpl === null) {
+			_lengthTmpl = Hogan.compile($("#lengthTmpl").html());
+		}
+		return _lengthTmpl;
+	}
+	
+	function getPermanentLinkTmpl() {
+		if (_permanentLinkTmpl === null) {
+			_permanentLinkTmpl = Hogan.compile($("#permanentLinkTmpl").html());
+		}
+		return _permanentLinkTmpl;
+	}
+	
+	function getForCopyTmpl() {
+		if (_forCopyTmpl === null) {
+			_forCopyTmpl = Hogan.compile($("#forCopyTmpl").html());
+		}
+		return _forCopyTmpl;
+	}
+	
 });
 
 
