@@ -457,15 +457,20 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 
 	private static String toCharsetName(String oe) {
-		if (oe == null) {
+		if (oe == null || oe.isEmpty()) {
 			return "UTF-8";
 		}
 		
 		switch (oe) {
 			case "Shift_JIS": return "windows-31j";
 			case "windows-874": return "x-windows-874";
-			default: return oe;
 		}
+		
+		if (!Charset.isSupported(oe)) {
+			return "UTF-8";
+		}
+		
+		return oe;
 	}
 
 	private static int getTextLength(String val) {
