@@ -6,6 +6,7 @@ $(document).ready(function () {
 	var _oe = null;
 	var _nl = null;
 	var _tz = null;
+	var _options = null;
 	
 	var _lengthTmpl = null;
 	var _permanentLinkTmpl = null;
@@ -35,6 +36,8 @@ $(document).ready(function () {
 	var $decIndicator = $("#decodingIndicator");
 	var $encIndicator = $("#encodingIndicator");
 	var $listRows = $(".dencoded-list").find("tr");
+	var $optionGroups = $(".dencode-option-group");
+	var $options = $(".dencode-option");
 	var $otherDencodeLinks = $(".other-dencode-link");
 	
 	var hash = location.hash;
@@ -307,6 +310,12 @@ $(document).ready(function () {
 		}
 	});
 	
+	$optionGroups.on("click", false);
+	
+	$options.on("change", function () {
+		dencode();
+	});
+	
 	$listRows.on("selectrow.dencode", function () {
 		var $row = $(this);
 		
@@ -397,7 +406,8 @@ $(document).ready(function () {
 		var oex = $oexMenuItems.filter(".active").data("oe");
 		var nl = $nlGroupBtns.filter(".active").data("nl");
 		var tz = $tz.val();
-
+		var options = $options.serializeArray();
+		
 		if (!type) {
 			type = "all";
 		}
@@ -407,7 +417,18 @@ $(document).ready(function () {
 		}
 		
 		if (v === _v && oe === _oe && nl === _nl && tz === _tz) {
-			return;
+			if (_options !== null) {
+				var matched = true;
+				for (var i = 0; i < options.length; i++) {
+					if (_options[i].value !== options[i].value) {
+						matched = false;
+						break;
+					}
+				}
+				if (matched) {
+					return;
+				}
+			}
 		}
 		
 		var len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
@@ -427,6 +448,7 @@ $(document).ready(function () {
 		_oe = oe;
 		_nl = nl;
 		_tz = tz;
+		_options = options;
 		
 		
 		$decIndicator.show();
@@ -440,6 +462,10 @@ $(document).ready(function () {
 				nl: nl,
 				tz: tz
 			};
+		options.forEach(function (option) {
+			ajaxDencodeSettings.data[option.name] = option.value;
+		});
+		
 		$.ajax(ajaxDencodeSettings);
 	}
 

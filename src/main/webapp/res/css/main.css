@@ -248,7 +248,6 @@ table.dencoded-list tr.active td .for-disp {
 	display: none !important;
 }
 
-
 table.dencoded-list td .for-copy {
 	display: none;
 }
@@ -276,6 +275,14 @@ table.dencoded-list td .for-copy .input-group-addon {
 
 table.dencoded-list td .for-copy .input-group-addon .btn {
 	height: 2.5em;
+}
+
+table.dencoded-list tr .dencode-option-group {
+	display: none;
+}
+
+table.dencoded-list tr.active .dencode-option-group {
+	display: inline;
 }
 
 #linkURL {

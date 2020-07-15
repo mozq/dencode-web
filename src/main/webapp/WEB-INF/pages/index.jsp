@@ -332,8 +332,33 @@
 				<table id="encodedList" class="dencoded-list">
 					<c:if test="${type eq 'all' or type eq 'string'}">
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.encBin'])}</th><td><span id="encBin" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.encHex'])}</th><td><span id="encHex" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.encBin'])}</th><td><span id="encBin" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encStrBin.option.separator'])}</span>
+											<select name="encStrBinSeparatorEach" class="dencode-option form-control">
+												<option value="">${mf:h(msg['label.encStrBin.option.separator.each.none'])}</option>
+												<option value="4b">${mf:h(msg['label.encStrBin.option.separator.each.4bits'])}</option>
+												<option value="8b">${mf:h(msg['label.encStrBin.option.separator.each.8bits'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.encHex'])}</th><td><span id="encHex" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encStrHex.option.separator'])}</span>
+											<select name="encStrHexSeparatorEach" class="dencode-option form-control">
+												<option value="">${mf:h(msg['label.encStrHex.option.separator.each.none'])}</option>
+												<option value="1B">${mf:h(msg['label.encStrHex.option.separator.each.1byte'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.htmlEscape'}"><tr data-dencode-method="string.htmlEscape"><th>${mf:h(msg['label.encHTMLEscape'])}</th><td><span id="encHTMLEscape" class="for-disp"></span></td></tr></c:if>
@@ -341,7 +366,20 @@
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.urlEncoding'}"><tr data-dencode-method="string.urlEncoding"><th>${mf:h(msg['label.encURLEncoding'])}</th><td><span id="encURLEncoding" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.punycode'}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.encPunycode'])}</th><td><span id="encPunycode" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base32'}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.encBase32Encoding'])}</th><td><span id="encBase32Encoding" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encBase64Encoding'])}</th><td><span id="encBase64Encoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encBase64Encoding'])}</th><td><span id="encBase64Encoding" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encStrBase64.option.lineBreak'])}</span>
+											<select name="encStrBase64LineBreakEach" class="dencode-option form-control">
+												<option value="">${mf:h(msg['label.encStrBase64.option.lineBreak.each.none'])}</option>
+												<option value="64">${mf:h(msg['label.encStrBase64.option.lineBreak.each.64'])}</option>
+												<option value="76">${mf:h(msg['label.encStrBase64.option.lineBreak.each.76'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quotedPrintable'}"><tr data-dencode-method="string.quotedPrintable"><th>${mf:h(msg['label.encQuotedPrintable'])}</th><td><span id="encQuotedPrintable" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicodeEscape'}"><tr data-dencode-method="string.unicodeEscape"><th>${mf:h(msg['label.encUnicodeEscape'])}</th><td><span id="encUnicodeEscape" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.programString'}"><tr data-dencode-method="string.programString"><th>${mf:h(msg['label.encProgramString'])}</th><td><span id="encProgramString" class="for-disp"></span></td></tr></c:if>

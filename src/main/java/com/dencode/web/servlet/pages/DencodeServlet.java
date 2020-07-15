@@ -66,6 +66,8 @@ import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 @WebServlet("/dencode")
 public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
 	private static final Pattern WHITESPACE_CHARS_PATTERN = Pattern.compile("\\s+");
 	
@@ -318,6 +320,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String nl = reqres().param("nl", "crlf");
 		String tz = reqres().param("tz", "UTC");
 		
+		String encStrBinSeparatorEach = reqres().param("encStrBinSeparatorEach", "");
+		String encStrHexSeparatorEach = reqres().param("encStrHexSeparatorEach", "");
+		String encStrBase64LineBreakEach = reqres().param("encStrBase64LineBreakEach", "");
+		
 		String[] valLines = StringUtilz.split(val, new String[] {"\r\n", "\r", "\n"});
 		
 		String lineBreak;
@@ -347,14 +353,14 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (type.equals("all") || type.equals("string")) {
 			boolean all = (method.equals("all") || method.equals("string.all"));
 			
-			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue));
-			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue));
+			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue, encStrBinSeparatorEach));
+			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue, encStrHexSeparatorEach));
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
 			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
 			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
 			if (all || method.equals("string.punycode")) dencode.setEncPunycode(encPunycode(valLines));
 			if (all || method.equals("string.base32")) dencode.setEncBase32Encoding(encBase32Encoding(binValue));
-			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue));
+			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue, encStrBase64LineBreakEach));
 			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
 			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val));
 			if (all || method.equals("string.programString")) dencode.setEncProgramString(encProgramString(val));
@@ -515,8 +521,17 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return base32.encodeAsString(binValue);
 	}
 	
-	private static String encBase64Encoding(byte[] binValue) {
-		Base64 base64 = new Base64(Base64.MIME_CHUNK_SIZE);
+	private static String encBase64Encoding(byte[] binValue, String encStrBase64LineBreakEach) {
+		int lineLength = 0;
+		if (encStrBase64LineBreakEach != null && !encStrBase64LineBreakEach.isEmpty()) {
+			try {
+				lineLength = Integer.parseInt(encStrBase64LineBreakEach);
+			} catch (NumberFormatException e) {
+				// NOP
+			}
+		}
+		
+		Base64 base64 = new Base64(lineLength);
 		return base64.encodeAsString(binValue);
 	}
 	
@@ -570,12 +585,12 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return sb.toString();
 	}
 	
-	private static String encBin(byte[] binValue) {
-		return toBinString(binValue);
+	private static String encBin(byte[] binValue, String separatorEach) {
+		return toBinString(binValue, separatorEach);
 	}
 	
-	private static String encHex(byte[] binValue) {
-		return toHexString(binValue);
+	private static String encHex(byte[] binValue, String separatorEach) {
+		return toHexString(binValue, separatorEach);
 	}
 	
 	private static String encHalfWidth(String val) {
@@ -1662,7 +1677,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return bigDec.toPlainString();
 	}
 	
-	private static String toBinString(byte[] binary) {
+	private static String toBinString(byte[] binary, String separatorEach) {
 		if (binary == null) {
 			return null;
 		}
@@ -1670,19 +1685,26 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return "";
 		}
 		
+		int separatorEachBit = parseDataSizeAsBit(separatorEach);
+		int separatorEachByte = (separatorEachBit + 7) / 8; // Round UP
+		
 		int len = binary.length;
 		
-		StringBuilder sb = new StringBuilder(len * 9);
+		StringBuilder sb = new StringBuilder(len * 10);
 		for (int i = 0; i < len; i++) {
 			byte b = binary[i];
-
-			if (i != 0) {
+			
+			if (i != 0 && 0 < separatorEachByte && (i % separatorEachByte) == 0) {
 				sb.append(' ');
 			}
+			
 			sb.append(((b & 0x80) == 0) ? '0' : '1');
 			sb.append(((b & 0x40) == 0) ? '0' : '1');
 			sb.append(((b & 0x20) == 0) ? '0' : '1');
 			sb.append(((b & 0x10) == 0) ? '0' : '1');
+			if (separatorEachBit == 4) {
+				sb.append(' ');
+			}
 			sb.append(((b & 0x8) == 0) ? '0' : '1');
 			sb.append(((b & 0x4) == 0) ? '0' : '1');
 			sb.append(((b & 0x2) == 0) ? '0' : '1');
@@ -1691,7 +1713,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return sb.toString();
 	}
 	
-	private static String toHexString(byte[] binary) {
+	private static String toHexString(byte[] binary, String separatorEach) {
 		if (binary == null) {
 			return null;
 		}
@@ -1699,13 +1721,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return "";
 		}
 		
+		int separatorEachByte = parseDataSizeAsByte(separatorEach);
+		
 		int len = binary.length;
 		
 		StringBuilder sb = new StringBuilder(len * 3);
 		for (int i = 0; i < len; i++) {
 			byte b = binary[i];
 			
-			if (i != 0) {
+			if (i != 0 && 0 < separatorEachByte && (i % separatorEachByte) == 0) {
 				sb.append(' ');
 			}
 			int high = ((b >>> 4) & 0xF);
@@ -1738,5 +1762,31 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				sb.append(d2);
 			}
 		}
+	}
+	
+	private static int parseDataSizeAsBit(String size) {
+		if (size == null || size.isEmpty()) {
+			return -1;
+		}
+		
+		Matcher matcher = DATA_SIZE_PATTERN.matcher(size);
+		if (matcher.matches()) {
+			int n = Integer.parseInt(matcher.group(1));
+			String unit = matcher.group(2);
+			
+			switch (unit) {
+				case "b": return n;
+				case "B": return n * 8;
+			}
+			
+			return -1;
+		}
+		
+		return -1;
+	}
+
+	private static int parseDataSizeAsByte(String size) {
+		int bit = parseDataSizeAsBit(size);
+		return  (bit + 7) / 8; // Round UP
 	}
 }
