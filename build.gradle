@@ -68,6 +68,9 @@ minifyJs {
   source combineJs
   dest "${buildDir}/minify/js/all.min.js"
   sourceMap "${buildDir}/minify/js/all.sourcemap.json"
+  closure {
+    compilerOptions.languageOut = 'ECMASCRIPT5'
+  }
 }
 
 war {
