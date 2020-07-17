@@ -1403,63 +1403,22 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
+		
+		val = val.replaceAll("\\s", "");
+		
 		try {
-			if (val.indexOf(' ') == -1) {
-				val = StringUtilz.replaceAll(val, new String[] {"\r", "\n"}, "");
-				int len = val.length();
-				int binLen = 0;
-				byte[] binValue = new byte[len / 8 + 1];
-				for (int i = 0; i < val.length(); ) {
-					int lastIdx = Math.min(i + 8, len);
-					String v = val.substring(i, lastIdx);
-					byte b = (byte)Integer.parseInt(v, 2);
-					binValue[binLen] = b;
-					binLen++;
-					i = lastIdx;
-				}
-				return new String(binValue, 0, binLen, charset);
-			} else {
-				String[] vals = StringUtilz.split(val, WHITESPACE_CHARS_PATTERN);
-				int valsLen = vals.length;
-				
-				boolean is4bit = true;
-				for (String v : vals) {
-					if (4 < v.length()) {
-						is4bit = false;
-						break;
-					}
-				}
-				
-				if (is4bit) {
-					int binLen = 0;
-					byte[] binValue = new byte[valsLen / 2 + 1];
-					for (int i = 0; i < valsLen; i++) {
-						String v = vals[i];
-						int high = Integer.parseInt(v, 2);
-						
-						i++;
-						int low = 0;
-						if (i < valsLen) {
-							String v2 = vals[i];
-							if (!v2.isEmpty()) {
-								low = Integer.parseInt(v2, 2);
-							}
-						}
-						
-						byte b = (byte)((high << 4) | low);
-						binValue[binLen++] = b;
-					}
-					return new String(binValue, 0, binLen, charset);
-				} else {
-					int binLen = 0;
-					byte[] binValue = new byte[valsLen];
-					for (int i = 0; i < valsLen; i++) {
-						byte b = (byte)Integer.parseInt(vals[i], 2);
-						binValue[binLen++] = b;
-					}
-					return new String(binValue, 0, binLen, charset);
-				}
+			int len = val.length();
+			int binLen = 0;
+			byte[] binValue = new byte[len / 8 + 1];
+			for (int i = 0; i < val.length(); ) {
+				int lastIdx = Math.min(i + 8, len);
+				String v = val.substring(i, lastIdx);
+				byte b = (byte)Integer.parseInt(v, 2);
+				binValue[binLen] = b;
+				binLen++;
+				i = lastIdx;
 			}
+			return new String(binValue, 0, binLen, charset);
 		} catch (NumberFormatException e) {
 			return null;
 		}
@@ -1469,37 +1428,21 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
-		try {
-			if (val.indexOf(' ') == -1) {
-				val = StringUtilz.replaceAll(val, new String[] {"\r", "\n"}, "");
-				int len = val.length();
-				int binLen = 0;
-				byte[] binValue = new byte[len / 2 + 1];
-				for (int i = 0; i < val.length(); ) {
-					int lastIdx = Math.min(i + 2, len);
-					String v = val.substring(i, lastIdx);
-					byte b = (byte)Integer.parseInt(v, 16);
-					binValue[binLen++] = b;
-					i = lastIdx;
-				}
-				return new String(binValue, 0, binLen, charset);
-			} else {
-				String[] vals = StringUtilz.split(val, WHITESPACE_CHARS_PATTERN);
-				int valsLen = vals.length;
 
-				int binLen = 0;
-				byte[] binValue = new byte[valsLen];
-				for (int i = 0; i < valsLen; i++) {
-					String v = vals[i];
-					if (v.isEmpty()) {
-						continue;
-					}
-					byte b = (byte)Integer.parseInt(v, 16);
-					binValue[binLen] = b;
-					binLen++;
-				}
-				return new String(binValue, 0, binLen, charset);
+		val = val.replaceAll("\\s", "");
+		
+		try {
+			int len = val.length();
+			int binLen = 0;
+			byte[] binValue = new byte[len / 2 + 1];
+			for (int i = 0; i < val.length(); ) {
+				int lastIdx = Math.min(i + 2, len);
+				String v = val.substring(i, lastIdx);
+				byte b = (byte)Integer.parseInt(v, 16);
+				binValue[binLen++] = b;
+				i = lastIdx;
 			}
+			return new String(binValue, 0, binLen, charset);
 		} catch (NumberFormatException e) {
 			return null;
 		}

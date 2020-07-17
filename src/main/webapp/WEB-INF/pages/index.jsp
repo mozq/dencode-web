@@ -341,6 +341,7 @@
 												<option value="">${mf:h(msg['label.encStrBin.option.separator.each.none'])}</option>
 												<option value="4b">${mf:h(msg['label.encStrBin.option.separator.each.4bits'])}</option>
 												<option value="8b">${mf:h(msg['label.encStrBin.option.separator.each.8bits'])}</option>
+												<option value="16b">${mf:h(msg['label.encStrBin.option.separator.each.16bits'])}</option>
 											</select>
 										</div>
 									</div>
@@ -354,6 +355,7 @@
 											<select name="encStrHexSeparatorEach" class="dencode-option form-control">
 												<option value="">${mf:h(msg['label.encStrHex.option.separator.each.none'])}</option>
 												<option value="1B">${mf:h(msg['label.encStrHex.option.separator.each.1byte'])}</option>
+												<option value="2B">${mf:h(msg['label.encStrHex.option.separator.each.2bytes'])}</option>
 											</select>
 										</div>
 									</div>
