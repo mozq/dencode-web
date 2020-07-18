@@ -35,7 +35,7 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/res/img/icons/favicon180px.png" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/all.min.css?v=<%= new java.io.File(application.getRealPath("/res/css/all.min.css")).lastModified() %>" />
 	<script>var contextPath = "${pageContext.request.contextPath}";</script>
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
@@ -595,7 +595,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/res/js/all.min.js"></script>
+<script src="${pageContext.request.contextPath}/res/js/all.min.js?v=<%= new java.io.File(application.getRealPath("/res/js/all.min.js")).lastModified() %>"></script>
 <script>
 	"use strict";
 
