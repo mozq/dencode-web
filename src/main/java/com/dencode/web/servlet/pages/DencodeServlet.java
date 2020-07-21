@@ -69,8 +69,6 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
-	private static final Pattern WHITESPACE_CHARS_PATTERN = Pattern.compile("\\s+");
-	
 	private static final char PROGRAM_STRING_ESCAPE_CHAR = '\\';
 	private static final char[] PROGRAM_STRING_TARGET_CHARS = {'\0', '\u0007', '\b', '\t', '\n', '\u000B', '\f', '\r', '\"', '\''};
 	private static final char[] PROGRAM_STRING_ESCAPED_CHARS = {'0', 'a', 'b', 't', 'n', 'v', 'f', 'r', '\"', '\''};
@@ -323,6 +321,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String encStrBinSeparatorEach = reqres().param("encStrBinSeparatorEach", "");
 		String encStrHexSeparatorEach = reqres().param("encStrHexSeparatorEach", "");
 		String encStrBase64LineBreakEach = reqres().param("encStrBase64LineBreakEach", "");
+		String encStrUnicodeEscapeSurrogatePairFormat = reqres().param("encStrUnicodeEscapeSurrogatePairFormat", "");
 		
 		String[] valLines = StringUtilz.split(val, new String[] {"\r\n", "\r", "\n"});
 		
@@ -362,7 +361,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("string.base32")) dencode.setEncBase32Encoding(encBase32Encoding(binValue));
 			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue, encStrBase64LineBreakEach));
 			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
-			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val));
+			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val, encStrUnicodeEscapeSurrogatePairFormat));
 			if (all || method.equals("string.programString")) dencode.setEncProgramString(encProgramString(val));
 			if (all || method.equals("string.characterWidth")) dencode.setEncHalfWidth(encHalfWidth(val));
 			if (all || method.equals("string.characterWidth")) dencode.setEncFullWidth(encFullWidth(val));
@@ -554,10 +553,22 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				+ "\"";
 	}
 	
-	private static String encUnicodeEscape(String val) {
+	private static String toUnicodeEscapeSpPattern(String spFormat) {
+		switch (spFormat) {
+			case "ubcp": return "\\u{%x}"; // for Swift, JS(ES6+), PHP, Ruby
+			case "Ucp": return "\\U%08x"; // for C, Python
+			default: return null; // for Java, JS(ES5)
+		}
+	}
+	
+	private static String encUnicodeEscape(String val, String spFormatType) {
 		if (val == null) {
 			return null;
 		}
+		
+		String spPattern = toUnicodeEscapeSpPattern(spFormatType);
+		
+		boolean supportSurrogatePair = (spPattern != null && !spPattern.isEmpty());
 		
 		int len = val.length();
 		
@@ -566,14 +577,14 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		for (int i = 0; i < len; i++) {
 			char ch = val.charAt(i);
 			
-			if (Character.isHighSurrogate(ch) && (i + 1 != len)) {
+			if (supportSurrogatePair && Character.isHighSurrogate(ch) && (i + 1 != len)) {
+				// Surrogate Pair
+				
 				char lowCh = val.charAt(++i);
 				
 				int codePoint = Character.toCodePoint(ch, lowCh);
-				String codePointHexStr = Integer.toHexString(codePoint);
 				
-				sb.append("\\U");
-				StringUtilz.paddingLeft(sb, codePointHexStr, 8, '0');
+				sb.append(String.format(spPattern, codePoint));
 			} else {
 				String chHexStr = Integer.toHexString((int)ch);
 				
@@ -1525,13 +1536,18 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (val == null) {
 			return null;
 		}
-		return StringUtilz.unescape(
-				val,
-				'\\',
-				null,
-				null,
-				true
-				);
+		
+		try {
+			return StringUtilz.unescape(
+					val,
+					'\\',
+					null,
+					null,
+					true
+					);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	private static String decProgramString(String val) {
