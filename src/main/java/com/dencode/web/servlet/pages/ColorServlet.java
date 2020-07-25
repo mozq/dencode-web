@@ -26,15 +26,11 @@ public class ColorServlet extends AbstractDencodeHttpServlet {
 
 	@Override
 	protected void doGet() throws Exception {
-		reqres().setAttribute("type", "color");
-		reqres().setAttribute("method", "color.all");
+		String type = "color";
+		String method = "color.all";
 		
-		reqres().setAttribute("useOe", false);
-		reqres().setAttribute("useNl", false);
-		reqres().setAttribute("useTz", false);
-		
-		reqres().setAttribute("hasEncoded", true);
-		reqres().setAttribute("hasDecoded", false);
+		reqres().setAttribute("type", type);
+		reqres().setAttribute("method", method);
 		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));

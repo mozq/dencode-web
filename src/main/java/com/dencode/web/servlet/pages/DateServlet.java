@@ -26,15 +26,11 @@ public class DateServlet extends AbstractDencodeHttpServlet {
 
 	@Override
 	protected void doGet() throws Exception {
-		reqres().setAttribute("type", "date");
-		reqres().setAttribute("method", "date.all");
+		String type = "date";
+		String method = "date.all";
 		
-		reqres().setAttribute("useOe", false);
-		reqres().setAttribute("useNl", false);
-		reqres().setAttribute("useTz", true);
-		
-		reqres().setAttribute("hasEncoded", true);
-		reqres().setAttribute("hasDecoded", false);
+		reqres().setAttribute("type", type);
+		reqres().setAttribute("method", method);
 		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));

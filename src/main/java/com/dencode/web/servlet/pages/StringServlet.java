@@ -26,15 +26,11 @@ public class StringServlet extends AbstractDencodeHttpServlet {
 
 	@Override
 	protected void doGet() throws Exception {
-		reqres().setAttribute("type", "string");
-		reqres().setAttribute("method", "string.all");
+		String type = "string";
+		String method = "string.all";
 		
-		reqres().setAttribute("useOe", true);
-		reqres().setAttribute("useNl", true);
-		reqres().setAttribute("useTz", false);
-		
-		reqres().setAttribute("hasEncoded", true);
-		reqres().setAttribute("hasDecoded", true);
+		reqres().setAttribute("type", type);
+		reqres().setAttribute("method", method);
 		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));

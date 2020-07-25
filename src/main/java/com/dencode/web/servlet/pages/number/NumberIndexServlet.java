@@ -17,7 +17,6 @@
 package com.dencode.web.servlet.pages.number;
 
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletResponse;
 
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
@@ -28,58 +27,10 @@ public class NumberIndexServlet extends AbstractDencodeHttpServlet {
 	@Override
 	protected void doGet() throws Exception {
 		String type = "number";
-		String methodPath = reqres().pathParam("");
-		String method;
-		boolean useOe = true;
-		boolean useNl = true;
-		boolean useTz = true;
-		boolean hasEncoded = true;
-		boolean hasDecoded = true;
-		
-		switch (methodPath) {
-		case "bin":
-			method = "number.bin";
-			useOe = false;
-			useNl = false;
-			useTz = false;
-			break;
-		case "oct":
-			method = "number.oct";
-			useTz = false;
-			break;
-		case "hex":
-			method = "number.hex";
-			useOe = false;
-			useNl = false;
-			useTz = false;
-			break;
-		case "english":
-			method = "number.english";
-			useOe = false;
-			useNl = false;
-			useTz = false;
-			break;
-		case "japanese":
-			method = "number.japanese";
-			useOe = false;
-			useNl = false;
-			useTz = false;
-			break;
-		default:
-			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		}
-		
+		String method = "number." + reqres().pathParam("all");
 		
 		reqres().setAttribute("type", type);
 		reqres().setAttribute("method", method);
-		
-		reqres().setAttribute("useOe", useOe);
-		reqres().setAttribute("useNl", useNl);
-		reqres().setAttribute("useTz", useTz);
-		
-		reqres().setAttribute("hasEncoded", hasEncoded);
-		reqres().setAttribute("hasDecoded", hasDecoded);
 		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));

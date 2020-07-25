@@ -26,15 +26,11 @@ public class NumberServlet extends AbstractDencodeHttpServlet {
 
 	@Override
 	protected void doGet() throws Exception {
-		reqres().setAttribute("type", "number");
-		reqres().setAttribute("method", "number.all");
+		String type = "number";
+		String method = "number.all";
 		
-		reqres().setAttribute("useOe", false);
-		reqres().setAttribute("useNl", false);
-		reqres().setAttribute("useTz", false);
-		
-		reqres().setAttribute("hasEncoded", true);
-		reqres().setAttribute("hasDecoded", true);
+		reqres().setAttribute("type", type);
+		reqres().setAttribute("method", method);
 		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));

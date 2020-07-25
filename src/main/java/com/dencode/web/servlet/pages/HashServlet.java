@@ -26,15 +26,11 @@ public class HashServlet extends AbstractDencodeHttpServlet {
 
 	@Override
 	protected void doGet() throws Exception {
-		reqres().setAttribute("type", "hash");
-		reqres().setAttribute("method", "hash.all");
+		String type = "hash";
+		String method = "hash.all";
 		
-		reqres().setAttribute("useOe", true);
-		reqres().setAttribute("useNl", true);
-		reqres().setAttribute("useTz", false);
-		
-		reqres().setAttribute("hasEncoded", true);
-		reqres().setAttribute("hasDecoded", false);
+		reqres().setAttribute("type", type);
+		reqres().setAttribute("method", method);
 		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));

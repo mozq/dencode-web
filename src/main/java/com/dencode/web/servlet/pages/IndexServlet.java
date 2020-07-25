@@ -25,7 +25,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletResponse;
 
+import org.mifmi.commons4j.config.ConfigNotFoundException;
 import org.mifmi.commons4j.util.DateUtilz;
 
 import com.dencode.web.logic.CommonLogic;
@@ -113,13 +115,16 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			reqres().setAttribute("currentPath", "");
 		}
 		
-		if (type.equals("all")) {
-			reqres().setAttribute("useOe", true);
-			reqres().setAttribute("useNl", true);
-			reqres().setAttribute("useTz", true);
+		try {
+			reqres().setAttribute("useOe", config().getAsBoolean(method + ".useOe"));
+			reqres().setAttribute("useNl", config().getAsBoolean(method + ".useNl"));
+			reqres().setAttribute("useTz", config().getAsBoolean(method + ".useTz"));
 			
-			reqres().setAttribute("hasEncoded", true);
-			reqres().setAttribute("hasDecoded", true);
+			reqres().setAttribute("hasEncoded", config().getAsBoolean(method + ".hasEncoded"));
+			reqres().setAttribute("hasDecoded", config().getAsBoolean(method + ".hasDecoded"));
+		} catch (ConfigNotFoundException e) {
+			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
 		}
 		
 		forward("/WEB-INF/pages/index.jsp");
