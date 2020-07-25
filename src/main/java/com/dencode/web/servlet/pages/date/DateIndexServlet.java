@@ -38,7 +38,7 @@ public class DateIndexServlet extends AbstractDencodeHttpServlet {
 		
 		switch (methodPath) {
 		case "unix-time":
-			method = "date.unixTime";
+			method = "date.unix-time";
 			useOe = false;
 			useNl = false;
 			hasDecoded = false;
@@ -68,7 +68,7 @@ public class DateIndexServlet extends AbstractDencodeHttpServlet {
 			hasDecoded = false;
 			break;
 		case "japanese-era":
-			method = "date.japaneseEra";
+			method = "date.japanese-era";
 			useOe = false;
 			useNl = false;
 			hasDecoded = false;

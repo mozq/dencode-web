@@ -354,48 +354,48 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			
 			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue, encStrBinSeparatorEach));
 			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue, encStrHexSeparatorEach));
-			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
-			if (all || method.equals("string.htmlEscape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
-			if (all || method.equals("string.urlEncoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
+			if (all || method.equals("string.html-escape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
+			if (all || method.equals("string.html-escape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
+			if (all || method.equals("string.url-encoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
 			if (all || method.equals("string.punycode")) dencode.setEncPunycode(encPunycode(valLines));
 			if (all || method.equals("string.base32")) dencode.setEncBase32Encoding(encBase32Encoding(binValue));
 			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue, encStrBase64LineBreakEach));
-			if (all || method.equals("string.quotedPrintable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
-			if (all || method.equals("string.unicodeEscape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val, encStrUnicodeEscapeSurrogatePairFormat));
-			if (all || method.equals("string.programString")) dencode.setEncProgramString(encProgramString(val));
-			if (all || method.equals("string.characterWidth")) dencode.setEncHalfWidth(encHalfWidth(val));
-			if (all || method.equals("string.characterWidth")) dencode.setEncFullWidth(encFullWidth(val));
-			if (all || method.equals("string.letterCase")) dencode.setEncUpperCase(encUpperCase(val));
-			if (all || method.equals("string.letterCase")) dencode.setEncLowerCase(encLowerCase(val));
-			if (all || method.equals("string.letterCase")) dencode.setEncSwapCase(encSwapCase(val));
-			if (all || method.equals("string.letterCase")) dencode.setEncCapitalize(encCapitalize(val));
-			if (all || method.equals("string.textInitials")) dencode.setEncInitials(encInitials(val));
-			if (all || method.equals("string.textReverse")) dencode.setEncReverse(encReverse(val));
-			if (all || method.equals("string.namingConvention") || method.equals("string.camelCase")) dencode.setEncUpperCamelCase(encCamelCase(val, true));
-			if (all || method.equals("string.namingConvention") || method.equals("string.camelCase")) dencode.setEncLowerCamelCase(encCamelCase(val, false));
-			if (all || method.equals("string.namingConvention") || method.equals("string.snakeCase")) dencode.setEncUpperSnakeCase(encSnakeCase(val, true));
-			if (all || method.equals("string.namingConvention") || method.equals("string.snakeCase")) dencode.setEncLowerSnakeCase(encSnakeCase(val, false));
-			if (all || method.equals("string.namingConvention") || method.equals("string.kebabCase")) dencode.setEncUpperKebabCase(encKebabCase(val, true));
-			if (all || method.equals("string.namingConvention") || method.equals("string.kebabCase")) dencode.setEncLowerKebabCase(encKebabCase(val, false));
-			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFC(encUnicodeNFC(val));
-			if (all || method.equals("string.unicodeNormalization")) dencode.setEncUnicodeNFKC(encUnicodeNFKC(val));
-			if (all || method.equals("string.lineSort")) dencode.setEncLineSortAsc(encLineSortAsc(valLines, lineBreak));
-			if (all || method.equals("string.lineSort")) dencode.setEncLineSortDesc(encLineSortDesc(valLines, lineBreak));
-			if (all || method.equals("string.lineSort")) dencode.setEncLineSortReverse(encLineSortReverse(valLines, lineBreak));
-			if (all || method.equals("string.lineUnique")) dencode.setEncLineUnique(encLineUnique(valLines, lineBreak));
+			if (all || method.equals("string.quoted-printable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
+			if (all || method.equals("string.unicode-escape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val, encStrUnicodeEscapeSurrogatePairFormat));
+			if (all || method.equals("string.program-string")) dencode.setEncProgramString(encProgramString(val));
+			if (all || method.equals("string.character-width")) dencode.setEncHalfWidth(encHalfWidth(val));
+			if (all || method.equals("string.character-width")) dencode.setEncFullWidth(encFullWidth(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncUpperCase(encUpperCase(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncLowerCase(encLowerCase(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncSwapCase(encSwapCase(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncCapitalize(encCapitalize(val));
+			if (all || method.equals("string.text-initials")) dencode.setEncInitials(encInitials(val));
+			if (all || method.equals("string.text-reverse")) dencode.setEncReverse(encReverse(val));
+			if (all || method.equals("string.naming-convention") || method.equals("string.camel-case")) dencode.setEncUpperCamelCase(encCamelCase(val, true));
+			if (all || method.equals("string.naming-convention") || method.equals("string.camel-case")) dencode.setEncLowerCamelCase(encCamelCase(val, false));
+			if (all || method.equals("string.naming-convention") || method.equals("string.snake-case")) dencode.setEncUpperSnakeCase(encSnakeCase(val, true));
+			if (all || method.equals("string.naming-convention") || method.equals("string.snake-case")) dencode.setEncLowerSnakeCase(encSnakeCase(val, false));
+			if (all || method.equals("string.naming-convention") || method.equals("string.kebab-case")) dencode.setEncUpperKebabCase(encKebabCase(val, true));
+			if (all || method.equals("string.naming-convention") || method.equals("string.kebab-case")) dencode.setEncLowerKebabCase(encKebabCase(val, false));
+			if (all || method.equals("string.unicode-normalization")) dencode.setEncUnicodeNFC(encUnicodeNFC(val));
+			if (all || method.equals("string.unicode-normalization")) dencode.setEncUnicodeNFKC(encUnicodeNFKC(val));
+			if (all || method.equals("string.line-sort")) dencode.setEncLineSortAsc(encLineSortAsc(valLines, lineBreak));
+			if (all || method.equals("string.line-sort")) dencode.setEncLineSortDesc(encLineSortDesc(valLines, lineBreak));
+			if (all || method.equals("string.line-sort")) dencode.setEncLineSortReverse(encLineSortReverse(valLines, lineBreak));
+			if (all || method.equals("string.line-unique")) dencode.setEncLineUnique(encLineUnique(valLines, lineBreak));
 			
 			if (all || method.equals("string.bin")) dencode.setDecBin(decBin(val, charset));
 			if (all || method.equals("string.hex")) dencode.setDecHex(decHex(val, charset));
-			if (all || method.equals("string.htmlEscape")) dencode.setDecHTMLEscape(decHTMLEscape(val));
-			if (all || method.equals("string.urlEncoding")) dencode.setDecURLEncoding(decURLEncoding(val, charset));
+			if (all || method.equals("string.html-escape")) dencode.setDecHTMLEscape(decHTMLEscape(val));
+			if (all || method.equals("string.url-encoding")) dencode.setDecURLEncoding(decURLEncoding(val, charset));
 			if (all || method.equals("string.punycode")) dencode.setDecPunycode(decPunycode(valLines));
 			if (all || method.equals("string.base32")) dencode.setDecBase32Encoding(decBase32Encoding(val, charset));
 			if (all || method.equals("string.base64")) dencode.setDecBase64Encoding(decBase64Encoding(val, charset));
-			if (all || method.equals("string.quotedPrintable")) dencode.setDecQuotedPrintable(decQuotedPrintable(val, charset));
-			if (all || method.equals("string.unicodeEscape")) dencode.setDecUnicodeEscape(decUnicodeEscape(val));
-			if (all || method.equals("string.programString")) dencode.setDecProgramString(decProgramString(val));
-			if (all || method.equals("string.unicodeNormalization")) dencode.setDecUnicodeNFC(decUnicodeNFC(val));
-			if (all || method.equals("string.unicodeNormalization")) dencode.setDecUnicodeNFKC(decUnicodeNFKC(val));
+			if (all || method.equals("string.quoted-printable")) dencode.setDecQuotedPrintable(decQuotedPrintable(val, charset));
+			if (all || method.equals("string.unicode-escape")) dencode.setDecUnicodeEscape(decUnicodeEscape(val));
+			if (all || method.equals("string.program-string")) dencode.setDecProgramString(decProgramString(val));
+			if (all || method.equals("string.unicode-normalization")) dencode.setDecUnicodeNFC(decUnicodeNFC(val));
+			if (all || method.equals("string.unicode-normalization")) dencode.setDecUnicodeNFKC(decUnicodeNFKC(val));
 		}
 		if (type.equals("all") || type.equals("number")) {
 			boolean all = (method.equals("all") || method.equals("number.all"));
@@ -421,7 +421,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			
 			Date dateVal = parseDate(val, timeZone);
 			
-			if (all || method.equals("date.unixTime")) dencode.setEncDateUnixTime(encDateUnixTime(dateVal, timeZone));
+			if (all || method.equals("date.unix-time")) dencode.setEncDateUnixTime(encDateUnixTime(dateVal, timeZone));
 			if (all || method.equals("date.w3cdtf")) dencode.setEncDateW3CDTF(encDateW3CDTF(dateVal, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601(encDateISO8601Basic(dateVal, timeZone));
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ext(encDateISO8601Ext(dateVal, timeZone));
@@ -429,7 +429,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("date.iso8601")) dencode.setEncDateISO8601Ordinal(encDateISO8601Ordinal(dateVal, timeZone));
 			if (all || method.equals("date.rfc2822")) dencode.setEncDateRFC2822(encDateRFC2822(dateVal, timeZone));
 			if (all || method.equals("date.ctime")) dencode.setEncDateCTime(encDateCTime(dateVal, timeZone));
-			if (all || method.equals("date.japaneseEra")) dencode.setEncDateJapaneseEra(encDateJapaneseEra(dateVal, timeZone));
+			if (all || method.equals("date.japanese-era")) dencode.setEncDateJapaneseEra(encDateJapaneseEra(dateVal, timeZone));
 		}
 		if (type.equals("all") || type.equals("color")) {
 			boolean all = (method.equals("all") || method.equals("color.all"));

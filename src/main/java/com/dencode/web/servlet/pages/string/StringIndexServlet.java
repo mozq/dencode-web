@@ -46,11 +46,11 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			useTz = false;
 			break;
 		case "html-escape":
-			method = "string.htmlEscape";
+			method = "string.html-escape";
 			useTz = false;
 			break;
 		case "url-encoding":
-			method = "string.urlEncoding";
+			method = "string.url-encoding";
 			useTz = false;
 			break;
 		case "punycode":
@@ -68,90 +68,90 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			useTz = false;
 			break;
 		case "quoted-printable":
-			method = "string.quotedPrintable";
+			method = "string.quoted-printable";
 			useTz = false;
 			break;
 		case "unicode-escape":
-			method = "string.unicodeEscape";
+			method = "string.unicode-escape";
 			useOe = false;
 			useTz = false;
 			break;
 		case "program-string":
-			method = "string.programString";
+			method = "string.program-string";
 			useOe = false;
 			useTz = false;
 			break;
 		case "naming-convention":
-			method = "string.namingConvention";
+			method = "string.naming-convention";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "camel-case":
-			method = "string.camelCase";
+			method = "string.camel-case";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "snake-case":
-			method = "string.snakeCase";
+			method = "string.snake-case";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "kebab-case":
-			method = "string.kebabCase";
+			method = "string.kebab-case";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "character-width":
-			method = "string.characterWidth";
+			method = "string.character-width";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "letter-case":
-			method = "string.letterCase";
+			method = "string.letter-case";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "text-initials":
-			method = "string.textInitials";
+			method = "string.text-initials";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "text-reverse":
-			method = "string.textReverse";
+			method = "string.text-reverse";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "unicode-normalization":
-			method = "string.unicodeNormalization";
+			method = "string.unicode-normalization";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			break;
 		case "line-sort":
-			method = "string.lineSort";
+			method = "string.line-sort";
 			useOe = false;
 			useNl = false;
 			useTz = false;
 			hasDecoded = false;
 			break;
 		case "line-unique":
-			method = "string.lineUnique";
+			method = "string.line-unique";
 			useOe = false;
 			useNl = false;
 			useTz = false;
