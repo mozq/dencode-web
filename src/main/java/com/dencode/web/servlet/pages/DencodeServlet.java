@@ -322,6 +322,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String encStrHexSeparatorEach = reqres().param("encStrHexSeparatorEach", "");
 		String encStrBase64LineBreakEach = reqres().param("encStrBase64LineBreakEach", "");
 		String encStrUnicodeEscapeSurrogatePairFormat = reqres().param("encStrUnicodeEscapeSurrogatePairFormat", "");
+		int encCipherCaesarShift = reqres().paramAsInt("encCipherCaesarShift", 0);
+		int decCipherCaesarShift = reqres().paramAsInt("decCipherCaesarShift", 0);
 		
 		String[] valLines = StringUtilz.split(val, new String[] {"\r\n", "\r", "\n"});
 		
@@ -445,6 +447,19 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("color.hsv")) dencode.setEncColorHSVFn(encColorHSVFn(rgb));
 			if (all || method.equals("color.cmy")) dencode.setEncColorCMYFn(encColorCMYFn(rgb));
 			if (all || method.equals("color.cmyk")) dencode.setEncColorCMYKFn(encColorCMYKFn(rgb));
+		}
+		if (type.equals("all") || type.equals("cipher")) {
+			boolean all = (method.equals("all") || method.equals("cipher.all"));
+			
+			if (all || method.equals("cipher.caesar")) dencode.setEncCipherCaesar(encCipherCaesar(val, encCipherCaesarShift));
+			if (all || method.equals("cipher.rot13")) dencode.setEncCipherROT13(dencCipherROT13(val));
+			if (all || method.equals("cipher.rot18")) dencode.setEncCipherROT18(dencCipherROT18(val));
+			if (all || method.equals("cipher.rot47")) dencode.setEncCipherROT47(dencCipherROT47(val));
+			
+			if (all || method.equals("cipher.caesar")) dencode.setDecCipherCaesar(decCipherCaesar(val, decCipherCaesarShift));
+			if (all || method.equals("cipher.rot13")) dencode.setDecCipherROT13(dencode.getEncCipherROT13());
+			if (all || method.equals("cipher.rot18")) dencode.setDecCipherROT18(dencode.getEncCipherROT18());
+			if (all || method.equals("cipher.rot47")) dencode.setDecCipherROT47(dencode.getEncCipherROT47());
 		}
 		if (type.equals("all") || type.equals("hash")) {
 			boolean all = (method.equals("all") || method.equals("hash.all"));
@@ -1391,6 +1406,117 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				return Double.parseDouble(val) / base;
 			}
 		}
+	}
+	
+	private static String encCipherCaesar(String val, int shift) {
+		return dencCipherCaesar(val, shift);
+	}
+	
+	private static String decCipherCaesar(String val, int shift) {
+		return dencCipherCaesar(val, -shift);
+	}
+	
+	private static String dencCipherCaesar(String val, int shift) {
+		if (val == null || val.isEmpty()) {
+			return val;
+		}
+		
+		if (shift == 0) {
+			return val;
+		}
+		
+		shift = shift % 26;
+		if (shift < 0) {
+			shift += 26;
+		}
+		
+		int len = val.length();
+		
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if ('A' <= ch && ch <= 'Z') {
+				ch = (char)((ch - 'A' + shift) % 26 + 'A');
+			} else if ('a' <= ch && ch <= 'z') {
+				ch = (char)((ch - 'a' + shift) % 26 + 'a');
+			}
+			
+			sb.append(ch);
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String dencCipherROT13(String val) {
+		if (val == null || val.isEmpty()) {
+			return val;
+		}
+		
+		int len = val.length();
+		
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if (('A' <= ch && ch <= 'M') || ('a' <= ch && ch <= 'm')) {
+				ch += 13;
+			} else if (('N' <= ch && ch <= 'Z') || ('n' <= ch && ch <= 'z')) {
+				ch -= 13;
+			}
+			
+			sb.append(ch);
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String dencCipherROT18(String val) {
+		if (val == null || val.isEmpty()) {
+			return val;
+		}
+		
+		int len = val.length();
+		
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if (('A' <= ch && ch <= 'M') || ('a' <= ch && ch <= 'm')) {
+				ch += 13;
+			} else if (('N' <= ch && ch <= 'Z') || ('n' <= ch && ch <= 'z')) {
+				ch -= 13;
+			} else if ('0' <= ch && ch <= '4') {
+				ch += 5;
+			} else if ('5' <= ch && ch <= '9') {
+				ch -= 5;
+			}
+			
+			sb.append(ch);
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String dencCipherROT47(String val) {
+		if (val == null || val.isEmpty()) {
+			return val;
+		}
+		
+		int len = val.length();
+		
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if ('!' <= ch && ch <= '~') {
+				ch = (char)((ch - '!' + 47) % 94 + '!');
+			}
+			
+			sb.append(ch);
+		}
+		
+		return sb.toString();
 	}
 	
 	private static String hash(byte[] binValue, String algo) {

@@ -38,6 +38,10 @@ public class DencodeModel {
 	private String decNumHex;
 	private String decNumEnShortScale;
 	private String decNumJP;
+	private String decCipherCaesar;
+	private String decCipherROT13;
+	private String decCipherROT18;
+	private String decCipherROT47;
 
 	private String encBin;
 	private String encHex;
@@ -95,6 +99,10 @@ public class DencodeModel {
 	private String encColorHSVFn;
 	private String encColorCMYFn;
 	private String encColorCMYKFn;
+	private String encCipherCaesar;
+	private String encCipherROT13;
+	private String encCipherROT18;
+	private String encCipherROT47;
 	private String encMD2;
 	private String encMD5;
 	private String encSHA1;
@@ -259,6 +267,38 @@ public class DencodeModel {
 
 	public void setDecNumJP(String decNumJP) {
 		this.decNumJP = decNumJP;
+	}
+
+	public String getDecCipherCaesar() {
+		return decCipherCaesar;
+	}
+
+	public void setDecCipherCaesar(String decCipherCaesar) {
+		this.decCipherCaesar = decCipherCaesar;
+	}
+
+	public String getDecCipherROT13() {
+		return decCipherROT13;
+	}
+
+	public void setDecCipherROT13(String decCipherROT13) {
+		this.decCipherROT13 = decCipherROT13;
+	}
+
+	public String getDecCipherROT18() {
+		return decCipherROT18;
+	}
+
+	public void setDecCipherROT18(String decCipherROT18) {
+		this.decCipherROT18 = decCipherROT18;
+	}
+
+	public String getDecCipherROT47() {
+		return decCipherROT47;
+	}
+
+	public void setDecCipherROT47(String decCipherROT47) {
+		this.decCipherROT47 = decCipherROT47;
 	}
 
 	public String getEncBin() {
@@ -707,6 +747,38 @@ public class DencodeModel {
 
 	public void setEncColorCMYKFn(String encColorCMYKFn) {
 		this.encColorCMYKFn = encColorCMYKFn;
+	}
+
+	public String getEncCipherCaesar() {
+		return encCipherCaesar;
+	}
+
+	public void setEncCipherCaesar(String encCipherCaesar) {
+		this.encCipherCaesar = encCipherCaesar;
+	}
+
+	public String getEncCipherROT13() {
+		return encCipherROT13;
+	}
+
+	public void setEncCipherROT13(String encCipherROT13) {
+		this.encCipherROT13 = encCipherROT13;
+	}
+
+	public String getEncCipherROT18() {
+		return encCipherROT18;
+	}
+
+	public void setEncCipherROT18(String encCipherROT18) {
+		this.encCipherROT18 = encCipherROT18;
+	}
+
+	public String getEncCipherROT47() {
+		return encCipherROT47;
+	}
+
+	public void setEncCipherROT47(String encCipherROT47) {
+		this.encCipherROT47 = encCipherROT47;
 	}
 
 	public String getEncMD2() {

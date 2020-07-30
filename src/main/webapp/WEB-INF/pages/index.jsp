@@ -153,6 +153,20 @@
 							<li class="${(method eq 'color.cmyk') ? 'active' : ''}" data-dencode-method="color.cmyk"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/cmyk">${mf:h(msg['label.method.color.cmyk'])}</a></li>
 						</ul>
 					</li>
+					<li class="dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher" data-dencode-enable-oe="true" data-dencode-enable-nl="true" data-dencode-enable-tz="false">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<span class="dropdown-menu-label">${mf:h(msg['label.type.cipher'])}</span>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="${(method eq 'cipher.all') ? 'active' : ''}" data-dencode-method="cipher.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher">${mf:h(msg['label.method.cipher.all'])}</a></li>
+							<li class="divider"></li>
+							<li class="${(method eq 'cipher.caesar') ? 'active' : ''}" data-dencode-method="cipher.caesar"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/caesar">${mf:h(msg['label.method.cipher.caesar'])}</a></li>
+							<li class="${(method eq 'cipher.rot13') ? 'active' : ''}" data-dencode-method="cipher.rot13"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot13">${mf:h(msg['label.method.cipher.rot13'])}</a></li>
+							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot18">${mf:h(msg['label.method.cipher.rot18'])}</a></li>
+							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot47">${mf:h(msg['label.method.cipher.rot47'])}</a></li>
+						</ul>
+					</li>
 					<li class="dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash" data-dencode-enable-oe="true" data-dencode-enable-nl="true" data-dencode-enable-tz="false">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.hash'])}</span>
@@ -305,6 +319,49 @@
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decUnicodeNFC'])}</th><td><span id="decUnicodeNFC" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decUnicodeNFKC'])}</th><td><span id="decUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+					</c:if>
+					<c:if test="${type eq 'all' or type eq 'cipher'}">
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.caesar'}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.decCipherCaesar'])}</th><td><span id="decCipherCaesar" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.decCipherCaesar.option.shift'])}</span>
+											<select name="decCipherCaesarShift" class="dencode-option form-control">
+												<option value="1">${mf:h(msg['label.decCipherCaesar.option.shift.1'])}</option>
+												<option value="2">${mf:h(msg['label.decCipherCaesar.option.shift.2'])}</option>
+												<option value="3">${mf:h(msg['label.decCipherCaesar.option.shift.3'])}</option>
+												<option value="4">${mf:h(msg['label.decCipherCaesar.option.shift.4'])}</option>
+												<option value="5">${mf:h(msg['label.decCipherCaesar.option.shift.5'])}</option>
+												<option value="6">${mf:h(msg['label.decCipherCaesar.option.shift.6'])}</option>
+												<option value="7">${mf:h(msg['label.decCipherCaesar.option.shift.7'])}</option>
+												<option value="8">${mf:h(msg['label.decCipherCaesar.option.shift.8'])}</option>
+												<option value="9">${mf:h(msg['label.decCipherCaesar.option.shift.9'])}</option>
+												<option value="10">${mf:h(msg['label.decCipherCaesar.option.shift.10'])}</option>
+												<option value="11">${mf:h(msg['label.decCipherCaesar.option.shift.11'])}</option>
+												<option value="12">${mf:h(msg['label.decCipherCaesar.option.shift.12'])}</option>
+												<option value="13">${mf:h(msg['label.decCipherCaesar.option.shift.13'])}</option>
+												<option value="14">${mf:h(msg['label.decCipherCaesar.option.shift.14'])}</option>
+												<option value="15">${mf:h(msg['label.decCipherCaesar.option.shift.15'])}</option>
+												<option value="16">${mf:h(msg['label.decCipherCaesar.option.shift.16'])}</option>
+												<option value="17">${mf:h(msg['label.decCipherCaesar.option.shift.17'])}</option>
+												<option value="18">${mf:h(msg['label.decCipherCaesar.option.shift.18'])}</option>
+												<option value="19">${mf:h(msg['label.decCipherCaesar.option.shift.19'])}</option>
+												<option value="20">${mf:h(msg['label.decCipherCaesar.option.shift.20'])}</option>
+												<option value="21">${mf:h(msg['label.decCipherCaesar.option.shift.21'])}</option>
+												<option value="22">${mf:h(msg['label.decCipherCaesar.option.shift.22'])}</option>
+												<option value="23">${mf:h(msg['label.decCipherCaesar.option.shift.23'])}</option>
+												<option value="24">${mf:h(msg['label.decCipherCaesar.option.shift.24'])}</option>
+												<option value="25">${mf:h(msg['label.decCipherCaesar.option.shift.25'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot13'}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.decCipherROT13'])}</th><td><span id="decCipherROT13" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot18'}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.decCipherROT18'])}</th><td><span id="decCipherROT18" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot47'}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.decCipherROT47'])}</th><td><span id="decCipherROT47" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'number'}">
@@ -460,6 +517,49 @@
 							<c:if test="${method eq 'all' or method eq 'color.all' or method eq 'color.hsv'}"><tr data-dencode-method="color.hsv"><th>${mf:h(msg['label.encColorHSVFn'])}</th><td><span id="encColorHSVFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'color.all' or method eq 'color.cmy'}"><tr data-dencode-method="color.cmy"><th>${mf:h(msg['label.encColorCMYFn'])}</th><td><span id="encColorCMYFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'color.all' or method eq 'color.cmyk'}"><tr data-dencode-method="color.cmyk"><th>${mf:h(msg['label.encColorCMYKFn'])}</th><td><span id="encColorCMYKFn" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+					</c:if>
+					<c:if test="${type eq 'all' or type eq 'cipher'}">
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.caesar'}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.encCipherCaesar'])}</th><td><span id="encCipherCaesar" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encCipherCaesar.option.shift'])}</span>
+											<select name="encCipherCaesarShift" class="dencode-option form-control">
+												<option value="1">${mf:h(msg['label.encCipherCaesar.option.shift.1'])}</option>
+												<option value="2">${mf:h(msg['label.encCipherCaesar.option.shift.2'])}</option>
+												<option value="3">${mf:h(msg['label.encCipherCaesar.option.shift.3'])}</option>
+												<option value="4">${mf:h(msg['label.encCipherCaesar.option.shift.4'])}</option>
+												<option value="5">${mf:h(msg['label.encCipherCaesar.option.shift.5'])}</option>
+												<option value="6">${mf:h(msg['label.encCipherCaesar.option.shift.6'])}</option>
+												<option value="7">${mf:h(msg['label.encCipherCaesar.option.shift.7'])}</option>
+												<option value="8">${mf:h(msg['label.encCipherCaesar.option.shift.8'])}</option>
+												<option value="9">${mf:h(msg['label.encCipherCaesar.option.shift.9'])}</option>
+												<option value="10">${mf:h(msg['label.encCipherCaesar.option.shift.10'])}</option>
+												<option value="11">${mf:h(msg['label.encCipherCaesar.option.shift.11'])}</option>
+												<option value="12">${mf:h(msg['label.encCipherCaesar.option.shift.12'])}</option>
+												<option value="13">${mf:h(msg['label.encCipherCaesar.option.shift.13'])}</option>
+												<option value="14">${mf:h(msg['label.encCipherCaesar.option.shift.14'])}</option>
+												<option value="15">${mf:h(msg['label.encCipherCaesar.option.shift.15'])}</option>
+												<option value="16">${mf:h(msg['label.encCipherCaesar.option.shift.16'])}</option>
+												<option value="17">${mf:h(msg['label.encCipherCaesar.option.shift.17'])}</option>
+												<option value="18">${mf:h(msg['label.encCipherCaesar.option.shift.18'])}</option>
+												<option value="19">${mf:h(msg['label.encCipherCaesar.option.shift.19'])}</option>
+												<option value="20">${mf:h(msg['label.encCipherCaesar.option.shift.20'])}</option>
+												<option value="21">${mf:h(msg['label.encCipherCaesar.option.shift.21'])}</option>
+												<option value="22">${mf:h(msg['label.encCipherCaesar.option.shift.22'])}</option>
+												<option value="23">${mf:h(msg['label.encCipherCaesar.option.shift.23'])}</option>
+												<option value="24">${mf:h(msg['label.encCipherCaesar.option.shift.24'])}</option>
+												<option value="25">${mf:h(msg['label.encCipherCaesar.option.shift.25'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot13'}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.encCipherROT13'])}</th><td><span id="encCipherROT13" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot18'}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.encCipherROT18'])}</th><td><span id="encCipherROT18" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot47'}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.encCipherROT47'])}</th><td><span id="encCipherROT47" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'hash'}">
