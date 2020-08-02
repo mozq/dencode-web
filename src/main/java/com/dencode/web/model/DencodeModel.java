@@ -42,6 +42,8 @@ public class DencodeModel {
 	private String decCipherROT13;
 	private String decCipherROT18;
 	private String decCipherROT47;
+	private String decCipherScytale;
+	private String decCipherRailFence;
 
 	private String encBin;
 	private String encHex;
@@ -103,6 +105,8 @@ public class DencodeModel {
 	private String encCipherROT13;
 	private String encCipherROT18;
 	private String encCipherROT47;
+	private String encCipherScytale;
+	private String encCipherRailFence;
 	private String encMD2;
 	private String encMD5;
 	private String encSHA1;
@@ -299,6 +303,22 @@ public class DencodeModel {
 
 	public void setDecCipherROT47(String decCipherROT47) {
 		this.decCipherROT47 = decCipherROT47;
+	}
+
+	public String getDecCipherScytale() {
+		return decCipherScytale;
+	}
+
+	public void setDecCipherScytale(String decCipherScytale) {
+		this.decCipherScytale = decCipherScytale;
+	}
+
+	public String getDecCipherRailFence() {
+		return decCipherRailFence;
+	}
+
+	public void setDecCipherRailFence(String decCipherRailFence) {
+		this.decCipherRailFence = decCipherRailFence;
 	}
 
 	public String getEncBin() {
@@ -779,6 +799,22 @@ public class DencodeModel {
 
 	public void setEncCipherROT47(String encCipherROT47) {
 		this.encCipherROT47 = encCipherROT47;
+	}
+
+	public String getEncCipherScytale() {
+		return encCipherScytale;
+	}
+
+	public void setEncCipherScytale(String encCipherScytale) {
+		this.encCipherScytale = encCipherScytale;
+	}
+
+	public String getEncCipherRailFence() {
+		return encCipherRailFence;
+	}
+
+	public void setEncCipherRailFence(String encCipherRailFence) {
+		this.encCipherRailFence = encCipherRailFence;
 	}
 
 	public String getEncMD2() {

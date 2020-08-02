@@ -165,6 +165,8 @@
 							<li class="${(method eq 'cipher.rot13') ? 'active' : ''}" data-dencode-method="cipher.rot13"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot13">${mf:h(msg['label.method.cipher.rot13'])}</a></li>
 							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot18">${mf:h(msg['label.method.cipher.rot18'])}</a></li>
 							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot47">${mf:h(msg['label.method.cipher.rot47'])}</a></li>
+							<li class="${(method eq 'cipher.scytale') ? 'active' : ''}" data-dencode-method="cipher.scytale"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/scytale">${mf:h(msg['label.method.cipher.scytale'])}</a></li>
+							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rail-fence">${mf:h(msg['label.method.cipher.rail-fence'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash" data-dencode-enable-oe="true" data-dencode-enable-nl="true" data-dencode-enable-tz="false">
@@ -321,6 +323,15 @@
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decUnicodeNFKC'])}</th><td><span id="decUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
+					<c:if test="${type eq 'all' or type eq 'number'}">
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.bin'}"><tr data-dencode-method="number.bin"><th>${mf:h(msg['label.decNumBin'])}</th><td><span id="decNumBin" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.oct'}"><tr data-dencode-method="number.oct"><th>${mf:h(msg['label.decNumOct'])}</th><td><span id="decNumOct" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.hex'}"><tr data-dencode-method="number.hex"><th>${mf:h(msg['label.decNumHex'])}</th><td><span id="decNumHex" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.english'}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.decNumEnShortScale'])}</th><td><span id="decNumEnShortScale" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.japanese'}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['label.decNumJP'])}</th><td><span id="decNumJP" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+					</c:if>
 					<c:if test="${type eq 'all' or type eq 'cipher'}">
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.caesar'}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.decCipherCaesar'])}</th><td><span id="decCipherCaesar" class="for-disp"></span>
@@ -363,14 +374,67 @@
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot18'}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.decCipherROT18'])}</th><td><span id="decCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot47'}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.decCipherROT47'])}</th><td><span id="decCipherROT47" class="for-disp"></span></td></tr></c:if>
 						</tbody>
-					</c:if>
-					<c:if test="${type eq 'all' or type eq 'number'}">
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.bin'}"><tr data-dencode-method="number.bin"><th>${mf:h(msg['label.decNumBin'])}</th><td><span id="decNumBin" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.oct'}"><tr data-dencode-method="number.oct"><th>${mf:h(msg['label.decNumOct'])}</th><td><span id="decNumOct" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.hex'}"><tr data-dencode-method="number.hex"><th>${mf:h(msg['label.decNumHex'])}</th><td><span id="decNumHex" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.english'}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.decNumEnShortScale'])}</th><td><span id="decNumEnShortScale" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'number.all' or method eq 'number.japanese'}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['label.decNumJP'])}</th><td><span id="decNumJP" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.scytale'}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.decCipherScytale'])}</th><td><span id="decCipherScytale" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.decCipherScytale.option.key'])}</span>
+											<select name="decCipherScytaleKey" class="dencode-option form-control">
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rail-fence'}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['label.decCipherRailFence'])}</th><td><span id="decCipherRailFence" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.decCipherRailFence.option.key'])}</span>
+											<select name="decCipherRailFenceKey" class="dencode-option form-control">
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 					</c:if>
 				</table>
@@ -560,6 +624,68 @@
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot13'}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.encCipherROT13'])}</th><td><span id="encCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot18'}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.encCipherROT18'])}</th><td><span id="encCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rot47'}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.encCipherROT47'])}</th><td><span id="encCipherROT47" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.scytale'}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.encCipherScytale'])}</th><td><span id="encCipherScytale" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encCipherScytale.option.key'])}</span>
+											<select name="encCipherScytaleKey" class="dencode-option form-control">
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rail-fence'}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['label.encCipherRailFence'])}</th><td><span id="encCipherRailFence" class="for-disp"></span>
+								<form class="dencode-option-group form-inline">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encCipherRailFence.option.key'])}</span>
+											<select name="encCipherRailFenceKey" class="dencode-option form-control">
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'hash'}">

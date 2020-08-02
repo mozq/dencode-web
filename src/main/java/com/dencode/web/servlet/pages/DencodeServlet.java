@@ -324,6 +324,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String encStrUnicodeEscapeSurrogatePairFormat = reqres().param("encStrUnicodeEscapeSurrogatePairFormat", "");
 		int encCipherCaesarShift = reqres().paramAsInt("encCipherCaesarShift", 0);
 		int decCipherCaesarShift = reqres().paramAsInt("decCipherCaesarShift", 0);
+		int encCipherScytaleKey = reqres().paramAsInt("encCipherScytaleKey", 2);
+		int decCipherScytaleKey = reqres().paramAsInt("decCipherScytaleKey", 2);
+		int encCipherRailFenceKey = reqres().paramAsInt("encCipherRailFenceKey", 2);
+		int decCipherRailFenceKey = reqres().paramAsInt("decCipherRailFenceKey", 2);
 		
 		String[] valLines = StringUtilz.split(val, new String[] {"\r\n", "\r", "\n"});
 		
@@ -455,11 +459,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (all || method.equals("cipher.rot13")) dencode.setEncCipherROT13(dencCipherROT13(val));
 			if (all || method.equals("cipher.rot18")) dencode.setEncCipherROT18(dencCipherROT18(val));
 			if (all || method.equals("cipher.rot47")) dencode.setEncCipherROT47(dencCipherROT47(val));
+			if (all || method.equals("cipher.scytale")) dencode.setEncCipherScytale(encCipherScytale(val, encCipherScytaleKey));
+			if (all || method.equals("cipher.rail-fence")) dencode.setEncCipherRailFence(encCipherRailFence(val, encCipherRailFenceKey));
 			
 			if (all || method.equals("cipher.caesar")) dencode.setDecCipherCaesar(decCipherCaesar(val, decCipherCaesarShift));
 			if (all || method.equals("cipher.rot13")) dencode.setDecCipherROT13(dencode.getEncCipherROT13());
 			if (all || method.equals("cipher.rot18")) dencode.setDecCipherROT18(dencode.getEncCipherROT18());
 			if (all || method.equals("cipher.rot47")) dencode.setDecCipherROT47(dencode.getEncCipherROT47());
+			if (all || method.equals("cipher.scytale")) dencode.setDecCipherScytale(decCipherScytale(val, decCipherScytaleKey));
+			if (all || method.equals("cipher.rail-fence")) dencode.setDecCipherRailFence(decCipherRailFence(val, decCipherRailFenceKey));
 		}
 		if (type.equals("all") || type.equals("hash")) {
 			boolean all = (method.equals("all") || method.equals("hash.all"));
@@ -1519,6 +1527,55 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return sb.toString();
 	}
 	
+	private static String encCipherScytale(String val, int key) {
+		if (val == null || val.length() <= key) {
+			return val;
+		}
+		
+		StringBuilder sb = new StringBuilder(val.length());
+		
+		int[] cps = val.codePoints().toArray();
+		int len = cps.length;
+		int maxY = key;
+		int maxX = (int)Math.ceil(((double)len) / maxY);
+		for (int x = 0; x < maxX; x++) {
+			for (int idx = x; idx < len; idx = idx + maxX) {
+				int cp = cps[idx];
+				sb.appendCodePoint(cp);
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String encCipherRailFence(String val, int key) {
+		if (val == null || val.length() <= key) {
+			return val;
+		}
+		
+		StringBuilder sb = new StringBuilder(val.length());
+		
+		int[] cps = val.codePoints().toArray();
+		int len = cps.length;
+		int maxY = key;
+		int cycleX = maxY * 2 - 2;
+		
+		for (int yi = 0; yi < maxY; yi++) {
+			for (int xi = yi; xi < len; xi += cycleX) {
+				sb.appendCodePoint(cps[xi]);
+				
+				if (yi != 0 && (yi + 1) != maxY) {
+					int nxi = xi + (cycleX - (2 * yi));
+					if (nxi < len) {
+						sb.appendCodePoint(cps[nxi]);
+					}
+				}
+			}
+		}
+		
+		return sb.toString();
+	}
+	
 	private static String hash(byte[] binValue, String algo) {
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance(algo);
@@ -1873,5 +1930,69 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static int parseDataSizeAsByte(String size) {
 		int bit = parseDataSizeAsBit(size);
 		return  (bit + 7) / 8; // Round UP
+	}
+	
+	private static String decCipherScytale(String val, int key) {
+		if (val == null || val.length() <= key) {
+			return val;
+		}
+		
+		StringBuilder sb = new StringBuilder(val.length());
+		
+		int[] cps = val.codePoints().toArray();
+		int len = cps.length;
+		int maxX = (int)Math.ceil(((double)len) / key);
+		int minX = len % maxX;
+		minX = (minX == 0) ? maxX : minX;
+		int maxY = Math.min(key, (int)Math.ceil(((double)len) / maxX));
+		for (int y = 1; y <= maxY; y++) {
+			boolean isBottom = (y == maxY);
+			
+			for (int x = 1; x <= maxX; x++) {
+				int offset = 0;
+				if (minX < x) {
+					if (isBottom) {
+						break;
+					}
+					
+					offset -= (x - minX - 1);
+				}
+				
+				int idx = (maxY * (x - 1)) + y - 1 + offset;
+				
+				int cp = cps[idx];
+				sb.appendCodePoint(cp);
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String decCipherRailFence(String val, int key) {
+		if (val == null || val.length() <= key) {
+			return val;
+		}
+		
+		int[] cps = val.codePoints().toArray();
+		int len = cps.length;
+		int maxY = key;
+		int cycleX = maxY * 2 - 2;
+		int[] newCPs = new int[len];
+		
+		int idx = 0;
+		for (int yi = 0; yi < maxY; yi++) {
+			for (int xi = yi; xi < len; xi += cycleX) {
+				newCPs[xi] = cps[idx++];
+				
+				if (yi != 0 && (yi + 1) != maxY) {
+					int nxi = xi + (cycleX - (2 * yi));
+					if (nxi < len) {
+						newCPs[nxi] = cps[idx++];
+					}
+				}
+			}
+		}
+		
+		return new String(newCPs, 0, len);
 	}
 }
