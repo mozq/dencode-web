@@ -163,6 +163,12 @@ $(document).ready(function () {
 		$this.removeClass("active");
 	});
 	
+	$("[data-value-link-to]").on("change", function () {
+		var $this = $(this);
+		
+		$($this.attr("data-value-link-to")).val($this.val());
+	});
+	
 	$localeMenuLinks.on("click", function (ev) {
 		var $this = $(this);
 		

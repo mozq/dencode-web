@@ -339,7 +339,7 @@
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.decCipherCaesar.option.shift'])}</span>
-											<select name="decCipherCaesarShift" class="dencode-option form-control">
+											<select name="decCipherCaesarShift" class="dencode-option form-control" data-value-link-to="[name=encCipherCaesarShift]">
 												<option value="1">${mf:h(msg['label.decCipherCaesar.option.shift.1'])}</option>
 												<option value="2">${mf:h(msg['label.decCipherCaesar.option.shift.2'])}</option>
 												<option value="3">${mf:h(msg['label.decCipherCaesar.option.shift.3'])}</option>
@@ -380,7 +380,7 @@
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.decCipherScytale.option.key'])}</span>
-											<select name="decCipherScytaleKey" class="dencode-option form-control">
+											<select name="decCipherScytaleKey" class="dencode-option form-control" data-value-link-to="[name=encCipherScytaleKey]">
 												<option value="2">2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
@@ -410,7 +410,7 @@
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.decCipherRailFence.option.key'])}</span>
-											<select name="decCipherRailFenceKey" class="dencode-option form-control">
+											<select name="decCipherRailFenceKey" class="dencode-option form-control" data-value-link-to="[name=encCipherRailFenceKey]">
 												<option value="2">2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
@@ -590,7 +590,7 @@
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encCipherCaesar.option.shift'])}</span>
-											<select name="encCipherCaesarShift" class="dencode-option form-control">
+											<select name="encCipherCaesarShift" class="dencode-option form-control" data-value-link-to="[name=decCipherCaesarShift]">
 												<option value="1">${mf:h(msg['label.encCipherCaesar.option.shift.1'])}</option>
 												<option value="2">${mf:h(msg['label.encCipherCaesar.option.shift.2'])}</option>
 												<option value="3">${mf:h(msg['label.encCipherCaesar.option.shift.3'])}</option>
@@ -631,7 +631,7 @@
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encCipherScytale.option.key'])}</span>
-											<select name="encCipherScytaleKey" class="dencode-option form-control">
+											<select name="encCipherScytaleKey" class="dencode-option form-control" data-value-link-to="[name=decCipherScytaleKey]">
 												<option value="2">2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
@@ -661,7 +661,7 @@
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encCipherRailFence.option.key'])}</span>
-											<select name="encCipherRailFenceKey" class="dencode-option form-control">
+											<select name="encCipherRailFenceKey" class="dencode-option form-control" data-value-link-to="[name=decCipherRailFenceKey]">
 												<option value="2">2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
