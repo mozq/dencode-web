@@ -477,6 +477,13 @@
 												<option value="2B">${mf:h(msg['label.encStrHex.option.separator.each.2bytes'])}</option>
 											</select>
 										</div>
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encStrHex.option.case'])}</span>
+											<select name="encStrHexCase" class="dencode-option form-control">
+												<option value="lower">${mf:h(msg['label.encStrHex.option.case.lower'])}</option>
+												<option value="upper">${mf:h(msg['label.encStrHex.option.case.upper'])}</option>
+											</select>
+										</div>
 									</div>
 								</form>
 							</td></tr></c:if>

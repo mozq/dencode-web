@@ -320,6 +320,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		String encStrBinSeparatorEach = reqres().param("encStrBinSeparatorEach", "");
 		String encStrHexSeparatorEach = reqres().param("encStrHexSeparatorEach", "");
+		String encStrHexCase = reqres().param("encStrHexCase", "lower");
 		String encStrBase64LineBreakEach = reqres().param("encStrBase64LineBreakEach", "");
 		String encStrUnicodeEscapeSurrogatePairFormat = reqres().param("encStrUnicodeEscapeSurrogatePairFormat", "");
 		int encCipherCaesarShift = reqres().paramAsInt("encCipherCaesarShift", 0);
@@ -359,7 +360,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			boolean all = (method.equals("all") || method.equals("string.all"));
 			
 			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue, encStrBinSeparatorEach));
-			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue, encStrHexSeparatorEach));
+			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue, encStrHexSeparatorEach, encStrHexCase));
 			if (all || method.equals("string.html-escape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
 			if (all || method.equals("string.html-escape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
 			if (all || method.equals("string.url-encoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
@@ -623,8 +624,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return toBinString(binValue, separatorEach);
 	}
 	
-	private static String encHex(byte[] binValue, String separatorEach) {
-		return toHexString(binValue, separatorEach);
+	private static String encHex(byte[] binValue, String separatorEach, String hexCase) {
+		return toHexString(binValue, separatorEach, hexCase.equals("upper"));
 	}
 	
 	private static String encHalfWidth(String val) {
@@ -1855,7 +1856,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return sb.toString();
 	}
 	
-	private static String toHexString(byte[] binary, String separatorEach) {
+	private static String toHexString(byte[] binary, String separatorEach, boolean upperCase) {
 		if (binary == null) {
 			return null;
 		}
@@ -1866,6 +1867,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		int separatorEachByte = parseDataSizeAsByte(separatorEach);
 		
 		int len = binary.length;
+		
+		char baseCharA = (upperCase) ? 'A' : 'a';
 		
 		StringBuilder sb = new StringBuilder(len * 3);
 		for (int i = 0; i < len; i++) {
@@ -1879,12 +1882,12 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			if (high < 10) {
 				sb.append((char)('0' + high));
 			} else {
-				sb.append((char)('A' + (high - 10)));
+				sb.append((char)(baseCharA + (high - 10)));
 			}
 			if (low < 10) {
 				sb.append((char)('0' + low));
 			} else {
-				sb.append((char)('A' + (low - 10)));
+				sb.append((char)(baseCharA + (low - 10)));
 			}
 		}
 		return sb.toString();
