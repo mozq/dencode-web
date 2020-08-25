@@ -359,50 +359,50 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (type.equals("all") || type.equals("string")) {
 			boolean all = (method.equals("all") || method.equals("string.all"));
 			
-			if (all || method.equals("string.bin")) dencode.setEncBin(encBin(binValue, encStrBinSeparatorEach));
-			if (all || method.equals("string.hex")) dencode.setEncHex(encHex(binValue, encStrHexSeparatorEach, encStrHexCase));
-			if (all || method.equals("string.html-escape")) dencode.setEncHTMLEscape(encHTMLEscape(val));
-			if (all || method.equals("string.html-escape")) dencode.setEncHTMLEscapeFully(encHTMLEscapeFully(val));
-			if (all || method.equals("string.url-encoding")) dencode.setEncURLEncoding(encURLEncoding(binValue));
-			if (all || method.equals("string.punycode")) dencode.setEncPunycode(encPunycode(valLines));
-			if (all || method.equals("string.base32")) dencode.setEncBase32Encoding(encBase32Encoding(binValue));
-			if (all || method.equals("string.base64")) dencode.setEncBase64Encoding(encBase64Encoding(binValue, encStrBase64LineBreakEach));
-			if (all || method.equals("string.quoted-printable")) dencode.setEncQuotedPrintable(encQuotedPrintable(binValue));
-			if (all || method.equals("string.unicode-escape")) dencode.setEncUnicodeEscape(encUnicodeEscape(val, encStrUnicodeEscapeSurrogatePairFormat));
-			if (all || method.equals("string.program-string")) dencode.setEncProgramString(encProgramString(val));
-			if (all || method.equals("string.character-width")) dencode.setEncHalfWidth(encHalfWidth(val));
-			if (all || method.equals("string.character-width")) dencode.setEncFullWidth(encFullWidth(val));
-			if (all || method.equals("string.letter-case")) dencode.setEncUpperCase(encUpperCase(val));
-			if (all || method.equals("string.letter-case")) dencode.setEncLowerCase(encLowerCase(val));
-			if (all || method.equals("string.letter-case")) dencode.setEncSwapCase(encSwapCase(val));
-			if (all || method.equals("string.letter-case")) dencode.setEncCapitalize(encCapitalize(val));
-			if (all || method.equals("string.text-initials")) dencode.setEncInitials(encInitials(val));
-			if (all || method.equals("string.text-reverse")) dencode.setEncReverse(encReverse(val));
-			if (all || method.equals("string.naming-convention") || method.equals("string.camel-case")) dencode.setEncUpperCamelCase(encCamelCase(val, true));
-			if (all || method.equals("string.naming-convention") || method.equals("string.camel-case")) dencode.setEncLowerCamelCase(encCamelCase(val, false));
-			if (all || method.equals("string.naming-convention") || method.equals("string.snake-case")) dencode.setEncUpperSnakeCase(encSnakeCase(val, true));
-			if (all || method.equals("string.naming-convention") || method.equals("string.snake-case")) dencode.setEncLowerSnakeCase(encSnakeCase(val, false));
-			if (all || method.equals("string.naming-convention") || method.equals("string.kebab-case")) dencode.setEncUpperKebabCase(encKebabCase(val, true));
-			if (all || method.equals("string.naming-convention") || method.equals("string.kebab-case")) dencode.setEncLowerKebabCase(encKebabCase(val, false));
-			if (all || method.equals("string.unicode-normalization")) dencode.setEncUnicodeNFC(encUnicodeNFC(val));
-			if (all || method.equals("string.unicode-normalization")) dencode.setEncUnicodeNFKC(encUnicodeNFKC(val));
-			if (all || method.equals("string.line-sort")) dencode.setEncLineSortAsc(encLineSortAsc(valLines, lineBreak));
-			if (all || method.equals("string.line-sort")) dencode.setEncLineSortDesc(encLineSortDesc(valLines, lineBreak));
-			if (all || method.equals("string.line-sort")) dencode.setEncLineSortReverse(encLineSortReverse(valLines, lineBreak));
-			if (all || method.equals("string.line-unique")) dencode.setEncLineUnique(encLineUnique(valLines, lineBreak));
+			if (all || method.equals("string.bin")) dencode.setEncStrBin(encStrBin(binValue, encStrBinSeparatorEach));
+			if (all || method.equals("string.hex")) dencode.setEncStrHex(encStrHex(binValue, encStrHexSeparatorEach, encStrHexCase));
+			if (all || method.equals("string.html-escape")) dencode.setEncStrHTMLEscape(encStrHTMLEscape(val));
+			if (all || method.equals("string.html-escape")) dencode.setEncStrHTMLEscapeFully(encStrHTMLEscapeFully(val));
+			if (all || method.equals("string.url-encoding")) dencode.setEncStrURLEncoding(encStrURLEncoding(binValue));
+			if (all || method.equals("string.punycode")) dencode.setEncStrPunycode(encStrPunycode(valLines));
+			if (all || method.equals("string.base32")) dencode.setEncStrBase32Encoding(encStrBase32Encoding(binValue));
+			if (all || method.equals("string.base64")) dencode.setEncStrBase64Encoding(encStrBase64Encoding(binValue, encStrBase64LineBreakEach));
+			if (all || method.equals("string.quoted-printable")) dencode.setEncStrQuotedPrintable(encStrQuotedPrintable(binValue));
+			if (all || method.equals("string.unicode-escape")) dencode.setEncStrUnicodeEscape(encStrUnicodeEscape(val, encStrUnicodeEscapeSurrogatePairFormat));
+			if (all || method.equals("string.program-string")) dencode.setEncStrProgramString(encStrProgramString(val));
+			if (all || method.equals("string.character-width")) dencode.setEncStrHalfWidth(encStrHalfWidth(val));
+			if (all || method.equals("string.character-width")) dencode.setEncStrFullWidth(encStrFullWidth(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncStrUpperCase(encStrUpperCase(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncStrLowerCase(encStrLowerCase(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncStrSwapCase(encStrSwapCase(val));
+			if (all || method.equals("string.letter-case")) dencode.setEncStrCapitalize(encStrCapitalize(val));
+			if (all || method.equals("string.text-initials")) dencode.setEncStrInitials(encStrInitials(val));
+			if (all || method.equals("string.text-reverse")) dencode.setEncStrReverse(encStrReverse(val));
+			if (all || method.equals("string.naming-convention") || method.equals("string.camel-case")) dencode.setEncStrUpperCamelCase(encStrCamelCase(val, true));
+			if (all || method.equals("string.naming-convention") || method.equals("string.camel-case")) dencode.setEncStrLowerCamelCase(encStrCamelCase(val, false));
+			if (all || method.equals("string.naming-convention") || method.equals("string.snake-case")) dencode.setEncStrUpperSnakeCase(encStrSnakeCase(val, true));
+			if (all || method.equals("string.naming-convention") || method.equals("string.snake-case")) dencode.setEncStrLowerSnakeCase(encStrSnakeCase(val, false));
+			if (all || method.equals("string.naming-convention") || method.equals("string.kebab-case")) dencode.setEncStrUpperKebabCase(encStrKebabCase(val, true));
+			if (all || method.equals("string.naming-convention") || method.equals("string.kebab-case")) dencode.setEncStrLowerKebabCase(encStrKebabCase(val, false));
+			if (all || method.equals("string.unicode-normalization")) dencode.setEncStrUnicodeNFC(encStrUnicodeNFC(val));
+			if (all || method.equals("string.unicode-normalization")) dencode.setEncStrUnicodeNFKC(encStrUnicodeNFKC(val));
+			if (all || method.equals("string.line-sort")) dencode.setEncStrLineSortAsc(encStrLineSortAsc(valLines, lineBreak));
+			if (all || method.equals("string.line-sort")) dencode.setEncStrLineSortDesc(encStrLineSortDesc(valLines, lineBreak));
+			if (all || method.equals("string.line-sort")) dencode.setEncStrLineSortReverse(encStrLineSortReverse(valLines, lineBreak));
+			if (all || method.equals("string.line-unique")) dencode.setEncStrLineUnique(encStrLineUnique(valLines, lineBreak));
 			
-			if (all || method.equals("string.bin")) dencode.setDecBin(decBin(val, charset));
-			if (all || method.equals("string.hex")) dencode.setDecHex(decHex(val, charset));
-			if (all || method.equals("string.html-escape")) dencode.setDecHTMLEscape(decHTMLEscape(val));
-			if (all || method.equals("string.url-encoding")) dencode.setDecURLEncoding(decURLEncoding(val, charset));
-			if (all || method.equals("string.punycode")) dencode.setDecPunycode(decPunycode(valLines));
-			if (all || method.equals("string.base32")) dencode.setDecBase32Encoding(decBase32Encoding(val, charset));
-			if (all || method.equals("string.base64")) dencode.setDecBase64Encoding(decBase64Encoding(val, charset));
-			if (all || method.equals("string.quoted-printable")) dencode.setDecQuotedPrintable(decQuotedPrintable(val, charset));
-			if (all || method.equals("string.unicode-escape")) dencode.setDecUnicodeEscape(decUnicodeEscape(val));
-			if (all || method.equals("string.program-string")) dencode.setDecProgramString(decProgramString(val));
-			if (all || method.equals("string.unicode-normalization")) dencode.setDecUnicodeNFC(decUnicodeNFC(val));
-			if (all || method.equals("string.unicode-normalization")) dencode.setDecUnicodeNFKC(decUnicodeNFKC(val));
+			if (all || method.equals("string.bin")) dencode.setDecStrBin(decStrBin(val, charset));
+			if (all || method.equals("string.hex")) dencode.setDecStrHex(decStrHex(val, charset));
+			if (all || method.equals("string.html-escape")) dencode.setDecStrHTMLEscape(decStrHTMLEscape(val));
+			if (all || method.equals("string.url-encoding")) dencode.setDecStrURLEncoding(decStrURLEncoding(val, charset));
+			if (all || method.equals("string.punycode")) dencode.setDecStrPunycode(decStrPunycode(valLines));
+			if (all || method.equals("string.base32")) dencode.setDecStrBase32Encoding(decStrBase32Encoding(val, charset));
+			if (all || method.equals("string.base64")) dencode.setDecStrBase64Encoding(decStrBase64Encoding(val, charset));
+			if (all || method.equals("string.quoted-printable")) dencode.setDecStrQuotedPrintable(decStrQuotedPrintable(val, charset));
+			if (all || method.equals("string.unicode-escape")) dencode.setDecStrUnicodeEscape(decStrUnicodeEscape(val));
+			if (all || method.equals("string.program-string")) dencode.setDecStrProgramString(decStrProgramString(val));
+			if (all || method.equals("string.unicode-normalization")) dencode.setDecStrUnicodeNFC(decStrUnicodeNFC(val));
+			if (all || method.equals("string.unicode-normalization")) dencode.setDecStrUnicodeNFKC(decStrUnicodeNFKC(val));
 		}
 		if (type.equals("all") || type.equals("number")) {
 			boolean all = (method.equals("all") || method.equals("number.all"));
@@ -473,13 +473,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (type.equals("all") || type.equals("hash")) {
 			boolean all = (method.equals("all") || method.equals("hash.all"));
 			
-			if (all || method.equals("hash.md2")) dencode.setEncMD2(hash(binValue, "MD2"));
-			if (all || method.equals("hash.md5")) dencode.setEncMD5(hash(binValue, "MD5"));
-			if (all || method.equals("hash.sha1")) dencode.setEncSHA1(hash(binValue, "SHA-1"));
-			if (all || method.equals("hash.sha256")) dencode.setEncSHA256(hash(binValue, "SHA-256"));
-			if (all || method.equals("hash.sha384")) dencode.setEncSHA384(hash(binValue, "SHA-384"));
-			if (all || method.equals("hash.sha512")) dencode.setEncSHA512(hash(binValue, "SHA-512"));
-			if (all || method.equals("hash.crc32")) dencode.setEncCRC32(encCRC32(binValue));
+			if (all || method.equals("hash.md2")) dencode.setEncHashMD2(hash(binValue, "MD2"));
+			if (all || method.equals("hash.md5")) dencode.setEncHashMD5(hash(binValue, "MD5"));
+			if (all || method.equals("hash.sha1")) dencode.setEncHashSHA1(hash(binValue, "SHA-1"));
+			if (all || method.equals("hash.sha256")) dencode.setEncHashSHA256(hash(binValue, "SHA-256"));
+			if (all || method.equals("hash.sha384")) dencode.setEncHashSHA384(hash(binValue, "SHA-384"));
+			if (all || method.equals("hash.sha512")) dencode.setEncHashSHA512(hash(binValue, "SHA-512"));
+			if (all || method.equals("hash.crc32")) dencode.setEncHashCRC32(encHashCRC32(binValue));
 		}
 		
 		responseAsJson(dencode);
@@ -510,15 +510,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return val.codePointCount(0, val.length());
 	}
 	
-	private static String encHTMLEscape(String val) {
+	private static String encStrHTMLEscape(String val) {
 		return HTMLUtilz.escapeBasicHTML(val);
 	}
 	
-	private static String encHTMLEscapeFully(String val) {
+	private static String encStrHTMLEscapeFully(String val) {
 		return HTMLUtilz.escapeHTML5Fully(val);
 	}
 	
-	private static String encURLEncoding(byte[] binValue) {
+	private static String encStrURLEncoding(byte[] binValue) {
 		URLCodec urlCodec = new URLCodec();
 		String encodedURL = new String(urlCodec.encode(binValue), StandardCharsets.US_ASCII);
 		if (encodedURL.indexOf('+') != -1) {
@@ -527,7 +527,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return encodedURL;
 	}
 	
-	private static String encPunycode(String[] vals) {
+	private static String encStrPunycode(String[] vals) {
 		try {
 			String[] decVals = new String[vals.length];
 			for (int i = 0; i < vals.length; i++) {
@@ -539,12 +539,12 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encBase32Encoding(byte[] binValue) {
+	private static String encStrBase32Encoding(byte[] binValue) {
 		Base32 base32 = new Base32();
 		return base32.encodeAsString(binValue);
 	}
 	
-	private static String encBase64Encoding(byte[] binValue, String encStrBase64LineBreakEach) {
+	private static String encStrBase64Encoding(byte[] binValue, String encStrBase64LineBreakEach) {
 		int lineLength = 0;
 		if (encStrBase64LineBreakEach != null && !encStrBase64LineBreakEach.isEmpty()) {
 			try {
@@ -558,13 +558,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return base64.encodeAsString(binValue);
 	}
 	
-	private static String encQuotedPrintable(byte[] binValue) {
+	private static String encStrQuotedPrintable(byte[] binValue) {
 		boolean strict = (3 <= binValue.length);
 		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec(strict);
 		return new String(quotedPrintableCodec.encode(binValue), StandardCharsets.US_ASCII);
 	}
 	
-	private static String encProgramString(String val) {
+	private static String encStrProgramString(String val) {
 		if (val == null) {
 			return null;
 		}
@@ -585,7 +585,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encUnicodeEscape(String val, String spFormatType) {
+	private static String encStrUnicodeEscape(String val, String spFormatType) {
 		if (val == null) {
 			return null;
 		}
@@ -620,23 +620,23 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return sb.toString();
 	}
 	
-	private static String encBin(byte[] binValue, String separatorEach) {
+	private static String encStrBin(byte[] binValue, String separatorEach) {
 		return toBinString(binValue, separatorEach);
 	}
 	
-	private static String encHex(byte[] binValue, String separatorEach, String hexCase) {
+	private static String encStrHex(byte[] binValue, String separatorEach, String hexCase) {
 		return toHexString(binValue, separatorEach, hexCase.equals("upper"));
 	}
 	
-	private static String encHalfWidth(String val) {
+	private static String encStrHalfWidth(String val) {
 		return StringUtilz.toHalfWidth(val, true, true, true, true, true, true);
 	}
 	
-	private static String encFullWidth(String val) {
+	private static String encStrFullWidth(String val) {
 		return StringUtilz.toFullWidth(val, true, true, true, true, true, true);
 	}
 	
-	private static String encUpperCase(String val) {
+	private static String encStrUpperCase(String val) {
 		if (val == null || val.isEmpty()) {
 			return val;
 		}
@@ -644,7 +644,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return val.toUpperCase(Locale.US);
 	}
 	
-	private static String encLowerCase(String val) {
+	private static String encStrLowerCase(String val) {
 		if (val == null || val.isEmpty()) {
 			return val;
 		}
@@ -652,19 +652,19 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return val.toLowerCase(Locale.US);
 	}
 	
-	private static String encSwapCase(String val) {
+	private static String encStrSwapCase(String val) {
 		return StringUtilz.swapCase(val);
 	}
 	
-	private static String encCapitalize(String val) {
+	private static String encStrCapitalize(String val) {
 		return StringUtilz.capitalize(val, true);
 	}
 	
-	private static String encInitials(String val) {
+	private static String encStrInitials(String val) {
 		return StringUtilz.initials(val);
 	}
 	
-	private static String encReverse(String val) {
+	private static String encStrReverse(String val) {
 		if (val == null || val.length() <= 1) {
 			return val;
 		}
@@ -672,27 +672,27 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return new StringBuilder(val).reverse().toString();
 	}
 	
-	private static String encCamelCase(String val, boolean firstCapital) {
+	private static String encStrCamelCase(String val, boolean firstCapital) {
 		return StringUtilz.toCamelCase(val, firstCapital);
 	}
 	
-	private static String encSnakeCase(String val, boolean upper) {
+	private static String encStrSnakeCase(String val, boolean upper) {
 		return StringUtilz.toSnakeCase(val, false, Boolean.valueOf(upper));
 	}
 	
-	private static String encKebabCase(String val, boolean upper) {
+	private static String encStrKebabCase(String val, boolean upper) {
 		return StringUtilz.toChainCase(val, false, Boolean.valueOf(upper));
 	}
 	
-	private static String encUnicodeNFC(String val) {
+	private static String encStrUnicodeNFC(String val) {
 		return Normalizer.normalize(val, Normalizer.Form.NFC);
 	}
 	
-	private static String encUnicodeNFKC(String val) {
+	private static String encStrUnicodeNFKC(String val) {
 		return Normalizer.normalize(val, Normalizer.Form.NFKC);
 	}
 	
-	private static String encLineSortAsc(String[] varLines, String lineBreak) {
+	private static String encStrLineSortAsc(String[] varLines, String lineBreak) {
 		String[] lines = Arrays.copyOf(varLines, varLines.length);
 		
 		Arrays.sort(lines, new Comparator<String>() {
@@ -705,7 +705,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join(lineBreak, (Object[])lines);
 	}
 	
-	private static String encLineSortDesc(String[] varLines, String lineBreak) {
+	private static String encStrLineSortDesc(String[] varLines, String lineBreak) {
 		String[] lines = Arrays.copyOf(varLines, varLines.length);
 		
 		Arrays.sort(lines, new Comparator<String>() {
@@ -718,7 +718,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join(lineBreak, (Object[])lines);
 	}
 	
-	private static String encLineSortReverse(String[] varLines, String lineBreak) {
+	private static String encStrLineSortReverse(String[] varLines, String lineBreak) {
 		String[] lines = Arrays.copyOf(varLines, varLines.length);
 		
 		List<String> lineList = Arrays.asList(lines);
@@ -727,7 +727,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join(lineBreak, lineList);
 	}
 	
-	private static String encLineUnique(String[] varLines, String lineBreak) {
+	private static String encStrLineUnique(String[] varLines, String lineBreak) {
 		Object[] objLines = Arrays.stream(varLines).distinct().toArray();
 		
 		return StringUtilz.join(lineBreak, objLines);
@@ -1587,14 +1587,14 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String encCRC32(byte[] binValue) {
+	private static String encHashCRC32(byte[] binValue) {
 		CRC32 crc = new CRC32();
 		crc.update(binValue, 0, binValue.length);
 		return Long.toHexString(crc.getValue());
 	}
 	
 	
-	private static String decBin(String val, Charset charset) {
+	private static String decStrBin(String val, Charset charset) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -1619,7 +1619,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decHex(String val, Charset charset) {
+	private static String decStrHex(String val, Charset charset) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -1643,11 +1643,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decHTMLEscape(String val) {
+	private static String decStrHTMLEscape(String val) {
 		return HTMLUtilz.unescapeHTML5(val);
 	}
 	
-	private static String decURLEncoding(String val, Charset charset) {
+	private static String decStrURLEncoding(String val, Charset charset) {
 		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}
@@ -1663,7 +1663,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decPunycode(String[] vals) {
+	private static String decStrPunycode(String[] vals) {
 		String[] decVals = new String[vals.length];
 		for (int i = 0; i < vals.length; i++) {
 			decVals[i] = IDN.toUnicode(vals[i], IDN.ALLOW_UNASSIGNED);
@@ -1671,7 +1671,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return StringUtilz.join("\r\n", (Object[])decVals);
 	}
 	
-	private static String decBase32Encoding(String val, Charset charset) {
+	private static String decStrBase32Encoding(String val, Charset charset) {
 		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
 		
 		Base32 base32 = new Base32();
@@ -1687,7 +1687,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decBase64Encoding(String val, Charset charset) {
+	private static String decStrBase64Encoding(String val, Charset charset) {
 		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
 		
 		Base64 base64 = new Base64();
@@ -1703,7 +1703,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decQuotedPrintable(String val, Charset charset) {
+	private static String decStrQuotedPrintable(String val, Charset charset) {
 		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}
@@ -1716,7 +1716,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decUnicodeEscape(String val) {
+	private static String decStrUnicodeEscape(String val) {
 		if (val == null) {
 			return null;
 		}
@@ -1734,7 +1734,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 	}
 	
-	private static String decProgramString(String val) {
+	private static String decStrProgramString(String val) {
 		if (val == null || val.length() < 2) {
 			return null;
 		}
@@ -1753,11 +1753,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 				);
 	}
 	
-	private static String decUnicodeNFC(String val) {
+	private static String decStrUnicodeNFC(String val) {
 		return Normalizer.normalize(val, Normalizer.Form.NFD);
 	}
 	
-	private static String decUnicodeNFKC(String val) {
+	private static String decStrUnicodeNFKC(String val) {
 		return Normalizer.normalize(val, Normalizer.Form.NFKD);
 	}
 

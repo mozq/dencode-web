@@ -16,23 +16,27 @@
  */
 package com.dencode.web.model;
 
+/**
+ * @author masa
+ *
+ */
 public class DencodeModel {
 	
 	private int textLength;
 	private int textByteLength;
 	
-	private String decBin;
-	private String decHex;
-	private String decHTMLEscape;
-	private String decURLEncoding;
-	private String decPunycode;
-	private String decBase32Encoding;
-	private String decBase64Encoding;
-	private String decQuotedPrintable;
-	private String decUnicodeEscape;
-	private String decProgramString;
-	private String decUnicodeNFC;
-	private String decUnicodeNFKC;
+	private String decStrBin;
+	private String decStrHex;
+	private String decStrHTMLEscape;
+	private String decStrURLEncoding;
+	private String decStrPunycode;
+	private String decStrBase32Encoding;
+	private String decStrBase64Encoding;
+	private String decStrQuotedPrintable;
+	private String decStrUnicodeEscape;
+	private String decStrProgramString;
+	private String decStrUnicodeNFC;
+	private String decStrUnicodeNFKC;
 	private String decNumBin;
 	private String decNumOct;
 	private String decNumHex;
@@ -45,37 +49,37 @@ public class DencodeModel {
 	private String decCipherScytale;
 	private String decCipherRailFence;
 
-	private String encBin;
-	private String encHex;
-	private String encHTMLEscape;
-	private String encHTMLEscapeFully;
-	private String encURLEncoding;
-	private String encPunycode;
-	private String encBase32Encoding;
-	private String encBase64Encoding;
-	private String encQuotedPrintable;
-	private String encUnicodeEscape;
-	private String encProgramString;
-	private String encHalfWidth;
-	private String encFullWidth;
-	private String encUpperCase;
-	private String encLowerCase;
-	private String encSwapCase;
-	private String encCapitalize;
-	private String encInitials;
-	private String encReverse;
-	private String encUpperCamelCase;
-	private String encLowerCamelCase;
-	private String encUpperSnakeCase;
-	private String encLowerSnakeCase;
-	private String encUpperKebabCase;
-	private String encLowerKebabCase;
-	private String encUnicodeNFC;
-	private String encUnicodeNFKC;
-	private String encLineSortAsc;
-	private String encLineSortDesc;
-	private String encLineSortReverse;
-	private String encLineUnique;
+	private String encStrBin;
+	private String encStrHex;
+	private String encStrHTMLEscape;
+	private String encStrHTMLEscapeFully;
+	private String encStrURLEncoding;
+	private String encStrPunycode;
+	private String encStrBase32Encoding;
+	private String encStrBase64Encoding;
+	private String encStrQuotedPrintable;
+	private String encStrUnicodeEscape;
+	private String encStrProgramString;
+	private String encStrHalfWidth;
+	private String encStrFullWidth;
+	private String encStrUpperCase;
+	private String encStrLowerCase;
+	private String encStrSwapCase;
+	private String encStrCapitalize;
+	private String encStrInitials;
+	private String encStrReverse;
+	private String encStrUpperCamelCase;
+	private String encStrLowerCamelCase;
+	private String encStrUpperSnakeCase;
+	private String encStrLowerSnakeCase;
+	private String encStrUpperKebabCase;
+	private String encStrLowerKebabCase;
+	private String encStrUnicodeNFC;
+	private String encStrUnicodeNFKC;
+	private String encStrLineSortAsc;
+	private String encStrLineSortDesc;
+	private String encStrLineSortReverse;
+	private String encStrLineUnique;
 	private String encNumBin;
 	private String encNumOct;
 	private String encNumHex;
@@ -107,13 +111,13 @@ public class DencodeModel {
 	private String encCipherROT47;
 	private String encCipherScytale;
 	private String encCipherRailFence;
-	private String encMD2;
-	private String encMD5;
-	private String encSHA1;
-	private String encSHA256;
-	private String encSHA384;
-	private String encSHA512;
-	private String encCRC32;
+	private String encHashMD2;
+	private String encHashMD5;
+	private String encHashSHA1;
+	private String encHashSHA256;
+	private String encHashSHA384;
+	private String encHashSHA512;
+	private String encHashCRC32;
 
 	/**
 	 * 
@@ -137,100 +141,100 @@ public class DencodeModel {
 		this.textByteLength = textByteLength;
 	}
 
-	public String getDecBin() {
-		return decBin;
+	public String getDecStrBin() {
+		return decStrBin;
 	}
 
-	public void setDecBin(String decBin) {
-		this.decBin = decBin;
+	public void setDecStrBin(String decStrBin) {
+		this.decStrBin = decStrBin;
 	}
 
-	public String getDecHex() {
-		return decHex;
+	public String getDecStrHex() {
+		return decStrHex;
 	}
 
-	public void setDecHex(String decHex) {
-		this.decHex = decHex;
+	public void setDecStrHex(String decStrHex) {
+		this.decStrHex = decStrHex;
 	}
 
-	public String getDecHTMLEscape() {
-		return decHTMLEscape;
+	public String getDecStrHTMLEscape() {
+		return decStrHTMLEscape;
 	}
 
-	public void setDecHTMLEscape(String decHTMLEscape) {
-		this.decHTMLEscape = decHTMLEscape;
+	public void setDecStrHTMLEscape(String decStrHTMLEscape) {
+		this.decStrHTMLEscape = decStrHTMLEscape;
 	}
 
-	public String getDecURLEncoding() {
-		return decURLEncoding;
+	public String getDecStrURLEncoding() {
+		return decStrURLEncoding;
 	}
 
-	public void setDecURLEncoding(String decURLEncoding) {
-		this.decURLEncoding = decURLEncoding;
+	public void setDecStrURLEncoding(String decStrURLEncoding) {
+		this.decStrURLEncoding = decStrURLEncoding;
 	}
 
-	public String getDecPunycode() {
-		return decPunycode;
+	public String getDecStrPunycode() {
+		return decStrPunycode;
 	}
 
-	public void setDecPunycode(String decPunycode) {
-		this.decPunycode = decPunycode;
+	public void setDecStrPunycode(String decStrPunycode) {
+		this.decStrPunycode = decStrPunycode;
 	}
 
-	public String getDecBase32Encoding() {
-		return decBase32Encoding;
+	public String getDecStrBase32Encoding() {
+		return decStrBase32Encoding;
 	}
 
-	public void setDecBase32Encoding(String decBase32Encoding) {
-		this.decBase32Encoding = decBase32Encoding;
+	public void setDecStrBase32Encoding(String decStrBase32Encoding) {
+		this.decStrBase32Encoding = decStrBase32Encoding;
 	}
 
-	public String getDecBase64Encoding() {
-		return decBase64Encoding;
+	public String getDecStrBase64Encoding() {
+		return decStrBase64Encoding;
 	}
 
-	public void setDecBase64Encoding(String decBase64Encoding) {
-		this.decBase64Encoding = decBase64Encoding;
+	public void setDecStrBase64Encoding(String decStrBase64Encoding) {
+		this.decStrBase64Encoding = decStrBase64Encoding;
 	}
 
-	public String getDecQuotedPrintable() {
-		return decQuotedPrintable;
+	public String getDecStrQuotedPrintable() {
+		return decStrQuotedPrintable;
 	}
 
-	public void setDecQuotedPrintable(String decQuotedPrintable) {
-		this.decQuotedPrintable = decQuotedPrintable;
+	public void setDecStrQuotedPrintable(String decStrQuotedPrintable) {
+		this.decStrQuotedPrintable = decStrQuotedPrintable;
 	}
 
-	public String getDecUnicodeEscape() {
-		return decUnicodeEscape;
+	public String getDecStrUnicodeEscape() {
+		return decStrUnicodeEscape;
 	}
 
-	public void setDecUnicodeEscape(String decUnicodeEscape) {
-		this.decUnicodeEscape = decUnicodeEscape;
+	public void setDecStrUnicodeEscape(String decStrUnicodeEscape) {
+		this.decStrUnicodeEscape = decStrUnicodeEscape;
 	}
 
-	public String getDecProgramString() {
-		return decProgramString;
+	public String getDecStrProgramString() {
+		return decStrProgramString;
 	}
 
-	public void setDecProgramString(String decProgramString) {
-		this.decProgramString = decProgramString;
+	public void setDecStrProgramString(String decStrProgramString) {
+		this.decStrProgramString = decStrProgramString;
 	}
 
-	public String getDecUnicodeNFC() {
-		return decUnicodeNFC;
+	public String getDecStrUnicodeNFC() {
+		return decStrUnicodeNFC;
 	}
 
-	public void setDecUnicodeNFC(String decUnicodeNFC) {
-		this.decUnicodeNFC = decUnicodeNFC;
+	public void setDecStrUnicodeNFC(String decStrUnicodeNFC) {
+		this.decStrUnicodeNFC = decStrUnicodeNFC;
 	}
 
-	public String getDecUnicodeNFKC() {
-		return decUnicodeNFKC;
+	public String getDecStrUnicodeNFKC() {
+		return decStrUnicodeNFKC;
 	}
 
-	public void setDecUnicodeNFKC(String decUnicodeNFKC) {
-		this.decUnicodeNFKC = decUnicodeNFKC;
+	public void setDecStrUnicodeNFKC(String decStrUnicodeNFKC) {
+		this.decStrUnicodeNFKC = decStrUnicodeNFKC;
 	}
 
 	public String getDecNumBin() {
@@ -321,252 +325,252 @@ public class DencodeModel {
 		this.decCipherRailFence = decCipherRailFence;
 	}
 
-	public String getEncBin() {
-		return encBin;
+	public String getEncStrBin() {
+		return encStrBin;
 	}
 
-	public void setEncBin(String encBin) {
-		this.encBin = encBin;
+	public void setEncStrBin(String encStrBin) {
+		this.encStrBin = encStrBin;
 	}
 
-	public String getEncHex() {
-		return encHex;
+	public String getEncStrHex() {
+		return encStrHex;
 	}
 
-	public void setEncHex(String encHex) {
-		this.encHex = encHex;
+	public void setEncStrHex(String encStrHex) {
+		this.encStrHex = encStrHex;
 	}
 
-	public String getEncHTMLEscape() {
-		return encHTMLEscape;
+	public String getEncStrHTMLEscape() {
+		return encStrHTMLEscape;
 	}
 
-	public void setEncHTMLEscape(String encHTMLEscape) {
-		this.encHTMLEscape = encHTMLEscape;
+	public void setEncStrHTMLEscape(String encStrHTMLEscape) {
+		this.encStrHTMLEscape = encStrHTMLEscape;
 	}
 
-	public String getEncHTMLEscapeFully() {
-		return encHTMLEscapeFully;
+	public String getEncStrHTMLEscapeFully() {
+		return encStrHTMLEscapeFully;
 	}
 
-	public void setEncHTMLEscapeFully(String encHTMLEscapeFully) {
-		this.encHTMLEscapeFully = encHTMLEscapeFully;
+	public void setEncStrHTMLEscapeFully(String encStrHTMLEscapeFully) {
+		this.encStrHTMLEscapeFully = encStrHTMLEscapeFully;
 	}
 
-	public String getEncURLEncoding() {
-		return encURLEncoding;
+	public String getEncStrURLEncoding() {
+		return encStrURLEncoding;
 	}
 
-	public void setEncURLEncoding(String encURLEncoding) {
-		this.encURLEncoding = encURLEncoding;
+	public void setEncStrURLEncoding(String encStrURLEncoding) {
+		this.encStrURLEncoding = encStrURLEncoding;
 	}
 
-	public String getEncPunycode() {
-		return encPunycode;
+	public String getEncStrPunycode() {
+		return encStrPunycode;
 	}
 
-	public void setEncPunycode(String encPunycode) {
-		this.encPunycode = encPunycode;
+	public void setEncStrPunycode(String encStrPunycode) {
+		this.encStrPunycode = encStrPunycode;
 	}
 
-	public String getEncBase32Encoding() {
-		return encBase32Encoding;
+	public String getEncStrBase32Encoding() {
+		return encStrBase32Encoding;
 	}
 
-	public void setEncBase32Encoding(String encBase32Encoding) {
-		this.encBase32Encoding = encBase32Encoding;
+	public void setEncStrBase32Encoding(String encStrBase32Encoding) {
+		this.encStrBase32Encoding = encStrBase32Encoding;
 	}
 
-	public String getEncBase64Encoding() {
-		return encBase64Encoding;
+	public String getEncStrBase64Encoding() {
+		return encStrBase64Encoding;
 	}
 
-	public void setEncBase64Encoding(String encBase64Encoding) {
-		this.encBase64Encoding = encBase64Encoding;
+	public void setEncStrBase64Encoding(String encStrBase64Encoding) {
+		this.encStrBase64Encoding = encStrBase64Encoding;
 	}
 
-	public String getEncQuotedPrintable() {
-		return encQuotedPrintable;
+	public String getEncStrQuotedPrintable() {
+		return encStrQuotedPrintable;
 	}
 
-	public void setEncQuotedPrintable(String encQuotedPrintable) {
-		this.encQuotedPrintable = encQuotedPrintable;
+	public void setEncStrQuotedPrintable(String encStrQuotedPrintable) {
+		this.encStrQuotedPrintable = encStrQuotedPrintable;
 	}
 
-	public String getEncUnicodeEscape() {
-		return encUnicodeEscape;
+	public String getEncStrUnicodeEscape() {
+		return encStrUnicodeEscape;
 	}
 
-	public void setEncUnicodeEscape(String encUnicodeEscape) {
-		this.encUnicodeEscape = encUnicodeEscape;
+	public void setEncStrUnicodeEscape(String encStrUnicodeEscape) {
+		this.encStrUnicodeEscape = encStrUnicodeEscape;
 	}
 
-	public String getEncProgramString() {
-		return encProgramString;
+	public String getEncStrProgramString() {
+		return encStrProgramString;
 	}
 
-	public void setEncProgramString(String encProgramString) {
-		this.encProgramString = encProgramString;
+	public void setEncStrProgramString(String encStrProgramString) {
+		this.encStrProgramString = encStrProgramString;
 	}
 
-	public String getEncHalfWidth() {
-		return encHalfWidth;
+	public String getEncStrHalfWidth() {
+		return encStrHalfWidth;
 	}
 
-	public void setEncHalfWidth(String encHalfWidth) {
-		this.encHalfWidth = encHalfWidth;
+	public void setEncStrHalfWidth(String encStrHalfWidth) {
+		this.encStrHalfWidth = encStrHalfWidth;
 	}
 
-	public String getEncFullWidth() {
-		return encFullWidth;
+	public String getEncStrFullWidth() {
+		return encStrFullWidth;
 	}
 
-	public void setEncFullWidth(String encFullWidth) {
-		this.encFullWidth = encFullWidth;
+	public void setEncStrFullWidth(String encStrFullWidth) {
+		this.encStrFullWidth = encStrFullWidth;
 	}
 
-	public String getEncUpperCase() {
-		return encUpperCase;
+	public String getEncStrUpperCase() {
+		return encStrUpperCase;
 	}
 
-	public void setEncUpperCase(String encUpperCase) {
-		this.encUpperCase = encUpperCase;
+	public void setEncStrUpperCase(String encStrUpperCase) {
+		this.encStrUpperCase = encStrUpperCase;
 	}
 
-	public String getEncLowerCase() {
-		return encLowerCase;
+	public String getEncStrLowerCase() {
+		return encStrLowerCase;
 	}
 
-	public void setEncLowerCase(String encLowerCase) {
-		this.encLowerCase = encLowerCase;
+	public void setEncStrLowerCase(String encStrLowerCase) {
+		this.encStrLowerCase = encStrLowerCase;
 	}
 
-	public String getEncSwapCase() {
-		return encSwapCase;
+	public String getEncStrSwapCase() {
+		return encStrSwapCase;
 	}
 
-	public void setEncSwapCase(String encSwapCase) {
-		this.encSwapCase = encSwapCase;
+	public void setEncStrSwapCase(String encStrSwapCase) {
+		this.encStrSwapCase = encStrSwapCase;
 	}
 
-	public String getEncCapitalize() {
-		return encCapitalize;
+	public String getEncStrCapitalize() {
+		return encStrCapitalize;
 	}
 
-	public void setEncCapitalize(String encCapitalize) {
-		this.encCapitalize = encCapitalize;
+	public void setEncStrCapitalize(String encStrCapitalize) {
+		this.encStrCapitalize = encStrCapitalize;
 	}
 
-	public String getEncInitials() {
-		return encInitials;
+	public String getEncStrInitials() {
+		return encStrInitials;
 	}
 
-	public void setEncInitials(String encInitials) {
-		this.encInitials = encInitials;
+	public void setEncStrInitials(String encStrInitials) {
+		this.encStrInitials = encStrInitials;
 	}
 
-	public String getEncReverse() {
-		return encReverse;
+	public String getEncStrReverse() {
+		return encStrReverse;
 	}
 
-	public void setEncReverse(String encReverse) {
-		this.encReverse = encReverse;
+	public void setEncStrReverse(String encStrReverse) {
+		this.encStrReverse = encStrReverse;
 	}
 
-	public String getEncUpperCamelCase() {
-		return encUpperCamelCase;
+	public String getEncStrUpperCamelCase() {
+		return encStrUpperCamelCase;
 	}
 
-	public void setEncUpperCamelCase(String encUpperCamelCase) {
-		this.encUpperCamelCase = encUpperCamelCase;
+	public void setEncStrUpperCamelCase(String encStrUpperCamelCase) {
+		this.encStrUpperCamelCase = encStrUpperCamelCase;
 	}
 
-	public String getEncLowerCamelCase() {
-		return encLowerCamelCase;
+	public String getEncStrLowerCamelCase() {
+		return encStrLowerCamelCase;
 	}
 
-	public void setEncLowerCamelCase(String encLowerCamelCase) {
-		this.encLowerCamelCase = encLowerCamelCase;
+	public void setEncStrLowerCamelCase(String encStrLowerCamelCase) {
+		this.encStrLowerCamelCase = encStrLowerCamelCase;
 	}
 
-	public String getEncUpperSnakeCase() {
-		return encUpperSnakeCase;
+	public String getEncStrUpperSnakeCase() {
+		return encStrUpperSnakeCase;
 	}
 
-	public void setEncUpperSnakeCase(String encUpperSnakeCase) {
-		this.encUpperSnakeCase = encUpperSnakeCase;
+	public void setEncStrUpperSnakeCase(String encStrUpperSnakeCase) {
+		this.encStrUpperSnakeCase = encStrUpperSnakeCase;
 	}
 
-	public String getEncLowerSnakeCase() {
-		return encLowerSnakeCase;
+	public String getEncStrLowerSnakeCase() {
+		return encStrLowerSnakeCase;
 	}
 
-	public void setEncLowerSnakeCase(String encLowerSnakeCase) {
-		this.encLowerSnakeCase = encLowerSnakeCase;
+	public void setEncStrLowerSnakeCase(String encStrLowerSnakeCase) {
+		this.encStrLowerSnakeCase = encStrLowerSnakeCase;
 	}
 
-	public String getEncUpperKebabCase() {
-		return encUpperKebabCase;
+	public String getEncStrUpperKebabCase() {
+		return encStrUpperKebabCase;
 	}
 
-	public void setEncUpperKebabCase(String encUpperKebabCase) {
-		this.encUpperKebabCase = encUpperKebabCase;
+	public void setEncStrUpperKebabCase(String encStrUpperKebabCase) {
+		this.encStrUpperKebabCase = encStrUpperKebabCase;
 	}
 
-	public String getEncLowerKebabCase() {
-		return encLowerKebabCase;
+	public String getEncStrLowerKebabCase() {
+		return encStrLowerKebabCase;
 	}
 
-	public void setEncLowerKebabCase(String encLowerKebabCase) {
-		this.encLowerKebabCase = encLowerKebabCase;
+	public void setEncStrLowerKebabCase(String encStrLowerKebabCase) {
+		this.encStrLowerKebabCase = encStrLowerKebabCase;
 	}
 
-	public String getEncUnicodeNFC() {
-		return encUnicodeNFC;
+	public String getEncStrUnicodeNFC() {
+		return encStrUnicodeNFC;
 	}
 
-	public void setEncUnicodeNFC(String encUnicodeNFC) {
-		this.encUnicodeNFC = encUnicodeNFC;
+	public void setEncStrUnicodeNFC(String encStrUnicodeNFC) {
+		this.encStrUnicodeNFC = encStrUnicodeNFC;
 	}
 
-	public String getEncUnicodeNFKC() {
-		return encUnicodeNFKC;
+	public String getEncStrUnicodeNFKC() {
+		return encStrUnicodeNFKC;
 	}
 
-	public void setEncUnicodeNFKC(String encUnicodeNFKC) {
-		this.encUnicodeNFKC = encUnicodeNFKC;
+	public void setEncStrUnicodeNFKC(String encStrUnicodeNFKC) {
+		this.encStrUnicodeNFKC = encStrUnicodeNFKC;
 	}
 
-	public String getEncLineSortAsc() {
-		return encLineSortAsc;
+	public String getEncStrLineSortAsc() {
+		return encStrLineSortAsc;
 	}
 
-	public void setEncLineSortAsc(String encLineSortAsc) {
-		this.encLineSortAsc = encLineSortAsc;
+	public void setEncStrLineSortAsc(String encStrLineSortAsc) {
+		this.encStrLineSortAsc = encStrLineSortAsc;
 	}
 
-	public String getEncLineSortDesc() {
-		return encLineSortDesc;
+	public String getEncStrLineSortDesc() {
+		return encStrLineSortDesc;
 	}
 
-	public void setEncLineSortDesc(String encLineSortDesc) {
-		this.encLineSortDesc = encLineSortDesc;
+	public void setEncStrLineSortDesc(String encStrLineSortDesc) {
+		this.encStrLineSortDesc = encStrLineSortDesc;
 	}
 
-	public String getEncLineSortReverse() {
-		return encLineSortReverse;
+	public String getEncStrLineSortReverse() {
+		return encStrLineSortReverse;
 	}
 
-	public void setEncLineSortReverse(String encLineSortReverse) {
-		this.encLineSortReverse = encLineSortReverse;
+	public void setEncStrLineSortReverse(String encStrLineSortReverse) {
+		this.encStrLineSortReverse = encStrLineSortReverse;
 	}
 
-	public String getEncLineUnique() {
-		return encLineUnique;
+	public String getEncStrLineUnique() {
+		return encStrLineUnique;
 	}
 
-	public void setEncLineUnique(String encLineUnique) {
-		this.encLineUnique = encLineUnique;
+	public void setEncStrLineUnique(String encStrLineUnique) {
+		this.encStrLineUnique = encStrLineUnique;
 	}
 
 	public String getEncNumBin() {
@@ -817,59 +821,59 @@ public class DencodeModel {
 		this.encCipherRailFence = encCipherRailFence;
 	}
 
-	public String getEncMD2() {
-		return encMD2;
+	public String getEncHashMD2() {
+		return encHashMD2;
 	}
 
-	public void setEncMD2(String encMD2) {
-		this.encMD2 = encMD2;
+	public void setEncHashMD2(String encHashMD2) {
+		this.encHashMD2 = encHashMD2;
 	}
 
-	public String getEncMD5() {
-		return encMD5;
+	public String getEncHashMD5() {
+		return encHashMD5;
 	}
 
-	public void setEncMD5(String encMD5) {
-		this.encMD5 = encMD5;
+	public void setEncHashMD5(String encHashMD5) {
+		this.encHashMD5 = encHashMD5;
 	}
 
-	public String getEncSHA1() {
-		return encSHA1;
+	public String getEncHashSHA1() {
+		return encHashSHA1;
 	}
 
-	public void setEncSHA1(String encSHA1) {
-		this.encSHA1 = encSHA1;
+	public void setEncHashSHA1(String encHashSHA1) {
+		this.encHashSHA1 = encHashSHA1;
 	}
 
-	public String getEncSHA256() {
-		return encSHA256;
+	public String getEncHashSHA256() {
+		return encHashSHA256;
 	}
 
-	public void setEncSHA256(String encSHA256) {
-		this.encSHA256 = encSHA256;
+	public void setEncHashSHA256(String encHashSHA256) {
+		this.encHashSHA256 = encHashSHA256;
 	}
 
-	public String getEncSHA384() {
-		return encSHA384;
+	public String getEncHashSHA384() {
+		return encHashSHA384;
 	}
 
-	public void setEncSHA384(String encSHA384) {
-		this.encSHA384 = encSHA384;
+	public void setEncHashSHA384(String encHashSHA384) {
+		this.encHashSHA384 = encHashSHA384;
 	}
 
-	public String getEncSHA512() {
-		return encSHA512;
+	public String getEncHashSHA512() {
+		return encHashSHA512;
 	}
 
-	public void setEncSHA512(String encSHA512) {
-		this.encSHA512 = encSHA512;
+	public void setEncHashSHA512(String encHashSHA512) {
+		this.encHashSHA512 = encHashSHA512;
 	}
 
-	public String getEncCRC32() {
-		return encCRC32;
+	public String getEncHashCRC32() {
+		return encHashCRC32;
 	}
 
-	public void setEncCRC32(String encCRC32) {
-		this.encCRC32 = encCRC32;
+	public void setEncHashCRC32(String encHashCRC32) {
+		this.encHashCRC32 = encHashCRC32;
 	}
 }

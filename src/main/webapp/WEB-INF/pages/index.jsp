@@ -305,22 +305,22 @@
 				<table id="decodedList" class="dencoded-list">
 					<c:if test="${type eq 'all' or type eq 'string'}">
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.decBin'])}</th><td><span id="decBin" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.decHex'])}</th><td><span id="decHex" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.decStrBin'])}</th><td><span id="decStrBin" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.decStrHex'])}</th><td><span id="decStrHex" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.html-escape'}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['label.decHTMLEscape'])}</th><td><span id="decHTMLEscape" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.url-encoding'}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['label.decURLEncoding'])}</th><td><span id="decURLEncoding" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.punycode'}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.decPunycode'])}</th><td><span id="decPunycode" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base32'}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.decBase32Encoding'])}</th><td><span id="decBase32Encoding" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.decBase64Encoding'])}</th><td><span id="decBase64Encoding" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quoted-printable'}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.decQuotedPrintable'])}</th><td><span id="decQuotedPrintable" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-escape'}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.decUnicodeEscape'])}</th><td><span id="decUnicodeEscape" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.program-string'}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.decProgramString'])}</th><td><span id="decProgramString" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.html-escape'}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['label.decStrHTMLEscape'])}</th><td><span id="decStrHTMLEscape" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.url-encoding'}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['label.decStrURLEncoding'])}</th><td><span id="decStrURLEncoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.punycode'}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.decStrPunycode'])}</th><td><span id="decStrPunycode" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base32'}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.decStrBase32Encoding'])}</th><td><span id="decStrBase32Encoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.decStrBase64Encoding'])}</th><td><span id="decStrBase64Encoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quoted-printable'}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.decStrQuotedPrintable'])}</th><td><span id="decStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-escape'}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.decStrUnicodeEscape'])}</th><td><span id="decStrUnicodeEscape" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.program-string'}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.decStrProgramString'])}</th><td><span id="decStrProgramString" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decUnicodeNFC'])}</th><td><span id="decUnicodeNFC" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decUnicodeNFKC'])}</th><td><span id="decUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decStrUnicodeNFC'])}</th><td><span id="decStrUnicodeNFC" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decStrUnicodeNFKC'])}</th><td><span id="decStrUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'number'}">
@@ -451,7 +451,7 @@
 				<table id="encodedList" class="dencoded-list">
 					<c:if test="${type eq 'all' or type eq 'string'}">
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.encBin'])}</th><td><span id="encBin" class="for-disp"></span>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.encStrBin'])}</th><td><span id="encStrBin" class="for-disp"></span>
 								<form class="dencode-option-group form-inline">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
@@ -466,7 +466,7 @@
 									</div>
 								</form>
 							</td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.encHex'])}</th><td><span id="encHex" class="for-disp"></span>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.encStrHex'])}</th><td><span id="encStrHex" class="for-disp"></span>
 								<form class="dencode-option-group form-inline">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
@@ -489,12 +489,12 @@
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.html-escape'}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['label.encHTMLEscape'])}</th><td><span id="encHTMLEscape" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.html-escape'}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['label.encHTMLEscapeFully'])}</th><td><span id="encHTMLEscapeFully" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.url-encoding'}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['label.encURLEncoding'])}</th><td><span id="encURLEncoding" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.punycode'}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.encPunycode'])}</th><td><span id="encPunycode" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base32'}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.encBase32Encoding'])}</th><td><span id="encBase32Encoding" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encBase64Encoding'])}</th><td><span id="encBase64Encoding" class="for-disp"></span>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.html-escape'}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['label.encStrHTMLEscape'])}</th><td><span id="encStrHTMLEscape" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.html-escape'}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['label.encStrHTMLEscapeFully'])}</th><td><span id="encStrHTMLEscapeFully" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.url-encoding'}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['label.encStrURLEncoding'])}</th><td><span id="encStrURLEncoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.punycode'}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.encStrPunycode'])}</th><td><span id="encStrPunycode" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base32'}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.encStrBase32Encoding'])}</th><td><span id="encStrBase32Encoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encStrBase64Encoding'])}</th><td><span id="encStrBase64Encoding" class="for-disp"></span>
 								<form class="dencode-option-group form-inline">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
@@ -508,8 +508,8 @@
 									</div>
 								</form>
 							</td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quoted-printable'}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.encQuotedPrintable'])}</th><td><span id="encQuotedPrintable" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-escape'}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.encUnicodeEscape'])}</th><td><span id="encUnicodeEscape" class="for-disp"></span>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quoted-printable'}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.encStrQuotedPrintable'])}</th><td><span id="encStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-escape'}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.encStrUnicodeEscape'])}</th><td><span id="encStrUnicodeEscape" class="for-disp"></span>
 								<form class="dencode-option-group form-inline">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
@@ -523,34 +523,34 @@
 									</div>
 								</form>
 							</td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.program-string'}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.encProgramString'])}</th><td><span id="encProgramString" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.program-string'}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.encStrProgramString'])}</th><td><span id="encStrProgramString" class="for-disp"></span></td></tr></c:if>
 						</tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.camel-case'}"><tr data-dencode-method="string.camel-case"><th>${mf:h(msg['label.encUpperCamelCase'])}</th><td><span id="encUpperCamelCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.camel-case'}"><tr data-dencode-method="string.camel-case"><th>${mf:h(msg['label.encLowerCamelCase'])}</th><td><span id="encLowerCamelCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.snake-case'}"><tr data-dencode-method="string.snake-case"><th>${mf:h(msg['label.encUpperSnakeCase'])}</th><td><span id="encUpperSnakeCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.snake-case'}"><tr data-dencode-method="string.snake-case"><th>${mf:h(msg['label.encLowerSnakeCase'])}</th><td><span id="encLowerSnakeCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.kebab-case'}"><tr data-dencode-method="string.kebab-case"><th>${mf:h(msg['label.encUpperKebabCase'])}</th><td><span id="encUpperKebabCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.kebab-case'}"><tr data-dencode-method="string.kebab-case"><th>${mf:h(msg['label.encLowerKebabCase'])}</th><td><span id="encLowerKebabCase" class="for-disp"></span></td></tr></c:if>
-						</tbody>
-						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.character-width'}"><tr data-dencode-method="string.character-width"><th>${mf:h(msg['label.encHalfWidth'])}</th><td><span id="encHalfWidth" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.character-width'}"><tr data-dencode-method="string.character-width"><th>${mf:h(msg['label.encFullWidth'])}</th><td><span id="encFullWidth" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encUpperCase'])}</th><td><span id="encUpperCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encLowerCase'])}</th><td><span id="encLowerCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encSwapCase'])}</th><td><span id="encSwapCase" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encCapitalize'])}</th><td><span id="encCapitalize" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.text-initials'}"><tr data-dencode-method="string.text-initials"><th>${mf:h(msg['label.encInitials'])}</th><td><span id="encInitials" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.text-reverse'}"><tr data-dencode-method="string.text-reverse"><th>${mf:h(msg['label.encReverse'])}</th><td><span id="encReverse" class="for-disp"></span></td></tr></c:if>
-						<tbody>
-						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encUnicodeNFC'])}</th><td><span id="encUnicodeNFC" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encUnicodeNFKC'])}</th><td><span id="encUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.camel-case'}"><tr data-dencode-method="string.camel-case"><th>${mf:h(msg['label.encStrUpperCamelCase'])}</th><td><span id="encStrUpperCamelCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.camel-case'}"><tr data-dencode-method="string.camel-case"><th>${mf:h(msg['label.encStrLowerCamelCase'])}</th><td><span id="encStrLowerCamelCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.snake-case'}"><tr data-dencode-method="string.snake-case"><th>${mf:h(msg['label.encStrUpperSnakeCase'])}</th><td><span id="encStrUpperSnakeCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.snake-case'}"><tr data-dencode-method="string.snake-case"><th>${mf:h(msg['label.encStrLowerSnakeCase'])}</th><td><span id="encStrLowerSnakeCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.kebab-case'}"><tr data-dencode-method="string.kebab-case"><th>${mf:h(msg['label.encStrUpperKebabCase'])}</th><td><span id="encStrUpperKebabCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.naming-convention' or method eq 'string.kebab-case'}"><tr data-dencode-method="string.kebab-case"><th>${mf:h(msg['label.encStrLowerKebabCase'])}</th><td><span id="encStrLowerKebabCase" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-sort'}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encLineSortAsc'])}</th><td><span id="encLineSortAsc" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-sort'}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encLineSortDesc'])}</th><td><span id="encLineSortDesc" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-sort'}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encLineSortReverse'])}</th><td><span id="encLineSortReverse" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-unique'}"><tr data-dencode-method="string.line-unique"><th>${mf:h(msg['label.encLineUnique'])}</th><td><span id="encLineUnique" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.character-width'}"><tr data-dencode-method="string.character-width"><th>${mf:h(msg['label.encStrHalfWidth'])}</th><td><span id="encStrHalfWidth" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.character-width'}"><tr data-dencode-method="string.character-width"><th>${mf:h(msg['label.encStrFullWidth'])}</th><td><span id="encStrFullWidth" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encStrUpperCase'])}</th><td><span id="encStrUpperCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encStrLowerCase'])}</th><td><span id="encStrLowerCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encStrSwapCase'])}</th><td><span id="encStrSwapCase" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.letter-case'}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encStrCapitalize'])}</th><td><span id="encStrCapitalize" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.text-initials'}"><tr data-dencode-method="string.text-initials"><th>${mf:h(msg['label.encStrInitials'])}</th><td><span id="encStrInitials" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.text-reverse'}"><tr data-dencode-method="string.text-reverse"><th>${mf:h(msg['label.encStrReverse'])}</th><td><span id="encStrReverse" class="for-disp"></span></td></tr></c:if>
+						<tbody>
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encStrUnicodeNFC'])}</th><td><span id="encStrUnicodeNFC" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-normalization'}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encStrUnicodeNFKC'])}</th><td><span id="encStrUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-sort'}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSortAsc'])}</th><td><span id="encStrLineSortAsc" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-sort'}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSortDesc'])}</th><td><span id="encStrLineSortDesc" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-sort'}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSortReverse'])}</th><td><span id="encStrLineSortReverse" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.line-unique'}"><tr data-dencode-method="string.line-unique"><th>${mf:h(msg['label.encStrLineUnique'])}</th><td><span id="encStrLineUnique" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'number'}">
@@ -697,13 +697,13 @@
 					</c:if>
 					<c:if test="${type eq 'all' or type eq 'hash'}">
 						<tbody>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.md2'}"><tr data-dencode-method="hash.md2"><th>${mf:h(msg['label.encMD2'])}</th><td><span id="encMD2" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.md5'}"><tr data-dencode-method="hash.md5"><th>${mf:h(msg['label.encMD5'])}</th><td><span id="encMD5" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha1'}"><tr data-dencode-method="hash.sha1"><th>${mf:h(msg['label.encSHA1'])}</th><td><span id="encSHA1" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha256'}"><tr data-dencode-method="hash.sha256"><th>${mf:h(msg['label.encSHA256'])}</th><td><span id="encSHA256" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha384'}"><tr data-dencode-method="hash.sha384"><th>${mf:h(msg['label.encSHA384'])}</th><td><span id="encSHA384" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha512'}"><tr data-dencode-method="hash.sha512"><th>${mf:h(msg['label.encSHA512'])}</th><td><span id="encSHA512" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.crc32'}"><tr data-dencode-method="hash.crc32"><th>${mf:h(msg['label.encCRC32'])}</th><td><span id="encCRC32" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.md2'}"><tr data-dencode-method="hash.md2"><th>${mf:h(msg['label.encHashMD2'])}</th><td><span id="encHashMD2" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.md5'}"><tr data-dencode-method="hash.md5"><th>${mf:h(msg['label.encHashMD5'])}</th><td><span id="encHashMD5" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha1'}"><tr data-dencode-method="hash.sha1"><th>${mf:h(msg['label.encHashSHA1'])}</th><td><span id="encHashSHA1" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha256'}"><tr data-dencode-method="hash.sha256"><th>${mf:h(msg['label.encHashSHA256'])}</th><td><span id="encHashSHA256" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha384'}"><tr data-dencode-method="hash.sha384"><th>${mf:h(msg['label.encHashSHA384'])}</th><td><span id="encHashSHA384" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.sha512'}"><tr data-dencode-method="hash.sha512"><th>${mf:h(msg['label.encHashSHA512'])}</th><td><span id="encHashSHA512" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${method eq 'all' or method eq 'hash.all' or method eq 'hash.crc32'}"><tr data-dencode-method="hash.crc32"><th>${mf:h(msg['label.encHashCRC32'])}</th><td><span id="encHashCRC32" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
 				</table>
