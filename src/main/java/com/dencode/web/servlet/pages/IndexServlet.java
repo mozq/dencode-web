@@ -111,6 +111,15 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		reqres().setAttribute("tz", tz);
 		reqres().setAttribute("tzMap", tzMapList);
 		
+		if (reqres().attribute("basePath") == null) {
+			String basePath = request().getContextPath();
+			String localeName = reqres().attribute("localeName");
+			if (localeName != null && !localeName.isEmpty()) {
+				basePath = basePath + "/" + localeName;
+			}
+			reqres().setAttribute("basePath",  basePath);
+		}
+		
 		if (reqres().attribute("currentPath") == null) {
 			reqres().setAttribute("currentPath", "");
 		}

@@ -62,13 +62,13 @@
 						</ul>
 					</li>
 				</ul>
-				<a id="brand" class="navbar-brand" href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/">${mf:h(msg['site.name'])}</a>
+				<a id="brand" class="navbar-brand" href="${mf:h(basePath)}/">${mf:h(msg['site.name'])}</a>
 				<p class="navbar-text">Enjoy Encoding &amp; Decoding!</p>
 			</div>
 			<div id="typeMenu" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="${(type eq 'all') ? 'active' : ''}" data-dencode-type="all" data-dencode-method="all" data-dencode-enable-oe="${mf:h(conf['all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['all.useTz'])}">
-						<a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/">${mf:h(msg['label.type.all'])}</a>
+						<a href="${mf:h(basePath)}/">${mf:h(msg['label.type.all'])}</a>
 					</li>
 					<li class="dropdown ${(type eq 'string') ? 'active' : ''}" role="presentation" data-dencode-type="string" data-dencode-enable-oe="${mf:h(conf['string.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['string.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['string.all.useTz'])}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -76,34 +76,34 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'string.all') ? 'active' : ''}" data-dencode-method="string.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string">${mf:h(msg['label.method.string.all'])}</a></li>
+							<li class="${(method eq 'string.all') ? 'active' : ''}" data-dencode-method="string.all"><a href="${mf:h(basePath)}/string">${mf:h(msg['label.method.string.all'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'string.bin') ? 'active' : ''}" data-dencode-method="string.bin"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/bin">${mf:h(msg['label.method.string.bin'])}</a></li>
-							<li class="${(method eq 'string.hex') ? 'active' : ''}" data-dencode-method="string.hex"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/hex">${mf:h(msg['label.method.string.hex'])}</a></li>
+							<li class="${(method eq 'string.bin') ? 'active' : ''}" data-dencode-method="string.bin"><a href="${mf:h(basePath)}/string/bin">${mf:h(msg['label.method.string.bin'])}</a></li>
+							<li class="${(method eq 'string.hex') ? 'active' : ''}" data-dencode-method="string.hex"><a href="${mf:h(basePath)}/string/hex">${mf:h(msg['label.method.string.hex'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'string.html-escape') ? 'active' : ''}" data-dencode-method="string.html-escape"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/html-escape">${mf:h(msg['label.method.string.html-escape'])}</a></li>
-							<li class="${(method eq 'string.url-encoding') ? 'active' : ''}" data-dencode-method="string.url-encoding"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/url-encoding">${mf:h(msg['label.method.string.url-encoding'])}</a></li>
-							<li class="${(method eq 'string.punycode') ? 'active' : ''}" data-dencode-method="string.punycode"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/punycode">${mf:h(msg['label.method.string.punycode'])}</a></li>
-							<li class="${(method eq 'string.base32') ? 'active' : ''}" data-dencode-method="string.base32"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/base32">${mf:h(msg['label.method.string.base32'])}</a></li>
-							<li class="${(method eq 'string.base64') ? 'active' : ''}" data-dencode-method="string.base64"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/base64">${mf:h(msg['label.method.string.base64'])}</a></li>
-							<li class="${(method eq 'string.quoted-printable') ? 'active' : ''}" data-dencode-method="string.quoted-printable"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/quoted-printable">${mf:h(msg['label.method.string.quoted-printable'])}</a></li>
-							<li class="${(method eq 'string.unicode-escape') ? 'active' : ''}" data-dencode-method="string.unicode-escape"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/unicode-escape">${mf:h(msg['label.method.string.unicode-escape'])}</a></li>
-							<li class="${(method eq 'string.program-string') ? 'active' : ''}" data-dencode-method="string.program-string"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/program-string">${mf:h(msg['label.method.string.program-string'])}</a></li>
+							<li class="${(method eq 'string.html-escape') ? 'active' : ''}" data-dencode-method="string.html-escape"><a href="${mf:h(basePath)}/string/html-escape">${mf:h(msg['label.method.string.html-escape'])}</a></li>
+							<li class="${(method eq 'string.url-encoding') ? 'active' : ''}" data-dencode-method="string.url-encoding"><a href="${mf:h(basePath)}/string/url-encoding">${mf:h(msg['label.method.string.url-encoding'])}</a></li>
+							<li class="${(method eq 'string.punycode') ? 'active' : ''}" data-dencode-method="string.punycode"><a href="${mf:h(basePath)}/string/punycode">${mf:h(msg['label.method.string.punycode'])}</a></li>
+							<li class="${(method eq 'string.base32') ? 'active' : ''}" data-dencode-method="string.base32"><a href="${mf:h(basePath)}/string/base32">${mf:h(msg['label.method.string.base32'])}</a></li>
+							<li class="${(method eq 'string.base64') ? 'active' : ''}" data-dencode-method="string.base64"><a href="${mf:h(basePath)}/string/base64">${mf:h(msg['label.method.string.base64'])}</a></li>
+							<li class="${(method eq 'string.quoted-printable') ? 'active' : ''}" data-dencode-method="string.quoted-printable"><a href="${mf:h(basePath)}/string/quoted-printable">${mf:h(msg['label.method.string.quoted-printable'])}</a></li>
+							<li class="${(method eq 'string.unicode-escape') ? 'active' : ''}" data-dencode-method="string.unicode-escape"><a href="${mf:h(basePath)}/string/unicode-escape">${mf:h(msg['label.method.string.unicode-escape'])}</a></li>
+							<li class="${(method eq 'string.program-string') ? 'active' : ''}" data-dencode-method="string.program-string"><a href="${mf:h(basePath)}/string/program-string">${mf:h(msg['label.method.string.program-string'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'string.naming-convention') ? 'active' : ''}" data-dencode-method="string.naming-convention"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/naming-convention">${mf:h(msg['label.method.string.naming-convention'])}</a></li>
-							<li class="${(method eq 'string.camel-case') ? 'active' : ''}" data-dencode-method="string.camel-case"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/camel-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.camel-case'])}</a></li>
-							<li class="${(method eq 'string.snake-case') ? 'active' : ''}" data-dencode-method="string.snake-case"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/snake-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.snake-case'])}</a></li>
-							<li class="${(method eq 'string.kebab-case') ? 'active' : ''}" data-dencode-method="string.kebab-case"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/kebab-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.kebab-case'])}</a></li>
+							<li class="${(method eq 'string.naming-convention') ? 'active' : ''}" data-dencode-method="string.naming-convention"><a href="${mf:h(basePath)}/string/naming-convention">${mf:h(msg['label.method.string.naming-convention'])}</a></li>
+							<li class="${(method eq 'string.camel-case') ? 'active' : ''}" data-dencode-method="string.camel-case"><a href="${mf:h(basePath)}/string/camel-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.camel-case'])}</a></li>
+							<li class="${(method eq 'string.snake-case') ? 'active' : ''}" data-dencode-method="string.snake-case"><a href="${mf:h(basePath)}/string/snake-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.snake-case'])}</a></li>
+							<li class="${(method eq 'string.kebab-case') ? 'active' : ''}" data-dencode-method="string.kebab-case"><a href="${mf:h(basePath)}/string/kebab-case"><span class="glyphicon glyphicon-menu-right"></span> ${mf:h(msg['label.method.string.kebab-case'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'string.character-width') ? 'active' : ''}" data-dencode-method="string.character-width"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/character-width">${mf:h(msg['label.method.string.character-width'])}</a></li>
-							<li class="${(method eq 'string.letter-case') ? 'active' : ''}" data-dencode-method="string.letter-case"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/letter-case">${mf:h(msg['label.method.string.letter-case'])}</a></li>
-							<li class="${(method eq 'string.text-initials') ? 'active' : ''}" data-dencode-method="string.text-initials"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/text-initials">${mf:h(msg['label.method.string.text-initials'])}</a></li>
-							<li class="${(method eq 'string.text-reverse') ? 'active' : ''}" data-dencode-method="string.text-reverse"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/text-reverse">${mf:h(msg['label.method.string.text-reverse'])}</a></li>
+							<li class="${(method eq 'string.character-width') ? 'active' : ''}" data-dencode-method="string.character-width"><a href="${mf:h(basePath)}/string/character-width">${mf:h(msg['label.method.string.character-width'])}</a></li>
+							<li class="${(method eq 'string.letter-case') ? 'active' : ''}" data-dencode-method="string.letter-case"><a href="${mf:h(basePath)}/string/letter-case">${mf:h(msg['label.method.string.letter-case'])}</a></li>
+							<li class="${(method eq 'string.text-initials') ? 'active' : ''}" data-dencode-method="string.text-initials"><a href="${mf:h(basePath)}/string/text-initials">${mf:h(msg['label.method.string.text-initials'])}</a></li>
+							<li class="${(method eq 'string.text-reverse') ? 'active' : ''}" data-dencode-method="string.text-reverse"><a href="${mf:h(basePath)}/string/text-reverse">${mf:h(msg['label.method.string.text-reverse'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'string.unicode-normalization') ? 'active' : ''}" data-dencode-method="string.unicode-normalization"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/unicode-normalization">${mf:h(msg['label.method.string.unicode-normalization'])}</a></li>
+							<li class="${(method eq 'string.unicode-normalization') ? 'active' : ''}" data-dencode-method="string.unicode-normalization"><a href="${mf:h(basePath)}/string/unicode-normalization">${mf:h(msg['label.method.string.unicode-normalization'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'string.line-sort') ? 'active' : ''}" data-dencode-method="string.line-sort"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/line-sort">${mf:h(msg['label.method.string.line-sort'])}</a></li>
-							<li class="${(method eq 'string.line-unique') ? 'active' : ''}" data-dencode-method="string.line-unique"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/string/line-unique">${mf:h(msg['label.method.string.line-unique'])}</a></li>
+							<li class="${(method eq 'string.line-sort') ? 'active' : ''}" data-dencode-method="string.line-sort"><a href="${mf:h(basePath)}/string/line-sort">${mf:h(msg['label.method.string.line-sort'])}</a></li>
+							<li class="${(method eq 'string.line-unique') ? 'active' : ''}" data-dencode-method="string.line-unique"><a href="${mf:h(basePath)}/string/line-unique">${mf:h(msg['label.method.string.line-unique'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number" data-dencode-enable-oe="${mf:h(conf['number.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['number.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['number.all.useTz'])}">
@@ -112,13 +112,13 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'number.all') ? 'active' : ''}" data-dencode-method="number.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/number">${mf:h(msg['label.method.number.all'])}</a></li>
+							<li class="${(method eq 'number.all') ? 'active' : ''}" data-dencode-method="number.all"><a href="${mf:h(basePath)}/number">${mf:h(msg['label.method.number.all'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'number.bin') ? 'active' : ''}" data-dencode-method="number.bin"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/number/bin">${mf:h(msg['label.method.number.bin'])}</a></li>
-							<li class="${(method eq 'number.oct') ? 'active' : ''}" data-dencode-method="number.oct"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/number/oct">${mf:h(msg['label.method.number.oct'])}</a></li>
-							<li class="${(method eq 'number.hex') ? 'active' : ''}" data-dencode-method="number.hex"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/number/hex">${mf:h(msg['label.method.number.hex'])}</a></li>
-							<li class="${(method eq 'number.english') ? 'active' : ''}" data-dencode-method="number.english"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/number/english">${mf:h(msg['label.method.number.english'])}</a></li>
-							<li class="${(method eq 'number.japanese') ? 'active' : ''}" data-dencode-method="number.japanese"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/number/japanese">${mf:h(msg['label.method.number.japanese'])}</a></li>
+							<li class="${(method eq 'number.bin') ? 'active' : ''}" data-dencode-method="number.bin"><a href="${mf:h(basePath)}/number/bin">${mf:h(msg['label.method.number.bin'])}</a></li>
+							<li class="${(method eq 'number.oct') ? 'active' : ''}" data-dencode-method="number.oct"><a href="${mf:h(basePath)}/number/oct">${mf:h(msg['label.method.number.oct'])}</a></li>
+							<li class="${(method eq 'number.hex') ? 'active' : ''}" data-dencode-method="number.hex"><a href="${mf:h(basePath)}/number/hex">${mf:h(msg['label.method.number.hex'])}</a></li>
+							<li class="${(method eq 'number.english') ? 'active' : ''}" data-dencode-method="number.english"><a href="${mf:h(basePath)}/number/english">${mf:h(msg['label.method.number.english'])}</a></li>
+							<li class="${(method eq 'number.japanese') ? 'active' : ''}" data-dencode-method="number.japanese"><a href="${mf:h(basePath)}/number/japanese">${mf:h(msg['label.method.number.japanese'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'date') ? 'active' : ''}" role="presentation" data-dencode-type="date" data-dencode-enable-oe="${mf:h(conf['date.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['date.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['date.all.useTz'])}">
@@ -127,14 +127,14 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'date.all') ? 'active' : ''}" data-dencode-method="date.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date">${mf:h(msg['label.method.date.all'])}</a></li>
+							<li class="${(method eq 'date.all') ? 'active' : ''}" data-dencode-method="date.all"><a href="${mf:h(basePath)}/date">${mf:h(msg['label.method.date.all'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'date.unix-time') ? 'active' : ''}" data-dencode-method="date.unix-time"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/unix-time">${mf:h(msg['label.method.date.unix-time'])}</a></li>
-							<li class="${(method eq 'date.w3cdtf') ? 'active' : ''}" data-dencode-method="date.w3cdtf"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/w3cdtf">${mf:h(msg['label.method.date.w3cdtf'])}</a></li>
-							<li class="${(method eq 'date.iso8601') ? 'active' : ''}" data-dencode-method="date.iso8601"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/iso8601">${mf:h(msg['label.method.date.iso8601'])}</a></li>
-							<li class="${(method eq 'date.rfc2822') ? 'active' : ''}" data-dencode-method="date.rfc2822"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/rfc2822">${mf:h(msg['label.method.date.rfc2822'])}</a></li>
-							<li class="${(method eq 'date.ctime') ? 'active' : ''}" data-dencode-method="date.ctime"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/ctime">${mf:h(msg['label.method.date.ctime'])}</a></li>
-							<li class="${(method eq 'date.japanese-era') ? 'active' : ''}" data-dencode-method="date.japanese-era"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/date/japanese-era">${mf:h(msg['label.method.date.japanese-era'])}</a></li>
+							<li class="${(method eq 'date.unix-time') ? 'active' : ''}" data-dencode-method="date.unix-time"><a href="${mf:h(basePath)}/date/unix-time">${mf:h(msg['label.method.date.unix-time'])}</a></li>
+							<li class="${(method eq 'date.w3cdtf') ? 'active' : ''}" data-dencode-method="date.w3cdtf"><a href="${mf:h(basePath)}/date/w3cdtf">${mf:h(msg['label.method.date.w3cdtf'])}</a></li>
+							<li class="${(method eq 'date.iso8601') ? 'active' : ''}" data-dencode-method="date.iso8601"><a href="${mf:h(basePath)}/date/iso8601">${mf:h(msg['label.method.date.iso8601'])}</a></li>
+							<li class="${(method eq 'date.rfc2822') ? 'active' : ''}" data-dencode-method="date.rfc2822"><a href="${mf:h(basePath)}/date/rfc2822">${mf:h(msg['label.method.date.rfc2822'])}</a></li>
+							<li class="${(method eq 'date.ctime') ? 'active' : ''}" data-dencode-method="date.ctime"><a href="${mf:h(basePath)}/date/ctime">${mf:h(msg['label.method.date.ctime'])}</a></li>
+							<li class="${(method eq 'date.japanese-era') ? 'active' : ''}" data-dencode-method="date.japanese-era"><a href="${mf:h(basePath)}/date/japanese-era">${mf:h(msg['label.method.date.japanese-era'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'color') ? 'active' : ''}" role="presentation" data-dencode-type="color" data-dencode-enable-oe="${mf:h(conf['color.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['color.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['color.all.useTz'])}">
@@ -143,14 +143,14 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'color.all') ? 'active' : ''}" data-dencode-method="color.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color">${mf:h(msg['label.method.color.all'])}</a></li>
+							<li class="${(method eq 'color.all') ? 'active' : ''}" data-dencode-method="color.all"><a href="${mf:h(basePath)}/color">${mf:h(msg['label.method.color.all'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'color.name') ? 'active' : ''}" data-dencode-method="color.name"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/name">${mf:h(msg['label.method.color.name'])}</a></li>
-							<li class="${(method eq 'color.rgb') ? 'active' : ''}" data-dencode-method="color.rgb"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/rgb">${mf:h(msg['label.method.color.rgb'])}</a></li>
-							<li class="${(method eq 'color.hsl') ? 'active' : ''}" data-dencode-method="color.hsl"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/hsl">${mf:h(msg['label.method.color.hsl'])}</a></li>
-							<li class="${(method eq 'color.hsv') ? 'active' : ''}" data-dencode-method="color.hsv"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/hsv">${mf:h(msg['label.method.color.hsv'])}</a></li>
-							<li class="${(method eq 'color.cmy') ? 'active' : ''}" data-dencode-method="color.cmy"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/cmy">${mf:h(msg['label.method.color.cmy'])}</a></li>
-							<li class="${(method eq 'color.cmyk') ? 'active' : ''}" data-dencode-method="color.cmyk"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/color/cmyk">${mf:h(msg['label.method.color.cmyk'])}</a></li>
+							<li class="${(method eq 'color.name') ? 'active' : ''}" data-dencode-method="color.name"><a href="${mf:h(basePath)}/color/name">${mf:h(msg['label.method.color.name'])}</a></li>
+							<li class="${(method eq 'color.rgb') ? 'active' : ''}" data-dencode-method="color.rgb"><a href="${mf:h(basePath)}/color/rgb">${mf:h(msg['label.method.color.rgb'])}</a></li>
+							<li class="${(method eq 'color.hsl') ? 'active' : ''}" data-dencode-method="color.hsl"><a href="${mf:h(basePath)}/color/hsl">${mf:h(msg['label.method.color.hsl'])}</a></li>
+							<li class="${(method eq 'color.hsv') ? 'active' : ''}" data-dencode-method="color.hsv"><a href="${mf:h(basePath)}/color/hsv">${mf:h(msg['label.method.color.hsv'])}</a></li>
+							<li class="${(method eq 'color.cmy') ? 'active' : ''}" data-dencode-method="color.cmy"><a href="${mf:h(basePath)}/color/cmy">${mf:h(msg['label.method.color.cmy'])}</a></li>
+							<li class="${(method eq 'color.cmyk') ? 'active' : ''}" data-dencode-method="color.cmyk"><a href="${mf:h(basePath)}/color/cmyk">${mf:h(msg['label.method.color.cmyk'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher" data-dencode-enable-oe="${mf:h(conf['cipher.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['cipher.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['cipher.all.useTz'])}">
@@ -159,14 +159,14 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'cipher.all') ? 'active' : ''}" data-dencode-method="cipher.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher">${mf:h(msg['label.method.cipher.all'])}</a></li>
+							<li class="${(method eq 'cipher.all') ? 'active' : ''}" data-dencode-method="cipher.all"><a href="${mf:h(basePath)}/cipher">${mf:h(msg['label.method.cipher.all'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'cipher.caesar') ? 'active' : ''}" data-dencode-method="cipher.caesar"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/caesar">${mf:h(msg['label.method.cipher.caesar'])}</a></li>
-							<li class="${(method eq 'cipher.rot13') ? 'active' : ''}" data-dencode-method="cipher.rot13"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot13">${mf:h(msg['label.method.cipher.rot13'])}</a></li>
-							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot18">${mf:h(msg['label.method.cipher.rot18'])}</a></li>
-							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rot47">${mf:h(msg['label.method.cipher.rot47'])}</a></li>
-							<li class="${(method eq 'cipher.scytale') ? 'active' : ''}" data-dencode-method="cipher.scytale"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/scytale">${mf:h(msg['label.method.cipher.scytale'])}</a></li>
-							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/cipher/rail-fence">${mf:h(msg['label.method.cipher.rail-fence'])}</a></li>
+							<li class="${(method eq 'cipher.caesar') ? 'active' : ''}" data-dencode-method="cipher.caesar"><a href="${mf:h(basePath)}/cipher/caesar">${mf:h(msg['label.method.cipher.caesar'])}</a></li>
+							<li class="${(method eq 'cipher.rot13') ? 'active' : ''}" data-dencode-method="cipher.rot13"><a href="${mf:h(basePath)}/cipher/rot13">${mf:h(msg['label.method.cipher.rot13'])}</a></li>
+							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a href="${mf:h(basePath)}/cipher/rot18">${mf:h(msg['label.method.cipher.rot18'])}</a></li>
+							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a href="${mf:h(basePath)}/cipher/rot47">${mf:h(msg['label.method.cipher.rot47'])}</a></li>
+							<li class="${(method eq 'cipher.scytale') ? 'active' : ''}" data-dencode-method="cipher.scytale"><a href="${mf:h(basePath)}/cipher/scytale">${mf:h(msg['label.method.cipher.scytale'])}</a></li>
+							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a href="${mf:h(basePath)}/cipher/rail-fence">${mf:h(msg['label.method.cipher.rail-fence'])}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash" data-dencode-enable-oe="${mf:h(conf['hash.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['hash.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['hash.all.useTz'])}">
@@ -175,15 +175,15 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'hash.all') ? 'active' : ''}" data-dencode-method="hash.all"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash">${mf:h(msg['label.method.hash.all'])}</a></li>
+							<li class="${(method eq 'hash.all') ? 'active' : ''}" data-dencode-method="hash.all"><a href="${mf:h(basePath)}/hash">${mf:h(msg['label.method.hash.all'])}</a></li>
 							<li class="divider"></li>
-							<li class="${(method eq 'hash.md2') ? 'active' : ''}" data-dencode-method="hash.md2"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/md2">${mf:h(msg['label.method.hash.md2'])}</a></li>
-							<li class="${(method eq 'hash.md5') ? 'active' : ''}" data-dencode-method="hash.md5"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/md5">${mf:h(msg['label.method.hash.md5'])}</a></li>
-							<li class="${(method eq 'hash.sha1') ? 'active' : ''}" data-dencode-method="hash.sha1"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/sha1">${mf:h(msg['label.method.hash.sha1'])}</a></li>
-							<li class="${(method eq 'hash.sha256') ? 'active' : ''}" data-dencode-method="hash.sha256"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/sha256">${mf:h(msg['label.method.hash.sha256'])}</a></li>
-							<li class="${(method eq 'hash.sha384') ? 'active' : ''}" data-dencode-method="hash.sha384"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/sha384">${mf:h(msg['label.method.hash.sha384'])}</a></li>
-							<li class="${(method eq 'hash.sha512') ? 'active' : ''}" data-dencode-method="hash.sha512"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/sha512">${mf:h(msg['label.method.hash.sha512'])}</a></li>
-							<li class="${(method eq 'hash.crc32') ? 'active' : ''}" data-dencode-method="hash.crc32"><a href="${pageContext.request.contextPath}${mf:h(mf:strcatNotBlank('/', localeName))}/hash/crc32">${mf:h(msg['label.method.hash.crc32'])}</a></li>
+							<li class="${(method eq 'hash.md2') ? 'active' : ''}" data-dencode-method="hash.md2"><a href="${mf:h(basePath)}/hash/md2">${mf:h(msg['label.method.hash.md2'])}</a></li>
+							<li class="${(method eq 'hash.md5') ? 'active' : ''}" data-dencode-method="hash.md5"><a href="${mf:h(basePath)}/hash/md5">${mf:h(msg['label.method.hash.md5'])}</a></li>
+							<li class="${(method eq 'hash.sha1') ? 'active' : ''}" data-dencode-method="hash.sha1"><a href="${mf:h(basePath)}/hash/sha1">${mf:h(msg['label.method.hash.sha1'])}</a></li>
+							<li class="${(method eq 'hash.sha256') ? 'active' : ''}" data-dencode-method="hash.sha256"><a href="${mf:h(basePath)}/hash/sha256">${mf:h(msg['label.method.hash.sha256'])}</a></li>
+							<li class="${(method eq 'hash.sha384') ? 'active' : ''}" data-dencode-method="hash.sha384"><a href="${mf:h(basePath)}/hash/sha384">${mf:h(msg['label.method.hash.sha384'])}</a></li>
+							<li class="${(method eq 'hash.sha512') ? 'active' : ''}" data-dencode-method="hash.sha512"><a href="${mf:h(basePath)}/hash/sha512">${mf:h(msg['label.method.hash.sha512'])}</a></li>
+							<li class="${(method eq 'hash.crc32') ? 'active' : ''}" data-dencode-method="hash.crc32"><a href="${mf:h(basePath)}/hash/crc32">${mf:h(msg['label.method.hash.crc32'])}</a></li>
 						</ul>
 					</li>
 				</ul>
