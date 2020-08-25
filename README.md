@@ -1,7 +1,7 @@
 dencode-web
 ============================
 DenCode is a web application for encoding and decoding values.  
-e.g. HTML Escape / URL Encoding / Base64 / MD5 / SHA-1 / CRC32 / and many other String, Number, DateTime, Color, Hash formats
+e.g. HTML Escape / URL Encoding / Base64 / MD5 / SHA-1 / CRC32 / and many other String, Number, DateTime, Color, Cipher, Hash formats
 
 ## Website
 [https://dencode.com/](https://dencode.com/)
@@ -74,6 +74,8 @@ gcloud config set project {PROJECT_ID}
 	- [ROT13](https://dencode.com/cipher/rot13)
 	- [ROT18](https://dencode.com/cipher/rot18)
 	- [ROT47](https://dencode.com/cipher/rot47)
+	- [Scytale Cipher](https://dencode.com/cipher/scytale)
+	- [Rail Fence Cipher](https://dencode.com/cipher/rail-fence)
 - [Hash](https://dencode.com/hash)
 	- [MD2](https://dencode.com/hash/md2)
 	- [MD5](https://dencode.com/hash/md5)
