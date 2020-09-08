@@ -22,6 +22,7 @@
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
 	<meta property="og:locale:alternate" content="en_US" />
 	<meta property="og:locale:alternate" content="ja_JP" />
+	<meta property="og:locale:alternate" content="ru_RU" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}" />
 	<meta property="og:description" content="${mf:h(msg[mf:strcat('site.desc.', method)])}" />
