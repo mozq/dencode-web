@@ -194,7 +194,6 @@ h2 .toggle-icon {
 table.dencoded-list {
 	table-layout: fixed;
 	width: 100%;
-	max-width: 100%;
 }
 
 table.dencoded-list tbody {
@@ -219,23 +218,29 @@ table.dencoded-list tr.invalid-value {
 }
 
 table.dencoded-list th {
-	width: 21ex;
+	width: 30ex;
 	text-align: left;
 	word-break: keep-all;
 	word-wrap: normal;
 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+		-webkit-text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
 }
+
+table.dencoded-list tr.active th {
+	word-break: break-all;
+	word-wrap: anywhere;
+	white-space: normal;
+}
+
 
 table.dencoded-list td {
 	width: auto;
 }
 
 table.dencoded-list td .for-disp {
-	/*
-	word-break: break-all;
-	word-wrap: break-word;
-	white-space: normal;
-	*/
 	display: block;
 	white-space: nowrap;
 	overflow: hidden;
@@ -323,6 +328,7 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 		and (min-device-width: 320px)
 		and (max-device-width: 568px) {
 	table.dencoded-list th {
+		max-width: 22ex;
 		height: 2em;
 	}
 	

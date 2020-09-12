@@ -28,6 +28,7 @@
 	<meta property="og:description" content="${mf:h(msg[mf:strcat('site.desc.', method)])}" />
 	<link rel="alternate" href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}" hreflang="en" />
 	<link rel="alternate" href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}" hreflang="ja" />
+	<link rel="alternate" href="${pageContext.request.contextPath}/ru/${mf:h(currentPath)}" hreflang="ru" />
 	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
@@ -60,6 +61,7 @@
 							<li class="divider"></li>
 							<li class="${(localeName eq 'en') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}">English</a></li>
 							<li class="${(localeName eq 'ja') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}">日本語</a></li>
+							<li class="${(localeName eq 'ru') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/ru/${mf:h(currentPath)}">Русский</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -738,6 +740,12 @@
 		<div id="adBottom" style="margin: 2em 0 1em;">
 			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="5289392761" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
 		</div>
+		
+		<c:set var="methodDescIncPagePath" value="method-desc_${method}_${msg['lang']}.inc.jsp" scope="request" />
+		<% if (new java.io.File(application.getRealPath("/WEB-INF/pages/" + request.getAttribute("methodDescIncPagePath"))).exists()) { %>
+				<hr />
+				<jsp:include page="${methodDescIncPagePath}" />
+		<% } %>
 	</div>
 </div>
 

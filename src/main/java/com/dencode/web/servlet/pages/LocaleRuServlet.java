@@ -23,7 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
 @WebServlet("/ru/*")
-public class LocaleEnServlet extends AbstractDencodeHttpServlet {
+public class LocaleRuServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String LOCALE_NAME = "ru";
