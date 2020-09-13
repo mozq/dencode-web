@@ -328,7 +328,7 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 		and (min-device-width: 320px)
 		and (max-device-width: 568px) {
 	table.dencoded-list th {
-		max-width: 22ex;
+		width: 22ex;
 		height: 2em;
 	}
 	
