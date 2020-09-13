@@ -455,20 +455,22 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 		if (type.equals("all") || type.equals("cipher")) {
 			boolean all = (method.equals("all") || method.equals("cipher.all"));
+
+			String valLf = StringUtilz.join("\n", (Object[])valLines);
 			
 			if (all || method.equals("cipher.caesar")) dencode.setEncCipherCaesar(encCipherCaesar(val, encCipherCaesarShift));
 			if (all || method.equals("cipher.rot13")) dencode.setEncCipherROT13(dencCipherROT13(val));
 			if (all || method.equals("cipher.rot18")) dencode.setEncCipherROT18(dencCipherROT18(val));
 			if (all || method.equals("cipher.rot47")) dencode.setEncCipherROT47(dencCipherROT47(val));
-			if (all || method.equals("cipher.scytale")) dencode.setEncCipherScytale(encCipherScytale(val, encCipherScytaleKey));
-			if (all || method.equals("cipher.rail-fence")) dencode.setEncCipherRailFence(encCipherRailFence(val, encCipherRailFenceKey));
+			if (all || method.equals("cipher.scytale")) dencode.setEncCipherScytale(encCipherScytale(valLf, encCipherScytaleKey));
+			if (all || method.equals("cipher.rail-fence")) dencode.setEncCipherRailFence(encCipherRailFence(valLf, encCipherRailFenceKey));
 			
 			if (all || method.equals("cipher.caesar")) dencode.setDecCipherCaesar(decCipherCaesar(val, decCipherCaesarShift));
 			if (all || method.equals("cipher.rot13")) dencode.setDecCipherROT13(dencode.getEncCipherROT13());
 			if (all || method.equals("cipher.rot18")) dencode.setDecCipherROT18(dencode.getEncCipherROT18());
 			if (all || method.equals("cipher.rot47")) dencode.setDecCipherROT47(dencode.getEncCipherROT47());
-			if (all || method.equals("cipher.scytale")) dencode.setDecCipherScytale(decCipherScytale(val, decCipherScytaleKey));
-			if (all || method.equals("cipher.rail-fence")) dencode.setDecCipherRailFence(decCipherRailFence(val, decCipherRailFenceKey));
+			if (all || method.equals("cipher.scytale")) dencode.setDecCipherScytale(decCipherScytale(valLf, decCipherScytaleKey));
+			if (all || method.equals("cipher.rail-fence")) dencode.setDecCipherRailFence(decCipherRailFence(valLf, decCipherRailFenceKey));
 		}
 		if (type.equals("all") || type.equals("hash")) {
 			boolean all = (method.equals("all") || method.equals("hash.all"));
