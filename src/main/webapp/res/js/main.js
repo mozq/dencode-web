@@ -131,7 +131,7 @@ $(document).ready(function () {
 				$this.popover({
 					trigger: "manual",
 					container: "body",
-					placement: "auto left",
+					placement: "left",
 					html: true,
 					sanitizeFn: function (content) {
 						return content;
