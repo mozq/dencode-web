@@ -12,6 +12,8 @@ $(document).ready(function () {
 	var _permanentLinkTmpl = null;
 	var _forCopyTmpl = null;
 	
+	var _config = null;
+	
 	var $window = $(window);
 	var $document = $(document);
 	var $localeMenuLinks = $("#localeMenu .dropdown-menu a");
@@ -128,24 +130,28 @@ $(document).ready(function () {
 		} else {
 			var method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
 			if (!$this.data("bs.popover")) {
-				$this.popover({
-					trigger: "manual",
-					container: "body",
-					placement: "left",
-					html: true,
-					sanitizeFn: function (content) {
-						return content;
-					},
-					content: function () {
-						var permanentLink = getPermanentLink(method);
-						return getPermanentLinkTmpl().render({
-							permanentLink: permanentLink,
-							permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
-						});
-					}
+				loadConfig(function (config) {
+					$this.popover({
+						trigger: "manual",
+						container: "body",
+						placement: "left",
+						html: true,
+						sanitizeFn: function (content) {
+							return content;
+						},
+						content: function () {
+							var permanentLink = getPermanentLink(method, config);
+							return getPermanentLinkTmpl().render({
+								permanentLink: permanentLink,
+								permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
+							});
+						}
+					});
+					$this.popover("show");
 				});
+			} else {
+				$this.popover("show");
 			}
-			$this.popover("show");
 		}
 	});
 	
@@ -295,6 +301,8 @@ $(document).ready(function () {
 	});
 	
 	$listRows.on("click", function (ev) {
+		hidePopover($(".popover-toggle.active"));
+		
 		if ($(ev.target).closest(".for-copy").length !== 0) {
 			return;
 		}
@@ -534,14 +542,13 @@ $(document).ready(function () {
 		}
 	}
 	
-	function getPermanentLink(method) {
+	function getPermanentLink(method, config) {
 		var v = $v.val();
 		
 		var $methodMenuItem = $methodMenuItems.filter("[data-dencode-method='" + method + "']");
-		var $typeMenuItem = $methodMenuItem.closest("[data-dencode-type]");
-		var oeEnabled = $typeMenuItem.data("dencode-enable-oe");
-		var nlEnabled = $typeMenuItem.data("dencode-enable-nl");
-		var tzEnabled = $typeMenuItem.data("dencode-enable-tz");
+		var oeEnabled = (config[method + ".useOe"] === "true");
+		var nlEnabled = (config[method + ".useNl"] === "true");
+		var tzEnabled = (config[method + ".useTz"] === "true");
 		
 		var path = $methodMenuItem.find("a").attr("href");
 		if (!path) {
@@ -589,6 +596,16 @@ $(document).ready(function () {
 		return _forCopyTmpl;
 	}
 	
+	function loadConfig(callback) {
+		if (_config) {
+			callback(_config);
+		} else {
+			$.getJSON(contextPath + "/config", function (config) {
+				_config = config;
+				callback(_config);
+			});
+		}
+	}
 });
 
 

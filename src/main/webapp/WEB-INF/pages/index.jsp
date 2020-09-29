@@ -70,10 +70,10 @@
 			</div>
 			<div id="typeMenu" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="${(type eq 'all') ? 'active' : ''}" data-dencode-type="all" data-dencode-method="all" data-dencode-enable-oe="${mf:h(conf['all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['all.useTz'])}">
+					<li class="${(type eq 'all') ? 'active' : ''}" data-dencode-type="all" data-dencode-method="all">
 						<a href="${mf:h(basePath)}/">${mf:h(msg['label.type.all'])}</a>
 					</li>
-					<li class="dropdown ${(type eq 'string') ? 'active' : ''}" role="presentation" data-dencode-type="string" data-dencode-enable-oe="${mf:h(conf['string.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['string.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['string.all.useTz'])}">
+					<li class="dropdown ${(type eq 'string') ? 'active' : ''}" role="presentation" data-dencode-type="string">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.string'])}</span>
 							<span class="caret"></span>
@@ -109,7 +109,7 @@
 							<li class="${(method eq 'string.line-unique') ? 'active' : ''}" data-dencode-method="string.line-unique"><a href="${mf:h(basePath)}/string/line-unique">${mf:h(msg['label.method.string.line-unique'])}</a></li>
 						</ul>
 					</li>
-					<li class="dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number" data-dencode-enable-oe="${mf:h(conf['number.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['number.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['number.all.useTz'])}">
+					<li class="dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.number'])}</span>
 							<span class="caret"></span>
@@ -124,7 +124,7 @@
 							<li class="${(method eq 'number.japanese') ? 'active' : ''}" data-dencode-method="number.japanese"><a href="${mf:h(basePath)}/number/japanese">${mf:h(msg['label.method.number.japanese'])}</a></li>
 						</ul>
 					</li>
-					<li class="dropdown ${(type eq 'date') ? 'active' : ''}" role="presentation" data-dencode-type="date" data-dencode-enable-oe="${mf:h(conf['date.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['date.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['date.all.useTz'])}">
+					<li class="dropdown ${(type eq 'date') ? 'active' : ''}" role="presentation" data-dencode-type="date">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.date'])}</span>
 							<span class="caret"></span>
@@ -140,7 +140,7 @@
 							<li class="${(method eq 'date.japanese-era') ? 'active' : ''}" data-dencode-method="date.japanese-era"><a href="${mf:h(basePath)}/date/japanese-era">${mf:h(msg['label.method.date.japanese-era'])}</a></li>
 						</ul>
 					</li>
-					<li class="dropdown ${(type eq 'color') ? 'active' : ''}" role="presentation" data-dencode-type="color" data-dencode-enable-oe="${mf:h(conf['color.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['color.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['color.all.useTz'])}">
+					<li class="dropdown ${(type eq 'color') ? 'active' : ''}" role="presentation" data-dencode-type="color">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.color'])}</span>
 							<span class="caret"></span>
@@ -156,7 +156,7 @@
 							<li class="${(method eq 'color.cmyk') ? 'active' : ''}" data-dencode-method="color.cmyk"><a href="${mf:h(basePath)}/color/cmyk">${mf:h(msg['label.method.color.cmyk'])}</a></li>
 						</ul>
 					</li>
-					<li class="dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher" data-dencode-enable-oe="${mf:h(conf['cipher.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['cipher.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['cipher.all.useTz'])}">
+					<li class="dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.cipher'])}</span>
 							<span class="caret"></span>
@@ -172,7 +172,7 @@
 							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a href="${mf:h(basePath)}/cipher/rail-fence">${mf:h(msg['label.method.cipher.rail-fence'])}</a></li>
 						</ul>
 					</li>
-					<li class="dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash" data-dencode-enable-oe="${mf:h(conf['hash.all.useOe'])}" data-dencode-enable-nl="${mf:h(conf['hash.all.useNl'])}" data-dencode-enable-tz="${mf:h(conf['hash.all.useTz'])}">
+					<li class="dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['label.type.hash'])}</span>
 							<span class="caret"></span>
