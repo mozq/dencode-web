@@ -13,12 +13,12 @@
 	<meta name="apple-mobile-web-app-title" content="${mf:h(msg['site.name'])}" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="msapplication-TileColor" content="#ffffff" />
-	<meta name="msapplication-square70x70logo" content="${pageContext.request.contextPath}/res/img/icons/favicon70px.png" />
-	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/res/img/icons/favicon150px.png" />
-	<meta name="msapplication-square310x310logo" content="${pageContext.request.contextPath}/res/img/icons/favicon310px.png" />
+	<meta name="msapplication-square70x70logo" content="${pageContext.request.contextPath}/static/img/icons/favicon70px.png" />
+	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/static/img/icons/favicon150px.png" />
+	<meta name="msapplication-square310x310logo" content="${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
 	<meta property="og:url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
-	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/res/img/icons/favicon310px.png" />
+	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
 	<meta property="og:locale:alternate" content="en_US" />
 	<meta property="og:locale:alternate" content="ja_JP" />
@@ -32,11 +32,11 @@
 	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
-	<link rel="icon" type="image/png" sizes="192x192"  href="${pageContext.request.contextPath}/res/img/icons/favicon192px.png" />
-	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/res/img/icons/favicon180px.png" />
+	<link rel="icon" type="image/png" sizes="192x192"  href="${pageContext.request.contextPath}/static/img/icons/favicon192px.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/favicon180px.png" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/all.min.css?v=<%= new java.io.File(application.getRealPath("/res/css/all.min.css")).lastModified() %>" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/all.min.css?v=<%= new java.io.File(application.getRealPath("/static/css/all.min.css")).lastModified() %>" />
 	<script>var contextPath = "${pageContext.request.contextPath}";</script>
 	<title>${mf:h(msg[mf:strcat('site.title.', method)])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
@@ -302,7 +302,7 @@
 			<h2 data-toggle-show="#decodedListContainer">
 				<span class="toggle-icon glyphicon glyphicon-collapse-down"></span>
 				${mf:h(msg['label.decoded'])}
-				<img id="decodingIndicator" src="${pageContext.request.contextPath}/res/img/loading-indicator.gif" style="display: none;" />
+				<img id="decodingIndicator" src="${pageContext.request.contextPath}/static/img/loading-indicator.gif" style="display: none;" />
 			</h2>
 			<div id="decodedListContainer">
 				<table id="decodedList" class="dencoded-list">
@@ -448,7 +448,7 @@
 			<h2 data-toggle-show="#encodedListContainer">
 				<span class="toggle-icon glyphicon glyphicon-collapse-down"></span>
 				${mf:h(msg['label.encoded'])}
-				<img id="encodingIndicator" src="${pageContext.request.contextPath}/res/img/loading-indicator.gif" style="display: none;" />
+				<img id="encodingIndicator" src="${pageContext.request.contextPath}/static/img/loading-indicator.gif" style="display: none;" />
 			</h2>
 			<div id="encodedListContainer">
 				<table id="encodedList" class="dencoded-list">
@@ -848,7 +848,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/res/js/all.min.js?v=<%= new java.io.File(application.getRealPath("/res/js/all.min.js")).lastModified() %>"></script>
+<script src="${pageContext.request.contextPath}/static/js/all.min.js?v=<%= new java.io.File(application.getRealPath("/static/js/all.min.js")).lastModified() %>"></script>
 <script>
 	"use strict";
 

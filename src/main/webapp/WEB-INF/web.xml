@@ -15,9 +15,35 @@
     </init-param>
   </filter>
   
+  <filter>
+    <filter-name>ResRedirectFilter</filter-name>
+    <filter-class>org.mifmi.commons4j.web.servlet.filter.RedirectFilter</filter-class>
+    <init-param>
+      <param-name>from</param-name>
+      <param-value>/res/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>to</param-name>
+      <param-value>/static/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>regex</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>temporary</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </filter>
+  
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>ResRedirectFilter</filter-name>
+    <url-pattern>/res/*</url-pattern>
   </filter-mapping>
   
   <welcome-file-list>

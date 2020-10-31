@@ -46,7 +46,7 @@ appengine {
 }
 
 combineCss {
-  source "${webAppDirName}/res/css/main.css"
+  source "${webAppDirName}/static/css/main.css"
   dest "${buildDir}/minify/css/all.css"
 }
 
@@ -57,10 +57,10 @@ minifyCss {
 
 combineJs {
   encoding 'UTF-8'
-  source "${webAppDirName}/res/js/analytics.js"
-  source "${webAppDirName}/res/js/core.js"
-  source "${webAppDirName}/res/js/main.js"
-  source "${webAppDirName}/res/js/adsense.js"
+  source "${webAppDirName}/static/js/analytics.js"
+  source "${webAppDirName}/static/js/core.js"
+  source "${webAppDirName}/static/js/main.js"
+  source "${webAppDirName}/static/js/adsense.js"
   dest "${buildDir}/minify/js/all.js"
 }
 
@@ -78,12 +78,12 @@ war {
   
   webInf {
     from "${buildDir}/minify/css/"
-    into "/res/css/"
+    into "/static/css/"
   }
   
   webInf {
     from "${buildDir}/minify/js/"
-    into "/res/js/"
+    into "/static/js/"
   }
 }
 
