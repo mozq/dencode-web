@@ -1,2 +1,4 @@
 runtime: java11
 entrypoint: 'java -cp "*" com.dencode.web.server.ServerMain'
+inbound_services:
+- warmup
