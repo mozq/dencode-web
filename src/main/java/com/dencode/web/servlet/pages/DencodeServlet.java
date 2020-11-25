@@ -21,7 +21,9 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.IDN;
 import java.nio.charset.Charset;
+import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.StandardCharsets;
+import java.nio.charset.UnsupportedCharsetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -66,8 +68,12 @@ import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 @WebServlet("/dencode")
 public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
+	
+	private static final Pattern RFC2047_SPACE = Pattern.compile("\\?=\\s+=\\?");
+	private static final Pattern RFC2047_QP = Pattern.compile("=\\?(.+?)\\?Q\\?(.+?)\\?=", Pattern.CASE_INSENSITIVE);
+	private static final Pattern RFC2047_BASE64 = Pattern.compile("=\\?(.+?)\\?B\\?(.+?)\\?=", Pattern.CASE_INSENSITIVE);
 	
 	private static final char PROGRAM_STRING_ESCAPE_CHAR = '\\';
 	private static final char[] PROGRAM_STRING_TARGET_CHARS = {'\0', '\u0007', '\b', '\t', '\n', '\u000B', '\f', '\r', '\"', '\''};
@@ -1674,7 +1680,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String decStrBase32Encoding(String val, Charset charset) {
-		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
+		if (!StringUtilz.isASCII(val)) {
+			return null;
+		}
+		
+		byte[] bin = val.getBytes(StandardCharsets.US_ASCII);
 		
 		Base32 base32 = new Base32();
 		if (!base32.isInAlphabet(bin, true)) {
@@ -1690,18 +1700,52 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String decStrBase64Encoding(String val, Charset charset) {
-		byte[] bin = val.getBytes(StandardCharsets.UTF_8);
-		
-		Base64 base64 = new Base64();
-		if (!base64.isInAlphabet(bin, true)) {
+		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}
 		
-		try {
-			byte[] decodedValue = base64.decode(bin);
-			return new String(decodedValue, charset);
-		} catch (IllegalArgumentException e) {
-			return null;
+		if (val.contains("=?") && val.contains("?=")) {
+			// RFC 2047
+			
+			val = RFC2047_SPACE.matcher(val).replaceAll("?==?");
+			
+			StringBuilder sb = new StringBuilder(val.length());
+			
+			Matcher m = RFC2047_BASE64.matcher(val);
+			if (!m.find()) {
+				return null;
+			}
+			do {
+				Charset cs;
+				try {
+					cs = Charset.forName(m.group(1));
+				} catch (IllegalCharsetNameException | UnsupportedCharsetException e) {
+					return null;
+				}
+				
+				String v = m.group(2);
+				
+				Base64 base64 = new Base64();
+				try {
+					byte[] decodedValue = base64.decode(v.getBytes(StandardCharsets.US_ASCII));
+					v = new String(decodedValue, cs);
+				} catch (IllegalArgumentException e) {
+					return null;
+				}
+				
+				m.appendReplacement(sb, v);
+			} while (m.find());
+			m.appendTail(sb);
+			
+			return sb.toString();
+		} else {
+			Base64 base64 = new Base64();
+			try {
+				byte[] decodedValue = base64.decode(val.getBytes(StandardCharsets.US_ASCII));
+				return new String(decodedValue, charset);
+			} catch (IllegalArgumentException e) {
+				return null;
+			}
 		}
 	}
 	
@@ -1710,11 +1754,47 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return null;
 		}
 		
-		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
-		try {
-			return quotedPrintableCodec.decode(val, charset);
-		} catch (DecoderException e) {
-			return null;
+		if (val.contains("=?") && val.contains("?=")) {
+			// RFC 2047
+			
+			val = RFC2047_SPACE.matcher(val).replaceAll("?==?");
+			
+			StringBuilder sb = new StringBuilder(val.length());
+			
+			Matcher m = RFC2047_QP.matcher(val);
+			if (!m.find()) {
+				return null;
+			}
+			do {
+				Charset cs;
+				try {
+					cs = Charset.forName(m.group(1));
+				} catch (IllegalCharsetNameException | UnsupportedCharsetException e) {
+					return null;
+				}
+				
+				String v = m.group(2);
+
+				QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
+				try {
+					v = quotedPrintableCodec.decode(v, cs);
+				} catch (DecoderException e) {
+					return null;
+				}
+				v = v.replace('_', ' ');
+				
+				m.appendReplacement(sb, v);
+			} while (m.find());
+			m.appendTail(sb);
+			
+			return sb.toString();
+		} else {
+			QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
+			try {
+				return quotedPrintableCodec.decode(val, charset);
+			} catch (DecoderException e) {
+				return null;
+			}
 		}
 	}
 	
