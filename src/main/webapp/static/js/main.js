@@ -521,22 +521,29 @@ $(document).ready(function () {
 		if ($follow.hasClass("active")) {
 			$follow.removeClass("active");
 
-			$window.off("scroll.follow");
-
-			$exp.offset({top: $top.offset().top});
+			if ($exp.hasClass("follow")) {
+				$exp.removeClass("follow");
+			} else {
+				$window.off("scroll.follow");
+				$exp.offset({top: $top.offset().top});
+			}
 
 			setCookie("follow", "no");
 		} else {
 			$follow.addClass("active");
 
-			$window.on("scroll.follow", function () {
-				var scrollTop = $window.scrollTop();
-				var offsetTop = $top.offset().top;
-				if (scrollTop < offsetTop) {
-					scrollTop = offsetTop;
-				}
-				$exp.offset({top: scrollTop});
-			});
+			if (CSS && CSS.supports && CSS.supports("position", "sticky")) {
+				$exp.addClass("follow");
+			} else {
+				$window.on("scroll.follow", function () {
+					var scrollTop = $window.scrollTop();
+					var offsetTop = $top.offset().top;
+					if (scrollTop < offsetTop) {
+						scrollTop = offsetTop;
+					}
+					$exp.offset({top: scrollTop});
+				});
+			}
 			
 			setCookie("follow", "yes");
 		}

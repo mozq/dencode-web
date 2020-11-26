@@ -139,6 +139,11 @@ h2 .toggle-icon {
 	background-color: white;
 }
 
+#exp.follow {
+	position: sticky;
+	top: 0;
+}
+
 #expHeader {
 	text-align: right;
 }
