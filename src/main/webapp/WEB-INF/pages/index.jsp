@@ -368,6 +368,12 @@
 												<option value="23">${mf:h(msg['label.decCipherCaesar.option.shift.23'])}</option>
 												<option value="24">${mf:h(msg['label.decCipherCaesar.option.shift.24'])}</option>
 												<option value="25">${mf:h(msg['label.decCipherCaesar.option.shift.25'])}</option>
+												<option value="26">${mf:h(msg['label.decCipherCaesar.option.shift.26'])}</option>
+												<option value="27">${mf:h(msg['label.decCipherCaesar.option.shift.27'])}</option>
+												<option value="28">${mf:h(msg['label.decCipherCaesar.option.shift.28'])}</option>
+												<option value="29">${mf:h(msg['label.decCipherCaesar.option.shift.29'])}</option>
+												<option value="30">${mf:h(msg['label.decCipherCaesar.option.shift.30'])}</option>
+												<option value="31">${mf:h(msg['label.decCipherCaesar.option.shift.31'])}</option>
 											</select>
 										</div>
 									</div>
@@ -626,6 +632,12 @@
 												<option value="23">${mf:h(msg['label.encCipherCaesar.option.shift.23'])}</option>
 												<option value="24">${mf:h(msg['label.encCipherCaesar.option.shift.24'])}</option>
 												<option value="25">${mf:h(msg['label.encCipherCaesar.option.shift.25'])}</option>
+												<option value="26">${mf:h(msg['label.encCipherCaesar.option.shift.26'])}</option>
+												<option value="27">${mf:h(msg['label.encCipherCaesar.option.shift.27'])}</option>
+												<option value="28">${mf:h(msg['label.encCipherCaesar.option.shift.28'])}</option>
+												<option value="29">${mf:h(msg['label.encCipherCaesar.option.shift.29'])}</option>
+												<option value="30">${mf:h(msg['label.encCipherCaesar.option.shift.30'])}</option>
+												<option value="31">${mf:h(msg['label.encCipherCaesar.option.shift.31'])}</option>
 											</select>
 										</div>
 									</div>

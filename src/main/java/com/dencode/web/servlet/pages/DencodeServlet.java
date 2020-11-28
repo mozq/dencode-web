@@ -314,6 +314,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final Pattern COLOR_CMY_FN_PATTERN = Pattern.compile("^cmya?\\s*\\(\\s*((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)(?:\\s*,\\s*(\\+?[0-9\\.]+))?\\s*\\)$");
 	private static final Pattern COLOR_CMYK_FN_PATTERN = Pattern.compile("^cmyka?\\s*\\(\\s*((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)\\s*,\\s*((?:\\+|\\-)?[0-9\\.]+%?)(?:\\s*,\\s*(\\+?[0-9\\.]+))?\\s*\\)$");
 	
+	private static final String[] CIPHER_CAESER_CYRILLIC_I_BREVE = new String[] { "И\u0306", "и\u0306" };
+	private static final String[] CIPHER_CAESER_CYRILLIC_SHORT_I = new String[] { "Й", "й" };
 	
 	@Override
 	protected void doPost() throws Exception {
@@ -1442,9 +1444,22 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			return val;
 		}
 		
-		shift = shift % 26;
-		if (shift < 0) {
-			shift += 26;
+		int shiftLatin = shift % 26;
+		if (shiftLatin < 0) {
+			shiftLatin += 26;
+		}
+		
+		int shiftCyrillic = shift % 32;
+		if (shiftCyrillic < 0) {
+			shiftCyrillic += 32;
+		}
+		
+		// for diacritical mark support
+		val = Normalizer.normalize(val, Normalizer.Form.NFD);
+		int idxBrave = val.indexOf('\u0306');
+		if (idxBrave != -1) {
+			// Breve (U+0306) of 'Й' and 'й' is not a diacritical mark
+			val = StringUtilz.replaceAll(val, CIPHER_CAESER_CYRILLIC_I_BREVE, CIPHER_CAESER_CYRILLIC_SHORT_I);
 		}
 		
 		int len = val.length();
@@ -1454,15 +1469,23 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			char ch = val.charAt(i);
 			
 			if ('A' <= ch && ch <= 'Z') {
-				ch = (char)((ch - 'A' + shift) % 26 + 'A');
+				// Latin upper alphabets
+				ch = (char)((ch - 'A' + shiftLatin) % 26 + 'A');
 			} else if ('a' <= ch && ch <= 'z') {
-				ch = (char)((ch - 'a' + shift) % 26 + 'a');
+				// Latin lower alphabets
+				ch = (char)((ch - 'a' + shiftLatin) % 26 + 'a');
+			} else if ('А' <= ch && ch <= 'Я') {
+				// Cyrillic upper alphabets
+				ch = (char)((ch - 'А' + shiftCyrillic) % 32 + 'А');
+			} else if ('а' <= ch && ch <= 'я') {
+				// Cyrillic lower alphabets
+				ch = (char)((ch - 'а' + shiftCyrillic) % 32 + 'а');
 			}
 			
 			sb.append(ch);
 		}
 		
-		return sb.toString();
+		return Normalizer.normalize(sb.toString(), Normalizer.Form.NFC);
 	}
 	
 	private static String dencCipherROT13(String val) {
