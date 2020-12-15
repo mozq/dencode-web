@@ -1568,7 +1568,8 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		int[] cps = val.codePoints().toArray();
 		int len = cps.length;
-		int maxX = key;
+		int maxY = key;
+		int maxX = (int)Math.ceil(((double)len) / maxY);
 		for (int x = 0; x < maxX; x++) {
 			for (int idx = x; idx < len; idx = idx + maxX) {
 				int cp = cps[idx];
@@ -2048,10 +2049,10 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		int[] cps = val.codePoints().toArray();
 		int len = cps.length;
-		int maxY = (int)Math.ceil(((double)len) / key);
-		int maxX = Math.min(key, (int)Math.ceil(((double)len) / maxY));
+		int maxX = (int)Math.ceil(((double)len) / key);
 		int minX = len % maxX;
 		minX = (minX == 0) ? maxX : minX;
+		int maxY = Math.min(key, (int)Math.ceil(((double)len) / maxX));
 		for (int y = 1; y <= maxY; y++) {
 			boolean isBottom = (y == maxY);
 			
