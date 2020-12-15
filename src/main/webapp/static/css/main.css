@@ -295,6 +295,11 @@ table.dencoded-list tr.active .dencode-option-group {
 	display: inline;
 }
 
+table.table-fit {
+	width: auto !important;
+	table-layout: auto !important;
+}
+
 #linkURL {
 	height: 2.5em;
 	color: black;
