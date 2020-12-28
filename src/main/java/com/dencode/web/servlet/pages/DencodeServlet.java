@@ -920,7 +920,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		if (timeZone.getID().equals("UTC")) {
 			timeZone = TimeZone.getTimeZone("GMT");
 		}
-		DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
+		DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy", Locale.US);
 		dateFormat.setTimeZone(timeZone);
 		return dateFormat.format(dateVal);
 	}
