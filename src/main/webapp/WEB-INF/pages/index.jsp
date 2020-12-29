@@ -207,7 +207,7 @@
 				<span id="follow" title="${mf:h(msg['label.follow'])}"><span class="glyphicon glyphicon-pushpin"></span></span>
 				<span id="vLen" class="badge popover-toggle" title="${mf:h(msg['label.val.length'])}" data-len-chars="0" data-len-bytes="0">0</span>
 			</div>
-			<form id="expValue" action="#">
+			<form id="expValue" method="post">
 				<div class="input-group">
 					<textarea id="v" class="form-control" placeholder="${mf:h(msg[mf:strcat('label.val.tooltip.', method)])}">${mf:h(v)}</textarea>
 					<span class="input-group-addon">
@@ -338,7 +338,7 @@
 					<c:if test="${type eq 'all' or type eq 'cipher'}">
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.caesar'}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.decCipherCaesar'])}</th><td><span id="decCipherCaesar" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.decCipherCaesar.option.shift'])}</span>
@@ -385,7 +385,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.scytale'}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.decCipherScytale'])}</th><td><span id="decCipherScytale" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.decCipherScytale.option.key'])}</span>
@@ -415,7 +415,7 @@
 								</form>
 							</td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rail-fence'}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['label.decCipherRailFence'])}</th><td><span id="decCipherRailFence" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.decCipherRailFence.option.key'])}</span>
@@ -461,7 +461,7 @@
 					<c:if test="${type eq 'all' or type eq 'string'}">
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.bin'}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.encStrBin'])}</th><td><span id="encStrBin" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encStrBin.option.separator'])}</span>
@@ -476,7 +476,7 @@
 								</form>
 							</td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.hex'}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.encStrHex'])}</th><td><span id="encStrHex" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encStrHex.option.separator'])}</span>
@@ -504,7 +504,7 @@
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.punycode'}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.encStrPunycode'])}</th><td><span id="encStrPunycode" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base32'}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.encStrBase32Encoding'])}</th><td><span id="encStrBase32Encoding" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.base64'}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encStrBase64Encoding'])}</th><td><span id="encStrBase64Encoding" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encStrBase64.option.lineBreak'])}</span>
@@ -519,7 +519,7 @@
 							</td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.quoted-printable'}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.encStrQuotedPrintable'])}</th><td><span id="encStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'string.all' or method eq 'string.unicode-escape'}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.encStrUnicodeEscape'])}</th><td><span id="encStrUnicodeEscape" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encStrUnicodeEscape.option.surrogatePair'])}</span>
@@ -602,7 +602,7 @@
 					<c:if test="${type eq 'all' or type eq 'cipher'}">
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.caesar'}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.encCipherCaesar'])}</th><td><span id="encCipherCaesar" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encCipherCaesar.option.shift'])}</span>
@@ -649,7 +649,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.scytale'}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.encCipherScytale'])}</th><td><span id="encCipherScytale" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encCipherScytale.option.key'])}</span>
@@ -679,7 +679,7 @@
 								</form>
 							</td></tr></c:if>
 							<c:if test="${method eq 'all' or method eq 'cipher.all' or method eq 'cipher.rail-fence'}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['label.encCipherRailFence'])}</th><td><span id="encCipherRailFence" class="for-disp"></span>
-								<form class="dencode-option-group form-inline">
+								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">
 										<div class="input-group">
 											<span class="input-group-addon">${mf:h(msg['label.encCipherRailFence.option.key'])}</span>
@@ -796,7 +796,7 @@
 </script>
 <script id="forCopyTmpl" type="text/template">
 	<div class="for-copy">
-		<form action="#">
+		<form method="post">
 			<div class="input-group">
 				<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
 				<span class="input-group-addon">
@@ -825,7 +825,7 @@
 	{{^oneByte}}${mf:h(msg['label.val.length.bytes'])}{{/oneByte}}
 </script>
 <script id="permanentLinkTmpl" type="text/template">
-	<form action="#">
+	<form method="post">
 		<div id="permanentLink" class="input-group">
 			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
 			<span class="input-group-btn">
