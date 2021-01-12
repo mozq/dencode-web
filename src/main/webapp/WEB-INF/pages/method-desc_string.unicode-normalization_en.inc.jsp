@@ -13,5 +13,5 @@
 	</table>
 </div>
 
-<p>Canonical equivalence normalizes in a way that preserves visually and functionally equivalent characters. e.g. "â" <-> "a" + " ̂"</p>
+<p>Canonical equivalence normalizes while preserving visually and functionally equivalent characters. e.g. "â" <-> "a" + " ̂"</p>
 <p>In addition to canonical equivalence, compatibility equivalence also normalizes characters that have different semantic shapes. e.g. "ﬁ" -> "f" + "i"</p>
