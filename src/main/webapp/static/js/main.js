@@ -490,10 +490,7 @@ $(document).ready(function () {
 		
 		var bgColor = res.encColorRGBHex6;
 		var color;
-		if (bgColor === null) {
-			color = "black";
-			bgColor = "transparent";
-		} else {
+		if (bgColor) {
 			var r = parseInt(bgColor.substring(1, 3), 16);
 			var g = parseInt(bgColor.substring(3, 5), 16);
 			var b = parseInt(bgColor.substring(5, 7), 16);
@@ -507,6 +504,9 @@ $(document).ready(function () {
 			
 			// Temporary code: convert the color format #RRGGBBAA (CSS4) to rgba(R,G,B,A) (CSS3)
 			bgColor = "rgba(" + r + "," + g + "," + b + "," + (Math.round(a * 100) / 100) + ")";
+		} else {
+			color = "black";
+			bgColor = "transparent";
 		}
 		$v.css("color", color);
 		$v.css("background-color", bgColor);
