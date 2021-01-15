@@ -16,11 +16,9 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -29,6 +27,8 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="date", method="date.ctime")
 public class DateCTimeDencoder {
 	
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss uuuu", Locale.US);
+	
 	private DateCTimeDencoder() {
 		// NOP
 	}
@@ -36,20 +36,15 @@ public class DateCTimeDencoder {
 	
 	@DencoderFunction
 	public static String encDateCTime(DencodeCondition cond) {
-		return encDateCTime(cond.valueAsDate(), cond.timeZone());
+		return encDateCTime(cond.valueAsDate());
 	}
 	
 	
-	private static String encDateCTime(Date dateVal, TimeZone timeZone) {
+	private static String encDateCTime(ZonedDateTime dateVal) {
 		if (dateVal == null) {
 			return null;
 		}
 		
-		if (timeZone.getID().equals("UTC")) {
-			timeZone = TimeZone.getTimeZone("GMT");
-		}
-		DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy", Locale.US);
-		dateFormat.setTimeZone(timeZone);
-		return dateFormat.format(dateVal);
+		return FORMATTER.format(dateVal);
 	}
 }

@@ -18,8 +18,8 @@ package com.dencode.logic.model;
 
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import org.mifmi.commons4j.graphics.color.RGBColor;
 import org.mifmi.commons4j.util.StringUtilz;
@@ -33,7 +33,7 @@ public class DencodeCondition {
 	private String value;
 	private Charset charset;
 	private String lineBreak;
-	private TimeZone timeZone;
+	private ZoneId zone;
 	
 	private String[] linesValue;
 	private int textLengthDiff;
@@ -44,18 +44,18 @@ public class DencodeCondition {
 	private BigDecimal numberValue;
 	
 	private boolean dateValueParsed;
-	private Date dateValue;
+	private ZonedDateTime dateValue;
 	
 	private boolean colorValueParsed;
 	private RGBColor colorValue;
 	
 	private DencodeOption option;
 	
-	public DencodeCondition(String value, Charset charset, String lineBreak, TimeZone timeZone) {
+	public DencodeCondition(String value, Charset charset, String lineBreak, ZoneId zone) {
 		this.value = value;
 		this.charset = charset;
 		this.lineBreak = lineBreak;
-		this.timeZone = timeZone;
+		this.zone = zone;
 		
 		this.linesValue = StringUtilz.split(this.value, new String[] {"\r\n", "\r", "\n"});
 		if (1 < this.linesValue.length) {
@@ -88,8 +88,8 @@ public class DencodeCondition {
 		return lineBreak;
 	}
 	
-	public TimeZone timeZone() {
-		return timeZone;
+	public ZoneId zone() {
+		return zone;
 	}
 	
 	public int textLengthDiff() {
@@ -112,9 +112,9 @@ public class DencodeCondition {
 		return this.numberValue;
 	}
 	
-	public Date valueAsDate() {
+	public ZonedDateTime valueAsDate() {
 		if (!this.dateValueParsed) {
-			this.dateValue = DateParser.parseDate(value(), timeZone());
+			this.dateValue = DateParser.parseDateAsZonedDateTime(value(), zone());
 			this.dateValueParsed = true;
 		}
 		return this.dateValue;

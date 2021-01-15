@@ -16,12 +16,13 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.SignStyle;
+import java.time.temporal.ChronoField;
+import java.time.temporal.IsoFields;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -30,6 +31,34 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="date", method="date.iso8601")
 public class DateISO8601Dencoder {
 	
+	private static final DateTimeFormatter FORMATTER_BASIC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmssXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_MSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss,SSSXX", Locale.US);
+	
+	private static final DateTimeFormatter FORMATTER_EXT = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ssXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss,SSSXXX", Locale.US);
+	
+	private static final DateTimeFormatter FORMATTER_WEEK = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ssXXX")
+			.toFormatter(Locale.US);
+	private static final DateTimeFormatter FORMATTER_WEEK_MSEC = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ss,SSSXXX")
+			.toFormatter(Locale.US);
+	
+	private static final DateTimeFormatter FORMATTER_ORDINAL = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ssXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_MSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss,SSSXXX", Locale.US);
+	
 	private DateISO8601Dencoder() {
 		// NOP
 	}
@@ -37,58 +66,38 @@ public class DateISO8601Dencoder {
 	
 	@DencoderFunction
 	public static String encDateISO8601(DencodeCondition cond) {
-		return encDateISO8601Basic(cond.valueAsDate(), cond.timeZone());
+		return encDateISO8601Basic(cond.valueAsDate());
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ext(DencodeCondition cond) {
-		return encDateISO8601Ext(cond.valueAsDate(), cond.timeZone());
+		return encDateISO8601Ext(cond.valueAsDate());
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Week(DencodeCondition cond) {
-		return encDateISO8601Week(cond.valueAsDate(), cond.timeZone());
+		return encDateISO8601Week(cond.valueAsDate());
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ordinal(DencodeCondition cond) {
-		return encDateISO8601Ordinal(cond.valueAsDate(), cond.timeZone());
+		return encDateISO8601Ordinal(cond.valueAsDate());
 	}
 	
 	
-	private static String encDateISO8601Basic(Date dateVal, TimeZone timeZone) {
-		return encDateISO8601(dateVal, "yyyyMMdd'T'HHmmssXX", "yyyyMMdd'T'HHmmss,SSSXX", timeZone);
+	private static String encDateISO8601Basic(ZonedDateTime dateVal) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_BASIC, FORMATTER_BASIC_MSEC);
 	}
 	
-	private static String encDateISO8601Ext(Date dateVal, TimeZone timeZone) {
-		return encDateISO8601(dateVal, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss,SSSXXX", timeZone);
+	private static String encDateISO8601Ext(ZonedDateTime dateVal) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_EXT, FORMATTER_EXT_MSEC);
 	}
 	
-	private static String encDateISO8601Week(Date dateVal, TimeZone timeZone) {
-		return encDateISO8601(dateVal, "YYYY-'W'ww-u'T'HH:mm:ssXXX", "YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX", timeZone);
+	private static String encDateISO8601Week(ZonedDateTime dateVal) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_WEEK, FORMATTER_WEEK_MSEC);
 	}
 	
-	private static String encDateISO8601Ordinal(Date dateVal, TimeZone timeZone) {
-		return encDateISO8601(dateVal, "yyyy-DDD'T'HH:mm:ssXXX", "yyyy-DDD'T'HH:mm:ss,SSSXXX", timeZone);
-	}
-	
-	private static String encDateISO8601(Date dateVal, String pattern, String patternWithMsec, TimeZone timeZone) {
-		if (dateVal == null) {
-			return null;
-		}
-		
-		long time = dateVal.getTime();
-		long millisOfSec = time - ((time / 1000) * 1000);
-		
-		String formatPattern = (millisOfSec == 0) ? pattern : patternWithMsec;
-		
-		Calendar calendar = Calendar.getInstance(timeZone);
-		calendar.setMinimalDaysInFirstWeek(4);
-		calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		
-		DateFormat dateFormat = new SimpleDateFormat(formatPattern, Locale.US);
-		dateFormat.setCalendar(calendar);
-		
-		return dateFormat.format(dateVal);
+	private static String encDateISO8601Ordinal(ZonedDateTime dateVal) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_ORDINAL, FORMATTER_ORDINAL_MSEC);
 	}
 }

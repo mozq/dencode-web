@@ -17,8 +17,8 @@
 package com.dencode.web.servlet.pages;
 
 import java.nio.charset.Charset;
+import java.time.ZoneId;
 import java.util.Map;
-import java.util.TimeZone;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -42,9 +42,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		Charset charset = Charset.forName(toCharsetName(oe));
 		String lineBreak = toLineBreakString(nl);
-		TimeZone timeZone = TimeZone.getTimeZone(tz);
+		ZoneId zone = ZoneId.of(tz);
 		
-		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, timeZone);
+		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, zone);
 		
 		cond.option().setEncStrBinSeparatorEach(reqres().param("encStrBinSeparatorEach", cond.option().getEncStrBinSeparatorEach()));
 		cond.option().setEncStrHexSeparatorEach(reqres().param("encStrHexSeparatorEach", cond.option().getEncStrHexSeparatorEach()));

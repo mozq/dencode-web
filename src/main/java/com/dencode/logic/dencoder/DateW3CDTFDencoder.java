@@ -16,12 +16,9 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -30,6 +27,9 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="date", method="date.w3cdtf")
 public class DateW3CDTFDencoder {
 	
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ssXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US);
+	
 	private DateW3CDTFDencoder() {
 		// NOP
 	}
@@ -37,31 +37,11 @@ public class DateW3CDTFDencoder {
 	
 	@DencoderFunction
 	public static String encDateW3CDTF(DencodeCondition cond) {
-		return encDateW3CDTF(cond.valueAsDate(), cond.timeZone());
+		return encDateW3CDTF(cond.valueAsDate());
 	}
 	
 	
-	private static String encDateW3CDTF(Date dateVal, TimeZone timeZone) {
-		return encDateISO8601(dateVal, "yyyy-MM-dd'T'HH:mm:ssXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timeZone);
-	}
-	
-	private static String encDateISO8601(Date dateVal, String pattern, String patternWithMsec, TimeZone timeZone) {
-		if (dateVal == null) {
-			return null;
-		}
-		
-		long time = dateVal.getTime();
-		long millisOfSec = time - ((time / 1000) * 1000);
-		
-		String formatPattern = (millisOfSec == 0) ? pattern : patternWithMsec;
-		
-		Calendar calendar = Calendar.getInstance(timeZone);
-		calendar.setMinimalDaysInFirstWeek(4);
-		calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		
-		DateFormat dateFormat = new SimpleDateFormat(formatPattern, Locale.US);
-		dateFormat.setCalendar(calendar);
-		
-		return dateFormat.format(dateVal);
+	private static String encDateW3CDTF(ZonedDateTime dateVal) {
+		return DencodeUtils.encDate(dateVal, FORMATTER, FORMATTER_MSEC);
 	}
 }

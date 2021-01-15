@@ -16,244 +16,237 @@
  */
 package com.dencode.logic.parser;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.chrono.JapaneseChronology;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
-import java.util.TimeZone;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.util.DateUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 
 public class DateParser {
 	
 	private static final int DATE_MAX_LENGTH = 50;
 	
-	private static final Pattern DATE_ISO8601_ORDINAL_PATTERN = Pattern.compile("^[0-9]{4}-[0-9]{3}$");
-	private static final String DATE_ISO8601_ORDINAL_PARSE_PATTERN = "yyyy-DDD";
+	private static final DateTimeFormatter DATE_FORMATTER_DATE_TIME_SEPARATOR = new DateTimeFormatterBuilder().appendPattern("['T']['t'][' ']['　']").toFormatter();
+	private static final DateTimeFormatter DATE_FORMATTER_ZONE_SEPARATOR = new DateTimeFormatterBuilder().appendPattern("[','][' ']").toFormatter();
 	
-	private static final String[] DATE_PARSE_PATTERNS = {
-		"EEE MMM dd HH:mm:ss z yyyy",
-		"EEE MMM dd HH:mm:ss yyyy",
-		"EEE MMM dd HH:mm z yyyy",
-		"EEE MMM dd HH:mm yyyy",
-		"MMM dd HH:mm:ss z yyyy",
-		"MMM dd HH:mm:ss yyyy",
-		"MMM dd HH:mm z yyyy",
-		"MMM dd HH:mm yyyy",
-		"EEE, dd MMM yyyy HH:mm:ss zzz",
-		"EEE, dd MMM yyyy HH:mm zzz",
-		"EEE, dd MMM yyyy HH:mm:ss",
-		"EEE, dd MMM yyyy HH:mm",
-		"dd MMM yyyy HH:mm:ss zzz",
-		"dd MMM yyyy HH:mm zzz",
-		"dd MMM yyyy HH:mm:ss",
-		"dd MMM yyyy HH:mm",
-		"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-		"yyyy-MM-dd'T'HH:mm:ss,SSSXXX",
-		"yyyy-MM-dd'T'HH:mm:ssXXX",
-		"yyyy-MM-dd'T'HH:mmXXX",
-		"yyyy-MM-dd'T'HHXXX",
-		"yyyy-MM-dd'T'HH:mm:ss.SSSZ",
-		"yyyy-MM-dd'T'HH:mm:ss,SSSZ",
-		"yyyy-MM-dd'T'HH:mm:ssZ",
-		"yyyy-MM-dd'T'HH:mmZ",
-		"yyyy-MM-dd'T'HHZ",
-		"yyyy-MM-dd'T'HH:mm:ss.SSS",
-		"yyyy-MM-dd'T'HH:mm:ss,SSS",
-		"yyyy-MM-dd'T'HH:mm:ss",
-		"yyyy-MM-dd'T'HH:mm",
-		"yyyy-MM-dd'T'HH",
-		"YYYY-'W'ww-u'T'HH:mm:ss.SSSXXX",
-		"YYYY-'W'ww-u'T'HH:mm:ss,SSSXXX",
-		"YYYY-'W'ww-u'T'HH:mm:ssXXX",
-		"YYYY-'W'ww-u'T'HH:mmXXX",
-		"YYYY-'W'ww-u'T'HHXXX",
-		"YYYY-'W'ww-u'T'HH:mm:ss.SSSZ",
-		"YYYY-'W'ww-u'T'HH:mm:ss,SSSZ",
-		"YYYY-'W'ww-u'T'HH:mm:ssZ",
-		"YYYY-'W'ww-u'T'HH:mmZ",
-		"YYYY-'W'ww-u'T'HHZ",
-		"YYYY-'W'ww-u'T'HH:mm:ss.SSS",
-		"YYYY-'W'ww-u'T'HH:mm:ss,SSS",
-		"YYYY-'W'ww-u'T'HH:mm:ss",
-		"YYYY-'W'ww-u'T'HH:mm",
-		"YYYY-'W'ww-u'T'HH",
-		"yyyy-DDD'T'HH:mm:ss.SSSXXX",
-		"yyyy-DDD'T'HH:mm:ss,SSSXXX",
-		"yyyy-DDD'T'HH:mm:ssXXX",
-		"yyyy-DDD'T'HH:mmXXX",
-		"yyyy-DDD'T'HHXXX",
-		"yyyy-DDD'T'HH:mm:ss.SSSZ",
-		"yyyy-DDD'T'HH:mm:ss,SSSZ",
-		"yyyy-DDD'T'HH:mm:ssZ",
-		"yyyy-DDD'T'HH:mmZ",
-		"yyyy-DDD'T'HHZ",
-		"yyyy-DDD'T'HH:mm:ss.SSS",
-		"yyyy-DDD'T'HH:mm:ss,SSS",
-		"yyyy-DDD'T'HH:mm:ss",
-		"yyyy-DDD'T'HH:mm",
-		"yyyy-DDD'T'HH",
-		"yyyyMMdd'T'HHmmssSSSXXX",
-		"yyyyMMdd'T'HHmmssXXX",
-		"yyyyMMdd'T'HHmmXXX",
-		"yyyyMMdd'T'HHXXX",
-		"yyyyMMdd'T'HHmmssSSSZ",
-		"yyyyMMdd'T'HHmmssZ",
-		"yyyyMMdd'T'HHmmZ",
-		"yyyyMMdd'T'HHZ",
-		"yyyyMMdd'T'HHmmssSSS",
-		"yyyyMMdd'T'HHmmss",
-		"yyyyMMdd'T'HHmm",
-		"yyyyMMdd'T'HH",
-		"YYYY'W'wwu'T'HHmmssSSSXXX",
-		"YYYY'W'wwu'T'HHmmssXXX",
-		"YYYY'W'wwu'T'HHmmXXX",
-		"YYYY'W'wwu'T'HHXXX",
-		"YYYY'W'wwu'T'HHmmssSSSZ",
-		"YYYY'W'wwu'T'HHmmssZ",
-		"YYYY'W'wwu'T'HHmmZ",
-		"YYYY'W'wwu'T'HHZ",
-		"YYYY'W'wwu'T'HHmmssSSS",
-		"YYYY'W'wwu'T'HHmmss",
-		"YYYY'W'wwu'T'HHmm",
-		"YYYY'W'wwu'T'HH",
-		"yyyy-MM-dd HH:mm:ss.SSSXXX",
-		"yyyy-MM-dd HH:mm:ss,SSSXXX",
-		"yyyy-MM-dd HH:mm:ssXXX",
-		"yyyy-MM-dd HH:mmXXX",
-		"yyyy-MM-dd HHXXX",
-		"yyyy-MM-dd HH:mm:ss.SSSZ",
-		"yyyy-MM-dd HH:mm:ss,SSSZ",
-		"yyyy-MM-dd HH:mm:ssZ",
-		"yyyy-MM-dd HH:mmZ",
-		"yyyy-MM-dd HHZ",
-		"yyyy-MM-dd HH:mm:ss.SSS",
-		"yyyy-MM-dd HH:mm:ss,SSS",
-		"yyyy-MM-dd HH:mm:ss",
-		"yyyy-MM-dd HH:mm",
-		"yyyy-MM-dd HH",
-		"yyyy/MM/dd HH:mm:ss.SSSXXX",
-		"yyyy/MM/dd HH:mm:ss,SSSXXX",
-		"yyyy/MM/dd HH:mm:ssXXX",
-		"yyyy/MM/dd HH:mmXXX",
-		"yyyy/MM/dd HHXXX",
-		"yyyy/MM/dd HH:mm:ss.SSSZ",
-		"yyyy/MM/dd HH:mm:ss,SSSZ",
-		"yyyy/MM/dd HH:mm:ssZ",
-		"yyyy/MM/dd HH:mmZ",
-		"yyyy/MM/dd HHZ",
-		"yyyy/MM/dd HH:mm:ss.SSS",
-		"yyyy/MM/dd HH:mm:ss,SSS",
-		"yyyy/MM/dd HH:mm:ss",
-		"yyyy/MM/dd HH:mm",
-		"yyyy/MM/dd HH",
-		"yyyy年MM月dd日HH時mm分ss.SSS秒 Z",
-		"yyyy年MM月dd日HH時mm分ss秒 Z",
-		"yyyy年MM月dd日HH時mm分 Z",
-		"yyyy年MM月dd日HH時 Z",
-		"yyyy年MM月dd日HH時mm分ss.SSS秒",
-		"yyyy年MM月dd日HH時mm分ss秒",
-		"yyyy年MM月dd日HH時mm分",
-		"yyyy年MM月dd日HH時",
-		"EEE, MMM dd, yyyy",
-		"EEE, MMM dd yyyy",
-		"EEE MMM dd, yyyy",
-		"EEE MMM dd yyyy",
-		"MMM dd, yyyy",
-		"MMM dd yyyy",
-		"MMM-dd-yyyy",
-		"EEE, dd MMM, yyyy",
-		"EEE, dd MMM yyyy",
-		"EEE dd MMM, yyyy",
-		"EEE dd MMM yyyy",
-		"dd MMM, yyyy",
-		"dd MMM yyyy",
-		"dd-MMM-yyyy",
-		"MMM, yyyy",
-		"MMM yyyy",
-		"MMM-yyyy",
-		"yyyy-MMM-dd",
-		"yyyy-MM-dd",
-		"yyyy-MM",
-		"yyyy/MM/dd",
-		"yyyy/MM",
-		"yyyy.MM.dd",
-		"yyyy.MM",
-		"YYYY-'W'ww-u",
-		"YYYY'W'wwu",
-		"yyyy年MM月dd日",
-		"yyyy年MM月",
-		"yyyy年",
-		"hh:mm:ss.SSS a, XXX",
-		"hh:mm:ss,SSS a, XXX",
-		"hh:mm:ss a, XXX",
-		"hh:mm a, XXX",
-		"hh a, XXX",
-		"hh:mm:ss.SSS a, Z",
-		"hh:mm:ss,SSS a, Z",
-		"hh:mm:ss a, Z",
-		"hh:mm a, Z",
-		"hh a, Z",
-		"hh:mm:ss.SSS a",
-		"hh:mm:ss,SSS a",
-		"hh:mm:ss a",
-		"hh:mm a",
-		"hh:mm:ss.SSSa, XXX",
-		"hh:mm:ss,SSSa, XXX",
-		"hh:mm:ssa, XXX",
-		"hh:mma, XXX",
-		"hha, XXX",
-		"hh:mm:ss.SSSa, Z",
-		"hh:mm:ss,SSSa, Z",
-		"hh:mm:ssa, Z",
-		"hh:mma, Z",
-		"hha, Z",
-		"hh:mm:ss.SSSa",
-		"hh:mm:ss,SSSa",
-		"hh:mm:ssa",
-		"hh:mma",
-		"hha",
-		"HH:mm:ss.SSSXXX",
-		"HH:mm:ss,SSSXXX",
-		"HH:mm:ssXXX",
-		"HH:mmXXX",
-		"HHXXX",
-		"HH:mm:ss.SSSZ",
-		"HH:mm:ss,SSSZ",
-		"HH:mm:ssZ",
-		"HH:mmZ",
-		"HHZ",
-		"HH:mm:ss.SSS",
-		"HH:mm:ss,SSS",
-		"HH:mm:ss",
-		"HH:mm",
-		"HH時mm分ss秒",
-		"HH時mm分",
-		"HH時",
+	// "X['['VV']']"
+	private static final DateTimeFormatter DATE_FORMATTER_ZONE = new DateTimeFormatterBuilder()
+			.appendZoneOrOffsetId()
+			.optionalStart()
+			.appendLiteral('[')
+			.appendZoneRegionId()
+			.appendLiteral(']')
+			.optionalEnd()
+			.toFormatter(Locale.ENGLISH);
+	
+	// "[[' ']X['['VV']']]"
+	private static final DateTimeFormatter DATE_FORMATTER_OPTION_ZONE = new DateTimeFormatterBuilder()
+			.optionalStart()
+			.appendOptional(DATE_FORMATTER_ZONE_SEPARATOR)
+			.append(DATE_FORMATTER_ZONE)
+			.optionalEnd()
+			.toFormatter(Locale.ENGLISH);
+	
+	// u-MMM-d / EEE MMM d u
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_YMMMD = new DateTimeFormatterBuilder()
+			.parseCaseInsensitive()
+			.optionalStart().appendPattern("uuuu['-']['/']['.'][','][' ']MMMM['-']['/']['.'][','][' ']d['st']['nd']['rd']['th']").optionalEnd()
+			.optionalStart().appendPattern("uuuu['-']['/']['.'][','][' ']MMM['-']['/']['.'][','][' ']d['st']['nd']['rd']['th']").optionalEnd()
+			.optionalStart().appendPattern("[EEE[','][' ']]MMMM['-']['/']['.'][','][' ']d['st']['nd']['rd']['th'][['-']['/']['.'][','][' ']uuuu]").optionalEnd()
+			.optionalStart().appendPattern("[EEE[','][' ']]MMM['-']['/']['.'][','][' ']d['st']['nd']['rd']['th'][['-']['/']['.'][','][' ']uuuu]").optionalEnd()
+			.optionalStart().appendPattern("[EEE[','][' ']]d['st']['nd']['rd']['th']['-']['/']['.'][','][' ']MMMM[['-']['/']['.'][','][' ']uuuu]").optionalEnd()
+			.optionalStart().appendPattern("[EEE[','][' ']]d['st']['nd']['rd']['th']['-']['/']['.'][','][' ']MMM[['-']['/']['.'][','][' ']uuuu]").optionalEnd()
+			.parseCaseSensitive()
+			.toFormatter(Locale.ENGLISH);
+	
+	// ISO Basic
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_TIME_ISO_BASIC = new DateTimeFormatterBuilder()
+			.appendPattern("uuuuMMdd")
+			.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+			.appendPattern("HH[mm[ss[")
+			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
+			.appendPattern("]]]")
+			.toFormatter(Locale.ENGLISH);
+	
+	// ISO Week / Ordinal
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_ISO = new DateTimeFormatterBuilder()
+			.optionalStart().append(DateTimeFormatter.ISO_WEEK_DATE).optionalEnd()
+			.optionalStart().append(DateTimeFormatter.ISO_ORDINAL_DATE).optionalEnd()
+			.toFormatter(Locale.ENGLISH);
+	
+	// "u-M[-d]"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_YMD = new DateTimeFormatterBuilder()
+			//.appendValue(ChronoField.YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.optionalStart().appendPattern("uuuu'-'M['-'d]").optionalEnd()
+			.optionalStart().appendPattern("uuuu'/'M['/'d]").optionalEnd()
+			.optionalStart().appendPattern("uuuu'.'M['.'d]").optionalEnd()
+			.toFormatter(Locale.ENGLISH);
+	
+	// "u'年'[M'月'[d'日']]"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_YMD_JP = new DateTimeFormatterBuilder()
+			//.appendValue(ChronoField.YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendPattern("uuuu'年'[M'月'[d'日']]")
+			.toFormatter(Locale.JAPAN)
+			.withChronology(JapaneseChronology.INSTANCE);
+	
+	// "Gy'年'[M'月'[d'日']]"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_GYMD_JP_DEFAULT = new DateTimeFormatterBuilder()
+			.optionalStart().appendPattern("[GGGGG][GGGG][GGG]y'年'[M'月'[d'日']]").optionalEnd()
+			.optionalStart().appendPattern("[GGGGG][GGGG][GGG]y['.'M['.'d]]").optionalEnd()
+			.toFormatter(Locale.JAPAN); // before Meiji 6 support
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_GYMD_JP = new DateTimeFormatterBuilder()
+			.optionalStart().appendPattern("[GGGGG][GGGG][GGG]y'年'[M'月'[d'日']]").optionalEnd()
+			.optionalStart().appendPattern("[GGGGG][GGGG][GGG]y['.'M['.'d]]").optionalEnd()
+			.toFormatter(Locale.JAPAN)
+			.withChronology(JapaneseChronology.INSTANCE);
+	
+	// "H[:m[:s[.n]]]"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_TIME_HMS = new DateTimeFormatterBuilder()
+			.appendPattern("H[:m[:s[[.][,]")
+			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
+			.appendPattern("]]]")
+			.toFormatter(Locale.ENGLISH);
+	
+	// "H'時'[m'分'[s[.n]'秒']]"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_TIME_HMS_JP = new DateTimeFormatterBuilder()
+			.appendPattern("H'時'[m'分'[s[[.][,]")
+			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
+			.appendPattern("]'秒']]")
+			.toFormatter(Locale.JAPAN)
+			.withChronology(JapaneseChronology.INSTANCE);
+	
+	// "h[:m[:s[.n]]]a"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_TIME_HMS_AMPM = new DateTimeFormatterBuilder()
+			.appendPattern("h[:m[:s[[.][,]")
+			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
+			.appendPattern("]]]")
+			.appendPattern("[,][ ]")
+			.parseCaseInsensitive()
+			.appendPattern("a")
+			.parseCaseSensitive()
+			.toFormatter(Locale.ENGLISH);
+	
+	// "ah'時'[m'分'[s[.n]'秒']]"
+	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_TIME_HMS_AMPM_JP = new DateTimeFormatterBuilder()
+			.optionalStart()
+			.parseCaseInsensitive()
+			.appendPattern("a")
+			.parseCaseSensitive()
+			.appendPattern("[,][' ']h'時'[m'分'[s[[.][,]")
+			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
+			.appendPattern("]'秒']]")
+			.optionalEnd()
+			.optionalStart()
+			.appendPattern("ah'時'[m'分'[s[[.][,]")
+			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
+			.appendPattern("]'秒']][,][' ']")
+			.parseCaseInsensitive()
+			.appendPattern("a")
+			.parseCaseSensitive()
+			.optionalEnd()
+			.toFormatter(Locale.JAPAN)
+			.withChronology(JapaneseChronology.INSTANCE);
+	
+	private static final DateTimeFormatter[] DATE_FORMATTERS = {
+			// Date time
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_YMMMD)
+				.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.appendPattern("[[','][' ']uuuu]")
+				.toFormatter(Locale.ENGLISH),
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_TIME_ISO_BASIC)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.ENGLISH),
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_ISO)
+				.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.ENGLISH),
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_YMD)
+				.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.ENGLISH),
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_GYMD_JP)
+				.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM_JP)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_JP)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.JAPAN)
+				.withChronology(JapaneseChronology.INSTANCE),
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_GYMD_JP_DEFAULT)
+				.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM_JP)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_JP)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.JAPAN),
+			new DateTimeFormatterBuilder()
+				.append(DATE_FORMATTER_LOCAL_DATE_YMD_JP)
+				.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM_JP)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_JP)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.JAPAN)
+				.withChronology(JapaneseChronology.INSTANCE),
+			// Date
+			DATE_FORMATTER_LOCAL_DATE_YMMMD,
+			DATE_FORMATTER_LOCAL_DATE_ISO,
+			DATE_FORMATTER_LOCAL_DATE_YMD,
+			DATE_FORMATTER_LOCAL_DATE_YMD_JP,
+			// Time
+			new DateTimeFormatterBuilder()
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.ENGLISH),
+			new DateTimeFormatterBuilder()
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_AMPM_JP)
+				.appendOptional(DATE_FORMATTER_LOCAL_TIME_HMS_JP)
+				.append(DATE_FORMATTER_OPTION_ZONE)
+				.toFormatter(Locale.JAPAN)
+				.withChronology(JapaneseChronology.INSTANCE),
 	};
 	
-	private static final String[] DATE_PARSE_PATTERNS_JP = {
-		"GGGGy年MM月dd日HH時mm分ss.SSS秒 Z",
-		"GGGGy年MM月dd日HH時mm分ss秒 Z",
-		"GGGGy年MM月dd日HH時mm分 Z",
-		"GGGGy年MM月dd日HH時 Z",
-		"GGGGy年MM月dd日HH時mm分ss.SSS秒",
-		"GGGGy年MM月dd日HH時mm分ss秒",
-		"GGGGy年MM月dd日HH時mm分",
-		"GGGGy年MM月dd日HH時",
-		"GGGGy年MM月dd日",
-		"GGGGy年MM月",
-		"GGGGy年",
-	};
-	
-	private static final Locale LOCALE_JP = Locale.forLanguageTag("ja-JP-u-ca-japanese");
+	private static final Pattern DATE_ZONE_SHORT_NAME_PATTERN = Pattern.compile("[A-Z]{3}");
 	
 	private DateParser() {
 		// NOP
 	}
-	
-	public static Date parseDate(String val, TimeZone timeZone) {
+
+	public static ZonedDateTime parseDateAsZonedDateTime(String val, ZoneId zone) {
+
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -263,30 +256,94 @@ public class DateParser {
 		}
 		
 		if (val.equalsIgnoreCase("now")) {
-			return new Date();
+			return ZonedDateTime.now(zone);
 		}
 		
-		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
+		String strDate = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		try {
-			return new Date(Long.parseLong(val));
+			return ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(strDate)), zone);
 		} catch (NumberFormatException e) {
-			Calendar calendar = Calendar.getInstance(timeZone);
-			calendar.setMinimalDaysInFirstWeek(4);
-			calendar.setFirstDayOfWeek(Calendar.MONDAY);
-			calendar.setLenient(false);
-			
-			Date date = null;
-			
-			if (DATE_ISO8601_ORDINAL_PATTERN.matcher(val).matches()) {
-				date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_ISO8601_ORDINAL_PARSE_PATTERN);
-			}
-			if (date == null) {
-				date = DateUtilz.parseDate(val, calendar, Locale.US, DATE_PARSE_PATTERNS);
-				if (date == null) {
-					date = DateUtilz.parseDate(val, true, timeZone, LOCALE_JP, DATE_PARSE_PATTERNS_JP);
-				}
-			}
-			return date;
+			// THRU
 		}
+		
+		strDate = strDate.replace("元年", "1年");
+		Matcher matcher = DATE_ZONE_SHORT_NAME_PATTERN.matcher(strDate);
+		if (matcher.find()) {
+			StringBuffer sb = new StringBuffer(strDate.length() * 2);
+			do {
+				String shortZoneId = matcher.group(0);
+				String zoneOffset;
+				if (shortZoneId.equals("GMT") || shortZoneId.equals("UTC")) {
+					zoneOffset = "Z";
+				} else {
+					zoneOffset = ZoneId.SHORT_IDS.get(shortZoneId);
+					if (zoneOffset == null) {
+						zoneOffset = shortZoneId;
+					}
+				}
+				matcher.appendReplacement(sb, zoneOffset);
+			} while (matcher.find());
+			matcher.appendTail(sb);
+			strDate = sb.toString();
+		}
+		
+		try {
+			return parseDateAsZonedDateTime(strDate, DATE_FORMATTERS, zone, zone, 1970, Month.JANUARY, 1);
+		} catch (Exception e) {
+			// THRU
+		}
+		
+		return null;
+	}
+	
+	private static ZonedDateTime parseDateAsZonedDateTime(String date, DateTimeFormatter[] formatters, ZoneId zone, ZoneId defaultZone, int defaultYear, Month defaultMonth, int defaultDay) {
+		DateTimeParseException exception = null;
+		
+		for (DateTimeFormatter formatter : formatters) {
+			try {
+				TemporalAccessor temporal = formatter.parseBest(date, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from, LocalDate::from, OffsetTime::from, LocalTime::from, YearMonth::from, MonthDay::from);
+				Instant instant = toInstant(temporal, defaultZone, defaultYear, defaultMonth, defaultDay);
+				ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zone);
+				return zdt;
+			} catch (DateTimeParseException e) {
+				exception = e;
+			}
+		}
+		
+		if (exception != null) {
+			throw exception;
+		}
+		
+		return null;
+	}
+	
+	private static Instant toInstant(TemporalAccessor temporal, ZoneId defaultZone, int defaultYear, Month defaultMonth, int defaultDay) {
+
+		Instant instant;
+		if (temporal instanceof ZonedDateTime) {
+			instant = ((ZonedDateTime)temporal).toInstant();
+		} else if (temporal instanceof OffsetDateTime) {
+			instant = ((OffsetDateTime)temporal).toInstant();
+		} else if (temporal instanceof OffsetTime) {
+			instant = ((OffsetTime)temporal).atDate(LocalDate.of(defaultYear, defaultMonth, defaultDay)).toInstant();
+		} else if (temporal instanceof ChronoLocalDateTime) {
+			instant = ((ChronoLocalDateTime<?>)temporal).atZone(defaultZone).toInstant();
+		} else if (temporal instanceof ChronoLocalDate) {
+			instant = ((ChronoLocalDate)temporal).atTime(LocalTime.MIDNIGHT).atZone(defaultZone).toInstant();
+		} else if (temporal instanceof LocalTime) {
+			instant = ((LocalTime)temporal).atDate(LocalDate.of(defaultYear, defaultMonth, defaultDay)).atZone(defaultZone).toInstant();
+		} else if (temporal instanceof Year) {
+			instant = ((Year)temporal).atDay(defaultDay).atStartOfDay().atZone(defaultZone).toInstant();
+		} else if (temporal instanceof YearMonth) {
+			instant = ((YearMonth)temporal).atDay(1).atStartOfDay().atZone(defaultZone).toInstant();
+		} else if (temporal instanceof Month) {
+			instant = LocalDate.of(defaultYear, (Month)temporal, defaultDay).atStartOfDay().atZone(defaultZone).toInstant();
+		} else if (temporal instanceof MonthDay) {
+			instant = ((MonthDay)temporal).atYear(defaultYear).atStartOfDay().atZone(defaultZone).toInstant();
+		} else {
+			instant = Instant.from(temporal);
+		}
+		
+		return instant;
 	}
 }

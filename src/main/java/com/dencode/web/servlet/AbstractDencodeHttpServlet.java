@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.mifmi.commons4j.app.web.servlet.AbstractBasicHttpServlet;
 import org.mifmi.commons4j.config.Config;
 import org.mifmi.commons4j.config.ResourceBundleConfig;
-import org.mifmi.commons4j.util.DateUtilz;
 import org.mifmi.commons4j.web.servlet.HttpReqRes;
 import org.mifmi.commons4j.web.servlet.MifmiServletException;
 
@@ -51,7 +49,6 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		Locale locale = getLocale(reqres());
 		reqres().setAttribute("locale", locale);
 		reqres().setAttribute("locales", getLocales(locale, reqres()));
-		reqres().setAttribute("timeZone", getTimeZone(locale));
 		
 		useConfigResource("config", "conf");
 		useMessagesResource("messages", "msg");
@@ -97,10 +94,6 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		return reqres().attribute("locales");
 	}
 	
-	protected TimeZone timeZone() {
-		return reqres().attribute("timeZone");
-	}
-	
 	private static Locale getLocale(HttpReqRes reqres) {
 		Locale attrLocale = reqres.attribute("locale");
 		if (attrLocale != null) {
@@ -135,17 +128,6 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		}
 		
 		return locales;
-	}
-	
-	private static TimeZone getTimeZone(Locale locale) {
-		if (locale != null) {
-			TimeZone timeZone = DateUtilz.localeToTimeZone(locale);
-			if (timeZone != null) {
-				return timeZone;
-			}
-		}
-		
-		return TimeZone.getDefault();
 	}
 	
 	protected static String getRequestSubPath(HttpReqRes reqres) {

@@ -16,11 +16,10 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -29,6 +28,8 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="date", method="date.rfc2822")
 public class DateRFC2822Dencoder {
 	
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, dd MMM uuuu HH:mm:ss zzz", Locale.US);
+	
 	private DateRFC2822Dencoder() {
 		// NOP
 	}
@@ -36,20 +37,19 @@ public class DateRFC2822Dencoder {
 	
 	@DencoderFunction
 	public static String encDateRFC2822(DencodeCondition cond) {
-		return encDateRFC2822(cond.valueAsDate(), cond.timeZone());
+		return encDateRFC2822(cond.valueAsDate());
 	}
 	
 	
-	private static String encDateRFC2822(Date dateVal, TimeZone timeZone) {
+	private static String encDateRFC2822(ZonedDateTime dateVal) {
 		if (dateVal == null) {
 			return null;
 		}
 		
-		if (timeZone.getID().equals("UTC")) {
-			timeZone = TimeZone.getTimeZone("GMT");
+		if (dateVal.getZone().getId().equals("UTC")) {
+			dateVal = dateVal.withZoneSameInstant(ZoneId.of("GMT"));
 		}
-		DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
-		dateFormat.setTimeZone(timeZone);
-		return dateFormat.format(dateVal);
+		
+		return FORMATTER.format(dateVal);
 	}
 }

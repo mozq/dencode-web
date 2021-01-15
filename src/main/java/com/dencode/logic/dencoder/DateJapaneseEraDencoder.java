@@ -16,11 +16,11 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.DateTimeException;
+import java.time.ZonedDateTime;
+import java.time.chrono.JapaneseChronology;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -29,7 +29,11 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="date", method="date.japanese-era")
 public class DateJapaneseEraDencoder {
 	
-	private static final Locale LOCALE_JP = Locale.forLanguageTag("ja-JP-u-ca-japanese");
+	private static final DateTimeFormatter FORMATTER_JA = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);
+	private static final DateTimeFormatter FORMATTER_JA_MSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSS秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);
+
+	private static final DateTimeFormatter FORMATTER_DEFAULT = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss秒 z", Locale.JAPAN);
+	private static final DateTimeFormatter FORMATTER_DEFAULT_MSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSS秒 z", Locale.JAPAN);
 	
 	private DateJapaneseEraDencoder() {
 		// NOP
@@ -38,22 +42,27 @@ public class DateJapaneseEraDencoder {
 	
 	@DencoderFunction
 	public static String encDateJapaneseEra(DencodeCondition cond) {
-		return encDateJapaneseEra(cond.valueAsDate(), cond.timeZone());
+		return encDateJapaneseEra(cond.valueAsDate());
 	}
 	
 	
-	private static String encDateJapaneseEra(Date dateVal, TimeZone timeZone) {
+	private static String encDateJapaneseEra(ZonedDateTime dateVal) {
 		if (dateVal == null) {
 			return null;
 		}
 		
-		long time = dateVal.getTime();
-		long millisOfSec = time - ((time / 1000) * 1000);
+		String strDate = null;
+		try {
+			strDate = DencodeUtils.encDate(dateVal, FORMATTER_JA, FORMATTER_JA_MSEC);
+		} catch (DateTimeException e) {
+			// before Meiji 6 support
+			strDate = DencodeUtils.encDate(dateVal, FORMATTER_DEFAULT, FORMATTER_DEFAULT_MSEC);
+		}
 		
-		String formatPattern = (millisOfSec == 0) ? "GGGGy年MM月dd日HH時mm分ss秒 z" : "GGGGy年MM月dd日HH時mm分ss.SSS秒 z";
+		if (strDate != null) {
+			strDate = strDate.replaceAll("([^0-9])1年", "$1元年");
+		}
 		
-		DateFormat dateFormat = new SimpleDateFormat(formatPattern, LOCALE_JP);
-		dateFormat.setTimeZone(timeZone);
-		return dateFormat.format(dateVal).replaceAll("([^0-9])1年", "$1元年");
+		return strDate;
 	}
 }

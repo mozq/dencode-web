@@ -16,12 +16,16 @@
  */
 package com.dencode.web.servlet.pages;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.annotation.WebServlet;
@@ -63,22 +67,23 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			method = "all";
 		}
 		
-		String[] tzList = TimeZone.getAvailableIDs();
-		Map<String, String> tzMap = new HashMap<String, String>(tzList.length);
+		Set<String> tzList = ZoneId.getAvailableZoneIds();
+		Map<String, String> tzMap = new HashMap<String, String>(tzList.size());
+		Instant now = Instant.now();
 		for (String id : tzList) {
 			if (id.startsWith("Etc/")) {
 				continue;
 			}
-			TimeZone timeZone = TimeZone.getTimeZone(id);
-			long offsetMins = timeZone.getRawOffset() / (60 * 1000);
-			String sign = "+";
-			if (offsetMins < 0) {
-				offsetMins = -offsetMins;
-				sign = "-";
+			
+			ZoneId zone = ZoneId.of(id);
+			ZoneOffset offset = zone.getRules().getStandardOffset(now);
+			String offsetId = offset.getId();
+			if (offsetId.equals("Z")) {
+				offsetId = "±00:00";
 			}
-			long hours = offsetMins / 60;
-			long minutes = offsetMins - (hours * 60);
-			String name = String.format("%s%02d%02d %s", sign, hours, minutes, id);
+			
+			String name = offsetId + " " + id;
+			
 			tzMap.put(id, name);
 		}
 		List<Map.Entry<String, String>> tzMapList = new ArrayList<Map.Entry<String, String>>(tzMap.entrySet());
@@ -87,13 +92,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
 				String v1 = o1.getValue();
 				String v2 = o2.getValue();
-				if (v1.startsWith("-") && v2.startsWith("+")) {
-					return 1;
-				} else if (v1.startsWith("+") && v2.startsWith("-")) {
-					return -1;
-				} else {
-					return v1.compareTo(v2);
-				}
+				return v1.compareTo(v2);
 			}
 		});
 		
@@ -139,4 +138,3 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		forward("/WEB-INF/pages/index.jsp");
 	}
 }
-

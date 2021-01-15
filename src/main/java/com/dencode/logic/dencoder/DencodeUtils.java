@@ -21,6 +21,8 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -147,6 +149,18 @@ public class DencodeUtils {
 			return StringUtilz.join(" ", (Object[])vals);
 		} catch (NumberFormatException e) {
 			return null;
+		}
+	}
+
+	protected static String encDate(ZonedDateTime dateVal, DateTimeFormatter formatter, DateTimeFormatter formatterWithMsec) {
+		if (dateVal == null) {
+			return null;
+		}
+		
+		if (dateVal.getNano() == 0) {
+			return formatter.format(dateVal);
+		} else {
+			return formatterWithMsec.format(dateVal);
 		}
 	}
 	
