@@ -422,12 +422,12 @@ $(document).ready(function () {
 		var tz = $tz.val();
 		var options = $options.serializeArray();
 		
-		if (!type) {
+		if (!type || !method) {
 			type = "all";
 		}
 		
 		if (!method) {
-			method = "all";
+			method = "all.all";
 		}
 		
 		if (v === _v && oe === _oe && nl === _nl && tz === _tz) {

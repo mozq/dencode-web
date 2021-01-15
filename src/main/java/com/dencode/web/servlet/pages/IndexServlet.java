@@ -60,7 +60,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		
 		String type = reqres().attribute("type");
 		if (type == null) {
-			type = "all";
+			type = "all.all";
 		}
 
 		String method = reqres().attribute("method");

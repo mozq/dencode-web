@@ -34,7 +34,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	@Override
 	protected void doPost() throws Exception {
 		String type = reqres().param("t", "all");
-		String method = reqres().param("m", "all");
+		String method = reqres().param("m", "all.all");
 		String val = reqres().param("v", "");
 		String oe = CommonLogic.mapShortCharsetName(reqres().param("oe", "UTF-8"));
 		String nl = reqres().param("nl", "crlf");
