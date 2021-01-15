@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mifmi.commons4j.config.ConfigNotFoundException;
 import org.mifmi.commons4j.util.DateUtilz;
 
+import com.dencode.logic.DencodeMapper;
 import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
@@ -64,7 +65,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 
 		String method = reqres().attribute("method");
 		if (method == null) {
-			method = "all";
+			method = "all.all";
 		}
 		
 		Set<String> tzList = ZoneId.getAvailableZoneIds();
@@ -134,6 +135,9 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
+		
+		reqres().setAttribute("types", DencodeMapper.getAvailableTypesOf(type));
+		reqres().setAttribute("methods", DencodeMapper.getAvailableMethodsOf(type, method));
 		
 		forward("/WEB-INF/pages/index.jsp");
 	}

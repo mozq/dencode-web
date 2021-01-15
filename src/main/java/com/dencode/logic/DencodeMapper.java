@@ -24,8 +24,10 @@ import java.lang.reflect.Method;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.jar.JarEntry;
@@ -40,34 +42,69 @@ import com.dencode.logic.model.DencodeCondition;
 
 public class DencodeMapper {
 	
-	private static final Map<String, Map<String, List<Method>>> DC_TYPE_METHOD_MAP;
+	private static final String DC_TYPE_COMMON = "*";
+	private static final String DC_TYPE_ALL = "all";
+	private static final String DC_METHOD_COMMON = "*";
+	private static final String DC_METHOD_ALL_SUFFIX = ".all";
+	
+	private static final Map<String, Map<String, List<Method>>> DENCODER_MAP;
+	private static final List<String> AVAILABLE_DC_TYPES;
+	private static final List<String> AVAILABLE_DC_METHODS;
+	private static final Map<String, List<String>> AVAILABLE_DC_TYPE_METHODS;
 	static {
 		String packageName = CommonDencoder.class.getPackageName();
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		
 		List<Class<?>> classes = listAnnotatedClass(packageName, Dencoder.class, classLoader);
 		
-		DC_TYPE_METHOD_MAP = new HashMap<>();
+		Map<String, Map<String, List<Method>>> dencoderMap = new LinkedHashMap<>();
+		List<String> dcTypes = new ArrayList<>();
+		List<String> dcMethods = new ArrayList<>();
+		Map<String, List<String>> dcTypeMethods = new HashMap<>();
 		
 		for (Class<?> clazz : classes) {
 			Dencoder dencoder = clazz.getDeclaredAnnotation(Dencoder.class);
+			String type = dencoder.type();
+			String method = dencoder.method();
+			
 			for (Method classMethod : clazz.getDeclaredMethods()) {
 				if (classMethod.isAnnotationPresent(DencoderFunction.class)) {
-					Map<String, List<Method>> methodMap = DC_TYPE_METHOD_MAP.get(dencoder.type());
+					Map<String, List<Method>> methodMap = dencoderMap.get(type);
 					if (methodMap == null) {
-						methodMap = new HashMap<>();
-						DC_TYPE_METHOD_MAP.put(dencoder.type(), methodMap);
+						methodMap = new LinkedHashMap<>();
+						dencoderMap.put(type, methodMap);
 					}
 					
-					List<Method> functionList = methodMap.get(dencoder.method());
+					List<Method> functionList = methodMap.get(method);
 					if (functionList == null) {
 						functionList = new ArrayList<>();
-						methodMap.put(dencoder.method(), functionList);
+						methodMap.put(method, functionList);
 					}
 					functionList.add(classMethod);
 				}
 			}
+			
+			if (!type.equals(DC_TYPE_COMMON) && !type.equals(DC_TYPE_ALL)) {
+				dcTypes.add(type);
+				
+				if (!method.equals(DC_METHOD_COMMON) && !method.endsWith(DC_METHOD_ALL_SUFFIX)) {
+					dcMethods.add(method);
+					
+					List<String> methodList = dcTypeMethods.get(type);
+					if (methodList == null) {
+						methodList = new ArrayList<String>();
+						dcTypeMethods.put(type, methodList);
+					}
+					methodList.add(method);
+				}
+			}
 		}
+		
+		DENCODER_MAP = Collections.unmodifiableMap(dencoderMap); // inner list is modifiable
+		
+		AVAILABLE_DC_TYPES = Collections.unmodifiableList(dcTypes);
+		AVAILABLE_DC_METHODS = Collections.unmodifiableList(dcMethods);
+		AVAILABLE_DC_TYPE_METHODS = Collections.unmodifiableMap(dcTypeMethods); // inner list is modifiable
 	}
 	
 
@@ -76,13 +113,57 @@ public class DencodeMapper {
 	}
 	
 	
+	public static List<String> getAllTypes() {
+		return getAvailableTypesOf(DC_TYPE_ALL);
+	}
+	
+	public static List<String> getAllMethods() {
+		return getAllMethodsOf(DC_TYPE_ALL);
+	}
+	
+	public static List<String> getAllMethodsOf(String type) {
+		return getAvailableMethodsOf(type, type + DC_METHOD_ALL_SUFFIX);
+	}
+	
+	public static List<String> getAvailableTypesOf(String type) {
+		if (type.equals(DC_TYPE_ALL)) {
+			// Type all
+			return AVAILABLE_DC_TYPES; 
+		} else {
+			// Specific type
+			if (AVAILABLE_DC_TYPES.contains(type)) {
+				return List.of(type);
+			} else {
+				return List.of();
+			}
+		}
+	}
+	
+	public static List<String> getAvailableMethodsOf(String type, String method) {
+		if (type.equals(DC_TYPE_ALL)) {
+			// Type all
+			return AVAILABLE_DC_METHODS;
+		} else if (method.endsWith(DC_METHOD_ALL_SUFFIX)) {
+			// Method all
+			List<String> list = AVAILABLE_DC_TYPE_METHODS.get(type);
+			return (list == null) ? List.of() : list;
+		} else {
+			// Specific method
+			if (AVAILABLE_DC_METHODS.contains(method)) {
+				return List.of(method);
+			} else {
+				return List.of();
+			}
+		}
+	}
+	
 	public static Map<String, Object> dencode(String type, String method, DencodeCondition cond) {
-		Map<String, Object> ret = new HashMap<>();
+		Map<String, Object> ret = new LinkedHashMap<>();
 		
-		if (type.equals("all")) {
+		if (type.equals(DC_TYPE_ALL)) {
 			// all.all
-			for (String t : DC_TYPE_METHOD_MAP.keySet()) {
-				Map<String, List<Method>> methodMap = DC_TYPE_METHOD_MAP.get(t);
+			for (String t : DENCODER_MAP.keySet()) {
+				Map<String, List<Method>> methodMap = DENCODER_MAP.get(t);
 				for (String m : methodMap.keySet()) {
 					for (Method function : methodMap.get(m)) {
 						if (!ret.containsKey(function.getName())) {
@@ -92,9 +173,9 @@ public class DencodeMapper {
 				}
 			}
 		} else {
-			if (method.endsWith(".all")) {
+			if (method.endsWith(DC_METHOD_ALL_SUFFIX)) {
 				// type.all
-				Map<String, List<Method>> methodMap = DC_TYPE_METHOD_MAP.get(type);
+				Map<String, List<Method>> methodMap = DENCODER_MAP.get(type);
 				if (methodMap != null) {
 					for (String m : methodMap.keySet()) {
 						for (Method function : methodMap.get(m)) {
@@ -106,7 +187,7 @@ public class DencodeMapper {
 				}
 			} else {
 				// type.sub-method
-				Map<String, List<Method>> methodMap = DC_TYPE_METHOD_MAP.get(type);
+				Map<String, List<Method>> methodMap = DENCODER_MAP.get(type);
 				if (methodMap != null) {
 					for (Method function : methodMap.get(method)) {
 						if (!ret.containsKey(function.getName())) {
@@ -117,9 +198,9 @@ public class DencodeMapper {
 
 				
 				// type.*
-				Map<String, List<Method>> commonMethodMap = DC_TYPE_METHOD_MAP.get(type);
+				Map<String, List<Method>> commonMethodMap = DENCODER_MAP.get(type);
 				if (commonMethodMap != null) {
-					List<Method> functionList = commonMethodMap.get("*");
+					List<Method> functionList = commonMethodMap.get(DC_METHOD_COMMON);
 					if (functionList != null) {
 						for (Method function : functionList) {
 							if (!ret.containsKey(function.getName())) {
@@ -131,9 +212,9 @@ public class DencodeMapper {
 			}
 			
 			// *.*
-			Map<String, List<Method>> commonMethodMap = DC_TYPE_METHOD_MAP.get("*");
+			Map<String, List<Method>> commonMethodMap = DENCODER_MAP.get(DC_TYPE_COMMON);
 			if (commonMethodMap != null) {
-				List<Method> functionList = commonMethodMap.get("*");
+				List<Method> functionList = commonMethodMap.get(DC_METHOD_COMMON);
 				if (functionList != null) {
 					for (Method function : functionList) {
 						if (!ret.containsKey(function.getName())) {
