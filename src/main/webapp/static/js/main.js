@@ -56,6 +56,7 @@ $(document).ready(function () {
 		async: true,
 		type: "POST",
 		url: contextPath + "/dencode",
+		contentType: 'application/json',
 		data: null,
 		cache: false,
 		dataType: "json",
@@ -420,7 +421,10 @@ $(document).ready(function () {
 		var oex = $oexMenuItems.filter(".active").data("oe");
 		var nl = $nlGroupBtns.filter(".active").data("nl");
 		var tz = $tz.val();
-		var options = $options.serializeArray();
+		var options = {};
+		$options.each(function () {
+			options[this.name] = this.value;
+		});
 		
 		if (!type || !method) {
 			type = "all";
@@ -433,8 +437,8 @@ $(document).ready(function () {
 		if (v === _v && oe === _oe && nl === _nl && tz === _tz) {
 			if (_options !== null) {
 				var matched = true;
-				for (var i = 0; i < options.length; i++) {
-					if (_options[i].value !== options[i].value) {
+				for (var key in options) {
+					if (_options[key] !== options[key]) {
 						matched = false;
 						break;
 					}
@@ -468,17 +472,16 @@ $(document).ready(function () {
 		$decIndicator.show();
 		$encIndicator.show();
 		
-		ajaxDencodeSettings.data = {
-				t: type,
-				m: method,
-				v: v,
-				oe: oe,
-				nl: nl,
-				tz: tz
+		var data = {
+				"type": type,
+				"method": method,
+				"value": v,
+				"oe": oe,
+				"nl": nl,
+				"tz": tz,
+				"options": options
 			};
-		options.forEach(function (option) {
-			ajaxDencodeSettings.data[option.name] = option.value;
-		});
+		ajaxDencodeSettings.data = JSON.stringify(data);
 		
 		$.ajax(ajaxDencodeSettings);
 	}

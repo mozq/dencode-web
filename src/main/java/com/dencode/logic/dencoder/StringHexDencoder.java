@@ -32,7 +32,9 @@ public class StringHexDencoder {
 	
 	@DencoderFunction
 	public static String encStrHex(DencodeCondition cond) {
-		return encStrHex(cond.valueAsBinary(), cond.option().getEncStrHexSeparatorEach(), cond.option().getEncStrHexCase());
+		return encStrHex(cond.valueAsBinary(),
+				DencodeUtils.getOption(cond.options(), "encStrHexSeparatorEach", ""),
+				DencodeUtils.getOption(cond.options(), "encStrHexCase", "lower"));
 	}
 	
 	@DencoderFunction

@@ -31,7 +31,8 @@ public class StringUnicodeEscapeDencoder {
 	
 	@DencoderFunction
 	public static String encStrUnicodeEscape(DencodeCondition cond) {
-		return encStrUnicodeEscape(cond.value(), cond.option().getEncStrUnicodeEscapeSurrogatePairFormat());
+		return encStrUnicodeEscape(cond.value(),
+				DencodeUtils.getOption(cond.options(), "encStrUnicodeEscapeSurrogatePairFormat", ""));
 	}
 	
 	@DencoderFunction

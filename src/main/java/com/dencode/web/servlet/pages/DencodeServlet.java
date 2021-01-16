@@ -16,8 +16,10 @@
  */
 package com.dencode.web.servlet.pages;
 
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +28,8 @@ import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.model.DencodeCondition;
 import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet("/dencode")
 public class DencodeServlet extends AbstractDencodeHttpServlet {
@@ -33,30 +37,57 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	
 	@Override
 	protected void doPost() throws Exception {
-		String type = reqres().param("t", "all");
-		String method = reqres().param("m", "all.all");
-		String val = reqres().param("v", "");
-		String oe = CommonLogic.mapShortCharsetName(reqres().param("oe", "UTF-8"));
-		String nl = reqres().param("nl", "crlf");
-		String tz = reqres().param("tz", "UTC");
+		String type;
+		String method;
+		String val;
+		String oe;
+		String nl;
+		String tz;
+		Map<String, String> options;
+		
+		if (reqres().request().getContentType().equals("application/json")) {
+			try (InputStream is = reqres().request().getInputStream()) {
+				ObjectMapper mapper = new ObjectMapper();
+				Map<String, Object> reqmap = mapper.readValue(is, new TypeReference<Map<String, Object>>() {});
+				
+				type = (String)reqmap.getOrDefault("type", "all");
+				method = (String)reqmap.getOrDefault("method", "all.all");
+				val = (String)reqmap.getOrDefault("value", "");
+				oe = CommonLogic.mapShortCharsetName((String)reqmap.getOrDefault("oe", "UTF-8"));
+				nl = (String)reqmap.getOrDefault("nl", "crlf");
+				tz = (String)reqmap.getOrDefault("tz", "UTC");
+				
+				options = (Map<String, String>)reqmap.get("options");
+			}
+		} else {
+			// Temporary code for migration
+			type = reqres().param("t", "all");
+			method = reqres().param("m", "all.all");
+			val = reqres().param("v", "");
+			oe = CommonLogic.mapShortCharsetName(reqres().param("oe", "UTF-8"));
+			nl = reqres().param("nl", "crlf");
+			tz = reqres().param("tz", "UTC");
+			
+			options = new HashMap<>();
+			options.put("encStrBinSeparatorEach", reqres().param("encStrBinSeparatorEach", null));
+			options.put("encStrHexSeparatorEach", reqres().param("encStrHexSeparatorEach", null));
+			options.put("encStrHexCase", reqres().param("encStrHexCase"));
+			options.put("encStrBase64LineBreakEach", reqres().param("encStrBase64LineBreakEach", null));
+			options.put("encStrUnicodeEscapeSurrogatePairFormat", reqres().param("encStrUnicodeEscapeSurrogatePairFormat", null));
+			options.put("encCipherCaesarShift", reqres().param("encCipherCaesarShift", null));
+			options.put("decCipherCaesarShift", reqres().param("decCipherCaesarShift", null));
+			options.put("encCipherScytaleKey", reqres().param("encCipherScytaleKey", null));
+			options.put("decCipherScytaleKey", reqres().param("decCipherScytaleKey", null));
+			options.put("encCipherRailFenceKey", reqres().param("encCipherRailFenceKey", null));
+			options.put("decCipherRailFenceKey", reqres().param("decCipherRailFenceKey", null));
+		}
 		
 		Charset charset = Charset.forName(toCharsetName(oe));
 		String lineBreak = toLineBreakString(nl);
 		ZoneId zone = ZoneId.of(tz);
 		
-		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, zone);
+		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, zone, options);
 		
-		cond.option().setEncStrBinSeparatorEach(reqres().param("encStrBinSeparatorEach", cond.option().getEncStrBinSeparatorEach()));
-		cond.option().setEncStrHexSeparatorEach(reqres().param("encStrHexSeparatorEach", cond.option().getEncStrHexSeparatorEach()));
-		cond.option().setEncStrHexCase(reqres().param("encStrHexCase", cond.option().getEncStrHexCase()));
-		cond.option().setEncStrBase64LineBreakEach(reqres().param("encStrBase64LineBreakEach", cond.option().getEncStrBase64LineBreakEach()));
-		cond.option().setEncStrUnicodeEscapeSurrogatePairFormat(reqres().param("encStrUnicodeEscapeSurrogatePairFormat", cond.option().getEncStrUnicodeEscapeSurrogatePairFormat()));
-		cond.option().setEncCipherCaesarShift(reqres().paramAsInt("encCipherCaesarShift", cond.option().getEncCipherCaesarShift()));
-		cond.option().setDecCipherCaesarShift(reqres().paramAsInt("decCipherCaesarShift", cond.option().getDecCipherCaesarShift()));
-		cond.option().setEncCipherScytaleKey(reqres().paramAsInt("encCipherScytaleKey", cond.option().getEncCipherScytaleKey()));
-		cond.option().setDecCipherScytaleKey(reqres().paramAsInt("decCipherScytaleKey", cond.option().getDecCipherScytaleKey()));
-		cond.option().setEncCipherRailFenceKey(reqres().paramAsInt("encCipherRailFenceKey", cond.option().getEncCipherRailFenceKey()));
-		cond.option().setDecCipherRailFenceKey(reqres().paramAsInt("decCipherRailFenceKey", cond.option().getDecCipherRailFenceKey()));
 		
 		Map<String, Object> dencodeResult = DencodeMapper.dencode(type, method, cond);
 		

@@ -38,12 +38,14 @@ public class CipherCaesarDencoder {
 	
 	@DencoderFunction
 	public static String encCipherCaesar(DencodeCondition cond) {
-		return encCipherCaesar(cond.value(), cond.option().getEncCipherCaesarShift());
+		return encCipherCaesar(cond.value(),
+				DencodeUtils.getOptionAsInt(cond.options(), "encCipherCaesarShift", 1));
 	}
 	
 	@DencoderFunction
 	public static String decCipherCaesar(DencodeCondition cond) {
-		return decCipherCaesar(cond.value(), cond.option().getDecCipherCaesarShift());
+		return decCipherCaesar(cond.value(),
+				DencodeUtils.getOptionAsInt(cond.options(), "decCipherCaesarShift", 1));
 	}
 	
 	

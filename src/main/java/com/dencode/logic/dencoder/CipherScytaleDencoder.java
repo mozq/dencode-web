@@ -30,12 +30,14 @@ public class CipherScytaleDencoder {
 	
 	@DencoderFunction
 	public static String encCipherScytale(DencodeCondition cond) {
-		return encCipherScytale(cond.value(), cond.option().getEncCipherScytaleKey());
+		return encCipherScytale(cond.value(),
+				DencodeUtils.getOptionAsInt(cond.options(), "encCipherScytaleKey", 2));
 	}
 	
 	@DencoderFunction
 	public static String decCipherScytale(DencodeCondition cond) {
-		return decCipherScytale(cond.value(), cond.option().getDecCipherScytaleKey());
+		return decCipherScytale(cond.value(),
+				DencodeUtils.getOptionAsInt(cond.options(), "decCipherScytaleKey", 2));
 	}
 	
 	

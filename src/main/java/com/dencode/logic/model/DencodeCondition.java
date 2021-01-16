@@ -20,6 +20,8 @@ import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Collections;
+import java.util.Map;
 
 import org.mifmi.commons4j.graphics.color.RGBColor;
 import org.mifmi.commons4j.util.StringUtilz;
@@ -49,9 +51,9 @@ public class DencodeCondition {
 	private boolean colorValueParsed;
 	private RGBColor colorValue;
 	
-	private DencodeOption option;
+	private Map<String, String> options;
 	
-	public DencodeCondition(String value, Charset charset, String lineBreak, ZoneId zone) {
+	public DencodeCondition(String value, Charset charset, String lineBreak, ZoneId zone, Map<String, String> options) {
 		this.value = value;
 		this.charset = charset;
 		this.lineBreak = lineBreak;
@@ -72,7 +74,7 @@ public class DencodeCondition {
 		this.colorValueParsed = false;
 		this.colorValue = null;
 		
-		this.option = new DencodeOption();
+		this.options = Collections.unmodifiableMap(options);
 	}
 	
 	
@@ -128,7 +130,7 @@ public class DencodeCondition {
 		return this.colorValue;
 	}
 	
-	public DencodeOption option() {
-		return option;
+	public Map<String, String> options() {
+		return options;
 	}
 }

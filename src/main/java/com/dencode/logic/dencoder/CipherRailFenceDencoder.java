@@ -30,12 +30,14 @@ public class CipherRailFenceDencoder {
 	
 	@DencoderFunction
 	public static String encCipherRailFence(DencodeCondition cond) {
-		return encCipherRailFence(cond.value(), cond.option().getEncCipherRailFenceKey());
+		return encCipherRailFence(cond.value(),
+				DencodeUtils.getOptionAsInt(cond.options(), "encCipherRailFenceKey", 2));
 	}
 	
 	@DencoderFunction
 	public static String decCipherRailFence(DencodeCondition cond) {
-		return decCipherRailFence(cond.value(), cond.option().getDecCipherRailFenceKey());
+		return decCipherRailFence(cond.value(),
+				DencodeUtils.getOptionAsInt(cond.options(), "decCipherRailFenceKey", 2));
 	}
 	
 	

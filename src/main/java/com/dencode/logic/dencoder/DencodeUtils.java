@@ -23,6 +23,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +62,30 @@ public class DencodeUtils {
 			return null;
 		}
 		return StringUtilz.join(separator, (Object[])dencVals);
+	}
+	
+	protected static String getOption(Map<String, String> options, String key, String defaultValue) {
+		String value = options.get(key);
+		
+		if (value == null) {
+			return defaultValue;
+		}
+		
+		return value;
+	}
+	
+	protected static int getOptionAsInt(Map<String, String> options, String key, int defaultValue) {
+		String value = options.get(key);
+		
+		if (value == null) {
+			return defaultValue;
+		}
+		
+		try {
+			return Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			return defaultValue;
+		}
 	}
 	
 	protected static int parseDataSizeAsBit(String size) {
