@@ -42,6 +42,22 @@ $(document).ready(function () {
 	var $options = $(".dencode-option");
 	var $otherDencodeLinks = $(".other-dencode-link");
 	
+	
+	// Load previous settings from local storage
+	try {
+		if (localStorage) {
+			$options.each(function () {
+				var value = localStorage.getItem("options." + this.name);
+				if (value !== null) {
+					this.value = value;
+				}
+			});
+		}
+	} catch (ex) {
+		// NOP
+	}
+	
+	// Load settings from location hash
 	var hash = location.hash;
 	if (hash !== null && hash.lastIndexOf("#v=", 0) === 0) {
 		$v.val(decodeURIComponent(hash.substring(3)));
@@ -452,11 +468,22 @@ $(document).ready(function () {
 		var len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
 		$vLen.text(separateThousand(len));
 		
+		// Store settings to Cookie
 		setCookie("oe", oe);
 		setCookie("oex", oex);
 		setCookie("nl", nl);
 		setCookie("tz", tz);
 		
+		// Store option settings to local storage
+		try {
+			if (localStorage) {
+				$options.each(function () {
+					localStorage.setItem("options." + this.name, this.value);
+				});
+			}
+		} catch (ex) {
+			// NOP
+		}
 		
 		if (_inProc) {
 			return;
