@@ -32,10 +32,12 @@ import com.dencode.logic.model.DencodeCondition;
 public class DateISO8601Dencoder {
 	
 	private static final DateTimeFormatter FORMATTER_BASIC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmssXX", Locale.US);
-	private static final DateTimeFormatter FORMATTER_BASIC_MSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss,SSSXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_DOT_MSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss.SSSXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_COMMA_MSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss,SSSXX", Locale.US);
 	
 	private static final DateTimeFormatter FORMATTER_EXT = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ssXXX", Locale.US);
-	private static final DateTimeFormatter FORMATTER_EXT_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss,SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_DOT_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_COMMA_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss,SSSXXX", Locale.US);
 	
 	private static final DateTimeFormatter FORMATTER_WEEK = new DateTimeFormatterBuilder()
 			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
@@ -46,7 +48,16 @@ public class DateISO8601Dencoder {
 			.appendLiteral('T')
 			.appendPattern("HH:mm:ssXXX")
 			.toFormatter(Locale.US);
-	private static final DateTimeFormatter FORMATTER_WEEK_MSEC = new DateTimeFormatterBuilder()
+	private static final DateTimeFormatter FORMATTER_WEEK_DOT_MSEC = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ss.SSSXXX")
+			.toFormatter(Locale.US);
+	private static final DateTimeFormatter FORMATTER_WEEK_COMMA_MSEC = new DateTimeFormatterBuilder()
 			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
 			.appendLiteral("-W")
 			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
@@ -57,7 +68,8 @@ public class DateISO8601Dencoder {
 			.toFormatter(Locale.US);
 	
 	private static final DateTimeFormatter FORMATTER_ORDINAL = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ssXXX", Locale.US);
-	private static final DateTimeFormatter FORMATTER_ORDINAL_MSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss,SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_DOT_MSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss.SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_COMMA_MSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss,SSSXXX", Locale.US);
 	
 	private DateISO8601Dencoder() {
 		// NOP
@@ -66,38 +78,46 @@ public class DateISO8601Dencoder {
 	
 	@DencoderFunction
 	public static String encDateISO8601(DencodeCondition cond) {
-		return encDateISO8601Basic(cond.valueAsDate());
+		return encDateISO8601Basic(cond.valueAsDate(),
+				DencodeUtils.getOption(cond.options(), "encDateISO8601DecimalMark", "."));
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ext(DencodeCondition cond) {
-		return encDateISO8601Ext(cond.valueAsDate());
+		return encDateISO8601Ext(cond.valueAsDate(),
+				DencodeUtils.getOption(cond.options(), "encDateISO8601ExtDecimalMark", "."));
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Week(DencodeCondition cond) {
-		return encDateISO8601Week(cond.valueAsDate());
+		return encDateISO8601Week(cond.valueAsDate(),
+				DencodeUtils.getOption(cond.options(), "encDateISO8601WeekDecimalMark", "."));
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ordinal(DencodeCondition cond) {
-		return encDateISO8601Ordinal(cond.valueAsDate());
+		return encDateISO8601Ordinal(cond.valueAsDate(),
+				DencodeUtils.getOption(cond.options(), "encDateISO8601OrdinalDecimalMark", "."));
 	}
 	
 	
-	private static String encDateISO8601Basic(ZonedDateTime dateVal) {
-		return DencodeUtils.encDate(dateVal, FORMATTER_BASIC, FORMATTER_BASIC_MSEC);
+	private static String encDateISO8601Basic(ZonedDateTime dateVal, String decimalMark) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_BASIC, chooseDecimalMarkFormatter(decimalMark, FORMATTER_BASIC_DOT_MSEC, FORMATTER_BASIC_COMMA_MSEC));
 	}
 	
-	private static String encDateISO8601Ext(ZonedDateTime dateVal) {
-		return DencodeUtils.encDate(dateVal, FORMATTER_EXT, FORMATTER_EXT_MSEC);
+	private static String encDateISO8601Ext(ZonedDateTime dateVal, String decimalMark) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_EXT, chooseDecimalMarkFormatter(decimalMark, FORMATTER_EXT_DOT_MSEC, FORMATTER_EXT_COMMA_MSEC));
 	}
 	
-	private static String encDateISO8601Week(ZonedDateTime dateVal) {
-		return DencodeUtils.encDate(dateVal, FORMATTER_WEEK, FORMATTER_WEEK_MSEC);
+	private static String encDateISO8601Week(ZonedDateTime dateVal, String decimalMark) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_WEEK, chooseDecimalMarkFormatter(decimalMark, FORMATTER_WEEK_DOT_MSEC, FORMATTER_WEEK_COMMA_MSEC));
 	}
 	
-	private static String encDateISO8601Ordinal(ZonedDateTime dateVal) {
-		return DencodeUtils.encDate(dateVal, FORMATTER_ORDINAL, FORMATTER_ORDINAL_MSEC);
+	private static String encDateISO8601Ordinal(ZonedDateTime dateVal, String decimalMark) {
+		return DencodeUtils.encDate(dateVal, FORMATTER_ORDINAL, chooseDecimalMarkFormatter(decimalMark, FORMATTER_ORDINAL_DOT_MSEC, FORMATTER_ORDINAL_COMMA_MSEC));
+	}
+	
+	private static DateTimeFormatter chooseDecimalMarkFormatter(String decimalMark, DateTimeFormatter dotFormatter, DateTimeFormatter commaFormatter) {
+		return (decimalMark.equals(",")) ? commaFormatter : dotFormatter;
 	}
 }

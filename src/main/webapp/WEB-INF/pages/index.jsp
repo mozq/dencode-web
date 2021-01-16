@@ -577,10 +577,58 @@
 						<tbody>
 							<c:if test="${methods.contains('date.unix-time')}"><tr data-dencode-method="date.unix-time"><th>${mf:h(msg['label.encDateUnixTime'])}</th><td><span id="encDateUnixTime" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('date.w3cdtf')}"><tr data-dencode-method="date.w3cdtf"><th>${mf:h(msg['label.encDateW3CDTF'])}</th><td><span id="encDateW3CDTF" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601'])}</th><td><span id="encDateISO8601" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ext'])}</th><td><span id="encDateISO8601Ext" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Week'])}</th><td><span id="encDateISO8601Week" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ordinal'])}</th><td><span id="encDateISO8601Ordinal" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601'])}</th><td><span id="encDateISO8601" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encDateISO8601.option.decimalMark'])}</span>
+											<select name="encDateISO8601DecimalMark" class="dencode-option form-control">
+												<option value=".">${mf:h(msg['label.encDateISO8601.option.decimalMark.dot'])}</option>
+												<option value=",">${mf:h(msg['label.encDateISO8601.option.decimalMark.comma'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ext'])}</th><td><span id="encDateISO8601Ext" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encDateISO8601Ext.option.decimalMark'])}</span>
+											<select name="encDateISO8601ExtDecimalMark" class="dencode-option form-control">
+												<option value=".">${mf:h(msg['label.encDateISO8601Ext.option.decimalMark.dot'])}</option>
+												<option value=",">${mf:h(msg['label.encDateISO8601Ext.option.decimalMark.comma'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Week'])}</th><td><span id="encDateISO8601Week" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encDateISO8601Week.option.decimalMark'])}</span>
+											<select name="encDateISO8601WeekDecimalMark" class="dencode-option form-control">
+												<option value=".">${mf:h(msg['label.encDateISO8601Week.option.decimalMark.dot'])}</option>
+												<option value=",">${mf:h(msg['label.encDateISO8601Week.option.decimalMark.comma'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ordinal'])}</th><td><span id="encDateISO8601Ordinal" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encDateISO8601Ordinal.option.decimalMark'])}</span>
+											<select name="encDateISO8601OrdinalDecimalMark" class="dencode-option form-control">
+												<option value=".">${mf:h(msg['label.encDateISO8601Ordinal.option.decimalMark.dot'])}</option>
+												<option value=",">${mf:h(msg['label.encDateISO8601Ordinal.option.decimalMark.comma'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('date.rfc2822')}"><tr data-dencode-method="date.rfc2822"><th>${mf:h(msg['label.encDateRFC2822'])}</th><td><span id="encDateRFC2822" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('date.ctime')}"><tr data-dencode-method="date.ctime"><th>${mf:h(msg['label.encDateCTime'])}</th><td><span id="encDateCTime" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('date.japanese-era')}"><tr data-dencode-method="date.japanese-era"><th>${mf:h(msg['label.encDateJapaneseEra'])}</th><td><span id="encDateJapaneseEra" class="for-disp"></span></td></tr></c:if>
