@@ -112,6 +112,9 @@ public class DencodeMapper {
 		// NOP
 	}
 	
+	public static void init() {
+		// NOP
+	}
 	
 	public static List<String> getAllTypes() {
 		return getAvailableTypesOf(DC_TYPE_ALL);

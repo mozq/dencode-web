@@ -19,6 +19,7 @@ package com.dencode.web.servlet.pages._ah;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dencode.logic.DencodeMapper;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
 @WebServlet("/_ah/warmup")
@@ -27,6 +28,10 @@ public class WarmupServlet extends AbstractDencodeHttpServlet {
 	
 	@Override
 	protected void doGet() throws Exception {
+		// Warm up
+		DencodeMapper.init();
+		
+		// Response
 		HttpServletResponse res = response();
 		res.setStatus(HttpServletResponse.SC_OK);
 		res.setHeader("Content-Type", "text/plain; charset=UTF-8");
