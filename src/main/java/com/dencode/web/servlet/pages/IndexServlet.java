@@ -25,6 +25,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -138,6 +139,15 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		
 		reqres().setAttribute("types", DencodeMapper.getAvailableTypesOf(type));
 		reqres().setAttribute("methods", DencodeMapper.getAvailableMethodsOf(type, method));
+		
+		String[] supportedLocales = config().getAsStringArray("locales");
+		Map<String, String> supportedLocaleNameMap = new HashMap<>();
+		for (String loc : supportedLocales) {
+			supportedLocaleNameMap.put(loc, ResourceBundle.getBundle("messages", toLocale(loc)).getString("locale.name"));
+		}
+		reqres().setAttribute("supportedLocales", supportedLocales);
+		reqres().setAttribute("supportedLocaleNameMap", supportedLocaleNameMap);
+		
 		
 		forward("/WEB-INF/pages/index.jsp");
 	}

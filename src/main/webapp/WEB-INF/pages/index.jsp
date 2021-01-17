@@ -20,15 +20,12 @@
 	<meta property="og:url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
 	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
-	<meta property="og:locale:alternate" content="en_US" />
-	<meta property="og:locale:alternate" content="ja_JP" />
-	<meta property="og:locale:alternate" content="ru_RU" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}" />
 	<meta property="og:description" content="${mf:h(msg[mf:strcat(method, '.desc')])}" />
-	<link rel="alternate" href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}" hreflang="en" />
-	<link rel="alternate" href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}" hreflang="ja" />
-	<link rel="alternate" href="${pageContext.request.contextPath}/ru/${mf:h(currentPath)}" hreflang="ru" />
+	<c:forEach var="loc" items="${supportedLocales}">
+		<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(loc)}/${mf:h(currentPath)}" hreflang="${mf:h(loc)}" />
+	</c:forEach>
 	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
@@ -57,11 +54,11 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(localeName eq null) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${mf:h(currentPath)}">${mf:h(msg['locale.name.default'])} (${mf:h(defaultLocaleName)})</a></li>
+							<li class="${(localeId eq null) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${mf:h(currentPath)}">${mf:h(msg['locale.name.default'])} (${mf:h(defaultLocaleName)})</a></li>
 							<li class="divider"></li>
-							<li class="${(localeName eq 'en') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/en/${mf:h(currentPath)}">English</a></li>
-							<li class="${(localeName eq 'ja') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/ja/${mf:h(currentPath)}">日本語</a></li>
-							<li class="${(localeName eq 'ru') ? 'active' : ''}"><a href="${pageContext.request.contextPath}/ru/${mf:h(currentPath)}">Русский</a></li>
+							<c:forEach var="loc" items="${supportedLocales}">
+								<li class="${(localeId eq loc) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${mf:h(loc)}/${mf:h(currentPath)}">${mf:h(supportedLocaleNameMap.get(loc))}</a></li>
+							</c:forEach>
 						</ul>
 					</li>
 				</ul>

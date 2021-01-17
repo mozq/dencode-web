@@ -130,6 +130,15 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		return locales;
 	}
 	
+	protected static Locale toLocale(String localeId) {
+		int idx = localeId.indexOf('-');
+		if (idx == -1) {
+			return new Locale(localeId);
+		}
+		
+		return new Locale(localeId.substring(0, idx), localeId.substring(idx + 1));
+	}
+	
 	protected static String getRequestSubPath(HttpReqRes reqres) {
 		String path = reqres.request().getServletPath();
 		if (path == null) {
