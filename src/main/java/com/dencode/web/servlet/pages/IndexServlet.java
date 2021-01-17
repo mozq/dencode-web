@@ -38,7 +38,7 @@ import com.dencode.logic.DencodeMapper;
 import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
-@WebServlet("/index")
+@WebServlet("")
 public class IndexServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
 

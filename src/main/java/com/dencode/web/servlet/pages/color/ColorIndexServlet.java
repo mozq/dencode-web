@@ -36,7 +36,7 @@ public class ColorIndexServlet extends AbstractDencodeHttpServlet {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));
 		}
 		
-		forward("/index");
+		forward("/");
 	}
 }
 

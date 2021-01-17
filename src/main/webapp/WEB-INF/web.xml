@@ -45,8 +45,4 @@
     <filter-name>ResRedirectFilter</filter-name>
     <url-pattern>/res/*</url-pattern>
   </filter-mapping>
-  
-  <welcome-file-list>
-    <welcome-file>index</welcome-file>
-  </welcome-file-list>
 </web-app>

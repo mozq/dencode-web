@@ -36,7 +36,7 @@ public class StringIndexServlet extends AbstractDencodeHttpServlet {
 			reqres().setAttribute("currentPath", getRequestSubPath(reqres()));
 		}
 		
-		forward("/index");
+		forward("/");
 	}
 }
 
