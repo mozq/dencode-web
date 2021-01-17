@@ -19,15 +19,13 @@ package com.dencode.web.servlet.pages;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +40,34 @@ import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 @WebServlet("")
 public class IndexServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private static final Map<String, String> TZ_MAP;
+	static {
+		Set<String> tzList = ZoneId.getAvailableZoneIds();
+		Map<String, String> tzMap = new HashMap<String, String>(tzList.size());
+		Instant now = Instant.now();
+		for (String id : tzList) {
+			if (id.startsWith("Etc/")) {
+				continue;
+			}
+			
+			ZoneId zone = ZoneId.of(id);
+			ZoneOffset offset = zone.getRules().getStandardOffset(now);
+			String offsetId = offset.getId();
+			if (offsetId.equals("Z")) {
+				offsetId = "±00:00";
+			}
+			
+			String name = offsetId + " " + id;
+			
+			tzMap.put(id, name);
+		}
+		
+		TZ_MAP = tzMap.entrySet().stream()
+				.sorted(Map.Entry.comparingByValue())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
+	}
+	
 	@Override
 	protected void doGet() throws Exception {
 		String v = reqres().param("v", "");
@@ -69,34 +94,6 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			method = "all.all";
 		}
 		
-		Set<String> tzList = ZoneId.getAvailableZoneIds();
-		Map<String, String> tzMap = new HashMap<String, String>(tzList.size());
-		Instant now = Instant.now();
-		for (String id : tzList) {
-			if (id.startsWith("Etc/")) {
-				continue;
-			}
-			
-			ZoneId zone = ZoneId.of(id);
-			ZoneOffset offset = zone.getRules().getStandardOffset(now);
-			String offsetId = offset.getId();
-			if (offsetId.equals("Z")) {
-				offsetId = "±00:00";
-			}
-			
-			String name = offsetId + " " + id;
-			
-			tzMap.put(id, name);
-		}
-		List<Map.Entry<String, String>> tzMapList = new ArrayList<Map.Entry<String, String>>(tzMap.entrySet());
-		Collections.sort(tzMapList, new Comparator<Map.Entry<String, String>>() {
-			@Override
-			public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
-				String v1 = o1.getValue();
-				String v2 = o2.getValue();
-				return v1.compareTo(v2);
-			}
-		});
 		
 		reqres().setCookie("oe", oe, -1, "/", null);
 		reqres().setCookie("oex", oex, -1, "/", null);
@@ -110,7 +107,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		reqres().setAttribute("oex", oex);
 		reqres().setAttribute("nl", nl);
 		reqres().setAttribute("tz", tz);
-		reqres().setAttribute("tzMap", tzMapList);
+		reqres().setAttribute("tzMap", TZ_MAP);
 		
 		if (reqres().attribute("basePath") == null) {
 			String basePath = request().getContextPath();
