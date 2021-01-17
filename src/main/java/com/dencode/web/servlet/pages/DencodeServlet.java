@@ -71,7 +71,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			options = new HashMap<>();
 			options.put("encStrBinSeparatorEach", reqres().param("encStrBinSeparatorEach", null));
 			options.put("encStrHexSeparatorEach", reqres().param("encStrHexSeparatorEach", null));
-			options.put("encStrHexCase", reqres().param("encStrHexCase"));
+			options.put("encStrHexCase", reqres().param("encStrHexCase", null));
 			options.put("encStrBase64LineBreakEach", reqres().param("encStrBase64LineBreakEach", null));
 			options.put("encStrUnicodeEscapeSurrogatePairFormat", reqres().param("encStrUnicodeEscapeSurrogatePairFormat", null));
 			options.put("encCipherCaesarShift", reqres().param("encCipherCaesarShift", null));
