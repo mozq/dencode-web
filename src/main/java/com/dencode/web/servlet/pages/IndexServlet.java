@@ -19,6 +19,7 @@ package com.dencode.web.servlet.pages;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -66,6 +67,17 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		TZ_MAP = tzMap.entrySet().stream()
 				.sorted(Map.Entry.comparingByValue())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
+	}
+	
+	private static final Map<String, String> SUPPORTED_LOCALE_MAP;
+	static {
+		String[] supportedLocaleIds = config().getAsStringArray("locales");
+		Map<String, String> supportedLocaleMap = new LinkedHashMap<>();
+		for (String id : supportedLocaleIds) {
+			supportedLocaleMap.put(id, ResourceBundle.getBundle("messages", toLocale(id)).getString("locale.name"));
+		}
+		
+		SUPPORTED_LOCALE_MAP = Collections.unmodifiableMap(supportedLocaleMap);
 	}
 	
 	@Override
@@ -137,13 +149,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		reqres().setAttribute("types", DencodeMapper.getAvailableTypesOf(type));
 		reqres().setAttribute("methods", DencodeMapper.getAvailableMethodsOf(type, method));
 		
-		String[] supportedLocales = config().getAsStringArray("locales");
-		Map<String, String> supportedLocaleNameMap = new HashMap<>();
-		for (String loc : supportedLocales) {
-			supportedLocaleNameMap.put(loc, ResourceBundle.getBundle("messages", toLocale(loc)).getString("locale.name"));
-		}
-		reqres().setAttribute("supportedLocales", supportedLocales);
-		reqres().setAttribute("supportedLocaleNameMap", supportedLocaleNameMap);
+		reqres().setAttribute("supportedLocaleMap", SUPPORTED_LOCALE_MAP);
 		
 		
 		forward("/WEB-INF/pages/index.jsp");

@@ -42,8 +42,8 @@ public class RootServlet extends AbstractDencodeHttpServlet {
 			
 			String[] locales = config().getAsStringArray("locales");
 			if (0 <= Arrays.binarySearch(locales, localeId)) {
+				setLocale(toLocale(localeId));
 				reqres().setAttribute("localeId", localeId);
-				reqres().setAttribute("locale", toLocale(localeId));
 				reqres().setAttribute("currentPath", subPath);
 				
 				forward("/" + subPath);

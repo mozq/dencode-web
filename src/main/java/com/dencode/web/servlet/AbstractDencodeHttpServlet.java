@@ -27,7 +27,10 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.mifmi.commons4j.app.web.servlet.AbstractBasicHttpServlet;
+import org.mifmi.commons4j.app.message.Message;
+import org.mifmi.commons4j.app.message.MessageManager;
+import org.mifmi.commons4j.app.message.MifmiMessageException;
+import org.mifmi.commons4j.app.web.servlet.AbstractHttpServlet;
 import org.mifmi.commons4j.config.Config;
 import org.mifmi.commons4j.config.ResourceBundleConfig;
 import org.mifmi.commons4j.web.servlet.HttpReqRes;
@@ -38,37 +41,41 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServlet {
+public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static Logger log = Logger.getLogger(AbstractDencodeHttpServlet.class.getName());
+	private static final Config CONFIG = new ResourceBundleConfig("config");
+	
+	private static final Logger LOGGER = Logger.getLogger(AbstractDencodeHttpServlet.class.getName());
+	
+	
+	protected static Config config() {
+		return CONFIG;
+	}
 	
 	@Override
 	protected void doInit() throws Exception {
 		Locale locale = getLocale(reqres());
-		reqres().setAttribute("locale", locale);
-		reqres().setAttribute("locales", getLocales(locale, reqres()));
-		
-		useConfigResource("config", "conf");
-		useMessagesResource("messages", "msg");
-		setResponseMessagesAttributeName("messages");
+		setLocale(locale);
+
+		reqres().setAttribute("conf", config().asMap());
+		reqres().setAttribute("msg", messageManager().getMessageConfig().asMap());
 		
 		Config defaultLocaleMessages = new ResourceBundleConfig("messages", getLocales(getDefaultLocale(reqres()), reqres()));
 		reqres().setAttribute("defaultLocaleName", defaultLocaleMessages.get("locale.name"));
 	}
-
-	@Override
+	
 	protected boolean handleError(Throwable e, String level) throws Exception {
 
 		if (level == null || level.equals("fatal")) {
-			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} else if (level.equals("error")) {
-			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} else if (level.equals("warn")) {
-			log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			LOGGER.log(Level.WARNING, e.getLocalizedMessage(), e);
 		} else {
-			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		
 		String acceptHeader = reqres().header("Accept");
@@ -84,14 +91,75 @@ public abstract class AbstractDencodeHttpServlet extends AbstractBasicHttpServle
 		return false;
 	}
 	
+
 	@Override
+	protected boolean handleError(Throwable e) throws Exception {
+		Message message;
+		if (e instanceof MifmiMessageException) {
+			message = ((MifmiMessageException)e).getMessageObject();
+		} else {
+			try {
+				message = messageObject("default.error");
+			} catch (Exception e1) {
+				message = null;
+			}
+		}
+		if (message != null) {
+			addResponseMessage(message);
+		}
+		return handleError(e, (message == null)? null : message.getLevel());
+	}
+	
+	protected void setLocale(Locale locale) {
+		reqres().setAttribute("locale", locale);
+		reqres().setAttribute("locales", getLocales(locale, reqres()));
+		reqres().setAttribute("messageManager", null);
+	}
+	
 	protected Locale locale() {
 		return reqres().attribute("locale");
 	}
-
-	@Override
+	
 	protected List<Locale> locales() {
 		return reqres().attribute("locales");
+	}
+	
+	protected MessageManager messageManager() {
+		MessageManager messageManager = reqres().attribute("messageManager");
+		if (messageManager == null) {
+			messageManager = new MessageManager(new ResourceBundleConfig("messages", locales()));
+			reqres().setAttribute("messageManager", messageManager);
+		}
+		return messageManager;
+	}
+	
+	protected String message(String messageId) {
+		return messageManager().loadMessage(messageId);
+	}
+	
+	protected String message(String messageId, Object... params) {
+		return messageManager().loadMessage(messageId, params);
+	}
+	
+	protected Message messageObject(String messageId, Object... params) {
+		return messageManager().loadMessageObject(messageId, params);
+	}
+	
+	protected List<Message> getResponseMessages() {
+		List<Message> messages = reqres().attribute("messages");
+		if (messages == null) {
+			messages = new ArrayList<Message>();
+			reqres().setAttribute("messages", messages);
+		}
+		return messages;
+	}
+	
+	protected void addResponseMessage(Message message) {
+		getResponseMessages().add(message);
+	}
+	
+	protected void addResponseMessage(String messageId, Object... params) {
+		addResponseMessage(messageObject(messageId, params));
 	}
 	
 	private static Locale getLocale(HttpReqRes reqres) {

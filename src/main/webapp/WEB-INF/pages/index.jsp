@@ -23,8 +23,8 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}" />
 	<meta property="og:description" content="${mf:h(msg[mf:strcat(method, '.desc')])}" />
-	<c:forEach var="loc" items="${supportedLocales}">
-		<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(loc)}/${mf:h(currentPath)}" hreflang="${mf:h(loc)}" />
+	<c:forEach var="loc" items="${supportedLocaleMap}">
+		<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}" hreflang="${mf:h(loc.key)}" />
 	</c:forEach>
 	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
@@ -56,8 +56,8 @@
 						<ul class="dropdown-menu" role="menu">
 							<li class="${(localeId eq null) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${mf:h(currentPath)}">${mf:h(msg['locale.name.default'])} (${mf:h(defaultLocaleName)})</a></li>
 							<li class="divider"></li>
-							<c:forEach var="loc" items="${supportedLocales}">
-								<li class="${(localeId eq loc) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${mf:h(loc)}/${mf:h(currentPath)}">${mf:h(supportedLocaleNameMap.get(loc))}</a></li>
+							<c:forEach var="loc" items="${supportedLocaleMap}">
+								<li class="${(localeId eq loc.key) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}">${mf:h(loc.value)}</a></li>
 							</c:forEach>
 						</ul>
 					</li>
