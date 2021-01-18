@@ -1,6 +1,8 @@
 "use strict";
 
-var _defaultErrorMessage = newMessage(null, "fatal", "Error", "Error");
+var _messageDefs = {
+	"__default": newMessage(null, "fatal", "Error", "Error")
+};
 var _messagesTmpl = Hogan.compile($("#messagesTmpl").html());
 
 function handleAjaxResponse(data) {
@@ -12,18 +14,31 @@ function handleAjaxResponse(data) {
 		focusMessages();
 	}
 }
+
 function handleAjaxSuccess(data, dataType) {
 	handleAjaxResponse(data);
 }
+
 function handleAjaxError(xhr, textStatus, errorThrown) {
 	try {
 		var data = $.parseJSON(xhr.responseText);
 		handleAjaxResponse(data);
 	} catch (e) {
-		setMessage(_defaultErrorMessage);
-		focusMessages();
+		if (errorThrown && errorThrown.message) {
+			// Error having a message
+			setMessage(newMessage(null, "fatal", errorThrown.message, errorThrown.message));
+			focusMessages();
+		} else if (xhr.status === 0 && textStatus === "error") {
+			// Network error
+			setMessage(getMessageDefinition("network.error"));
+		} else {
+			// Unknown error
+			setMessage(getMessageDefinition(null));
+			focusMessages();
+		}
 	}
 }
+
 function focusMessages() {
 	jumpInnerPageId("messages", -10, false);
 }
@@ -51,6 +66,7 @@ function newMessage(messageId, level, message, detail) {
 		"detail": detail
 	};
 }
+
 function formatMessage(message) {
 	if (message.type) {
 		return message;
@@ -63,9 +79,27 @@ function formatMessage(message) {
 				);
 	}
 }
-function setDefaultErrorMessage(message) {
-	_defaultErrorMessage = message;
+
+function addMessageDefinition(message) {
+	if (message.messageId) {
+		_messageDefs[message.messageId] = formatMessage(message);
+	} else {
+		_messageDefs["__default"] = formatMessage(message);
+	}
 }
+
+function getMessageDefinition(messageId) {
+	if (messageId) {
+		var message = _messageDefs[messageId];
+		if (!message) {
+			message = _messageDefs["__default"];
+		}
+		return message;
+	} else {
+		return _messageDefs["__default"];
+	}
+}
+
 function setMessages(messages) {
 	if (messages) {
 		var messagesHtml = "";
@@ -75,12 +109,15 @@ function setMessages(messages) {
 		$("#messages").html(messagesHtml);
 	}
 }
+
 function setMessage(message) {
 	$("#messages").html(_messagesTmpl.render(formatMessage(message)));
 }
+
 function addMessage(message) {
 	$("#messages").append(_messagesTmpl.render(formatMessage(message)));
 }
+
 function clearMessages() {
 	$("#messages").empty();
 }

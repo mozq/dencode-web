@@ -908,12 +908,19 @@
 <script src="${pageContext.request.contextPath}/static/js/all.min.js?v=<%= new java.io.File(application.getRealPath("/static/js/all.min.js")).lastModified() %>"></script>
 <script>
 	"use strict";
-
-	setDefaultErrorMessage(newMessage(
+	
+	addMessageDefinition(newMessage(
 			null,
 			"${mf:jsstr(msg['default.error.level'])}",
 			"${mf:jsstr(msg['default.error'])}",
 			"${mf:jsstr(msg['default.error.detail'])}"
+			));
+	
+	addMessageDefinition(newMessage(
+			"network.error",
+			"${mf:jsstr(msg['network.error.level'])}",
+			"${mf:jsstr(msg['network.error'])}",
+			"${mf:jsstr(msg['network.error.detail'])}"
 			));
 </script>
 </body>
