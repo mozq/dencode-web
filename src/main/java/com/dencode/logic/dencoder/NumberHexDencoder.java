@@ -16,6 +16,9 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+import java.util.function.Function;
+
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -30,20 +33,20 @@ public class NumberHexDencoder {
 	
 	@DencoderFunction
 	public static String encNumHex(DencodeCondition cond) {
-		return encNumHex(cond.value());
+		return encNumHex(cond.valueAsParsedLines((val) -> DencodeUtils.encNum(val, 16)));
 	}
 	
 	@DencoderFunction
 	public static String decNumHex(DencodeCondition cond) {
-		return decNumHex(cond.value());
+		return decNumHex(cond.valueAsParsedLines((val) -> DencodeUtils.decNum(val, 16)));
 	}
 	
 	
-	private static String encNumHex(String val) {
-		return DencodeUtils.encNum(val, 16);
+	private static String encNumHex(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, Function.identity());
 	}
 	
-	private static String decNumHex(String val) {
-		return DencodeUtils.decNum(val, 16);
+	private static String decNumHex(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, Function.identity());
 	}
 }

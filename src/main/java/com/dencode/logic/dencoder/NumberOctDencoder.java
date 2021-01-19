@@ -16,6 +16,9 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+import java.util.function.Function;
+
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -30,20 +33,20 @@ public class NumberOctDencoder {
 	
 	@DencoderFunction
 	public static String encNumOct(DencodeCondition cond) {
-		return encNumOct(cond.value());
+		return encNumOct(cond.valueAsParsedLines((val) -> DencodeUtils.encNum(val, 8)));
 	}
 	
 	@DencoderFunction
 	public static String decNumOct(DencodeCondition cond) {
-		return decNumOct(cond.value());
+		return decNumOct(cond.valueAsParsedLines((val) -> DencodeUtils.decNum(val, 8)));
 	}
 	
 	
-	private static String encNumOct(String val) {
-		return DencodeUtils.encNum(val, 8);
+	private static String encNumOct(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, Function.identity());
 	}
 	
-	private static String decNumOct(String val) {
-		return DencodeUtils.decNum(val, 8);
+	private static String decNumOct(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, Function.identity());
 	}
 }

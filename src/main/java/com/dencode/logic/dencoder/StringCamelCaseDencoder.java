@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+
 import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -32,16 +34,16 @@ public class StringCamelCaseDencoder {
 	
 	@DencoderFunction
 	public static String encStrUpperCamelCase(DencodeCondition cond) {
-		return encStrCamelCase(cond.value(), true);
+		return encStrCamelCase(cond.valueAsLines(), true);
 	}
 	
 	@DencoderFunction
 	public static String encStrLowerCamelCase(DencodeCondition cond) {
-		return encStrCamelCase(cond.value(), false);
+		return encStrCamelCase(cond.valueAsLines(), false);
 	}
 	
 	
-	private static String encStrCamelCase(String val, boolean firstCapital) {
-		return StringUtilz.toCamelCase(val, firstCapital);
+	private static String encStrCamelCase(List<String> vals, boolean firstCapital) {
+		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.toCamelCase(val, firstCapital));
 	}
 }

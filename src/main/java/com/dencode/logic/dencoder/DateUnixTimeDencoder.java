@@ -17,6 +17,7 @@
 package com.dencode.logic.dencoder;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -32,15 +33,17 @@ public class DateUnixTimeDencoder {
 	
 	@DencoderFunction
 	public static String encDateUnixTime(DencodeCondition cond) {
-		return encDateUnixTime(cond.valueAsDate());
+		return encDateUnixTime(cond.valueAsDates());
 	}
 	
 	
-	private static String encDateUnixTime(ZonedDateTime dateVal) {
-		if (dateVal == null) {
-			return null;
-		}
-		
-		return String.valueOf(dateVal.toInstant().toEpochMilli());
+	private static String encDateUnixTime(List<ZonedDateTime> vals) {
+		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
+			if (dateVal == null) {
+				return null;
+			}
+			
+			return String.valueOf(dateVal.toInstant().toEpochMilli());
+		});
 	}
 }

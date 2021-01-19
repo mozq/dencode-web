@@ -17,6 +17,7 @@
 package com.dencode.logic.dencoder;
 
 import java.net.IDN;
+import java.util.List;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -41,15 +42,15 @@ public class StringPunycodeDencoder {
 	}
 	
 	
-	private static String encStrPunycode(String[] vals) {
+	private static String encStrPunycode(List<String> vals) {
 		try {
-			return DencodeUtils.dencodeEach(vals, (val) -> IDN.toASCII(val, IDN.ALLOW_UNASSIGNED), "\n");
+			return DencodeUtils.dencodeLines(vals, (val) -> IDN.toASCII(val, IDN.ALLOW_UNASSIGNED));
 		} catch (IllegalArgumentException e) {
 			return null;
 		}
 	}
 	
-	private static String decStrPunycode(String[] vals) {
-		return DencodeUtils.dencodeEach(vals, (val) -> IDN.toUnicode(val, IDN.ALLOW_UNASSIGNED), "\n");
+	private static String decStrPunycode(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, (val) -> IDN.toUnicode(val, IDN.ALLOW_UNASSIGNED));
 	}
 }

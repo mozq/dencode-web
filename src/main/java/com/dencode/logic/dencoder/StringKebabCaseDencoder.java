@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+
 import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -32,16 +34,16 @@ public class StringKebabCaseDencoder {
 	
 	@DencoderFunction
 	public static String encStrUpperKebabCase(DencodeCondition cond) {
-		return encStrKebabCase(cond.value(), true);
+		return encStrKebabCase(cond.valueAsLines(), true);
 	}
 	
 	@DencoderFunction
 	public static String encStrLowerKebabCase(DencodeCondition cond) {
-		return encStrKebabCase(cond.value(), false);
+		return encStrKebabCase(cond.valueAsLines(), false);
 	}
 	
 	
-	private static String encStrKebabCase(String val, boolean upper) {
-		return StringUtilz.toChainCase(val, false, Boolean.valueOf(upper));
+	private static String encStrKebabCase(List<String> vals, boolean upper) {
+		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.toChainCase(val, false, Boolean.valueOf(upper)));
 	}
 }

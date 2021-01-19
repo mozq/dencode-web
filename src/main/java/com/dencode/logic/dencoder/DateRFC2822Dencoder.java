@@ -19,6 +19,7 @@ package com.dencode.logic.dencoder;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -37,19 +38,21 @@ public class DateRFC2822Dencoder {
 	
 	@DencoderFunction
 	public static String encDateRFC2822(DencodeCondition cond) {
-		return encDateRFC2822(cond.valueAsDate());
+		return encDateRFC2822(cond.valueAsDates());
 	}
 	
 	
-	private static String encDateRFC2822(ZonedDateTime dateVal) {
-		if (dateVal == null) {
-			return null;
-		}
-		
-		if (dateVal.getZone().getId().equals("UTC")) {
-			dateVal = dateVal.withZoneSameInstant(ZoneId.of("GMT"));
-		}
-		
-		return FORMATTER.format(dateVal);
+	private static String encDateRFC2822(List<ZonedDateTime> vals) {
+		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
+			if (dateVal == null) {
+				return null;
+			}
+			
+			if (dateVal.getZone().getId().equals("UTC")) {
+				dateVal = dateVal.withZoneSameInstant(ZoneId.of("GMT"));
+			}
+			
+			return FORMATTER.format(dateVal);
+		});
 	}
 }

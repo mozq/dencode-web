@@ -16,12 +16,10 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import org.mifmi.commons4j.util.StringUtilz;
+import java.util.stream.Collectors;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -37,52 +35,36 @@ public class StringLineSortDencoder {
 	
 	@DencoderFunction
 	public static String encStrLineSortAsc(DencodeCondition cond) {
-		return encStrLineSortAsc(cond.valueAsLines(), cond.lineBreak());
+		return encStrLineSortAsc(cond.valueAsLines());
 	}
 	
 	@DencoderFunction
 	public static String encStrLineSortDesc(DencodeCondition cond) {
-		return encStrLineSortDesc(cond.valueAsLines(), cond.lineBreak());
+		return encStrLineSortDesc(cond.valueAsLines());
 	}
 	
 	@DencoderFunction
 	public static String encStrLineSortReverse(DencodeCondition cond) {
-		return encStrLineSortReverse(cond.valueAsLines(), cond.lineBreak());
+		return encStrLineSortReverse(cond.valueAsLines());
 	}
 	
 	
-	private static String encStrLineSortAsc(String[] varLines, String lineBreak) {
-		String[] lines = Arrays.copyOf(varLines, varLines.length);
-		
-		Arrays.sort(lines, new Comparator<String>() {
-			@Override
-			public int compare(String o1, String o2) {
-				return o1.compareTo(o2);
-			}
-		});
-		
-		return StringUtilz.join(lineBreak, (Object[])lines);
+	private static String encStrLineSortAsc(List<String> varLines) {
+		return varLines.stream()
+				.sorted()
+				.collect(Collectors.joining("\n"));
 	}
 	
-	private static String encStrLineSortDesc(String[] varLines, String lineBreak) {
-		String[] lines = Arrays.copyOf(varLines, varLines.length);
-		
-		Arrays.sort(lines, new Comparator<String>() {
-			@Override
-			public int compare(String o1, String o2) {
-				return o2.compareTo(o1);
-			}
-		});
-		
-		return StringUtilz.join(lineBreak, (Object[])lines);
+	private static String encStrLineSortDesc(List<String> varLines) {
+		return varLines.stream()
+				.sorted(Collections.reverseOrder())
+				.collect(Collectors.joining("\n"));
 	}
 	
-	private static String encStrLineSortReverse(String[] varLines, String lineBreak) {
-		String[] lines = Arrays.copyOf(varLines, varLines.length);
-		
-		List<String> lineList = Arrays.asList(lines);
-		Collections.reverse(lineList);
-		
-		return StringUtilz.join(lineBreak, lineList);
+	private static String encStrLineSortReverse(List<String> varLines) {
+		List<String> list = new ArrayList<>(varLines);
+		Collections.reverse(list);
+		return list.stream()
+				.collect(Collectors.joining("\n"));
 	}
 }

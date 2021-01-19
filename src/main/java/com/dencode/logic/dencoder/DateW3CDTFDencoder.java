@@ -18,6 +18,7 @@ package com.dencode.logic.dencoder;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -37,11 +38,13 @@ public class DateW3CDTFDencoder {
 	
 	@DencoderFunction
 	public static String encDateW3CDTF(DencodeCondition cond) {
-		return encDateW3CDTF(cond.valueAsDate());
+		return encDateW3CDTF(cond.valueAsDates());
 	}
 	
 	
-	private static String encDateW3CDTF(ZonedDateTime dateVal) {
-		return DencodeUtils.encDate(dateVal, FORMATTER, FORMATTER_MSEC);
+	private static String encDateW3CDTF(List<ZonedDateTime> vals) {
+		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
+			return DencodeUtils.encDate(dateVal, FORMATTER, FORMATTER_MSEC);
+		});
 	}
 }

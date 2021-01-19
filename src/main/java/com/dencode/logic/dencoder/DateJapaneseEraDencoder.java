@@ -20,6 +20,7 @@ import java.time.DateTimeException;
 import java.time.ZonedDateTime;
 import java.time.chrono.JapaneseChronology;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -42,27 +43,29 @@ public class DateJapaneseEraDencoder {
 	
 	@DencoderFunction
 	public static String encDateJapaneseEra(DencodeCondition cond) {
-		return encDateJapaneseEra(cond.valueAsDate());
+		return encDateJapaneseEra(cond.valueAsDates());
 	}
 	
 	
-	private static String encDateJapaneseEra(ZonedDateTime dateVal) {
-		if (dateVal == null) {
-			return null;
-		}
-		
-		String strDate = null;
-		try {
-			strDate = DencodeUtils.encDate(dateVal, FORMATTER_JA, FORMATTER_JA_MSEC);
-		} catch (DateTimeException e) {
-			// before Meiji 6 support
-			strDate = DencodeUtils.encDate(dateVal, FORMATTER_DEFAULT, FORMATTER_DEFAULT_MSEC);
-		}
-		
-		if (strDate != null) {
-			strDate = strDate.replaceAll("([^0-9])1年", "$1元年");
-		}
-		
-		return strDate;
+	private static String encDateJapaneseEra(List<ZonedDateTime> vals) {
+		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
+			if (dateVal == null) {
+				return null;
+			}
+			
+			String strDate = null;
+			try {
+				strDate = DencodeUtils.encDate(dateVal, FORMATTER_JA, FORMATTER_JA_MSEC);
+			} catch (DateTimeException e) {
+				// before Meiji 6 support
+				strDate = DencodeUtils.encDate(dateVal, FORMATTER_DEFAULT, FORMATTER_DEFAULT_MSEC);
+			}
+			
+			if (strDate != null) {
+				strDate = strDate.replaceAll("([^0-9])1年", "$1元年");
+			}
+			
+			return strDate;
+		});
 	}
 }

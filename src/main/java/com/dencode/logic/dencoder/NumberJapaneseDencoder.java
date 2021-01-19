@@ -17,6 +17,7 @@
 package com.dencode.logic.dencoder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
@@ -35,55 +36,61 @@ public class NumberJapaneseDencoder {
 	
 	@DencoderFunction
 	public static String encNumJP(DencodeCondition cond) {
-		return encNumJP(cond.valueAsNumber());
+		return encNumJP(cond.valueAsNumbers());
 	}
 	
 	@DencoderFunction
 	public static String encNumJPDaiji(DencodeCondition cond) {
-		return encNumJPDaiji(cond.valueAsNumber());
+		return encNumJPDaiji(cond.valueAsNumbers());
 	}
 	
 	@DencoderFunction
 	public static String decNumJP(DencodeCondition cond) {
-		return decNumJP(cond.value());
+		return decNumJP(cond.valueAsLines());
 	}
 	
 	
-	private static String encNumJP(BigDecimal bigDec) {
-		if (bigDec == null) {
-			return null;
-		}
-		
-		try {
-			return NumberUtilz.toJPNum(bigDec, false, false, false);
-		} catch (NumberParseException e) {
-			return null;
-		}
+	private static String encNumJP(List<BigDecimal> vals) {
+		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
+			if (bigDec == null) {
+				return null;
+			}
+			
+			try {
+				return NumberUtilz.toJPNum(bigDec, false, false, false);
+			} catch (NumberParseException e) {
+				return null;
+			}
+		});
 	}
 	
-	private static String encNumJPDaiji(BigDecimal bigDec) {
-		if (bigDec == null) {
-			return null;
-		}
-		
-		try {
-			return NumberUtilz.toJPNum(bigDec, true, true, false);
-		} catch (NumberParseException e) {
-			return null;
-		}
+	private static String encNumJPDaiji(List<BigDecimal> vals) {
+		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
+			if (bigDec == null) {
+				return null;
+			}
+			
+			try {
+				return NumberUtilz.toJPNum(bigDec, true, true, false);
+			} catch (NumberParseException e) {
+				return null;
+			}
+		});
 	}
 	
-	private static String decNumJP(String val) {
-		BigDecimal bigDec;
-		try {
-			bigDec = NumberUtilz.parseJPNum(val);
-		} catch (NumberParseException e) {
-			return null;
-		}
-		
-		if (bigDec == null) {
-			return null;
-		}
-		return bigDec.toPlainString();
+	private static String decNumJP(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, (val) -> {
+			BigDecimal bigDec;
+			try {
+				bigDec = NumberUtilz.parseJPNum(val);
+			} catch (NumberParseException e) {
+				return null;
+			}
+			
+			if (bigDec == null) {
+				return null;
+			}
+			return bigDec.toPlainString();
+		});
 	}
 }

@@ -17,6 +17,7 @@
 package com.dencode.logic.dencoder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
@@ -35,43 +36,47 @@ public class NumberEnglishDencoder {
 	
 	@DencoderFunction
 	public static String encNumEnShortScale(DencodeCondition cond) {
-		return encNumEnShortScale(cond.valueAsNumber(), false);
+		return encNumEnShortScale(cond.valueAsNumbers(), false);
 	}
 	
 	@DencoderFunction
 	public static String encNumEnShortScaleFraction(DencodeCondition cond) {
-		return encNumEnShortScale(cond.valueAsNumber(), true);
+		return encNumEnShortScale(cond.valueAsNumbers(), true);
 	}
 	
 	@DencoderFunction
 	public static String decNumEnShortScale(DencodeCondition cond) {
-		return decNumEnShortScale(cond.value());
+		return decNumEnShortScale(cond.valueAsLines());
 	}
 	
 	
-	private static String encNumEnShortScale(BigDecimal bigDec, boolean fractionDec) {
-		if (bigDec == null) {
-			return null;
-		}
-		
-		try {
-			return NumberUtilz.toEnNumShortScale(bigDec, fractionDec);
-		} catch (NumberParseException e) {
-			return null;
-		}
+	private static String encNumEnShortScale(List<BigDecimal> vals, boolean fractionDec) {
+		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
+			if (bigDec == null) {
+				return null;
+			}
+			
+			try {
+				return NumberUtilz.toEnNumShortScale(bigDec, fractionDec);
+			} catch (NumberParseException e) {
+				return null;
+			}
+		});
 	}
 	
-	private static String decNumEnShortScale(String val) {
-		BigDecimal bigDec;
-		try {
-			bigDec = NumberUtilz.parseEnNumShortScale(val);
-		} catch (NumberParseException e) {
-			return null;
-		}
-		
-		if (bigDec == null) {
-			return null;
-		}
-		return bigDec.toPlainString();
+	private static String decNumEnShortScale(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, (val) -> {
+			BigDecimal bigDec;
+			try {
+				bigDec = NumberUtilz.parseEnNumShortScale(val);
+			} catch (NumberParseException e) {
+				return null;
+			}
+			
+			if (bigDec == null) {
+				return null;
+			}
+			return bigDec.toPlainString();
+		});
 	}
 }

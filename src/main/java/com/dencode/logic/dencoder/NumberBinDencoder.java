@@ -16,6 +16,9 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+import java.util.function.Function;
+
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -30,20 +33,20 @@ public class NumberBinDencoder {
 	
 	@DencoderFunction
 	public static String encNumBin(DencodeCondition cond) {
-		return encNumBin(cond.value());
+		return encNumBin(cond.valueAsParsedLines((val) -> DencodeUtils.encNum(val, 2)));
 	}
 	
 	@DencoderFunction
 	public static String decNumBin(DencodeCondition cond) {
-		return decNumBin(cond.value());
+		return decNumBin(cond.valueAsParsedLines((val) -> DencodeUtils.decNum(val, 2)));
 	}
 	
 	
-	private static String encNumBin(String val) {
-		return DencodeUtils.encNum(val, 2);
+	private static String encNumBin(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, Function.identity());
 	}
 	
-	private static String decNumBin(String val) {
-		return DencodeUtils.decNum(val, 2);
+	private static String decNumBin(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, Function.identity());
 	}
 }

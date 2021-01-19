@@ -23,6 +23,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -44,24 +46,42 @@ public class DencodeUtils {
 	}
 	
 	
-	protected static String[] dencodeEach(String[] vals, Function<String, String> func) {
-		String[] dencVals = new String[vals.length];
-		for (int i = 0; i < vals.length; i++) {
-			String dencVal = func.apply(vals[i]);
-			if (dencVal == null) {
-				return null;
+	protected static <T, R> List<R> dencodeEach(List<T> vals, Function<T, R> func) {
+		if (vals == null) {
+			return null;
+		}
+		
+		List<R> dencVals = new ArrayList<R>(vals.size());
+		for (T val : vals) {
+			R dencVal;
+			if (val == null) {
+				dencVal = null;
+			} else {
+				dencVal = func.apply(val);
+				if (dencVal == null) {
+					return null;
+				}
 			}
-			dencVals[i] = dencVal;
+			dencVals.add(dencVal);
 		}
 		return dencVals;
 	}
 	
-	protected static String dencodeEach(String[] vals, Function<String, String> func, String separator) {
-		String[] dencVals = dencodeEach(vals, func);
+	protected static <T> String dencodeLines(List<T> vals, Function<T, String> func) {
+		return dencodeLines(vals, func, "\n");
+	}
+	
+	protected static <T> String dencodeLines(List<T> vals, Function<T, String> func, String separator) {
+		if (vals == null) {
+			return null;
+		}
+		
+		List<String> dencVals = dencodeEach(vals, func);
 		if (dencVals == null) {
 			return null;
 		}
-		return StringUtilz.join(separator, (Object[])dencVals);
+		
+		return StringUtilz.join(separator, dencVals);
 	}
 	
 	protected static String getOption(Map<String, String> options, String key, String defaultValue) {

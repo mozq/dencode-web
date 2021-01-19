@@ -16,9 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
-import java.util.Arrays;
-
-import org.mifmi.commons4j.util.StringUtilz;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -34,13 +33,13 @@ public class StringLineUniqueDencoder {
 	
 	@DencoderFunction
 	public static String encStrLineUnique(DencodeCondition cond) {
-		return encStrLineUnique(cond.valueAsLines(), cond.lineBreak());
+		return encStrLineUnique(cond.valueAsLines());
 	}
 	
 	
-	private static String encStrLineUnique(String[] varLines, String lineBreak) {
-		Object[] objLines = Arrays.stream(varLines).distinct().toArray();
-		
-		return StringUtilz.join(lineBreak, objLines);
+	private static String encStrLineUnique(List<String> varLines) {
+		return varLines.stream()
+				.distinct()
+				.collect(Collectors.joining("\n"));
 	}
 }

@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+
 import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -32,15 +34,15 @@ public class StringSnakeCaseDencoder {
 	
 	@DencoderFunction
 	public static String encStrUpperSnakeCase(DencodeCondition cond) {
-		return encStrSnakeCase(cond.value(), true);
+		return encStrSnakeCase(cond.valueAsLines(), true);
 	}
 	
 	@DencoderFunction
 	public static String encStrLowerSnakeCase(DencodeCondition cond) {
-		return encStrSnakeCase(cond.value(), false);
+		return encStrSnakeCase(cond.valueAsLines(), false);
 	}
 	
-	private static String encStrSnakeCase(String val, boolean upper) {
-		return StringUtilz.toSnakeCase(val, false, Boolean.valueOf(upper));
+	private static String encStrSnakeCase(List<String> vals, boolean upper) {
+		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.toSnakeCase(val, false, Boolean.valueOf(upper)));
 	}
 }
