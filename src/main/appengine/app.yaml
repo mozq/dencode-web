@@ -1,7 +1,14 @@
 runtime: java11
 entrypoint: 'java -cp "*" com.dencode.web.server.ServerMain'
+
 inbound_services:
 - warmup
+
+handlers:
+- url: .*
+  script: dummy
+  secure: always
+
 automatic_scaling:
   min_idle_instances: automatic
   max_idle_instances: 1
