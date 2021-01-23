@@ -38,6 +38,8 @@ import com.dencode.logic.parser.NumberParser;
 
 public class DencodeUtils {
 	
+	private static final Pattern NUMBER_NUMS_VALUE_PATTERN = Pattern.compile("[^\\s　]+");
+	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
 	
@@ -154,13 +156,18 @@ public class DencodeUtils {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
+		
 		try {
-			String[] vals = val.split(" ", -1);
-			for (int i = 0; i < vals.length; i++) {
-				if (vals[i].isEmpty()) {
+			Matcher m = NUMBER_NUMS_VALUE_PATTERN.matcher(val);
+			StringBuilder sb = new StringBuilder(val.length());
+			while (m.find()) {
+				String v = m.group(0);
+				
+				if (v.isEmpty()) {
 					continue;
 				}
-				BigDecimal bigDec = NumberParser.parseNumDec(vals[i]);
+				
+				BigDecimal bigDec = NumberParser.parseNumDec(v);
 				if (bigDec == null) {
 					return null;
 				}
@@ -170,9 +177,11 @@ public class DencodeUtils {
 					return null;
 				}
 				
-				vals[i] = bigDec.toBigInteger().toString(radix);
+				m.appendReplacement(sb, bigDec.toBigInteger().toString(radix));
 			}
-			return StringUtilz.join(" ", (Object[])vals);
+			m.appendTail(sb);
+			
+			return sb.toString();
 		} catch (NumberFormatException e) {
 			return null;
 		}
@@ -182,16 +191,24 @@ public class DencodeUtils {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
+		
 		try {
-			String[] vals = val.split(" ", -1);
-			for (int i = 0; i < vals.length; i++) {
-				if (vals[i].isEmpty()) {
+			Matcher m = NUMBER_NUMS_VALUE_PATTERN.matcher(val);
+			StringBuilder sb = new StringBuilder(val.length());
+			while (m.find()) {
+				String v = m.group(0);
+				
+				if (v.isEmpty()) {
 					continue;
 				}
-				BigInteger bigInt = new BigInteger(vals[i], radix);
-				vals[i] = bigInt.toString(10);
+				
+				BigInteger bigInt = new BigInteger(v, radix);
+				
+				m.appendReplacement(sb, bigInt.toString(10));
 			}
-			return StringUtilz.join(" ", (Object[])vals);
+			m.appendTail(sb);
+			
+			return sb.toString();
 		} catch (NumberFormatException e) {
 			return null;
 		}
