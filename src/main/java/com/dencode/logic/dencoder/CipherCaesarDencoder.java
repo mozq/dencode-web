@@ -91,11 +91,17 @@ public class CipherCaesarDencoder {
 			char ch = val.charAt(i);
 			
 			if ('A' <= ch && ch <= 'Z') {
-				// Latin upper alphabets
+				// Half-width Latin upper alphabets
 				ch = (char)((ch - 'A' + shiftLatin) % 26 + 'A');
 			} else if ('a' <= ch && ch <= 'z') {
-				// Latin lower alphabets
+				// Half-width Latin lower alphabets
 				ch = (char)((ch - 'a' + shiftLatin) % 26 + 'a');
+			} else if ('Ａ' <= ch && ch <= 'Ｚ') {
+				// Full-width Latin upper alphabets
+				ch = (char)((ch - 'Ａ' + shiftLatin) % 26 + 'Ａ');
+			} else if ('ａ' <= ch && ch <= 'ｚ') {
+				// Full-width Latin lower alphabets
+				ch = (char)((ch - 'ａ' + shiftLatin) % 26 + 'ａ');
 			} else if ('А' <= ch && ch <= 'Я') {
 				// Cyrillic upper alphabets
 				ch = (char)((ch - 'А' + shiftCyrillic) % 32 + 'А');

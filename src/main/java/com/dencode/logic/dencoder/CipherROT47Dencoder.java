@@ -51,7 +51,11 @@ public class CipherROT47Dencoder {
 			char ch = val.charAt(i);
 			
 			if ('!' <= ch && ch <= '~') {
+				// Half-width characters
 				ch = (char)((ch - '!' + 47) % 94 + '!');
+			} else if ('！' <= ch && ch <= '～') {
+				// Full-width characters
+				ch = (char)((ch - '！' + 47) % 94 + '！');
 			}
 			
 			sb.append(ch);

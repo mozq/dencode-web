@@ -51,8 +51,16 @@ public class CipherROT13Dencoder {
 			char ch = val.charAt(i);
 			
 			if (('A' <= ch && ch <= 'M') || ('a' <= ch && ch <= 'm')) {
+				// Half-width Latin alphabets
 				ch += 13;
 			} else if (('N' <= ch && ch <= 'Z') || ('n' <= ch && ch <= 'z')) {
+				// Half-width Latin alphabets
+				ch -= 13;
+			} else if (('Ａ' <= ch && ch <= 'Ｍ') || ('ａ' <= ch && ch <= 'ｍ')) {
+				// Full-width Latin alphabets
+				ch += 13;
+			} else if (('Ｎ' <= ch && ch <= 'Ｚ') || ('ｎ' <= ch && ch <= 'ｚ')) {
+				// Full-width Latin alphabets
 				ch -= 13;
 			}
 			

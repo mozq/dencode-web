@@ -51,12 +51,28 @@ public class CipherROT18Dencoder {
 			char ch = val.charAt(i);
 			
 			if (('A' <= ch && ch <= 'M') || ('a' <= ch && ch <= 'm')) {
+				// Half-width Latin alphabets
 				ch += 13;
 			} else if (('N' <= ch && ch <= 'Z') || ('n' <= ch && ch <= 'z')) {
+				// Half-width Latin alphabets
 				ch -= 13;
 			} else if ('0' <= ch && ch <= '4') {
+				// Half-width numbers
 				ch += 5;
 			} else if ('5' <= ch && ch <= '9') {
+				// Half-width numbers
+				ch -= 5;
+			} else if (('Ａ' <= ch && ch <= 'Ｍ') || ('ａ' <= ch && ch <= 'ｍ')) {
+				// Full-width Latin alphabets
+				ch += 13;
+			} else if (('Ｎ' <= ch && ch <= 'Ｚ') || ('ｎ' <= ch && ch <= 'ｚ')) {
+				// Full-width Latin alphabets
+				ch -= 13;
+			} else if ('０' <= ch && ch <= '４') {
+				// Full-width numbers
+				ch += 5;
+			} else if ('５' <= ch && ch <= '９') {
+				// Full-width numbers
 				ch -= 5;
 			}
 			
