@@ -14,6 +14,8 @@ $(document).ready(function () {
 	
 	var _config = null;
 	
+	var _colors = null;
+	
 	var $window = $(window);
 	var $document = $(document);
 	var $localeMenuLinks = $("#localeMenu .dropdown-menu a");
@@ -231,6 +233,10 @@ $(document).ready(function () {
 
 	$v.on("input paste", function () {
 		dencode();
+	});
+
+	$v.on("keyup click", function () {
+		setBgColor($v, _colors);
 	});
 
 	if ($oeGroup.data("enable")) {
@@ -518,28 +524,10 @@ $(document).ready(function () {
 		$vLen.data("len-chars", res.textLength);
 		$vLen.data("len-bytes", res.textByteLength);
 		
-		var bgColor = res.encColorRGBHex6;
-		var color;
-		if (bgColor) {
-			var r = parseInt(bgColor.substring(1, 3), 16);
-			var g = parseInt(bgColor.substring(3, 5), 16);
-			var b = parseInt(bgColor.substring(5, 7), 16);
-			var a = (7 < bgColor.length) ? parseInt(bgColor.substring(7), 16) / 255.0 : 1.0;
-			
-			if (382 < (r + g + b) || a < 0.5) {
-				color = "black";
-			} else {
-				color = "white";
-			}
-			
-			// Temporary code: convert the color format #RRGGBBAA (CSS4) to rgba(R,G,B,A) (CSS3)
-			bgColor = "rgba(" + r + "," + g + "," + b + "," + (Math.round(a * 100) / 100) + ")";
-		} else {
-			color = "black";
-			bgColor = "transparent";
+		_colors = (res.encColorRGBHex6) ? res.encColorRGBHex6.split("\n") : null;
+		if (_colors) {
+			setBgColor($v, _colors);
 		}
-		$v.css("color", color);
-		$v.css("background-color", bgColor);
 		
 		for (var k in res) {
 			setResponseValue(k, res[k]);
@@ -669,6 +657,36 @@ function setResponseValue(id, value) {
 	}
 }
 
+function setBgColor($elm, colors) {
+	var bgColor = null;
+	if (colors) {
+		bgColor = getNonBlankValue(colors, getCurrentLineIndex($elm[0]));
+	}
+	
+	var color;
+	if (bgColor) {
+		var r = parseInt(bgColor.substring(1, 3), 16);
+		var g = parseInt(bgColor.substring(3, 5), 16);
+		var b = parseInt(bgColor.substring(5, 7), 16);
+		var a = (7 < bgColor.length) ? parseInt(bgColor.substring(7), 16) / 255.0 : 1.0;
+		
+		if (382 < (r + g + b) || a < 0.5) {
+			color = "black";
+		} else {
+			color = "white";
+		}
+		
+		// Temporary code: convert the color format #RRGGBBAA (CSS4) to rgba(R,G,B,A) (CSS3)
+		bgColor = "rgba(" + r + "," + g + "," + b + "," + (Math.round(a * 100) / 100) + ")";
+	} else {
+		color = "black";
+		bgColor = "transparent";
+	}
+	
+	$elm.css("color", color);
+	$elm.css("background-color", bgColor);
+}
+
 function selectAllTextValue(elm) {
 	if (elm.select) {
 		elm.select();
@@ -696,6 +714,15 @@ function clearSelection(elm) {
 	if (elm.setSelectionRange) {
 		elm.setSelectionRange(0, 0);
 	}
+}
+
+function getCurrentLineIndex(elm) {
+	var cursorPos = elm.selectionStart;
+	var val = elm.value;
+	
+	var n = (val.substring(0, cursorPos).match(/\n/g) || []).length;
+	
+	return n;
 }
 
 function hidePopover($popovers) {
@@ -773,4 +800,28 @@ function copyToClipboard($elm) {
 
 function setCookie(name, value) {
 	document.cookie = name + "=" + encodeURIComponent(value) + "; path=/";
+}
+
+function getNonBlankValue(values, index) {
+	if (!values) {
+		return null;
+	}
+	
+	var value;
+	
+	for (var i = Math.min(index, values.length - 1); 0 <= i; i--) {
+		value = values[i];
+		if (value !== "") {
+			return value;
+		}
+	}
+	
+	for (var i = index + 1; i < values.length; i++) {
+		value = values[i];
+		if (value !== "") {
+			return value;
+		}
+	}
+	
+	return null;
 }

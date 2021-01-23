@@ -19,6 +19,7 @@ package com.dencode.logic.dencoder;
 import static com.dencode.logic.dencoder.DencodeUtils.appendRoundString;
 
 import java.math.RoundingMode;
+import java.util.List;
 
 import org.mifmi.commons4j.graphics.color.RGBColor;
 
@@ -36,134 +37,142 @@ public class ColorRGBDencoder {
 	
 	@DencoderFunction
 	public static String encColorRGBHex3(DencodeCondition cond) {
-		return encColorRGBHex3(cond.valueAsColor());
+		return encColorRGBHex3(cond.valueAsColors());
 	}
 
 	@DencoderFunction
 	public static String encColorRGBHex6(DencodeCondition cond) {
-		return encColorRGBHex6(cond.valueAsColor());
+		return encColorRGBHex6(cond.valueAsColors());
 	}
 
 	@DencoderFunction
 	public static String encColorRGBFn8(DencodeCondition cond) {
-		return encColorRGBFn8(cond.valueAsColor());
+		return encColorRGBFn8(cond.valueAsColors());
 	}
 
 	@DencoderFunction
 	public static String encColorRGBFn(DencodeCondition cond) {
-		return encColorRGBFn(cond.valueAsColor());
+		return encColorRGBFn(cond.valueAsColors());
 	}
 	
 	
-	private static String encColorRGBHex3(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		boolean hasAlpha = (rgb.getA() != 1.0);
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append('#');
-		sb.append(Integer.toHexString(Math.round(rgb.getR8() / 17)));
-		sb.append(Integer.toHexString(Math.round(rgb.getG8() / 17)));
-		sb.append(Integer.toHexString(Math.round(rgb.getB8() / 17)));
-		if (hasAlpha) {
-			sb.append(Integer.toHexString(Math.round((int) (255.0 * rgb.getA() / 17.0))));
-		}
-		
-		return sb.toString();
+	private static String encColorRGBHex3(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+	
+			boolean hasAlpha = (rgb.getA() != 1.0);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append('#');
+			sb.append(Integer.toHexString(Math.round(rgb.getR8() / 17)));
+			sb.append(Integer.toHexString(Math.round(rgb.getG8() / 17)));
+			sb.append(Integer.toHexString(Math.round(rgb.getB8() / 17)));
+			if (hasAlpha) {
+				sb.append(Integer.toHexString(Math.round((int) (255.0 * rgb.getA() / 17.0))));
+			}
+			
+			return sb.toString();
+		});
 	}
 	
-	private static String encColorRGBHex6(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		boolean hasAlpha = (rgb.getA() != 1.0);
-
-		StringBuilder sb = new StringBuilder();
-		sb.append('#');
-		
-		if (rgb.getR8() <= 0xf) {
-			sb.append('0');
-		}
-		sb.append(Integer.toHexString(rgb.getR8()));
-		
-		if (rgb.getG8() <= 0xf) {
-			sb.append('0');
-		}
-		sb.append(Integer.toHexString(rgb.getG8()));
-		
-		if (rgb.getB8() <= 0xf) {
-			sb.append('0');
-		}
-		sb.append(Integer.toHexString(rgb.getB8()));
-		
-		if (hasAlpha) {
-			int a8 = (int) (255.0 * rgb.getA());
-			if (a8 <= 0xf) {
+	private static String encColorRGBHex6(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+	
+			boolean hasAlpha = (rgb.getA() != 1.0);
+	
+			StringBuilder sb = new StringBuilder();
+			sb.append('#');
+			
+			if (rgb.getR8() <= 0xf) {
 				sb.append('0');
 			}
-			sb.append(Integer.toHexString(a8));
-		}
-		
-		return sb.toString();
+			sb.append(Integer.toHexString(rgb.getR8()));
+			
+			if (rgb.getG8() <= 0xf) {
+				sb.append('0');
+			}
+			sb.append(Integer.toHexString(rgb.getG8()));
+			
+			if (rgb.getB8() <= 0xf) {
+				sb.append('0');
+			}
+			sb.append(Integer.toHexString(rgb.getB8()));
+			
+			if (hasAlpha) {
+				int a8 = (int) (255.0 * rgb.getA());
+				if (a8 <= 0xf) {
+					sb.append('0');
+				}
+				sb.append(Integer.toHexString(a8));
+			}
+			
+			return sb.toString();
+		});
 	}
 	
-	private static String encColorRGBFn8(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		boolean hasAlpha = (rgb.getA() != 1.0);
-		
-		StringBuilder sb = new StringBuilder();
-		if (hasAlpha) {
-			sb.append("rgba(");
-		} else {
-			sb.append("rgb(");
-		}
-		sb.append(rgb.getR8());
-		sb.append(", ");
-		sb.append(rgb.getG8());
-		sb.append(", ");
-		sb.append(rgb.getB8());
-		if (hasAlpha) {
+	private static String encColorRGBFn8(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+	
+			boolean hasAlpha = (rgb.getA() != 1.0);
+			
+			StringBuilder sb = new StringBuilder();
+			if (hasAlpha) {
+				sb.append("rgba(");
+			} else {
+				sb.append("rgb(");
+			}
+			sb.append(rgb.getR8());
 			sb.append(", ");
-			appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
-		}
-		sb.append(')');
-		
-		return sb.toString();
+			sb.append(rgb.getG8());
+			sb.append(", ");
+			sb.append(rgb.getB8());
+			if (hasAlpha) {
+				sb.append(", ");
+				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
+			}
+			sb.append(')');
+			
+			return sb.toString();
+		});
 	}
 	
-	private static String encColorRGBFn(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		boolean hasAlpha = (rgb.getA() != 1.0);
-		
-		StringBuilder sb = new StringBuilder();
-		if (hasAlpha) {
-			sb.append("rgba(");
-		} else {
-			sb.append("rgb(");
-		}
-		appendRoundString(sb, rgb.getR() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, rgb.getG() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, rgb.getB() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		if (hasAlpha) {
+	private static String encColorRGBFn(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+	
+			boolean hasAlpha = (rgb.getA() != 1.0);
+			
+			StringBuilder sb = new StringBuilder();
+			if (hasAlpha) {
+				sb.append("rgba(");
+			} else {
+				sb.append("rgb(");
+			}
+			appendRoundString(sb, rgb.getR() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
 			sb.append(", ");
-			appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
-		}
-		sb.append(')');
-		
-		return sb.toString();
+			appendRoundString(sb, rgb.getG() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			sb.append(", ");
+			appendRoundString(sb, rgb.getB() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			if (hasAlpha) {
+				sb.append(", ");
+				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
+			}
+			sb.append(')');
+			
+			return sb.toString();
+		});
 	}
 }

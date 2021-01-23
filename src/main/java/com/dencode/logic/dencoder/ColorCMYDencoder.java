@@ -19,6 +19,7 @@ package com.dencode.logic.dencoder;
 import static com.dencode.logic.dencoder.DencodeUtils.appendRoundString;
 
 import java.math.RoundingMode;
+import java.util.List;
 
 import org.mifmi.commons4j.graphics.color.CMYColor;
 import org.mifmi.commons4j.graphics.color.RGBColor;
@@ -37,38 +38,40 @@ public class ColorCMYDencoder {
 	
 	@DencoderFunction
 	public static String encColorCMYFn(DencodeCondition cond) {
-		return encColorCMYFn(cond.valueAsColor());
+		return encColorCMYFn(cond.valueAsColors());
 	}
 	
 	
-	private static String encColorCMYFn(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		CMYColor cmy = rgb.toCMY();
-		boolean hasAlpha = (cmy.getA() != 1.0);
-		
-		StringBuilder sb = new StringBuilder();
-		if (hasAlpha) {
-			sb.append("cmya(");
-		} else {
-			sb.append("cmy(");
-		}
-		appendRoundString(sb, cmy.getC() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, cmy.getM() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, cmy.getY() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		if (hasAlpha) {
+	private static String encColorCMYFn(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+			
+			CMYColor cmy = rgb.toCMY();
+			boolean hasAlpha = (cmy.getA() != 1.0);
+			
+			StringBuilder sb = new StringBuilder();
+			if (hasAlpha) {
+				sb.append("cmya(");
+			} else {
+				sb.append("cmy(");
+			}
+			appendRoundString(sb, cmy.getC() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
 			sb.append(", ");
-			appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
-		}
-		sb.append(')');
-		
-		return sb.toString();
+			appendRoundString(sb, cmy.getM() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			sb.append(", ");
+			appendRoundString(sb, cmy.getY() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			if (hasAlpha) {
+				sb.append(", ");
+				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
+			}
+			sb.append(')');
+			
+			return sb.toString();
+		});
 	}
 }

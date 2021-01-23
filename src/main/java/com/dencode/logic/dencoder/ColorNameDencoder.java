@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+
 import org.mifmi.commons4j.graphics.color.RGBColor;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -32,15 +34,17 @@ public class ColorNameDencoder {
 	
 	@DencoderFunction
 	public static String encColorName(DencodeCondition cond) {
-		return encColorName(cond.valueAsColor());
+		return encColorName(cond.valueAsColors());
 	}
 	
 	
-	private static String encColorName(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-		
-		return RGBColor.getName(rgb);
+	private static String encColorName(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+			
+			return RGBColor.getName(rgb);
+		});
 	}
 }

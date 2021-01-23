@@ -19,6 +19,7 @@ package com.dencode.logic.dencoder;
 import static com.dencode.logic.dencoder.DencodeUtils.appendRoundString;
 
 import java.math.RoundingMode;
+import java.util.List;
 
 import org.mifmi.commons4j.graphics.color.HSLColor;
 import org.mifmi.commons4j.graphics.color.RGBColor;
@@ -37,37 +38,39 @@ public class ColorHSLDencoder {
 	
 	@DencoderFunction
 	public static String encColorHSLFn(DencodeCondition cond) {
-		return encColorHSLFn(cond.valueAsColor());
+		return encColorHSLFn(cond.valueAsColors());
 	}
 	
 	
-	private static String encColorHSLFn(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		HSLColor hsl = rgb.toHSL();
-		boolean hasAlpha = (hsl.getA() != 1.0);
-		
-		StringBuilder sb = new StringBuilder();
-		if (hasAlpha) {
-			sb.append("hsla(");
-		} else {
-			sb.append("hsl(");
-		}
-		appendRoundString(sb, hsl.getH(), 2, RoundingMode.HALF_UP);
-		sb.append(", ");
-		appendRoundString(sb, hsl.getS() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, hsl.getL() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		if (hasAlpha) {
+	private static String encColorHSLFn(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+			
+			HSLColor hsl = rgb.toHSL();
+			boolean hasAlpha = (hsl.getA() != 1.0);
+			
+			StringBuilder sb = new StringBuilder();
+			if (hasAlpha) {
+				sb.append("hsla(");
+			} else {
+				sb.append("hsl(");
+			}
+			appendRoundString(sb, hsl.getH(), 2, RoundingMode.HALF_UP);
 			sb.append(", ");
-			appendRoundString(sb, hsl.getA(), 2, RoundingMode.HALF_UP);
-		}
-		sb.append(')');
-		
-		return sb.toString();
+			appendRoundString(sb, hsl.getS() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			sb.append(", ");
+			appendRoundString(sb, hsl.getL() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			if (hasAlpha) {
+				sb.append(", ");
+				appendRoundString(sb, hsl.getA(), 2, RoundingMode.HALF_UP);
+			}
+			sb.append(')');
+			
+			return sb.toString();
+		});
 	}
 }

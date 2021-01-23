@@ -19,6 +19,7 @@ package com.dencode.logic.dencoder;
 import static com.dencode.logic.dencoder.DencodeUtils.appendRoundString;
 
 import java.math.RoundingMode;
+import java.util.List;
 
 import org.mifmi.commons4j.graphics.color.CMYKColor;
 import org.mifmi.commons4j.graphics.color.RGBColor;
@@ -37,41 +38,43 @@ public class ColorCMYKDencoder {
 	
 	@DencoderFunction
 	public static String encColorCMYKFn(DencodeCondition cond) {
-		return encColorCMYKFn(cond.valueAsColor());
+		return encColorCMYKFn(cond.valueAsColors());
 	}
 	
 	
-	private static String encColorCMYKFn(RGBColor rgb) {
-		if (rgb == null) {
-			return null;
-		}
-
-		CMYKColor cmyk = rgb.toCMYK();
-		boolean hasAlpha = (cmyk.getA() != 1.0);
-		
-		StringBuilder sb = new StringBuilder();
-		if (hasAlpha) {
-			sb.append("cmyka(");
-		} else {
-			sb.append("cmyk(");
-		}
-		appendRoundString(sb, cmyk.getC() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, cmyk.getM() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, cmyk.getY() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		sb.append(", ");
-		appendRoundString(sb, cmyk.getK() * 100, 2, RoundingMode.HALF_UP);
-		sb.append('%');
-		if (hasAlpha) {
+	private static String encColorCMYKFn(List<RGBColor> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgb) -> {
+			if (rgb == null) {
+				return null;
+			}
+			
+			CMYKColor cmyk = rgb.toCMYK();
+			boolean hasAlpha = (cmyk.getA() != 1.0);
+			
+			StringBuilder sb = new StringBuilder();
+			if (hasAlpha) {
+				sb.append("cmyka(");
+			} else {
+				sb.append("cmyk(");
+			}
+			appendRoundString(sb, cmyk.getC() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
 			sb.append(", ");
-			appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
-		}
-		sb.append(')');
-		
-		return sb.toString();
+			appendRoundString(sb, cmyk.getM() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			sb.append(", ");
+			appendRoundString(sb, cmyk.getY() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			sb.append(", ");
+			appendRoundString(sb, cmyk.getK() * 100, 2, RoundingMode.HALF_UP);
+			sb.append('%');
+			if (hasAlpha) {
+				sb.append(", ");
+				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
+			}
+			sb.append(')');
+			
+			return sb.toString();
+		});
 	}
 }
