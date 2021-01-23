@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.util.List;
+
 import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -32,11 +34,11 @@ public class StringTextInitialsDencoder {
 	
 	@DencoderFunction
 	public static String encStrInitials(DencodeCondition cond) {
-		return encStrInitials(cond.value());
+		return encStrInitials(cond.valueAsLines());
 	}
 	
 	
-	private static String encStrInitials(String val) {
-		return StringUtilz.initials(val);
+	private static String encStrInitials(List<String> vals) {
+		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.initials(val));
 	}
 }
