@@ -61,6 +61,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			}
 		} else {
 			// Temporary code for migration
+			// TODO: Remove this code after migration
 			type = reqres().param("t", "all");
 			method = reqres().param("m", "all.all");
 			val = reqres().param("v", "");
