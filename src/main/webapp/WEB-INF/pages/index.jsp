@@ -33,7 +33,7 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/favicon180px.png" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/all.min.css?v=<%= new java.io.File(application.getRealPath("/static/css/all.min.css")).lastModified() %>" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/all.min.css?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/css/all.min.css"))}" />
 	<script>var contextPath = "${pageContext.request.contextPath}";</script>
 	<title>${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}</title>
 </head>
@@ -799,10 +799,10 @@
 		</div>
 		
 		<c:set var="methodDescIncPagePath" value="method-desc_${method}_${msg['lang']}.inc.jsp" scope="request" />
-		<% if (new java.io.File(application.getRealPath("/WEB-INF/pages/" + request.getAttribute("methodDescIncPagePath"))).exists()) { %>
+		<c:if test="${mf:fileExists(pageContext.servletContext.getRealPath(mf:strcat('/WEB-INF/pages/', methodDescIncPagePath)))}">
 				<hr />
 				<jsp:include page="${methodDescIncPagePath}" />
-		<% } %>
+		</c:if>
 	</div>
 </div>
 
@@ -905,7 +905,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/all.min.js?v=<%= new java.io.File(application.getRealPath("/static/js/all.min.js")).lastModified() %>"></script>
+<script src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/js/all.min.js"))}"></script>
 <script>
 	"use strict";
 	
