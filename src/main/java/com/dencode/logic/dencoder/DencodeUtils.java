@@ -202,6 +202,9 @@ public class DencodeUtils {
 					continue;
 				}
 				
+				if (radix == 16 && 3 <= val.length() && v.startsWith("0x")) {
+					v = v.substring(2);
+				}
 				BigInteger bigInt = new BigInteger(v, radix);
 				
 				m.appendReplacement(sb, bigInt.toString(10));

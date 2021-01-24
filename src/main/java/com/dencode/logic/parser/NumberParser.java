@@ -17,6 +17,7 @@
 package com.dencode.logic.parser;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
@@ -35,28 +36,51 @@ public class NumberParser {
 		
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		val = val.replace(",", "");
-		try {
-			// Standard Format
-			return new BigDecimal(val);
-		} catch (NumberFormatException e) {
-			BigDecimal enNum;
+		
+		BigDecimal num;
+		
+		// Hex Format
+		if (3 <= val.length() && val.startsWith("0x")) {
 			try {
-				// English Format
-				enNum = NumberUtilz.parseEnNumShortScale(val);
-			} catch (NumberParseException e1) {
-				enNum = null;
+				num = new BigDecimal(new BigInteger(val.substring(2), 16));
+			} catch (NumberFormatException e) {
+				num = null;
 			}
-			
-			if (enNum != null) {
-				return enNum;
-			}
-			
-			// Japanese Format
-			try {
-				return NumberUtilz.parseJPNum(val);
-			} catch (NumberParseException e1) {
-				return null;
+			if (num != null) {
+				return num;
 			}
 		}
+		
+		// Standard Decimal Format
+		try {
+			num = new BigDecimal(val);
+		} catch (NumberFormatException e) {
+			num = null;
+		}
+		if (num != null) {
+			return num;
+		}
+		
+		// English Format
+		try {
+			num = NumberUtilz.parseEnNumShortScale(val);
+		} catch (NumberParseException e1) {
+			num = null;
+		}
+		if (num != null) {
+			return num;
+		}
+		
+		// Japanese Format
+		try {
+			num = NumberUtilz.parseJPNum(val);
+		} catch (NumberParseException e1) {
+			num = null;
+		}
+		if (num != null) {
+			return num;
+		}
+		
+		return null;
 	}
 }
