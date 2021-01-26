@@ -34,6 +34,9 @@ dependencies {
   implementation 'org.mifmi:mifmi-commons4j:0.2.7'
   api 'commons-codec:commons-codec:1.14'
   api 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+  
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
 }
 
 appengine {
