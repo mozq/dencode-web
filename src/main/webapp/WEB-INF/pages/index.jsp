@@ -114,9 +114,12 @@
 						<ul class="dropdown-menu" role="menu">
 							<li class="${(method eq 'number.all') ? 'active' : ''}" data-dencode-method="number.all"><a href="${mf:h(basePath)}/number">${mf:h(msg['number.all.method'])}</a></li>
 							<li class="divider"></li>
+							<li class="${(method eq 'number.dec') ? 'active' : ''}" data-dencode-method="number.dec"><a href="${mf:h(basePath)}/number/dec">${mf:h(msg['number.dec.method'])}</a></li>
+							<li class="divider"></li>
 							<li class="${(method eq 'number.bin') ? 'active' : ''}" data-dencode-method="number.bin"><a href="${mf:h(basePath)}/number/bin">${mf:h(msg['number.bin.method'])}</a></li>
 							<li class="${(method eq 'number.oct') ? 'active' : ''}" data-dencode-method="number.oct"><a href="${mf:h(basePath)}/number/oct">${mf:h(msg['number.oct.method'])}</a></li>
 							<li class="${(method eq 'number.hex') ? 'active' : ''}" data-dencode-method="number.hex"><a href="${mf:h(basePath)}/number/hex">${mf:h(msg['number.hex.method'])}</a></li>
+							<li class="divider"></li>
 							<li class="${(method eq 'number.english') ? 'active' : ''}" data-dencode-method="number.english"><a href="${mf:h(basePath)}/number/english">${mf:h(msg['number.english.method'])}</a></li>
 							<li class="${(method eq 'number.japanese') ? 'active' : ''}" data-dencode-method="number.japanese"><a href="${mf:h(basePath)}/number/japanese">${mf:h(msg['number.japanese.method'])}</a></li>
 						</ul>
@@ -325,9 +328,14 @@
 					</c:if>
 					<c:if test="${types.contains('number')}">
 						<tbody>
+							<c:if test="${methods.contains('number.dec')}"><tr data-dencode-method="number.dec"><th>${mf:h(msg['label.decNumDec'])}</th><td><span id="decNumDec" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
 							<c:if test="${methods.contains('number.bin')}"><tr data-dencode-method="number.bin"><th>${mf:h(msg['label.decNumBin'])}</th><td><span id="decNumBin" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.oct')}"><tr data-dencode-method="number.oct"><th>${mf:h(msg['label.decNumOct'])}</th><td><span id="decNumOct" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.hex')}"><tr data-dencode-method="number.hex"><th>${mf:h(msg['label.decNumHex'])}</th><td><span id="decNumHex" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
 							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.decNumEnShortScale'])}</th><td><span id="decNumEnShortScale" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.japanese')}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['label.decNumJP'])}</th><td><span id="decNumJP" class="for-disp"></span></td></tr></c:if>
 						</tbody>
@@ -561,9 +569,14 @@
 					</c:if>
 					<c:if test="${types.contains('number')}">
 						<tbody>
+							<c:if test="${methods.contains('number.dec')}"><tr data-dencode-method="number.dec"><th>${mf:h(msg['label.encNumDec'])}</th><td><span id="encNumDec" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
 							<c:if test="${methods.contains('number.bin')}"><tr data-dencode-method="number.bin"><th>${mf:h(msg['label.encNumBin'])}</th><td><span id="encNumBin" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.oct')}"><tr data-dencode-method="number.oct"><th>${mf:h(msg['label.encNumOct'])}</th><td><span id="encNumOct" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.hex')}"><tr data-dencode-method="number.hex"><th>${mf:h(msg['label.encNumHex'])}</th><td><span id="encNumHex" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
 							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScale'])}</th><td><span id="encNumEnShortScale" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScaleFraction'])}</th><td><span id="encNumEnShortScaleFraction" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.japanese')}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['label.encNumJP'])}</th><td><span id="encNumJP" class="for-disp"></span></td></tr></c:if>
