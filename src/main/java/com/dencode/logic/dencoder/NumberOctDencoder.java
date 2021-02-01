@@ -16,12 +16,13 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Function;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
+import com.dencode.logic.parser.NumberParser;
 
 @Dencoder(type="number", method="number.oct")
 public class NumberOctDencoder {
@@ -33,20 +34,29 @@ public class NumberOctDencoder {
 	
 	@DencoderFunction
 	public static String encNumOct(DencodeCondition cond) {
-		return encNumOct(cond.valueAsParsedLines((val) -> DencodeUtils.encNum(val, 8)));
+		return encNumOct(cond.valueAsNumbers());
 	}
 	
 	@DencoderFunction
 	public static String decNumOct(DencodeCondition cond) {
-		return decNumOct(cond.valueAsParsedLines((val) -> DencodeUtils.decNum(val, 8)));
+		return decNumOct(cond.valueAsLines());
 	}
 	
 	
-	private static String encNumOct(List<String> vals) {
-		return DencodeUtils.dencodeLines(vals, Function.identity());
+	private static String encNumOct(List<BigDecimal> vals) {
+		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
+			return DencodeUtils.encNum(bigDec, 8, 100, 3);
+		});
 	}
 	
 	private static String decNumOct(List<String> vals) {
-		return DencodeUtils.dencodeLines(vals, Function.identity());
+		return DencodeUtils.dencodeLines(vals, (val) -> {
+			BigDecimal bigDec = NumberParser.parseOct(val);
+			if (bigDec == null) {
+				return null;
+			}
+			
+			return bigDec.toPlainString();
+		});
 	}
 }

@@ -24,6 +24,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -34,11 +35,9 @@ import org.apache.commons.codec.binary.Hex;
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 
-import com.dencode.logic.parser.NumberParser;
-
 public class DencodeUtils {
 	
-	private static final Pattern NUMBER_NUMS_VALUE_PATTERN = Pattern.compile("[^\\s　]+");
+	private static final BigDecimal TWO = BigDecimal.valueOf(2);
 	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
@@ -152,71 +151,121 @@ public class DencodeUtils {
 		}
 	}
 	
-	protected static String encNum(String val, int radix) {
-		if (val == null || val.isEmpty()) {
+	protected static String encNum(BigDecimal bigDec, int radix, int decimalMaxDigits, int decimalMaxRecurringCount) {
+		if (bigDec == null) {
 			return null;
 		}
 		
-		try {
-			Matcher m = NUMBER_NUMS_VALUE_PATTERN.matcher(val);
-			StringBuilder sb = new StringBuilder(val.length());
-			while (m.find()) {
-				String v = m.group(0);
-				
-				if (v.isEmpty()) {
-					continue;
-				}
-				
-				BigDecimal bigDec = NumberParser.parseNumDec(v);
-				if (bigDec == null) {
-					return null;
-				}
-				
-				if (NumberUtilz.digitLengthDecimalPart(bigDec) != 0) {
-					// Decimal
-					return null;
-				}
-				
-				m.appendReplacement(sb, bigDec.toBigInteger().toString(radix));
+		BigInteger intPart = bigDec.toBigInteger();
+		String intPartStr = intPart.toString(radix);
+		int decPartLen = NumberUtilz.digitLengthDecimalPart(bigDec);
+		
+		if (decPartLen == 0) {
+			// Integer
+			return intPartStr;
+		} else {
+			// Decimal
+			BigDecimal decPart = NumberUtilz.getDecimalPart(bigDec);
+			
+			if (decPart.signum() == 0) {
+				return intPartStr + ".0";
 			}
-			m.appendTail(sb);
+			
+			int bitsPer;
+			switch (radix) {
+			case 2: bitsPer = 1; break;
+			case 8: bitsPer = 3; break;
+			case 16: bitsPer = 4; break;
+			default: throw new IllegalArgumentException("Unsupported radix. radix: " + radix);
+			}
+			
+			int decimalMaxBits = decimalMaxDigits * bitsPer;
+
+			StringBuilder sb = new StringBuilder(intPartStr.length() + decimalMaxDigits + 5); // 5 is length of "-", "." and "..."
+			if (intPart.signum() == 0 && decPart.signum() < 0) {
+				sb.append('-');
+			}
+			sb.append(intPartStr);
+			sb.append('.');
+			
+			BigDecimal d = decPart.abs();
+			HashMap<BigDecimal, Integer> recurringCountMap = (0 < decimalMaxRecurringCount) ? new HashMap<BigDecimal, Integer>(decimalMaxBits) : null;
+			boolean recurringBreak = false;
+			for (int i = 0, bits = 0, bitsIdx = 1; i < decimalMaxBits; i++, bits <<= 1, bitsIdx++) {
+				d = d.multiply(TWO);
+				
+				if (recurringCountMap != null) {
+					// Check recurring decimal
+					
+					Integer n = recurringCountMap.get(d);
+					if (n == null) {
+						recurringCountMap.put(d, Integer.valueOf(1));
+					} else if (n.intValue() < decimalMaxRecurringCount) {
+						recurringCountMap.put(d, Integer.valueOf(n.intValue() + 1));
+					} else {
+						// Over the max recurring count
+						recurringBreak = true;
+					}
+				}
+				
+				if (d.compareTo(BigDecimal.ONE) >= 0) {
+					bits |= 1;
+					d = NumberUtilz.getDecimalPart(d);
+					
+					if (d.signum() == 0) {
+						// Last digit
+						
+						// Output stacked bits
+						bits <<= (bitsPer - bitsIdx);
+						appendDigit(sb, bits);
+						
+						break;
+					}
+				}
+				
+				if (bitsIdx == bitsPer) {
+					// Output bits
+					appendDigit(sb, bits);
+					
+					bits = 0;
+					bitsIdx = 0;
+					
+					if (recurringBreak) {
+						break;
+					}
+				}
+			}
+			
+			if (d.signum() != 0) {
+				sb.append("...");
+			}
 			
 			return sb.toString();
-		} catch (NumberFormatException e) {
-			return null;
 		}
 	}
 	
-	protected static String decNum(String val, int radix) {
-		if (val == null || val.isEmpty()) {
-			return null;
-		}
-		
-		try {
-			Matcher m = NUMBER_NUMS_VALUE_PATTERN.matcher(val);
-			StringBuilder sb = new StringBuilder(val.length());
-			while (m.find()) {
-				String v = m.group(0);
-				
-				if (v.isEmpty()) {
-					continue;
-				}
-				
-				if (radix == 16 && 3 <= val.length() && v.startsWith("0x")) {
-					v = v.substring(2);
-				}
-				BigInteger bigInt = new BigInteger(v, radix);
-				
-				m.appendReplacement(sb, bigInt.toString(10));
-			}
-			m.appendTail(sb);
-			
-			return sb.toString();
-		} catch (NumberFormatException e) {
-			return null;
+	private static void appendDigit(StringBuilder sb, int n) {
+		switch (n) {
+		case 0: sb.append('0'); break;
+		case 1: sb.append('1'); break;
+		case 2: sb.append('2'); break;
+		case 3: sb.append('3'); break;
+		case 4: sb.append('4'); break;
+		case 5: sb.append('5'); break;
+		case 6: sb.append('6'); break;
+		case 7: sb.append('7'); break;
+		case 8: sb.append('8'); break;
+		case 9: sb.append('9'); break;
+		case 10: sb.append('a'); break;
+		case 11: sb.append('b'); break;
+		case 12: sb.append('c'); break;
+		case 13: sb.append('d'); break;
+		case 14: sb.append('e'); break;
+		case 15: sb.append('f'); break;
+		default: assert false : "n=" + n;
 		}
 	}
-
+	
 	protected static String encDate(ZonedDateTime dateVal, DateTimeFormatter formatter, DateTimeFormatter formatterWithMsec) {
 		if (dateVal == null) {
 			return null;

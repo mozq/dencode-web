@@ -132,7 +132,7 @@ public class DencodeCondition {
 	
 	public BigDecimal valueAsNumber() {
 		if (!this.numberValueParsed) {
-			this.numberValue = NumberParser.parseNumDec(value());
+			this.numberValue = NumberParser.parse(value());
 			this.numberValueParsed = true;
 		}
 		return this.numberValue;
@@ -140,7 +140,7 @@ public class DencodeCondition {
 	
 	public List<BigDecimal> valueAsNumbers() {
 		if (!this.numbersValueParsed) {
-			this.numbersValue = valueAsParsedLines((val) -> NumberParser.parseNumDec(val));
+			this.numbersValue = valueAsParsedLines((val) -> NumberParser.parse(val));
 			this.numbersValueParsed = true;
 		}
 		return this.numbersValue;

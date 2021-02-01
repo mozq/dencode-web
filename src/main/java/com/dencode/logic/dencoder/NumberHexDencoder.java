@@ -16,12 +16,13 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Function;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
+import com.dencode.logic.parser.NumberParser;
 
 @Dencoder(type="number", method="number.hex")
 public class NumberHexDencoder {
@@ -33,20 +34,29 @@ public class NumberHexDencoder {
 	
 	@DencoderFunction
 	public static String encNumHex(DencodeCondition cond) {
-		return encNumHex(cond.valueAsParsedLines((val) -> DencodeUtils.encNum(val, 16)));
+		return encNumHex(cond.valueAsNumbers());
 	}
 	
 	@DencoderFunction
 	public static String decNumHex(DencodeCondition cond) {
-		return decNumHex(cond.valueAsParsedLines((val) -> DencodeUtils.decNum(val, 16)));
+		return decNumHex(cond.valueAsLines());
 	}
 	
 	
-	private static String encNumHex(List<String> vals) {
-		return DencodeUtils.dencodeLines(vals, Function.identity());
+	private static String encNumHex(List<BigDecimal> vals) {
+		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
+			return DencodeUtils.encNum(bigDec, 16, 100, 3);
+		});
 	}
 	
 	private static String decNumHex(List<String> vals) {
-		return DencodeUtils.dencodeLines(vals, Function.identity());
+		return DencodeUtils.dencodeLines(vals, (val) -> {
+			BigDecimal bigDec = NumberParser.parseHex(val);
+			if (bigDec == null) {
+				return null;
+			}
+			
+			return bigDec.toPlainString();
+		});
 	}
 }

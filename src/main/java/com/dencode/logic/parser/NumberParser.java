@@ -32,7 +32,7 @@ public class NumberParser {
 		// NOP
 	}
 	
-	public static BigDecimal parseNumDec(String val) {
+	public static BigDecimal parse(String val) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -49,7 +49,7 @@ public class NumberParser {
 		}
 		
 		// Hex Format
-		if (3 <= val.length() && val.startsWith("0x")) {
+		if (val.startsWith("0x") || val.startsWith("-0x")) {
 			num = parseHex(val);
 			if (num != null) {
 				return num;
@@ -72,6 +72,9 @@ public class NumberParser {
 	}
 	
 	public static BigDecimal parseDec(String val) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
 		
 		if (NUM_DEC_PATTERN_DOT_COMMA.matcher(val).matches()) {
 			// 0.000.000,0 -> 0000000.0
@@ -89,35 +92,93 @@ public class NumberParser {
 	}
 	
 	public static BigDecimal parseBin(String val) {
-		try {
-			return new BigDecimal(new BigInteger(val, 2));
-		} catch (NumberFormatException e) {
-			return null;
-		}
+		return parse(val, 2);
 	}
 	
 	public static BigDecimal parseOct(String val) {
-		try {
-			return new BigDecimal(new BigInteger(val, 8));
-		} catch (NumberFormatException e) {
-			return null;
-		}
+		return parse(val, 8);
 	}
 	
 	public static BigDecimal parseHex(String val) {
-		if (3 <= val.length() && val.startsWith("0x")) {
-			// Remove hex prefix
-			val = val.substring(2);
+		return parse(val, 16);
+	}
+
+	private static BigDecimal parse(String val, int radix) {
+		if (val == null || val.isEmpty()) {
+			return null;
 		}
 		
-		try {
-			return new BigDecimal(new BigInteger(val, 16));
-		} catch (NumberFormatException e) {
+		if (val.endsWith("...")) {
+			// Remove "..." suffix
+			val = val.substring(0, val.length() - 3);
+		}
+		
+		if (radix == 16) {
+			// Remove hex prefix
+			if (val.startsWith("0x")) {
+				val = val.substring(2);
+			} else if (val.startsWith("-0x")) {
+				val = "-" + val.substring(3);
+			}
+		}
+		
+		if (val.isEmpty()) {
 			return null;
+		}
+		
+		int decMarkIdx = val.indexOf('.');
+		if (decMarkIdx == -1) {
+			try {
+				return new BigDecimal(new BigInteger(val, radix));
+			} catch (NumberFormatException e) {
+				return null;
+			}
+		} else {
+			int decPartLen = val.length() - decMarkIdx - 1;
+
+			boolean negative;
+			BigDecimal intPart;
+			try {
+				String intPartStr = val.substring(0, decMarkIdx);
+				if (intPartStr.isEmpty() || intPartStr.equals("+") || intPartStr.equals("-")) {
+					intPart = BigDecimal.ZERO;
+				} else {
+					intPart = new BigDecimal(new BigInteger(val.substring(0, decMarkIdx), radix));
+				}
+				
+				negative = (intPartStr.startsWith("-") || intPart.signum() < 0); // if -0 then signum() == 0, so store the sign
+			} catch (NumberFormatException e) {
+				return null;
+			}
+			if (decPartLen == 0) {
+				return intPart;
+			}
+			
+			BigDecimal decPart;
+			try {
+				decPart = new BigDecimal(new BigInteger(val.substring(decMarkIdx + 1), radix));
+			} catch (NumberFormatException e) {
+				return null;
+			}
+			if (decPart.signum() == 0) {
+				return intPart.setScale(1);
+			}
+			
+			decPart = decPart.divide(BigDecimal.valueOf(radix).pow(decPartLen));
+			
+			if (negative) {
+				return intPart.subtract(decPart);
+			} else {
+				return intPart.add(decPart);
+			}
 		}
 	}
 	
 	public static BigDecimal parseEnNumShortScale(String val) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
+		
 		try {
 			return NumberUtilz.parseEnNumShortScale(val);
 		} catch (NumberParseException e1) {
@@ -126,6 +187,10 @@ public class NumberParser {
 	}
 	
 	public static BigDecimal parseJPNum(String val) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
+		
 		try {
 			return NumberUtilz.parseJPNum(val);
 		} catch (NumberParseException e1) {
