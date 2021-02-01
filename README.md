@@ -50,6 +50,7 @@ gcloud config set project {PROJECT_ID}
 	- [Line Sort](https://dencode.com/string/line-sort)
 	- [Line Unique](https://dencode.com/string/line-unique)
 - [Number](https://dencode.com/number)
+	- [Decimal Numbers](https://dencode.com/number/dec)
 	- [Binary Numbers](https://dencode.com/number/bin)
 	- [Octal Numbers](https://dencode.com/number/oct)
 	- [Hexadecimal Numbers](https://dencode.com/number/hex)
