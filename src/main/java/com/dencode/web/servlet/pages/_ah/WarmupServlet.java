@@ -16,6 +16,8 @@
  */
 package com.dencode.web.servlet.pages._ah;
 
+import java.util.ResourceBundle;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,6 +32,11 @@ public class WarmupServlet extends AbstractDencodeHttpServlet {
 	protected void doGet() throws Exception {
 		// Warm up
 		DencodeMapper.init();
+		
+		String[] locales = config().getAsStringArray("locales");
+		for (String locale : locales) {
+			ResourceBundle.getBundle("messages", toLocale(locale));
+		}
 		
 		// Response
 		HttpServletResponse res = response();
