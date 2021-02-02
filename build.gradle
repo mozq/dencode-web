@@ -10,7 +10,6 @@ buildscript {
 
 plugins {
   id 'java'
-  id 'java-library'
   id 'war'
   id 'com.eriwen.gradle.css' version '2.14.0'
   id 'eu.butter.gradle.js' version '2.15.1'
@@ -24,16 +23,16 @@ repositories {
 }
 
 dependencies {
-  providedCompile 'org.eclipse.jetty:jetty-server:9.4.30.v20200611'
-  providedCompile 'org.eclipse.jetty:jetty-webapp:9.4.30.v20200611'
-  providedCompile 'org.eclipse.jetty:jetty-util:9.4.30.v20200611'
-  providedCompile 'org.eclipse.jetty:jetty-annotations:9.4.30.v20200611'
-  providedCompile 'org.eclipse.jetty:apache-jsp:9.4.30.v20200611'
+  providedCompile 'org.eclipse.jetty:jetty-server:9.4.+'
+  providedCompile 'org.eclipse.jetty:jetty-webapp:9.4.+'
+  providedCompile 'org.eclipse.jetty:jetty-util:9.4.+'
+  providedCompile 'org.eclipse.jetty:jetty-annotations:9.4.+'
+  providedCompile 'org.eclipse.jetty:apache-jsp:9.4.+'
   
   implementation 'jstl:jstl:1.2'
-  implementation 'org.mifmi:mifmi-commons4j:0.2.7'
-  api 'commons-codec:commons-codec:1.14'
-  api 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+  implementation 'org.mifmi:mifmi-commons4j:0.2.+'
+  implementation 'commons-codec:commons-codec:1.15'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.+'
   
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
