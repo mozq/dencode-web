@@ -43,7 +43,11 @@ public class DateUnixTimeDencoder {
 				return null;
 			}
 			
-			return String.valueOf(dateVal.toInstant().toEpochMilli());
+			try {
+				return String.valueOf(dateVal.toInstant().toEpochMilli());
+			} catch (ArithmeticException e) {
+				return null;
+			}
 		});
 	}
 }
