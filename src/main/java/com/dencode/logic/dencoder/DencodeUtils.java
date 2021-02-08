@@ -156,7 +156,13 @@ public class DencodeUtils {
 			return null;
 		}
 		
-		BigInteger intPart = bigDec.toBigInteger();
+		BigInteger intPart;
+		try {
+			intPart = bigDec.toBigInteger();
+		} catch (ArithmeticException e) {
+			return null;
+		}
+		
 		String intPartStr = intPart.toString(radix);
 		int decPartLen = NumberUtilz.digitLengthDecimalPart(bigDec);
 		
