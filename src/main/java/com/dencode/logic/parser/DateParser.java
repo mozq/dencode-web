@@ -24,12 +24,9 @@ import java.time.Month;
 import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoLocalDate;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.chrono.JapaneseChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -40,6 +37,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.mifmi.commons4j.util.DateUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 
 public class DateParser {
@@ -302,7 +300,7 @@ public class DateParser {
 		for (DateTimeFormatter formatter : formatters) {
 			try {
 				TemporalAccessor temporal = formatter.parseBest(date, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from, LocalDate::from, OffsetTime::from, LocalTime::from, YearMonth::from, MonthDay::from);
-				Instant instant = toInstant(temporal, defaultZone, defaultYear, defaultMonth, defaultDay);
+				Instant instant = DateUtilz.toInstant(temporal, defaultZone, defaultYear, defaultMonth, defaultDay);
 				ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zone);
 				return zdt;
 			} catch (DateTimeParseException e) {
@@ -315,35 +313,5 @@ public class DateParser {
 		}
 		
 		return null;
-	}
-	
-	private static Instant toInstant(TemporalAccessor temporal, ZoneId defaultZone, int defaultYear, Month defaultMonth, int defaultDay) {
-
-		Instant instant;
-		if (temporal instanceof ZonedDateTime) {
-			instant = ((ZonedDateTime)temporal).toInstant();
-		} else if (temporal instanceof OffsetDateTime) {
-			instant = ((OffsetDateTime)temporal).toInstant();
-		} else if (temporal instanceof OffsetTime) {
-			instant = ((OffsetTime)temporal).atDate(LocalDate.of(defaultYear, defaultMonth, defaultDay)).toInstant();
-		} else if (temporal instanceof ChronoLocalDateTime) {
-			instant = ((ChronoLocalDateTime<?>)temporal).atZone(defaultZone).toInstant();
-		} else if (temporal instanceof ChronoLocalDate) {
-			instant = ((ChronoLocalDate)temporal).atTime(LocalTime.MIDNIGHT).atZone(defaultZone).toInstant();
-		} else if (temporal instanceof LocalTime) {
-			instant = ((LocalTime)temporal).atDate(LocalDate.of(defaultYear, defaultMonth, defaultDay)).atZone(defaultZone).toInstant();
-		} else if (temporal instanceof Year) {
-			instant = ((Year)temporal).atDay(defaultDay).atStartOfDay().atZone(defaultZone).toInstant();
-		} else if (temporal instanceof YearMonth) {
-			instant = ((YearMonth)temporal).atDay(1).atStartOfDay().atZone(defaultZone).toInstant();
-		} else if (temporal instanceof Month) {
-			instant = LocalDate.of(defaultYear, (Month)temporal, defaultDay).atStartOfDay().atZone(defaultZone).toInstant();
-		} else if (temporal instanceof MonthDay) {
-			instant = ((MonthDay)temporal).atYear(defaultYear).atStartOfDay().atZone(defaultZone).toInstant();
-		} else {
-			instant = Instant.from(temporal);
-		}
-		
-		return instant;
 	}
 }

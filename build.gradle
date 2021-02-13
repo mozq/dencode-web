@@ -30,7 +30,7 @@ dependencies {
   providedCompile 'org.eclipse.jetty:apache-jsp:9.4.+'
   
   implementation 'jstl:jstl:1.2'
-  implementation 'org.mifmi:mifmi-commons4j:0.2.+'
+  implementation 'org.mifmi:mifmi-commons4j:0.2.9'
   implementation 'commons-codec:commons-codec:1.15'
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.+'
   
