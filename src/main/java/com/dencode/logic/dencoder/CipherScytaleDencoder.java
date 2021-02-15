@@ -30,26 +30,30 @@ public class CipherScytaleDencoder {
 	
 	@DencoderFunction
 	public static String encCipherScytale(DencodeCondition cond) {
-		return encCipherScytale(cond.value(),
+		return encCipherScytale(cond.valueAsCodePointsWithLf(),
 				DencodeUtils.getOptionAsInt(cond.options(), "encCipherScytaleKey", 2));
 	}
 	
 	@DencoderFunction
 	public static String decCipherScytale(DencodeCondition cond) {
-		return decCipherScytale(cond.value(),
+		return decCipherScytale(cond.valueAsCodePointsWithLf(),
 				DencodeUtils.getOptionAsInt(cond.options(), "decCipherScytaleKey", 2));
 	}
 	
 	
-	private static String encCipherScytale(String val, int key) {
-		if (val == null || val.length() <= key) {
-			return val;
+	private static String encCipherScytale(int[] cps, int key) {
+		if (cps == null) {
+			return null;
 		}
 		
-		StringBuilder sb = new StringBuilder(val.length());
-		
-		int[] cps = val.codePoints().toArray();
 		int len = cps.length;
+		
+		if (len == 0) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder(len); // Extends automatically if surrogate pairs are included
+		
 		int maxY = key;
 		int maxX = (int)Math.ceil(((double)len) / maxY);
 		for (int x = 0; x < maxX; x++) {
@@ -62,15 +66,19 @@ public class CipherScytaleDencoder {
 		return sb.toString();
 	}
 	
-	private static String decCipherScytale(String val, int key) {
-		if (val == null || val.length() <= key) {
-			return val;
+	private static String decCipherScytale(int[] cps, int key) {
+		if (cps == null) {
+			return null;
 		}
 		
-		StringBuilder sb = new StringBuilder(val.length());
-		
-		int[] cps = val.codePoints().toArray();
 		int len = cps.length;
+		
+		if (len == 0) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder(len);
+		
 		int maxX = (int)Math.ceil(((double)len) / key);
 		int minX = len % maxX;
 		minX = (minX == 0) ? maxX : minX;

@@ -45,6 +45,9 @@ public class DencodeCondition {
 	
 	private byte[] binaryValue;
 	
+	private boolean codePointsWithLfValueParsed;
+	private int[] codePointsWithLfValue;
+	
 	private boolean numberValueParsed;
 	private BigDecimal numberValue;
 	
@@ -66,6 +69,10 @@ public class DencodeCondition {
 	private Map<String, String> options;
 	
 	public DencodeCondition(String value, Charset charset, String lineBreak, ZoneId zone, Map<String, String> options) {
+		if (value == null) {
+			throw new NullPointerException("value is null");
+		}
+		
 		this.value = value;
 		this.charset = charset;
 		this.lineBreak = lineBreak;
@@ -79,6 +86,9 @@ public class DencodeCondition {
 		this.textLengthDiff = (this.linesValue.isEmpty()) ? 0 : -((this.lineBreak.length() - 1) * (this.linesValue.size() - 1));
 		
 		this.binaryValue = this.value.getBytes(this.charset);
+		
+		this.codePointsWithLfValueParsed = false;
+		this.codePointsWithLfValue = null;
 		
 		this.numberValueParsed = false;
 		this.numberValue = null;
@@ -128,6 +138,18 @@ public class DencodeCondition {
 	
 	public byte[] valueAsBinary() {
 		return binaryValue;
+	}
+	
+	public int[] valueAsCodePointsWithLf() {
+		if (!this.codePointsWithLfValueParsed) {
+			String value = value();
+			if (1 < valueAsLines().size()) {
+				value = StringUtilz.join("\n", valueAsLines());
+			}
+			this.codePointsWithLfValue = value.codePoints().toArray();
+			this.codePointsWithLfValueParsed = true;
+		}
+		return this.codePointsWithLfValue;
 	}
 	
 	public BigDecimal valueAsNumber() {

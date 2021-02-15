@@ -37,7 +37,9 @@ import org.mifmi.commons4j.util.StringUtilz;
 
 public class DencodeUtils {
 	
-	private static final BigDecimal TWO = BigDecimal.valueOf(2);
+	private static final Integer INT_ONE = Integer.valueOf(1);
+	
+	private static final BigDecimal DEC_TWO = BigDecimal.valueOf(2);
 	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
@@ -198,14 +200,14 @@ public class DencodeUtils {
 			HashMap<BigDecimal, Integer> recurringCountMap = (0 < decimalMaxRecurringCount) ? new HashMap<BigDecimal, Integer>(decimalMaxBits) : null;
 			boolean recurringBreak = false;
 			for (int i = 0, bits = 0, bitsIdx = 1; i < decimalMaxBits; i++, bits <<= 1, bitsIdx++) {
-				d = d.multiply(TWO);
+				d = d.multiply(DEC_TWO);
 				
 				if (recurringCountMap != null) {
 					// Check recurring decimal
 					
 					Integer n = recurringCountMap.get(d);
 					if (n == null) {
-						recurringCountMap.put(d, Integer.valueOf(1));
+						recurringCountMap.put(d, INT_ONE);
 					} else if (n.intValue() < decimalMaxRecurringCount) {
 						recurringCountMap.put(d, Integer.valueOf(n.intValue() + 1));
 					} else {
@@ -216,7 +218,7 @@ public class DencodeUtils {
 				
 				if (d.compareTo(BigDecimal.ONE) >= 0) {
 					bits |= 1;
-					d = NumberUtilz.getDecimalPart(d);
+					d = d.subtract(BigDecimal.ONE);
 					
 					if (d.signum() == 0) {
 						// Last digit

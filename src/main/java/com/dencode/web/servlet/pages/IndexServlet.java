@@ -25,7 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.servlet.annotation.WebServlet;
@@ -88,11 +87,9 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		String nl = reqres().param("nl", reqres().cookie("nl", ""));
 		String tz = reqres().param("tz", reqres().cookie("tz", null));
 		if (tz == null) {
-			TimeZone timeZone = DateUtilz.localeToTimeZone(request().getLocale());
-			if (timeZone == null) {
+			tz = DateUtilz.localeToTimeZoneID(request().getLocale());
+			if (tz == null) {
 				tz = "UTC";
-			} else {
-				tz = timeZone.getID();
 			}
 		}
 		

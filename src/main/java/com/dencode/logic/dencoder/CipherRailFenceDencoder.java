@@ -30,26 +30,30 @@ public class CipherRailFenceDencoder {
 	
 	@DencoderFunction
 	public static String encCipherRailFence(DencodeCondition cond) {
-		return encCipherRailFence(cond.value(),
+		return encCipherRailFence(cond.valueAsCodePointsWithLf(),
 				DencodeUtils.getOptionAsInt(cond.options(), "encCipherRailFenceKey", 2));
 	}
 	
 	@DencoderFunction
 	public static String decCipherRailFence(DencodeCondition cond) {
-		return decCipherRailFence(cond.value(),
+		return decCipherRailFence(cond.valueAsCodePointsWithLf(),
 				DencodeUtils.getOptionAsInt(cond.options(), "decCipherRailFenceKey", 2));
 	}
 	
 	
-	private static String encCipherRailFence(String val, int key) {
-		if (val == null || val.length() <= key) {
-			return val;
+	private static String encCipherRailFence(int[] cps, int key) {
+		if (cps == null) {
+			return null;
 		}
 		
-		StringBuilder sb = new StringBuilder(val.length());
-		
-		int[] cps = val.codePoints().toArray();
 		int len = cps.length;
+		
+		if (len == 0) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder(len); // Extends automatically if surrogate pairs are included
+		
 		int maxY = key;
 		int cycleX = maxY * 2 - 2;
 		
@@ -69,13 +73,17 @@ public class CipherRailFenceDencoder {
 		return sb.toString();
 	}
 	
-	private static String decCipherRailFence(String val, int key) {
-		if (val == null || val.length() <= key) {
-			return val;
+	private static String decCipherRailFence(int[] cps, int key) {
+		if (cps == null) {
+			return null;
 		}
 		
-		int[] cps = val.codePoints().toArray();
 		int len = cps.length;
+		
+		if (len == 0) {
+			return "";
+		}
+		
 		int maxY = key;
 		int cycleX = maxY * 2 - 2;
 		int[] newCPs = new int[len];
