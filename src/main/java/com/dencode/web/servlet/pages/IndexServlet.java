@@ -120,9 +120,9 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		
 		if (reqres().attribute("basePath") == null) {
 			String basePath = request().getContextPath();
-			String localeName = reqres().attribute("localeName");
-			if (localeName != null && !localeName.isEmpty()) {
-				basePath = basePath + "/" + localeName;
+			String localeId = reqres().attribute("localeId");
+			if (localeId != null && !localeId.isEmpty()) {
+				basePath = basePath + "/" + localeId;
 			}
 			reqres().setAttribute("basePath",  basePath);
 		}
