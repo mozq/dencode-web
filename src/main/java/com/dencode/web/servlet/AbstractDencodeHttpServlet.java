@@ -33,6 +33,7 @@ import org.mifmi.commons4j.app.message.MifmiMessageException;
 import org.mifmi.commons4j.app.web.servlet.AbstractHttpServlet;
 import org.mifmi.commons4j.config.Config;
 import org.mifmi.commons4j.config.ResourceBundleConfig;
+import org.mifmi.commons4j.util.ExceptionUtilz;
 import org.mifmi.commons4j.web.servlet.HttpReqRes;
 import org.mifmi.commons4j.web.servlet.MifmiServletException;
 
@@ -99,7 +100,11 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 			message = ((MifmiMessageException)e).getMessageObject();
 		} else {
 			try {
-				message = messageObject("default.error");
+				if (ExceptionUtilz.isCause(e, OutOfMemoryError.class)) {
+					message = messageObject("data.capacity.error");
+				} else {
+					message = messageObject("default.error");
+				}
 			} catch (Exception e1) {
 				message = null;
 			}
@@ -107,7 +112,7 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		if (message != null) {
 			addResponseMessage(message);
 		}
-		return handleError(e, (message == null)? null : message.getLevel());
+		return handleError(e, (message == null) ? null : message.getLevel());
 	}
 	
 	protected void setLocale(Locale locale) {

@@ -248,8 +248,17 @@ public class DencodeMapper {
 	private static Object processDencodeFunction(Method function, DencodeCondition cond) {
 		try {
 			return function.invoke(null, cond);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);
+		} catch (InvocationTargetException e) {
+			Throwable cause = e.getCause();
+			if (cause instanceof Error) {
+				throw (Error)cause;
+			} else if (cause instanceof RuntimeException) {
+				throw (RuntimeException)cause;
+			} else {
+				throw new RuntimeException(cause);
+			}
 		}
 	}
 	

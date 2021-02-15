@@ -89,10 +89,13 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, zone, options);
 		
-		
-		Map<String, Object> dencodeResult = DencodeMapper.dencode(type, method, cond);
-		
-		responseAsJson(dencodeResult);
+		try {
+			Map<String, Object> dencodeResult = DencodeMapper.dencode(type, method, cond);
+			
+			responseAsJson(dencodeResult);
+		} catch (OutOfMemoryError e) {
+			throw new IllegalArgumentException("Method: " + method + ", Value length: " + cond.value().length(), e);
+		}
 	}
 
 	private static String toCharsetName(String oe) {
