@@ -1,6 +1,6 @@
 buildscript {
   repositories {
-    jcenter()
+    mavenCentral()
   }
   
   dependencies {
@@ -19,7 +19,8 @@ apply plugin: 'com.google.cloud.tools.appengine-appyaml'
 
 
 repositories {
-  jcenter()
+  mavenCentral()
+  maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -30,9 +31,10 @@ dependencies {
   providedCompile 'org.eclipse.jetty:apache-jsp:9.4.+'
   
   implementation 'jstl:jstl:1.2'
-  implementation 'org.mifmi:mifmi-commons4j:0.2.9'
   implementation 'commons-codec:commons-codec:1.15'
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.+'
+  
+  implementation 'com.github.mifmi:mifmi-commons4j:v0.2.9'
   
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
