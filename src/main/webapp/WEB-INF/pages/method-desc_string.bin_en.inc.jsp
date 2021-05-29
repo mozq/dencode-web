@@ -7,9 +7,9 @@
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
-		<tr><th>Character encoding</th><th>Bin string</th></tr>
-		<tr><td>UTF-8</td><td>E3 82 B5 E3 83 B3 E3 83 97 E3 83 AB</td></tr>
-		<tr><td>UTF-16</td><td>30 B5 30 F3 30 D7 30 EB</td></tr>
-		<tr><td>Shift_JIS</td><td>83 54 83 93 83 76 83 8B</td></tr>
+		<tr><th>Character encoding</th><th>Hex string</th></tr>
+		<tr><td>UTF-8</td><td>11100011 10000010 10110101 11100011 10000011 10110011 11100011 10000011 10010111 11100011 10000011 10101011</td></tr>
+		<tr><td>UTF-16</td><td>00110000 10110101 00110000 11110011 00110000 11010111 00110000 11101011</td></tr>
+		<tr><td>Shift_JIS</td><td>10000011 01010100 10000011 10010011 10000011 01110110 10000011 10001011</td></tr>
 	</table>
 </div>
