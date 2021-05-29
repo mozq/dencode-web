@@ -36,12 +36,16 @@ public class NumberEnglishDencoder {
 	
 	@DencoderFunction
 	public static String encNumEnShortScale(DencodeCondition cond) {
-		return encNumEnShortScale(cond.valueAsNumbers(), false);
+		return encNumEnShortScale(cond.valueAsNumbers(),
+				false,
+				DencodeUtils.getOption(cond.options(), "encNumEnShortScaleSystem", ""));
 	}
 	
 	@DencoderFunction
 	public static String encNumEnShortScaleFraction(DencodeCondition cond) {
-		return encNumEnShortScale(cond.valueAsNumbers(), true);
+		return encNumEnShortScale(cond.valueAsNumbers(),
+				true,
+				DencodeUtils.getOption(cond.options(), "encNumEnShortScaleFractionSystem", ""));
 	}
 	
 	@DencoderFunction
@@ -50,14 +54,16 @@ public class NumberEnglishDencoder {
 	}
 	
 	
-	private static String encNumEnShortScale(List<BigDecimal> vals, boolean fractionDec) {
+	private static String encNumEnShortScale(List<BigDecimal> vals, boolean fractionDec, String system) {
+		boolean useConwayWechslerSystem = (system.equals("cw"));
+		
 		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
 			if (bigDec == null) {
 				return null;
 			}
 			
 			try {
-				return NumberUtilz.toEnNumShortScale(bigDec, fractionDec);
+				return NumberUtilz.toEnNumShortScale(bigDec, fractionDec, useConwayWechslerSystem);
 			} catch (NumberParseException e) {
 				return null;
 			}

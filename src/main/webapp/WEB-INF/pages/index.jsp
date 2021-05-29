@@ -577,8 +577,32 @@
 							<c:if test="${methods.contains('number.hex')}"><tr data-dencode-method="number.hex"><th>${mf:h(msg['label.encNumHex'])}</th><td><span id="encNumHex" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScale'])}</th><td><span id="encNumEnShortScale" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScaleFraction'])}</th><td><span id="encNumEnShortScaleFraction" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScale'])}</th><td><span id="encNumEnShortScale" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encNumEnShortScale.option.system'])}</span>
+											<select name="encNumEnShortScaleSystem" class="dencode-option form-control">
+												<option value="">${mf:h(msg['label.encNumEnShortScale.option.system.default'])}</option>
+												<option value="cw">${mf:h(msg['label.encNumEnShortScale.option.system.cw'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScaleFraction'])}</th><td><span id="encNumEnShortScaleFraction" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encNumEnShortScaleFraction.option.system'])}</span>
+											<select name="encNumEnShortScaleFractionSystem" class="dencode-option form-control">
+												<option value="">${mf:h(msg['label.encNumEnShortScaleFraction.option.system.default'])}</option>
+												<option value="cw">${mf:h(msg['label.encNumEnShortScaleFraction.option.system.cw'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('number.japanese')}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['label.encNumJP'])}</th><td><span id="encNumJP" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.japanese')}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['label.encNumJPDaiji'])}</th><td><span id="encNumJPDaiji" class="for-disp"></span></td></tr></c:if>
 						</tbody>
