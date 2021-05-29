@@ -75,6 +75,7 @@ public class StringQuotedPrintableDencoder {
 			if (!m.find()) {
 				return null;
 			}
+			
 			do {
 				Charset cs;
 				try {
@@ -93,7 +94,8 @@ public class StringQuotedPrintableDencoder {
 				}
 				v = v.replace('_', ' ');
 				
-				m.appendReplacement(sb, v);
+				m.appendReplacement(sb, "");
+				sb.append(v);
 			} while (m.find());
 			m.appendTail(sb);
 			

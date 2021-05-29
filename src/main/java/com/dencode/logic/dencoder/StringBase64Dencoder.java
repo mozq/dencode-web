@@ -83,6 +83,7 @@ public class StringBase64Dencoder {
 			if (!m.find()) {
 				return null;
 			}
+			
 			do {
 				Charset cs;
 				try {
@@ -101,7 +102,8 @@ public class StringBase64Dencoder {
 					return null;
 				}
 				
-				m.appendReplacement(sb, v);
+				m.appendReplacement(sb, "");
+				sb.append(v);
 			} while (m.find());
 			m.appendTail(sb);
 			
