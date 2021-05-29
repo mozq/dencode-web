@@ -37,15 +37,8 @@ public class NumberEnglishDencoder {
 	@DencoderFunction
 	public static String encNumEnShortScale(DencodeCondition cond) {
 		return encNumEnShortScale(cond.valueAsNumbers(),
-				false,
+				DencodeUtils.getOption(cond.options(), "encNumEnShortScaleFractionalPartNotation", ""),
 				DencodeUtils.getOption(cond.options(), "encNumEnShortScaleSystem", ""));
-	}
-	
-	@DencoderFunction
-	public static String encNumEnShortScaleFraction(DencodeCondition cond) {
-		return encNumEnShortScale(cond.valueAsNumbers(),
-				true,
-				DencodeUtils.getOption(cond.options(), "encNumEnShortScaleFractionSystem", ""));
 	}
 	
 	@DencoderFunction
@@ -54,7 +47,8 @@ public class NumberEnglishDencoder {
 	}
 	
 	
-	private static String encNumEnShortScale(List<BigDecimal> vals, boolean fractionDec, String system) {
+	private static String encNumEnShortScale(List<BigDecimal> vals, String fractionalPartNotation, String system) {
+		boolean fractionDec = (fractionalPartNotation.equals("fraction"));
 		boolean useConwayWechslerSystem = (system.equals("cw"));
 		
 		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
