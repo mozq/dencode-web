@@ -37,7 +37,8 @@ public class StringURLEncodingDencoder {
 	
 	@DencoderFunction
 	public static String encStrURLEncoding(DencodeCondition cond) {
-		return encStrURLEncoding(cond.valueAsBinary());
+		return encStrURLEncoding(cond.valueAsBinary(),
+				DencodeUtils.getOption(cond.options(), "encStrURLEncodingSpace", ""));
 	}
 	
 	@DencoderFunction
@@ -46,12 +47,16 @@ public class StringURLEncodingDencoder {
 	}
 	
 	
-	private static String encStrURLEncoding(byte[] binValue) {
+	private static String encStrURLEncoding(byte[] binValue, String space) {
 		URLCodec urlCodec = new URLCodec();
 		String encodedURL = new String(urlCodec.encode(binValue), StandardCharsets.US_ASCII);
-		if (encodedURL.indexOf('+') != -1) {
-			encodedURL = encodedURL.replace("+", "%20");
+		
+		if (!space.equals("form")) {
+			if (encodedURL.indexOf('+') != -1) {
+				encodedURL = encodedURL.replace("+", "%20");
+			}
 		}
+		
 		return encodedURL;
 	}
 	
