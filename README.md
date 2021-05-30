@@ -26,7 +26,7 @@ gcloud config set project {PROJECT_ID}
 
 (Please replace {PROJECT_ID} to your own project id.)
 
-## Supported Encoding
+## Supported encoding
 - [String](https://dencode.com/string)
 	- [Bin String](https://dencode.com/string/bin)
 	- [Hex String](https://dencode.com/string/hex)
@@ -85,3 +85,14 @@ gcloud config set project {PROJECT_ID}
 	- [SHA-384](https://dencode.com/hash/sha384)
 	- [SHA-512](https://dencode.com/hash/sha512)
 	- [CRC32](https://dencode.com/hash/crc32)
+
+## I18n support
+DenCode supports English (en), Japanese (ja) and Russian (ru).
+If you want to add other languages, please add or modify the following source code.
+
+- Append a new language-code to locales config with comma separator (like locales=en,ja,ru)
+	- /src/main/resources/config.properties [Required]
+- Add translated files
+	- /src/main/resources/messages_*.properties [Required]
+	- /src/main/webapp/WEB-INF/pages/policy_en.inc.jsp [Optional]
+	- /src/main/webapp/WEB-INF/pages/method-desc_*.*_*.inc.jsp [Optional]

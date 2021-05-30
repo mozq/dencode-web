@@ -862,7 +862,14 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<jsp:include page="policy_${msg['lang']}.inc.jsp" />
+				<c:choose>
+					<c:when test="${mf:fileExists(pageContext.servletContext.getRealPath(mf:strcat3('/WEB-INF/pages/policy_', msg['lang'], '.inc.jsp')))}">
+						<jsp:include page="policy_${msg['lang']}.inc.jsp" />
+					</c:when>
+					<c:otherwise>
+						<jsp:include page="policy_en.inc.jsp" />
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">${mf:h(msg['label.close'])}</button>
