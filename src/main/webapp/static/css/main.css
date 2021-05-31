@@ -121,6 +121,10 @@ h2 .toggle-icon {
 	font-size: 11pt;
 }
 
+h4 {
+	margin: 1.5em 0 0.5em;
+}
+
 .copying {
 	background-color: #ffdddd !important;
 }
@@ -317,6 +321,11 @@ table.table-fit {
 
 #otherDencodeNav .other-dencode-link:before {
 	content: ">> "
+}
+
+b {
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 footer {
