@@ -94,5 +94,5 @@ If you want to add other languages, please add or modify the following source co
 	- /src/main/resources/config.properties [Required]
 - Add translated files
 	- /src/main/resources/messages_*.properties [Required]
-	- /src/main/webapp/WEB-INF/pages/policy_en.inc.jsp [Optional]
+	- /src/main/webapp/WEB-INF/pages/policy_*.inc.jsp [Optional]
 	- /src/main/webapp/WEB-INF/pages/method-desc_*.*_*.inc.jsp [Optional]
