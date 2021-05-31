@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>プログラム文字列について</h3>
 <p>プログラム文字列は、プログラミング言語で文字列を定義するための記述表現です。</p>
-<p>文字列をダブルクォーテーション(")で括り、以下の文字は\記号でエスケープします。</p>
+<p>文字列を引用符 ("" または '') で括り、以下の文字は\記号でエスケープします。</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">

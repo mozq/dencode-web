@@ -36,7 +36,8 @@ public class StringProgramStringDencoder {
 	
 	@DencoderFunction
 	public static String encStrProgramString(DencodeCondition cond) {
-		return encStrProgramString(cond.value());
+		return encStrProgramString(cond.value(),
+				DencodeUtils.getOption(cond.options(), "encStrProgramStringQuotes", "double"));
 	}
 	
 	@DencoderFunction
@@ -44,29 +45,34 @@ public class StringProgramStringDencoder {
 		return decStrProgramString(cond.value());
 	}
 	
-	private static String encStrProgramString(String val) {
+	private static String encStrProgramString(String val, String quotes) {
 		if (val == null) {
 			return null;
 		}
-		return "\"" + StringUtilz.escape(
+		
+		String quotesStr = (quotes.equals("double")) ? "\""
+				: (quotes.equals("single")) ? "'"
+				: "";
+		
+		return quotesStr + StringUtilz.escape(
 				val,
 				PROGRAM_STRING_ESCAPE_CHAR,
 				PROGRAM_STRING_TARGET_CHARS,
 				PROGRAM_STRING_ESCAPED_CHARS
 				)
-				+ "\"";
+				+ quotesStr;
 	}
 	
 	private static String decStrProgramString(String val) {
 		if (val == null || val.length() < 2) {
 			return null;
 		}
-		if (!(val.charAt(0) == '\"' && val.charAt(val.length() - 1) == '\"')) {
-			if (!(val.charAt(0) == '\'' && val.charAt(val.length() - 1) == '\'')) {
-				return null;
-			}
+		
+		if ((val.charAt(0) == '\"' && val.charAt(val.length() - 1) == '\"')
+			|| (val.charAt(0) == '\'' && val.charAt(val.length() - 1) == '\'')) {
+			val = val.substring(1, val.length() - 1);
 		}
-		val = val.substring(1, val.length() - 1);
+		
 		return StringUtilz.unescape(
 				val,
 				PROGRAM_STRING_ESCAPE_CHAR,

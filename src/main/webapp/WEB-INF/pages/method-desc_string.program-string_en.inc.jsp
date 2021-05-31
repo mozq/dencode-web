@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>About Program String</h3>
 <p>A program string is a descriptive representation for defining a string in a programming language.</p>
-<p>Enclose the string in double quotes (") and escape the following characters with the \ symbol.</p>
+<p>Enclose the string in quotes ("" or '') and escape the following characters with the \ symbol.</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
