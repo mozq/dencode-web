@@ -212,6 +212,21 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		return new Locale(localeId.substring(0, idx), localeId.substring(idx + 1));
 	}
 	
+	protected static String getBaseURL(HttpReqRes reqres) {
+		String scheme = getRequestScheme(reqres);
+		
+		return scheme + "://" + reqres.request().getServerName();
+	}
+	
+	protected static String getRequestScheme(HttpReqRes reqres) {
+		String scheme = reqres.request().getHeader("X-Forwarded-Proto");
+		if (scheme == null) {
+			scheme = reqres.request().getScheme();
+		}
+		
+		return scheme;
+	}
+	
 	protected static String getRequestSubPath(HttpReqRes reqres) {
 		String path = reqres.request().getServletPath();
 		if (path == null) {

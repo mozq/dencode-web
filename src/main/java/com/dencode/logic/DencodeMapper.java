@@ -85,7 +85,9 @@ public class DencodeMapper {
 			}
 			
 			if (!type.equals(DC_TYPE_COMMON) && !type.equals(DC_TYPE_ALL)) {
-				dcTypes.add(type);
+				if (!dcTypes.contains(type)) {
+					dcTypes.add(type);
+				}
 				
 				if (!method.equals(DC_METHOD_COMMON) && !method.endsWith(DC_METHOD_ALL_SUFFIX)) {
 					dcMethods.add(method);
@@ -98,6 +100,12 @@ public class DencodeMapper {
 					methodList.add(method);
 				}
 			}
+		}
+		
+		Collections.sort(dcTypes);
+		Collections.sort(dcMethods);
+		for (List<String> methodList : dcTypeMethods.values()) {
+			Collections.sort(methodList);
 		}
 		
 		DENCODER_MAP = Collections.unmodifiableMap(dencoderMap); // inner list is modifiable

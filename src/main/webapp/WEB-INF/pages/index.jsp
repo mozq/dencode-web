@@ -17,16 +17,16 @@
 	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/static/img/icons/favicon150px.png" />
 	<meta name="msapplication-square310x310logo" content="${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
-	<meta property="og:url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
-	<meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
+	<meta property="og:url" content="${baseURL}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
+	<meta property="og:image" content="${baseURL}${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}" />
 	<meta property="og:description" content="${mf:h(msg[mf:strcat(method, '.desc')])}" />
 	<c:forEach var="loc" items="${supportedLocaleMap}">
-		<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}" hreflang="${mf:h(loc.key)}" />
+		<link rel="alternate" hreflang="${mf:h(loc.key)}" href="${baseURL}${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}" />
 	</c:forEach>
-	<link rel="alternate" href="${pageContext.request.contextPath}/${mf:h(currentPath)}" hreflang="x-default" />
+	<link rel="alternate" hreflang="x-default" href="${baseURL}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="icon" type="image/png" sizes="192x192"  href="${pageContext.request.contextPath}/static/img/icons/favicon192px.png" />
