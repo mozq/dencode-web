@@ -64,21 +64,27 @@ public class StringProgramStringDencoder {
 	}
 	
 	private static String decStrProgramString(String val) {
-		if (val == null || val.length() < 2) {
+		if (val == null) {
 			return null;
 		}
 		
-		if ((val.charAt(0) == '\"' && val.charAt(val.length() - 1) == '\"')
-			|| (val.charAt(0) == '\'' && val.charAt(val.length() - 1) == '\'')) {
-			val = val.substring(1, val.length() - 1);
+		if (2 <= val.length()) {
+			if ((val.charAt(0) == '\"' && val.charAt(val.length() - 1) == '\"')
+				|| (val.charAt(0) == '\'' && val.charAt(val.length() - 1) == '\'')) {
+				val = val.substring(1, val.length() - 1);
+			}
 		}
 		
-		return StringUtilz.unescape(
-				val,
-				PROGRAM_STRING_ESCAPE_CHAR,
-				PROGRAM_STRING_TARGET_CHARS,
-				PROGRAM_STRING_ESCAPED_CHARS,
-				true
-				);
+		try {
+			return StringUtilz.unescape(
+					val,
+					PROGRAM_STRING_ESCAPE_CHAR,
+					PROGRAM_STRING_TARGET_CHARS,
+					PROGRAM_STRING_ESCAPED_CHARS,
+					true
+					);
+		} catch (RuntimeException e) {
+			return null;
+		}
 	}
 }
