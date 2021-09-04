@@ -34,6 +34,7 @@ gcloud config set project {PROJECT_ID}
 	- [URL Encoding](https://dencode.com/string/url-encoding)
 	- [Punycode IDN](https://dencode.com/string/punycode)
 	- [Base32](https://dencode.com/string/base32)
+	- [Base45](https://dencode.com/string/base45)
 	- [Base64](https://dencode.com/string/base64)
 	- [Quoted-printable](https://dencode.com/string/quoted-printable)
 	- [Unicode Escape](https://dencode.com/string/unicode-escape)

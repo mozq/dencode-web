@@ -85,6 +85,7 @@
 							<li class="${(method eq 'string.url-encoding') ? 'active' : ''}" data-dencode-method="string.url-encoding"><a href="${mf:h(basePath)}/string/url-encoding">${mf:h(msg['string.url-encoding.method'])}</a></li>
 							<li class="${(method eq 'string.punycode') ? 'active' : ''}" data-dencode-method="string.punycode"><a href="${mf:h(basePath)}/string/punycode">${mf:h(msg['string.punycode.method'])}</a></li>
 							<li class="${(method eq 'string.base32') ? 'active' : ''}" data-dencode-method="string.base32"><a href="${mf:h(basePath)}/string/base32">${mf:h(msg['string.base32.method'])}</a></li>
+							<li class="${(method eq 'string.base45') ? 'active' : ''}" data-dencode-method="string.base45"><a href="${mf:h(basePath)}/string/base45">${mf:h(msg['string.base45.method'])}</a></li>
 							<li class="${(method eq 'string.base64') ? 'active' : ''}" data-dencode-method="string.base64"><a href="${mf:h(basePath)}/string/base64">${mf:h(msg['string.base64.method'])}</a></li>
 							<li class="${(method eq 'string.quoted-printable') ? 'active' : ''}" data-dencode-method="string.quoted-printable"><a href="${mf:h(basePath)}/string/quoted-printable">${mf:h(msg['string.quoted-printable.method'])}</a></li>
 							<li class="${(method eq 'string.unicode-escape') ? 'active' : ''}" data-dencode-method="string.unicode-escape"><a href="${mf:h(basePath)}/string/unicode-escape">${mf:h(msg['string.unicode-escape.method'])}</a></li>
@@ -316,6 +317,8 @@
 							<c:if test="${methods.contains('string.url-encoding')}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['label.decStrURLEncoding'])}</th><td><span id="decStrURLEncoding" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.punycode')}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.decStrPunycode'])}</th><td><span id="decStrPunycode" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base32')}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.decStrBase32Encoding'])}</th><td><span id="decStrBase32Encoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('string.base45')}"><tr data-dencode-method="string.base45"><th>${mf:h(msg['label.decStrBase45'])}</th><td><span id="decStrBase45" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('string.base45')}"><tr data-dencode-method="string.base45"><th>${mf:h(msg['label.decStrBase45ZlibCoseCbor'])}</th><td><span id="decStrBase45ZlibCoseCbor" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base64')}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.decStrBase64Encoding'])}</th><td><span id="decStrBase64Encoding" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.quoted-printable')}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.decStrQuotedPrintable'])}</th><td><span id="decStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.unicode-escape')}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.decStrUnicodeEscape'])}</th><td><span id="decStrUnicodeEscape" class="for-disp"></span></td></tr></c:if>
@@ -520,6 +523,7 @@
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.punycode')}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['label.encStrPunycode'])}</th><td><span id="encStrPunycode" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base32')}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['label.encStrBase32Encoding'])}</th><td><span id="encStrBase32Encoding" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('string.base45')}"><tr data-dencode-method="string.base45"><th>${mf:h(msg['label.encStrBase45'])}</th><td><span id="encStrBase45" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base64')}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encStrBase64Encoding'])}</th><td><span id="encStrBase64Encoding" class="for-disp"></span>
 								<form class="dencode-option-group form-inline" method="post">
 									<div class="form-group form-group-sm">

@@ -33,6 +33,7 @@ dependencies {
   implementation 'jstl:jstl:1.2'
   implementation 'commons-codec:commons-codec:1.15'
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.+'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.12.+'
   
   implementation 'com.github.mifmi:mifmi-commons4j:v0.2.+'
   
