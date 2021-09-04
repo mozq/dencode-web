@@ -42,18 +42,18 @@ public class StringBase64Dencoder {
 	
 	
 	@DencoderFunction
-	public static String encStrBase64Encoding(DencodeCondition cond) {
-		return encStrBase64Encoding(cond.valueAsBinary(),
+	public static String encStrBase64(DencodeCondition cond) {
+		return encStrBase64(cond.valueAsBinary(),
 				DencodeUtils.getOption(cond.options(), "encStrBase64LineBreakEach", ""));
 	}
 	
 	@DencoderFunction
-	public static String decStrBase64Encoding(DencodeCondition cond) {
-		return decStrBase64Encoding(cond.value(), cond.charset());
+	public static String decStrBase64(DencodeCondition cond) {
+		return decStrBase64(cond.value(), cond.charset());
 	}
 	
 	
-	private static String encStrBase64Encoding(byte[] binValue, String encStrBase64LineBreakEach) {
+	private static String encStrBase64(byte[] binValue, String encStrBase64LineBreakEach) {
 		int lineLength = 0;
 		if (encStrBase64LineBreakEach != null && !encStrBase64LineBreakEach.isEmpty()) {
 			try {
@@ -67,7 +67,7 @@ public class StringBase64Dencoder {
 		return base64.encodeAsString(binValue);
 	}
 	
-	private static String decStrBase64Encoding(String val, Charset charset) {
+	private static String decStrBase64(String val, Charset charset) {
 		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}

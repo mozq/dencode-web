@@ -35,22 +35,22 @@ public class StringBase32Dencoder {
 	
 	
 	@DencoderFunction
-	public static String encStrBase32Encoding(DencodeCondition cond) {
-		return encStrBase32Encoding(cond.valueAsBinary());
+	public static String encStrBase32(DencodeCondition cond) {
+		return encStrBase32(cond.valueAsBinary());
 	}
 	
 	@DencoderFunction
-	public static String decStrBase32Encoding(DencodeCondition cond) {
-		return decStrBase32Encoding(cond.value(), cond.charset());
+	public static String decStrBase32(DencodeCondition cond) {
+		return decStrBase32(cond.value(), cond.charset());
 	}
 	
 	
-	private static String encStrBase32Encoding(byte[] binValue) {
+	private static String encStrBase32(byte[] binValue) {
 		Base32 base32 = new Base32();
 		return base32.encodeAsString(binValue);
 	}
 	
-	private static String decStrBase32Encoding(String val, Charset charset) {
+	private static String decStrBase32(String val, Charset charset) {
 		if (!StringUtilz.isASCII(val)) {
 			return null;
 		}

@@ -92,6 +92,17 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		try {
 			Map<String, Object> dencodeResult = DencodeMapper.dencode(type, method, cond);
 			
+			// Temporary code for migration
+			// TODO: Remove this code after migration
+			if (dencodeResult.containsKey("encStrBase32")) {
+				dencodeResult.put("encStrBase32Encoding", dencodeResult.get("encStrBase32"));
+				dencodeResult.put("decStrBase32Encoding", dencodeResult.get("decStrBase32"));
+			}
+			if (dencodeResult.containsKey("encStrBase64")) {
+				dencodeResult.put("encStrBase64Encoding", dencodeResult.get("encStrBase64"));
+				dencodeResult.put("decStrBase64Encoding", dencodeResult.get("decStrBase64"));
+			}
+			
 			responseAsJson(dencodeResult);
 		} catch (OutOfMemoryError e) {
 			throw new IllegalArgumentException("Method: " + method + ", Value length: " + cond.value().length(), e);
