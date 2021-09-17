@@ -87,6 +87,7 @@
 							<li class="${(method eq 'string.base32') ? 'active' : ''}" data-dencode-method="string.base32"><a href="${mf:h(basePath)}/string/base32">${mf:h(msg['string.base32.method'])}</a></li>
 							<li class="${(method eq 'string.base45') ? 'active' : ''}" data-dencode-method="string.base45"><a href="${mf:h(basePath)}/string/base45">${mf:h(msg['string.base45.method'])}</a></li>
 							<li class="${(method eq 'string.base64') ? 'active' : ''}" data-dencode-method="string.base64"><a href="${mf:h(basePath)}/string/base64">${mf:h(msg['string.base64.method'])}</a></li>
+							<li class="${(method eq 'string.ascii85') ? 'active' : ''}" data-dencode-method="string.ascii85"><a href="${mf:h(basePath)}/string/ascii85">${mf:h(msg['string.ascii85.method'])}</a></li>
 							<li class="${(method eq 'string.quoted-printable') ? 'active' : ''}" data-dencode-method="string.quoted-printable"><a href="${mf:h(basePath)}/string/quoted-printable">${mf:h(msg['string.quoted-printable.method'])}</a></li>
 							<li class="${(method eq 'string.unicode-escape') ? 'active' : ''}" data-dencode-method="string.unicode-escape"><a href="${mf:h(basePath)}/string/unicode-escape">${mf:h(msg['string.unicode-escape.method'])}</a></li>
 							<li class="${(method eq 'string.program-string') ? 'active' : ''}" data-dencode-method="string.program-string"><a href="${mf:h(basePath)}/string/program-string">${mf:h(msg['string.program-string.method'])}</a></li>
@@ -320,6 +321,7 @@
 							<c:if test="${methods.contains('string.base45')}"><tr data-dencode-method="string.base45"><th>${mf:h(msg['label.decStrBase45'])}</th><td><span id="decStrBase45" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base45')}"><tr data-dencode-method="string.base45"><th>${mf:h(msg['label.decStrBase45ZlibCoseCbor'])}</th><td><span id="decStrBase45ZlibCoseCbor" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base64')}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.decStrBase64'])}</th><td><span id="decStrBase64" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('string.ascii85')}"><tr data-dencode-method="string.ascii85"><th>${mf:h(msg['label.decStrAscii85'])}</th><td><span id="decStrAscii85" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.quoted-printable')}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.decStrQuotedPrintable'])}</th><td><span id="decStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.unicode-escape')}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.decStrUnicodeEscape'])}</th><td><span id="decStrUnicodeEscape" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.program-string')}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.decStrProgramString'])}</th><td><span id="decStrProgramString" class="for-disp"></span></td></tr></c:if>
@@ -533,6 +535,20 @@
 												<option value="">${mf:h(msg['label.encStrBase64.option.lineBreak.each.none'])}</option>
 												<option value="64">${mf:h(msg['label.encStrBase64.option.lineBreak.each.64'])}</option>
 												<option value="76">${mf:h(msg['label.encStrBase64.option.lineBreak.each.76'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('string.ascii85')}"><tr data-dencode-method="string.ascii85"><th>${mf:h(msg['label.encStrAscii85'])}</th><td><span id="encStrAscii85" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encStrAscii85.option.variant'])}</span>
+											<select name="encStrAscii85Variant" class="dencode-option form-control">
+												<option value="z85">${mf:h(msg['label.encStrAscii85.option.variant.z85'])}</option>
+												<option value="adobe">${mf:h(msg['label.encStrAscii85.option.variant.adobe'])}</option>
+												<option value="btoa">${mf:h(msg['label.encStrAscii85.option.variant.btoa'])}</option>
 											</select>
 										</div>
 									</div>

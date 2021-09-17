@@ -36,6 +36,7 @@ gcloud config set project {PROJECT_ID}
 	- [Base32](https://dencode.com/string/base32)
 	- [Base45](https://dencode.com/string/base45)
 	- [Base64](https://dencode.com/string/base64)
+	- [Ascii85](https://dencode.com/string/ascii85)
 	- [Quoted-printable](https://dencode.com/string/quoted-printable)
 	- [Unicode Escape](https://dencode.com/string/unicode-escape)
 	- [Program String](https://dencode.com/string/program-string)
