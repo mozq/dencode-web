@@ -18,11 +18,14 @@ package com.dencode.logic.parser;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.regex.Pattern;
 
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
+
+import com.udojava.evalex.Expression;
 
 public class NumberParser {
 	
@@ -39,6 +42,10 @@ public class NumberParser {
 		
 		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
 		val = val.trim();
+		
+		if (val.isEmpty()) {
+			return null;
+		}
 		
 		BigDecimal num;
 		
@@ -76,18 +83,25 @@ public class NumberParser {
 			return null;
 		}
 		
+		String sanitizedVal;
 		if (NUM_DEC_PATTERN_DOT_COMMA.matcher(val).matches()) {
 			// 0.000.000,0 -> 0000000.0
-			val = val.replace(".", "").replace(",", ".");
+			sanitizedVal = val.replace(".", "").replace(",", ".");
 		} else {
 			// 0,000,000.0 -> 0000000.0
-			val = val.replace(",", "");
+			sanitizedVal = val.replace(",", "");
 		}
 		
 		try {
-			return new BigDecimal(val);
+			return new BigDecimal(sanitizedVal);
 		} catch (NumberFormatException e) {
-			return null;
+			// Parse as expression
+			try {
+				Expression exp = new Expression(val, MathContext.DECIMAL128);
+				return exp.eval();
+			} catch (RuntimeException e2) {
+				return null;
+			}
 		}
 	}
 	

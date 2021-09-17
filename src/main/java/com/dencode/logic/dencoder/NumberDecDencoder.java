@@ -34,16 +34,16 @@ public class NumberDecDencoder {
 	
 	@DencoderFunction
 	public static String encNumDec(DencodeCondition cond) {
-		return encNumHex(cond.valueAsNumbers());
+		return encNumDec(cond.valueAsNumbers());
 	}
 	
 	@DencoderFunction
 	public static String decNumDec(DencodeCondition cond) {
-		return decNumHex(cond.valueAsLines());
+		return decNumDec(cond.valueAsLines());
 	}
 	
 	
-	private static String encNumHex(List<BigDecimal> vals) {
+	private static String encNumDec(List<BigDecimal> vals) {
 		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
 			if (bigDec == null) {
 				return null;
@@ -53,7 +53,7 @@ public class NumberDecDencoder {
 		});
 	}
 	
-	private static String decNumHex(List<String> vals) {
+	private static String decNumDec(List<String> vals) {
 		return DencodeUtils.dencodeLines(vals, (val) -> {
 			BigDecimal bigDec = NumberParser.parseDec(val);
 			
