@@ -30,6 +30,11 @@ $(document).ready(function () {
 	var $vLen = $("#vLen");
 	var $v = $("#v");
 	var $tz = $("#tz");
+	var $loadBtn = $("#load");
+	var $loadFromFile = $("#loadFromFile");
+	var $loadFromFileInput = $("#loadFromFileInput");
+	var $loadFromQrcode = $("#loadFromQrcode");
+	var $loadFromQrcodeInput = $("#loadFromQrcodeInput");
 	var $oeGroup = $("#oeGroup");
 	var $oeGroupBtns = $oeGroup.find(".btn:not(.dropdown-toggle)");
 	var $oexBtn = $("#oex");
@@ -98,14 +103,8 @@ $(document).ready(function () {
 	
 	if (window.File) {
 		$document.on("drop", function (ev) {
-			var encoding = $oeGroupBtns.filter(".active").data("oe");
-			
 			var file = ev.originalEvent.dataTransfer.files[0];
-			var reader = new FileReader();
-			reader.onload = function (ev) {
-				$v.text(ev.target.result);
-			};
-			reader.readAsText(file, encoding);
+			loadValueFromFile(file);
 			
 			return false;
 		});
@@ -309,6 +308,74 @@ $(document).ready(function () {
 		});
 	}
 	
+	$loadFromFile.on("click", function () {
+		if (!window.File) {
+			alert($loadFromFile.attr("data-load-unsupported-message"));
+			return false;
+		}
+		
+		$loadFromFileInput.click();
+	});
+	
+	$loadFromFileInput.on("change",  function () {
+		if (this.files.length === 0) {
+			alert($loadFromFile.attr("data-load-error-message"));
+			return;
+		}
+		
+		var file = this.files[0];
+		this.value = "";
+		
+		loadValueFromFile(file);
+		showTooltip($loadBtn, $loadFromFile.attr("data-load-message"), 2000);
+	});
+	
+	$loadFromQrcode.on("click", function () {
+		if (!window.File) {
+			alert($loadFromFile.attr("data-load-unsupported-message"));
+			return false;
+		}
+		
+		$loadFromQrcodeInput.click();
+	});
+	
+	$loadFromQrcodeInput.on("change",  function () {
+		if (this.files.length === 0) {
+			alert($loadFromQrcode.attr("data-load-error-message"));
+			return;
+		}
+		
+		var file = this.files[0];
+		this.value = "";
+		
+		var reader = new FileReader();
+		reader.onload = function () {
+			var img = new Image();
+			img.onload = function () {
+				var r = Math.min(1.0, 800.0 / Math.min(this.width, this.height));
+				
+				var canvas = document.createElement("canvas");
+				canvas.width = this.width * r;
+				canvas.height = this.height * r;
+				
+				var ctx = canvas.getContext("2d");
+				ctx.scale(r, r);
+				ctx.drawImage(this, 0, 0);
+				var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+				
+				var code = jsQR(imageData.data, imageData.width, imageData.height);
+				if (code) {
+					updateValue(code.data);
+					showTooltip($loadBtn, $loadFromQrcode.attr("data-load-message"), 2000);
+				} else {
+					alert($loadFromQrcode.attr("data-load-error-message"));
+				}
+			};
+			img.src = this.result;
+		}
+		reader.readAsDataURL(file);
+	});
+	
 	$subHeaders.on("click", function () {
 		var $this = $(this);
 		var $toggleIcon = $this.children(".toggle-icon");
@@ -429,8 +496,6 @@ $(document).ready(function () {
 	});
 	
 	dencode();
-	
-	$v.focus();
 	
 	
 	// function definitions
@@ -631,6 +696,33 @@ $(document).ready(function () {
 			});
 		}
 	}
+	
+	function loadValueFromFile(file) {
+		var encoding = $oeGroupBtns.filter(".active").data("oe");
+		
+		var reader = new FileReader();
+		reader.onload = function (ev) {
+			updateValue(this.result);
+		};
+		reader.readAsText(file, encoding);
+	}
+	
+	function updateValue(val) {
+		$v.text(val);
+		$v.trigger("input");
+		
+		$v.removeClass("updating");
+		$v.removeClass("updated");
+		$v.addClass("updating");
+		setTimeout(function () {
+			$v.addClass("updated");
+			
+			setTimeout(function () {
+				$v.removeClass("updating");
+				$v.removeClass("updated");
+			}, 2000);
+		}, 1);
+	}
 });
 
 
@@ -755,10 +847,14 @@ function copyToClipboard($elm) {
 	
 	$copy.removeClass("copying");
 	$copy.removeClass("copied");
-	
 	$copy.addClass("copying");
 	setTimeout(function () {
 		$copy.addClass("copied");
+		
+		setTimeout(function () {
+			$copy.removeClass("copying");
+			$copy.removeClass("copied");
+		}, 2000);
 	}, 1);
 	
 	if (navigator.clipboard) {
@@ -791,11 +887,6 @@ function copyToClipboard($elm) {
 			$copy.blur();
 		}
 	}
-	
-	setTimeout(function () {
-		$copy.removeClass("copying");
-		$copy.removeClass("copied");
-	}, 1000);
 }
 
 function setCookie(name, value) {

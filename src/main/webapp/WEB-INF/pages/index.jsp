@@ -213,6 +213,17 @@
 					<textarea id="v" class="form-control" placeholder="${mf:h(msg[mf:strcat(method, '.tooltip')])}">${mf:h(v)}</textarea>
 					<span class="input-group-addon">
 						<span class="btn-group-vertical">
+							<span class="btn-group">
+								<button id="load" type="button" class="btn btn-v-icon-label dropdown-toggle" title="${mf:h(msg['label.load'])}" data-toggle="dropdown" aria-expanded="false">
+									<span class="glyphicon glyphicon-open-file"></span>
+									<span class="btn-label">${mf:h(msg['label.load.buttonLabel'])}</span>
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<li id="loadFromFile" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-file"></span> ${mf:h(msg['label.load.fromFile'])}</li>
+									<li id="loadFromQrcode" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-qrcode"></span> ${mf:h(msg['label.load.fromQrcode'])}</li>
+								</ul>
+							</span>
 							<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
 								<span class="glyphicon glyphicon-duplicate"></span>
 								<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
@@ -910,6 +921,13 @@
 	</div>
 </div>
 
+<div style="display: none;">
+	<form action="#" method="POST">
+		<input id="loadFromFileInput" type="file" accept="text/*" />
+		<input id="loadFromQrcodeInput" type="file" accept="image/*" capture="environment" />
+	</form>
+</div>
+
 <script id="messagesTmpl" type="text/template">
 	<div class="alert {{#type}}alert-{{type}}{{/type}}">
 		<button type="button" class="close" data-dismiss="alert">×</button>
@@ -987,6 +1005,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/js/all.min.js"))}"></script>
 <script>
 	"use strict";

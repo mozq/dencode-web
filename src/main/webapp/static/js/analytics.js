@@ -11,6 +11,14 @@ ga('send', 'pageview');
 
 (function (w, d) {
 	$(d).ready(function () {
+		$(d).on("click", "#loadFromFile", function () {
+			ga("send", "event", "load", "load-file");
+		});
+		
+		$(d).on("click", "#loadFromQrcode", function () {
+			ga("send", "event", "load", "load-qrcode");
+		});
+		
 		$(d).on("click", ".popover-toggle.permanent-link", function () {
 			var $this = $(this);
 			if ($this.hasClass("active")) {
