@@ -125,20 +125,20 @@ h4 {
 }
 
 .updating {
-	background-color: #ffdddd;
+	background-color: #ffdddd !important;
 }
 
 .updated {
-	background-color: white;
+	background-color: white !important;
 	transition: background-color 1000ms linear;
 }
 
 .copying {
-	background-color: #ffdddd;
+	background-color: #ffdddd !important;
 }
 
 .copied {
-	background-color: white;
+	background-color: white !important;
 	transition: background-color 1000ms linear;
 }
 
