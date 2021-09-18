@@ -154,6 +154,7 @@ h4 {
 #exp.follow {
 	position: sticky;
 	top: 0;
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 #expHeader {
@@ -182,6 +183,9 @@ h4 {
 	line-height: 1.42857143;
 }
 
+#expOptions {
+	padding: 1px 0px 3px;
+}
 
 #follow {
 	cursor: pointer;
