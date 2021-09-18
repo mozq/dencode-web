@@ -56,6 +56,12 @@ public class StringAscii85DencoderTest {
 		testDencoder("   ", "arR^", "z85");
 		testDencoder("    ", "arR^H", "z85");
 		testDencoder("     ", "arR^Hao", "z85");
+		
+		// Unsupported value
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("\\", "z85")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("a\\", "z85")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("~", "z85")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("a~", "z85")));
 	}
 	
 	@Test
@@ -92,6 +98,16 @@ public class StringAscii85DencoderTest {
 		
 		// line-break and white-space
 		assertEquals("Hello!", StringAscii85Dencoder.decStrAscii85(condition("<~87 cU  RD  \r\n  ]o~>", "adobe")));
+		
+		// Compressed value
+		assertEquals("\0\0\0\0", StringAscii85Dencoder.decStrAscii85(condition("<~z~>", "adobe")));
+		
+		// Unsupported value
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("<~v~>", "adobe")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("<~av~>", "adobe")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("<~y~>", "adobe")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("<~ay~>", "adobe")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("<~az~>", "adobe")));
 	}
 	
 	@Test
@@ -128,6 +144,16 @@ public class StringAscii85DencoderTest {
 		
 		// line-break and white-space
 		assertEquals("Hello!", StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "87 cU  RD  \r\n  ]o)\\" + "\r\n" + buildBTOASuffix("Hello!") + "\r\n", "btoa")));
+		
+		// Compressed value
+		assertEquals("    ", StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "y" + "\r\n" + buildBTOASuffix("    ") + "\r\n", "btoa")));
+		assertEquals("\0\0\0\0", StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "z" + "\r\n" + buildBTOASuffix("\0\0\0\0") + "\r\n", "btoa")));
+		
+		// Unsupported value
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "v" + "\r\n" + buildBTOASuffix("") + "\r\n", "btoa")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "av" + "\r\n" + buildBTOASuffix("") + "\r\n", "btoa")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "ay" + "\r\n" + buildBTOASuffix("") + "\r\n", "btoa")));
+		assertEquals(null, StringAscii85Dencoder.decStrAscii85(condition("xbtoa Begin\r\n" + "az" + "\r\n" + buildBTOASuffix("") + "\r\n", "btoa")));
 	}
 	
 	private void testDencoder(String value, String expectedEncodedValue, String format) {

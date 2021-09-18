@@ -283,18 +283,13 @@ public class StringAscii85Dencoder {
 				boolean hasBits = (i < len);
 				
 				char ch = (hasBits) ? val.charAt(i++) : encodeTable[encodeTable.length - 1];
+				
 				if (decodeTable.length <= ch) {
-					// Unsupported value
-					if (compressZeros && ch == 'z') {
-						// NOP
-					} else if (compressSpaces && ch == 'y') {
-						// NOP
-					} else {
+					if (j != 0) {
+						// Unsupported value
 						return null;
 					}
-				}
-
-				if (j == 0) {
+					
 					if (compressZeros && ch == 'z') {
 						n = 0x00000000L;
 						cnt = RAW_CHUNK_SIZE;
@@ -303,6 +298,9 @@ public class StringAscii85Dencoder {
 						n = 0x20202020L;
 						cnt = RAW_CHUNK_SIZE;
 						break;
+					} else {
+						// Unsupported value
+						return null;
 					}
 				}
 				
