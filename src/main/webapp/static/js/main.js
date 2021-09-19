@@ -31,10 +31,10 @@ $(document).ready(function () {
 	var $v = $("#v");
 	var $tz = $("#tz");
 	var $loadBtn = $("#load");
-	var $loadFromFile = $("#loadFromFile");
-	var $loadFromFileInput = $("#loadFromFileInput");
-	var $loadFromQrcode = $("#loadFromQrcode");
-	var $loadFromQrcodeInput = $("#loadFromQrcodeInput");
+	var $loadFile = $("#loadFile");
+	var $loadFileInput = $("#loadFileInput");
+	var $loadQrcode = $("#loadQrcode");
+	var $loadQrcodeInput = $("#loadQrcodeInput");
 	var $oeGroup = $("#oeGroup");
 	var $oeGroupBtns = $oeGroup.find(".btn:not(.dropdown-toggle)");
 	var $oexBtn = $("#oex");
@@ -308,18 +308,18 @@ $(document).ready(function () {
 		});
 	}
 	
-	$loadFromFile.on("click", function () {
+	$loadFile.on("click", function () {
 		if (!window.File) {
-			alert($loadFromFile.attr("data-load-unsupported-message"));
+			showMessageDialog($loadFile.attr("data-load-unsupported-message"), $loadFile.text());
 			return false;
 		}
 		
-		$loadFromFileInput.click();
+		$loadFileInput.click();
 	});
 	
-	$loadFromFileInput.on("change",  function () {
+	$loadFileInput.on("change",  function () {
 		if (this.files.length === 0) {
-			alert($loadFromFile.attr("data-load-error-message"));
+			showMessageDialog($loadFile.attr("data-load-error-message"), $loadFile.text());
 			return;
 		}
 		
@@ -327,21 +327,21 @@ $(document).ready(function () {
 		this.value = "";
 		
 		loadValueFromFile(file);
-		showTooltip($loadBtn, $loadFromFile.attr("data-load-message"), 2000);
+		showTooltip($loadBtn, $loadFile.attr("data-load-message"), 2000);
 	});
 	
-	$loadFromQrcode.on("click", function () {
+	$loadQrcode.on("click", function () {
 		if (!window.File) {
-			alert($loadFromFile.attr("data-load-unsupported-message"));
+			showMessageDialog($loadFile.attr("data-load-unsupported-message"), $loadQrcode.text());
 			return false;
 		}
 		
-		$loadFromQrcodeInput.click();
+		$loadQrcodeInput.click();
 	});
 	
-	$loadFromQrcodeInput.on("change",  function () {
+	$loadQrcodeInput.on("change",  function () {
 		if (this.files.length === 0) {
-			alert($loadFromQrcode.attr("data-load-error-message"));
+			showMessageDialog($loadQrcode.attr("data-load-error-message"), $loadQrcode.text());
 			return;
 		}
 		
@@ -352,7 +352,7 @@ $(document).ready(function () {
 		reader.onload = function () {
 			var img = new Image();
 			img.onload = function () {
-				var r = Math.min(1.0, 800.0 / Math.min(this.width, this.height));
+				var r = Math.min(1.0, 1200.0 / Math.min(this.width, this.height));
 				
 				var canvas = document.createElement("canvas");
 				canvas.width = this.width * r;
@@ -366,9 +366,10 @@ $(document).ready(function () {
 				var code = jsQR(imageData.data, imageData.width, imageData.height);
 				if (code) {
 					updateValue(code.data);
-					showTooltip($loadBtn, $loadFromQrcode.attr("data-load-message"), 2000);
+					showTooltip($loadBtn, $loadQrcode.attr("data-load-message"), 2000);
 				} else {
-					alert($loadFromQrcode.attr("data-load-error-message"));
+					showMessageDialog($loadQrcode.attr("data-load-error-message"), $loadQrcode.text());
+					return;
 				}
 			};
 			img.src = this.result;
@@ -722,6 +723,12 @@ $(document).ready(function () {
 				$v.removeClass("updated");
 			}, 2000);
 		}, 1);
+	}
+	
+	function showMessageDialog(message, title) {
+		$("#messageDialogTitle").text(title);
+		$("#messageDialogBody").text(message);
+		$("#messageDialog").modal("show");
 	}
 });
 

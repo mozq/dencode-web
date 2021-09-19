@@ -220,8 +220,8 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right" role="menu">
-									<li id="loadFromFile" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-file"></span> ${mf:h(msg['label.load.fromFile'])}</li>
-									<li id="loadFromQrcode" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-qrcode"></span> ${mf:h(msg['label.load.fromQrcode'])}</li>
+									<li id="loadFile" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-file"></span> ${mf:h(msg['label.load.file'])}</li>
+									<li id="loadQrcode" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-qrcode"></span> ${mf:h(msg['label.load.qrcode'])}</li>
 								</ul>
 							</span>
 							<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
@@ -899,6 +899,22 @@
 	| <a href="#" data-toggle="modal" data-target="#policyDialog">${mf:h(msg['label.policy'])}</a>
 </footer>
 
+<div id="messageDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messageDialogTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span id="messageDialogTitle" class="modal-title"></span>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div id="messageDialogBody" class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">${mf:h(msg['label.close'])}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div id="policyDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="policyDialogLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -925,8 +941,8 @@
 
 <div style="display: none;">
 	<form action="#" method="POST">
-		<input id="loadFromFileInput" type="file" accept="text/*" />
-		<input id="loadFromQrcodeInput" type="file" accept="image/*" capture="environment" />
+		<input id="loadFileInput" type="file" accept="text/*" />
+		<input id="loadQrcodeInput" type="file" accept="image/*" />
 	</form>
 </div>
 

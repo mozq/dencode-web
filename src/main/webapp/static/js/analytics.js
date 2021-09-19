@@ -12,11 +12,11 @@ ga('send', 'pageview');
 (function (w, d) {
 	$(d).ready(function () {
 		$(d).on("click", "#loadFromFile", function () {
-			ga("send", "event", "load", "load-file");
+			ga("send", "event", "value", "load-file");
 		});
 		
 		$(d).on("click", "#loadFromQrcode", function () {
-			ga("send", "event", "load", "load-qrcode");
+			ga("send", "event", "value", "load-qrcode");
 		});
 		
 		$(d).on("click", ".popover-toggle.permanent-link", function () {
