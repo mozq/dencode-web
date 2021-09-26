@@ -362,6 +362,17 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 	text-decoration: underline;
 }
 
+#messageDialog .modal-body {
+	padding: 30px 15px 15px;
+	text-align: center;
+}
+
+#messageDialog .modal-footer {
+	padding: 10px 15px 20px;
+	border-width: 0px;
+	text-align: center;
+}
+
 @media only screen
 		and (min-device-width: 320px)
 		and (max-device-width: 568px) {

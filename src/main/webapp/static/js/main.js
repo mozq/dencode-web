@@ -1,5 +1,7 @@
 "use strict";
 
+(function (window, document) {
+
 $(document).ready(function () {
 	var _inProc = false;
 	var _v = null;
@@ -310,7 +312,7 @@ $(document).ready(function () {
 	
 	$loadFile.on("click", function () {
 		if (!window.File) {
-			showMessageDialog($loadFile.attr("data-load-unsupported-message"), $loadFile.text());
+			showMessageDialog($loadFile.attr("data-load-unsupported-message"));
 			return false;
 		}
 		
@@ -319,7 +321,7 @@ $(document).ready(function () {
 	
 	$loadFileInput.on("change",  function () {
 		if (this.files.length === 0) {
-			showMessageDialog($loadFile.attr("data-load-error-message"), $loadFile.text());
+			showMessageDialog($loadFile.attr("data-load-error-message"));
 			return;
 		}
 		
@@ -332,7 +334,7 @@ $(document).ready(function () {
 	
 	$loadQrcode.on("click", function () {
 		if (!window.File) {
-			showMessageDialog($loadFile.attr("data-load-unsupported-message"), $loadQrcode.text());
+			showMessageDialog($loadFile.attr("data-load-unsupported-message"));
 			return false;
 		}
 		
@@ -341,7 +343,7 @@ $(document).ready(function () {
 	
 	$loadQrcodeInput.on("change",  function () {
 		if (this.files.length === 0) {
-			showMessageDialog($loadQrcode.attr("data-load-error-message"), $loadQrcode.text());
+			showMessageDialog($loadQrcode.attr("data-load-error-message"));
 			return;
 		}
 		
@@ -352,25 +354,14 @@ $(document).ready(function () {
 		reader.onload = function () {
 			var img = new Image();
 			img.onload = function () {
-				var r = Math.min(1.0, 1200.0 / Math.min(this.width, this.height));
-				
-				var canvas = document.createElement("canvas");
-				canvas.width = this.width * r;
-				canvas.height = this.height * r;
-				
-				var ctx = canvas.getContext("2d");
-				ctx.scale(r, r);
-				ctx.drawImage(this, 0, 0);
-				var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-				
-				var code = jsQR(imageData.data, imageData.width, imageData.height);
-				if (code) {
-					updateValue(code.data);
-					showTooltip($loadBtn, $loadQrcode.attr("data-load-message"), 2000);
-				} else {
-					showMessageDialog($loadQrcode.attr("data-load-error-message"), $loadQrcode.text());
+				var code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
+				if (code === null) {
+					showMessageDialog($loadQrcode.attr("data-load-error-message"));
 					return;
 				}
+				
+				updateValue(code.data);
+				showTooltip($loadBtn, $loadQrcode.attr("data-load-message"), 2000);
 			};
 			img.src = this.result;
 		}
@@ -725,8 +716,7 @@ $(document).ready(function () {
 		}, 1);
 	}
 	
-	function showMessageDialog(message, title) {
-		$("#messageDialogTitle").text(title);
+	function showMessageDialog(message) {
 		$("#messageDialogBody").text(message);
 		$("#messageDialog").modal("show");
 	}
@@ -923,3 +913,39 @@ function getNonBlankValue(values, index) {
 	
 	return null;
 }
+
+function readQrcodeFromImage(imgElm, maxSizes) {
+	var minImgSize = Math.min(imgElm.width, imgElm.height);
+	
+	var canvas = document.createElement("canvas");
+	
+	var code = null;
+	var parsedOrgSize = false;
+	for (var i = 0; i < maxSizes.length; i++) {
+		var r = Math.min(1.0, 1.0 * maxSizes[i] / minImgSize);
+		
+		if (1.0 <= r) {
+			if (parsedOrgSize) {
+				break;
+			}
+			parsedOrgSize = true;
+		}
+		
+		canvas.width = imgElm.width * r;
+		canvas.height = imgElm.height * r;
+		
+		var ctx = canvas.getContext("2d");
+		ctx.scale(r, r);
+		ctx.drawImage(imgElm, 0, 0);
+		var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		
+		code = jsQR(imageData.data, imageData.width, imageData.height);
+		if (code !== null) {
+			break;
+		}
+	}
+	
+	return code;
+}
+
+})(window, document);
