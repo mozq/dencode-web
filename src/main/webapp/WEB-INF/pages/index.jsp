@@ -220,7 +220,7 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right" role="menu">
-									<li id="loadFile" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-file"></span> ${mf:h(msg['label.load.file'])}</li>
+									<%-- <li id="loadFile" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-file"></span> ${mf:h(msg['label.load.file'])}</li> --%>
 									<li id="loadQrcode" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-qrcode"></span> ${mf:h(msg['label.load.qrcode'])}</li>
 								</ul>
 							</span>
