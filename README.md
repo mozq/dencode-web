@@ -77,6 +77,7 @@ gcloud config set project {PROJECT_ID}
 	- [ROT13](https://dencode.com/cipher/rot13)
 	- [ROT18](https://dencode.com/cipher/rot18)
 	- [ROT47](https://dencode.com/cipher/rot47)
+	- [Enigma Cipher](https://dencode.com/cipher/enigma)
 	- [Scytale Cipher](https://dencode.com/cipher/scytale)
 	- [Rail Fence Cipher](https://dencode.com/cipher/rail-fence)
 - [Hash](https://dencode.com/hash)

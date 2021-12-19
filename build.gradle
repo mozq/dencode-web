@@ -37,6 +37,7 @@ dependencies {
   implementation 'com.udojava:EvalEx:2.+'
   
   implementation 'com.github.mifmi:mifmi-commons4j:v0.2.+'
+  implementation 'com.github.mozq:enigma4j:v1.+'
   
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'

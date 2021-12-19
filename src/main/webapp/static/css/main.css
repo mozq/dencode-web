@@ -318,6 +318,15 @@ table.dencoded-list tr.active .dencode-option-group {
 	display: inline;
 }
 
+.dencode-option:disabled {
+	color: #999;
+	background-color: #ddd;
+}
+
+.dencode-option-error:enabled {
+	background-color: pink;
+}
+
 table.table-fit {
 	width: auto !important;
 	table-layout: auto !important;
@@ -373,6 +382,123 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 	text-align: center;
 }
 
+
+.dencode-option-grid {
+	display: grid;
+	row-gap: 0;
+	column-gap: 10px;
+	padding: 0 10px 10px;
+	background-color: white;
+}
+
+.dencode-option-grid-label {
+	margin-top: 10px;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	color: #555;
+	background-color: #eee;
+}
+
+.dencode-option-grid-value {
+}
+
+.dencode-option-grid-value input {
+	box-sizing: border-box;
+	width: 100%;
+	height: 1.5em;
+	line-height: 1.5em;
+}
+
+.dencode-option-grid-value select {
+	box-sizing: border-box;
+	width: 100%;
+	height: 1.5em;
+	line-height: 1.5em;
+}
+
+.grid-col-all {
+	grid-column: 1 / -1;
+}
+
+
+/* cipher.enigma */
+.cipher-enigma {
+	grid-template-columns: repeat(4, 1fr);
+}
+.cipher-enigma.cipher-enigma-has-4wheels {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.cipher-enigma .cipher-enigma-option-rotor4 {
+	display: none;
+}
+.cipher-enigma.cipher-enigma-has-4wheels .cipher-enigma-option-rotor4 {
+	display: initial;
+}
+
+.cipher-enigma .cipher-enigma-option-plugboard {
+	display: none;
+}
+.cipher-enigma.cipher-enigma-has-plugboard .cipher-enigma-option-plugboard {
+	display: initial;
+}
+.cipher-enigma.cipher-enigma-has-plugboard.cipher-enigma-has-uhr .cipher-enigma-option-plugboard {
+	display: initial;
+	grid-column: 1 / -2;
+}
+
+.cipher-enigma .cipher-enigma-option-uhr {
+	display: none;
+}
+.cipher-enigma.cipher-enigma-has-uhr .cipher-enigma-option-uhr {
+	display: initial;
+}
+
+.cipher-enigma .cipher-enigma-option-reflector-ring,
+.cipher-enigma .cipher-enigma-option-reflector-position {
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #666;
+	background-color: #f9f9f9;
+}
+.cipher-enigma .cipher-enigma-option-reflector-ring::after,
+.cipher-enigma .cipher-enigma-option-reflector-position::after {
+	content: "-";
+}
+.cipher-enigma .cipher-enigma-option-reflector-ring select.dencode-option,
+.cipher-enigma .cipher-enigma-option-reflector-position select.dencode-option {
+	display: none;
+}
+.cipher-enigma.cipher-enigma-has-settable-reflector .cipher-enigma-option-reflector-ring,
+.cipher-enigma.cipher-enigma-has-settable-reflector .cipher-enigma-option-reflector-position {
+	border: inherit;
+	text-align: initial;
+	color: inherit;
+	background-color: inherit;
+	content: initial;
+}
+.cipher-enigma.cipher-enigma-has-settable-reflector .cipher-enigma-option-reflector-ring::after,
+.cipher-enigma.cipher-enigma-has-settable-reflector .cipher-enigma-option-reflector-position::after {
+	content: "";
+}
+.cipher-enigma.cipher-enigma-has-settable-reflector .cipher-enigma-option-reflector-ring select.dencode-option,
+.cipher-enigma.cipher-enigma-has-settable-reflector .cipher-enigma-option-reflector-position select.dencode-option {
+	display: initial;
+}
+
+.cipher-enigma .cipher-enigma-option-ukwd {
+	display: none;
+}
+.cipher-enigma.cipher-enigma-has-ukwd .cipher-enigma-option-ukwd {
+	display: initial;
+}
+
+.cipher-enigma select {
+	text-align: center;
+}
+
+
+
 @media only screen
 		and (min-device-width: 320px)
 		and (max-device-width: 568px) {
@@ -387,6 +513,11 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 	
 	#v {
 		height: 8em;
+	}
+	
+	.dencode-option-grid {
+		column-gap: 3px;
+		padding: 0 0 10px;
 	}
 }
 

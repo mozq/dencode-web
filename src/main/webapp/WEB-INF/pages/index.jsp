@@ -169,6 +169,7 @@
 							<li class="${(method eq 'cipher.rot13') ? 'active' : ''}" data-dencode-method="cipher.rot13"><a href="${mf:h(basePath)}/cipher/rot13">${mf:h(msg['cipher.rot13.method'])}</a></li>
 							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a href="${mf:h(basePath)}/cipher/rot18">${mf:h(msg['cipher.rot18.method'])}</a></li>
 							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a href="${mf:h(basePath)}/cipher/rot47">${mf:h(msg['cipher.rot47.method'])}</a></li>
+							<li class="${(method eq 'cipher.enigma') ? 'active' : ''}" data-dencode-method="cipher.enigma"><a href="${mf:h(basePath)}/cipher/enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
 							<li class="${(method eq 'cipher.scytale') ? 'active' : ''}" data-dencode-method="cipher.scytale"><a href="${mf:h(basePath)}/cipher/scytale">${mf:h(msg['cipher.scytale.method'])}</a></li>
 							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a href="${mf:h(basePath)}/cipher/rail-fence">${mf:h(msg['cipher.rail-fence.method'])}</a></li>
 						</ul>
@@ -404,6 +405,459 @@
 							<c:if test="${methods.contains('cipher.rot13')}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.decCipherROT13'])}</th><td><span id="decCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.decCipherROT18'])}</th><td><span id="decCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.decCipherROT47'])}</th><td><span id="decCipherROT47" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.decCipherEnigma'])}</th><td><span id="decCipherEnigma" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="dencode-option-grid cipher-enigma">
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.decCipherEnigma.option.machine'])}
+										</div>
+										<div class="dencode-option-grid-value grid-col-all">
+											<select name="decCipherEnigmaMachine" class="dencode-option" data-value-link-to="[name=encCipherEnigmaMachine]">
+												<option value="I" data-reflectors="UKW-A,UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V" data-has="plugboard,uhr,ukwd">Enigma I</option>
+												<option value="M3" data-reflectors="UKW-B,UKW-C" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="plugboard">Enigma M3</option>
+												<option value="M4" data-reflectors="UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="4wheels,plugboard,ukwd">Enigma M4 (U-boat Enigma)</option>
+												<option value="Norway" data-reflectors="UKW" data-rotors="I,II,III,IV,V" data-has="plugboard">Norway Enigma "Norenigma"</option>
+												<option value="Sonder" data-reflectors="UKW" data-rotors="I,II,III" data-has="plugboard">Sondermaschine (Special machine)</option>
+												<option value="G" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma G "Zählwerk Enigma" (A28/G31)</option>
+												<option value="G-312" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma G G-312 (G31 Abwehr Enigma)</option>
+												<option value="G-260" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma G G-260 (G31 Abwehr Enigma)</option>
+												<option value="G-111" data-reflectors="UKW" data-rotors="I,II,V" data-has="settable-reflector">Enigma G G-111 (G31 Hungarian Enigma)</option>
+												<option value="D" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma D (Commercial Enigma A26)</option>
+												<option value="K" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma K (Commercial Enigma A27)</option>
+												<option value="KD" data-reflectors="UKW,UKW-D" data-rotors="I,II,III" data-has="ukwd">Enigma KD (Enigma K with UKW-D)</option>
+												<option value="Swiss-K" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Swiss-K (Swiss Enigma K variant)</option>
+												<option value="Railway" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Railway Enigma "Rocket I"</option>
+												<option value="T" data-reflectors="UKW" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="settable-reflector">Enigma T "Tirpitz" (Japanese Enigma)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.decCipherEnigma.option.wheels'])}
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-reflector">
+											<select name="decCipherEnigmaReflector" class="dencode-option" data-value-link-to="[name=encCipherEnigmaReflector]">
+												<option value="UKW">UKW</option>
+												<option value="UKW-A">UKW-A</option>
+												<option value="UKW-B">UKW-B</option>
+												<option value="UKW-C">UKW-C</option>
+												<option value="UKW-D">UKW-D</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
+											<select name="decCipherEnigmaRotor4" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor4]">
+												<option value="Beta">Beta</option>
+												<option value="Gamma">Gamma</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
+											<select name="decCipherEnigmaRotor3" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor3]">
+												<option value="I">I</option>
+												<option value="II">II</option>
+												<option value="III">III</option>
+												<option value="IV">IV</option>
+												<option value="V">V</option>
+												<option value="VI">VI</option>
+												<option value="VII">VII</option>
+												<option value="VIII">VIII</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
+											<select name="decCipherEnigmaRotor2" class="dencode-option" data-default-value="II" data-value-link-to="[name=encCipherEnigmaRotor2]">
+												<option value="I">I</option>
+												<option value="II">II</option>
+												<option value="III">III</option>
+												<option value="IV">IV</option>
+												<option value="V">V</option>
+												<option value="VI">VI</option>
+												<option value="VII">VII</option>
+												<option value="VIII">VIII</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
+											<select name="decCipherEnigmaRotor1" class="dencode-option" data-default-value="III" data-value-link-to="[name=encCipherEnigmaRotor1]">
+												<option value="I">I</option>
+												<option value="II">II</option>
+												<option value="III">III</option>
+												<option value="IV">IV</option>
+												<option value="V">V</option>
+												<option value="VI">VI</option>
+												<option value="VII">VII</option>
+												<option value="VIII">VIII</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.decCipherEnigma.option.rings'])}
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-ring">
+											<select name="decCipherEnigmaReflectorRing" class="dencode-option" data-value-link-to="[name=encCipherEnigmaReflectorRing]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
+											<select name="decCipherEnigmaRotor4Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor4Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
+											<select name="decCipherEnigmaRotor3Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor3Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
+											<select name="decCipherEnigmaRotor2Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor2Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
+											<select name="decCipherEnigmaRotor1Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor1Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.decCipherEnigma.option.positions'])}
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-position">
+											<select name="decCipherEnigmaReflectorPosition" class="dencode-option" data-value-link-to="[name=encCipherEnigmaReflectorPosition]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
+											<select name="decCipherEnigmaRotor4Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor4Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
+											<select name="decCipherEnigmaRotor3Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor3Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
+											<select name="decCipherEnigmaRotor2Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor2Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
+											<select name="decCipherEnigmaRotor1Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor1Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-plugboard">
+											${mf:h(msg['label.decCipherEnigma.option.plugboard'])}
+										</div>
+										<div class="dencode-option-grid-label cipher-enigma-option-uhr">
+											${mf:h(msg['label.decCipherEnigma.option.uhr'])}
+										</div>
+										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-plugboard">
+											<input type="text" name="decCipherEnigmaPlugboard" class="dencode-option" value="" placeholder="${mf:h(msg['label.decCipherEnigma.option.plugboard.tooltip'])}" data-value-link-to="[name=encCipherEnigmaPlugboard]" />
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-uhr">
+											<select name="decCipherEnigmaUhr" class="dencode-option" data-value-link-to="[name=encCipherEnigmaUhr]">
+												<option value="0">00</option>
+												<option value="1">01</option>
+												<option value="2">02</option>
+												<option value="3">03</option>
+												<option value="4">04</option>
+												<option value="5">05</option>
+												<option value="6">06</option>
+												<option value="7">07</option>
+												<option value="8">08</option>
+												<option value="9">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+												<option value="24">24</option>
+												<option value="25">25</option>
+												<option value="26">26</option>
+												<option value="27">27</option>
+												<option value="28">28</option>
+												<option value="29">29</option>
+												<option value="30">30</option>
+												<option value="31">31</option>
+												<option value="32">32</option>
+												<option value="33">33</option>
+												<option value="34">34</option>
+												<option value="35">35</option>
+												<option value="36">36</option>
+												<option value="37">37</option>
+												<option value="38">38</option>
+												<option value="39">39</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-ukwd">
+											${mf:h(msg['label.decCipherEnigma.option.ukwd'])}
+										</div>
+										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
+											<input type="text" name="decCipherEnigmaUkwd" class="dencode-option" value="" placeholder="${mf:h(msg['label.decCipherEnigma.option.ukwd.tooltip'])}" data-value-link-to="[name=encCipherEnigmaUkwd]" />
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.scytale')}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.decCipherScytale'])}</th><td><span id="decCipherScytale" class="for-disp"></span>
@@ -779,6 +1233,459 @@
 							<c:if test="${methods.contains('cipher.rot13')}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.encCipherROT13'])}</th><td><span id="encCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.encCipherROT18'])}</th><td><span id="encCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.encCipherROT47'])}</th><td><span id="encCipherROT47" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.encCipherEnigma'])}</th><td><span id="encCipherEnigma" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="dencode-option-grid cipher-enigma">
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.encCipherEnigma.option.machine'])}
+										</div>
+										<div class="dencode-option-grid-value grid-col-all">
+											<select name="encCipherEnigmaMachine" class="dencode-option" data-value-link-to="[name=decCipherEnigmaMachine]">
+												<option value="I" data-reflectors="UKW-A,UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V" data-has="plugboard,uhr,ukwd">Enigma I</option>
+												<option value="M3" data-reflectors="UKW-B,UKW-C" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="plugboard">Enigma M3</option>
+												<option value="M4" data-reflectors="UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="4wheels,plugboard,ukwd">Enigma M4 (U-boat Enigma)</option>
+												<option value="Norway" data-reflectors="UKW" data-rotors="I,II,III,IV,V" data-has="plugboard">Norway Enigma "Norenigma"</option>
+												<option value="Sonder" data-reflectors="UKW" data-rotors="I,II,III" data-has="plugboard">Sondermaschine (Special machine)</option>
+												<option value="G" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma G "Zählwerk Enigma" (A28/G31)</option>
+												<option value="G-312" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma G G-312 (G31 Abwehr Enigma)</option>
+												<option value="G-260" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma G G-260 (G31 Abwehr Enigma)</option>
+												<option value="G-111" data-reflectors="UKW" data-rotors="I,II,V" data-has="settable-reflector">Enigma G G-111 (G31 Hungarian Enigma)</option>
+												<option value="D" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma D (Commercial Enigma A26)</option>
+												<option value="K" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Enigma K (Commercial Enigma A27)</option>
+												<option value="KD" data-reflectors="UKW,UKW-D" data-rotors="I,II,III" data-has="ukwd">Enigma KD (Enigma K with UKW-D)</option>
+												<option value="Swiss-K" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Swiss-K (Swiss Enigma K variant)</option>
+												<option value="Railway" data-reflectors="UKW" data-rotors="I,II,III" data-has="settable-reflector">Railway Enigma "Rocket I"</option>
+												<option value="T" data-reflectors="UKW" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="settable-reflector">Enigma T "Tirpitz" (Japanese Enigma)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.encCipherEnigma.option.wheels'])}
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-reflector">
+											<select name="encCipherEnigmaReflector" class="dencode-option" data-value-link-to="[name=decCipherEnigmaReflector]">
+												<option value="UKW">UKW</option>
+												<option value="UKW-A">UKW-A</option>
+												<option value="UKW-B">UKW-B</option>
+												<option value="UKW-C">UKW-C</option>
+												<option value="UKW-D">UKW-D</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
+											<select name="encCipherEnigmaRotor4" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor4]">
+												<option value="Beta">Beta</option>
+												<option value="Gamma">Gamma</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
+											<select name="encCipherEnigmaRotor3" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor3]">
+												<option value="I">I</option>
+												<option value="II">II</option>
+												<option value="III">III</option>
+												<option value="IV">IV</option>
+												<option value="V">V</option>
+												<option value="VI">VI</option>
+												<option value="VII">VII</option>
+												<option value="VIII">VIII</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
+											<select name="encCipherEnigmaRotor2" class="dencode-option" data-default-value="II" data-value-link-to="[name=decCipherEnigmaRotor2]">
+												<option value="I">I</option>
+												<option value="II">II</option>
+												<option value="III">III</option>
+												<option value="IV">IV</option>
+												<option value="V">V</option>
+												<option value="VI">VI</option>
+												<option value="VII">VII</option>
+												<option value="VIII">VIII</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
+											<select name="encCipherEnigmaRotor1" class="dencode-option" data-default-value="III" data-value-link-to="[name=decCipherEnigmaRotor1]">
+												<option value="I">I</option>
+												<option value="II">II</option>
+												<option value="III">III</option>
+												<option value="IV">IV</option>
+												<option value="V">V</option>
+												<option value="VI">VI</option>
+												<option value="VII">VII</option>
+												<option value="VIII">VIII</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.encCipherEnigma.option.rings'])}
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-ring">
+											<select name="encCipherEnigmaReflectorRing" class="dencode-option" data-value-link-to="[name=decCipherEnigmaReflectorRing]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
+											<select name="encCipherEnigmaRotor4Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor4Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
+											<select name="encCipherEnigmaRotor3Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor3Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
+											<select name="encCipherEnigmaRotor2Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor2Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
+											<select name="encCipherEnigmaRotor1Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor1Ring]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all">
+											${mf:h(msg['label.encCipherEnigma.option.positions'])}
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-position">
+											<select name="encCipherEnigmaReflectorPosition" class="dencode-option" data-value-link-to="[name=decCipherEnigmaReflectorPosition]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
+											<select name="encCipherEnigmaRotor4Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor4Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
+											<select name="encCipherEnigmaRotor3Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor3Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
+											<select name="encCipherEnigmaRotor2Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor2Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
+											<select name="encCipherEnigmaRotor1Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor1Position]">
+												<option value="1">A (01)</option>
+												<option value="2">B (02)</option>
+												<option value="3">C (03)</option>
+												<option value="4">D (04)</option>
+												<option value="5">E (05)</option>
+												<option value="6">F (06)</option>
+												<option value="7">G (07)</option>
+												<option value="8">H (08)</option>
+												<option value="9">I (09)</option>
+												<option value="10">J (10)</option>
+												<option value="11">K (11)</option>
+												<option value="12">L (12)</option>
+												<option value="13">M (13)</option>
+												<option value="14">N (14)</option>
+												<option value="15">O (15)</option>
+												<option value="16">P (16)</option>
+												<option value="17">Q (17)</option>
+												<option value="18">R (18)</option>
+												<option value="19">S (19)</option>
+												<option value="20">T (20)</option>
+												<option value="21">U (21)</option>
+												<option value="22">V (22)</option>
+												<option value="23">W (23)</option>
+												<option value="24">X (24)</option>
+												<option value="25">Y (25)</option>
+												<option value="26">Z (26)</option>
+											</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-plugboard">
+											${mf:h(msg['label.encCipherEnigma.option.plugboard'])}
+										</div>
+										<div class="dencode-option-grid-label cipher-enigma-option-uhr">
+											${mf:h(msg['label.encCipherEnigma.option.uhr'])}
+										</div>
+										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-plugboard">
+												<input type="text" name="encCipherEnigmaPlugboard" class="dencode-option" value="" placeholder="${mf:h(msg['label.encCipherEnigma.option.plugboard.tooltip'])}" data-value-link-to="[name=decCipherEnigmaPlugboard]" />
+										</div>
+										<div class="dencode-option-grid-value cipher-enigma-option-uhr">
+												<select name="encCipherEnigmaUhr" class="dencode-option" data-value-link-to="[name=decCipherEnigmaUhr]">
+													<option value="0">00</option>
+													<option value="1">01</option>
+													<option value="2">02</option>
+													<option value="3">03</option>
+													<option value="4">04</option>
+													<option value="5">05</option>
+													<option value="6">06</option>
+													<option value="7">07</option>
+													<option value="8">08</option>
+													<option value="9">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+													<option value="21">21</option>
+													<option value="22">22</option>
+													<option value="23">23</option>
+													<option value="24">24</option>
+													<option value="25">25</option>
+													<option value="26">26</option>
+													<option value="27">27</option>
+													<option value="28">28</option>
+													<option value="29">29</option>
+													<option value="30">30</option>
+													<option value="31">31</option>
+													<option value="32">32</option>
+													<option value="33">33</option>
+													<option value="34">34</option>
+													<option value="35">35</option>
+													<option value="36">36</option>
+													<option value="37">37</option>
+													<option value="38">38</option>
+													<option value="39">39</option>
+												</select>
+										</div>
+										
+										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-ukwd">
+											${mf:h(msg['label.encCipherEnigma.option.ukwd'])}
+										</div>
+										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
+											<input type="text" name="encCipherEnigmaUkwd" class="dencode-option" value="" placeholder="${mf:h(msg['label.encCipherEnigma.option.ukwd.tooltip'])}" data-value-link-to="[name=decCipherEnigmaUkwd]" />
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.scytale')}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.encCipherScytale'])}</th><td><span id="encCipherScytale" class="for-disp"></span>

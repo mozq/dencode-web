@@ -46,7 +46,7 @@ $(document).ready(function () {
 	var $subHeaders = $("h2");
 	var $decIndicator = $("#decodingIndicator");
 	var $encIndicator = $("#encodingIndicator");
-	var $listRows = $(".dencoded-list").find("tr");
+	var $listRows = $(".dencoded-list > tbody > tr");
 	var $optionGroups = $(".dencode-option-group");
 	var $options = $(".dencode-option");
 	var $otherDencodeLinks = $(".other-dencode-link");
@@ -59,6 +59,8 @@ $(document).ready(function () {
 				var value = localStorage.getItem("options." + this.name);
 				if (value !== null) {
 					this.value = value;
+				} else if ("defaultValue" in this.dataset) {
+					this.value = this.dataset.defaultValue;
 				}
 			});
 		}
@@ -189,10 +191,12 @@ $(document).ready(function () {
 		$this.removeClass("active");
 	});
 	
-	$("[data-value-link-to]").on("change", function () {
+	$("[data-value-link-to]").on("input paste change", function () {
 		var $this = $(this);
 		
-		$($this.attr("data-value-link-to")).val($this.val());
+		var $target = $($this.attr("data-value-link-to"));
+		$target.val($this.val());
+		$target.trigger("init.dencode");
 	});
 	
 	$localeMenuLinks.on("click", function (ev) {
@@ -408,7 +412,7 @@ $(document).ready(function () {
 	
 	$optionGroups.on("click", false);
 	
-	$options.on("change", function () {
+	$options.on("input paste change", function () {
 		dencode();
 	});
 	
@@ -486,6 +490,177 @@ $(document).ready(function () {
 		
 		ev.preventDefault();
 	});
+	
+	
+	(function () {
+		// for cipher.enigma
+		
+		var $optMachines = $("select[name=encCipherEnigmaMachine],select[name=decCipherEnigmaMachine]");
+		
+		if ($optMachines.length === 0) {
+			return;
+		}
+		
+		var $optReflectors = $("select[name=encCipherEnigmaReflector],select[name=decCipherEnigmaReflector]");
+		var $optPlugboards = $("input[name=encCipherEnigmaPlugboard],input[name=decCipherEnigmaPlugboard]");
+		var $optUkwds = $("input[name=encCipherEnigmaUkwd],input[name=decCipherEnigmaUkwd]");
+		
+		$optMachines.on("change init.dencode", function () {
+			var $this = $(this);
+			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			
+			var $selectedOption = $this.find("option:selected");
+			var reflectors = $selectedOption.attr("data-reflectors").split(",");
+			var rotors = $selectedOption.attr("data-rotors").split(",");
+			var has = $selectedOption.attr("data-has").split(",");
+			
+			var $optReflector = $("select[name=" + prefix + "Reflector]");
+			var $optRotor4 = $("select[name=" + prefix + "Rotor4]");
+			var $optRotor3 = $("select[name=" + prefix + "Rotor3]");
+			var $optRotor2 = $("select[name=" + prefix + "Rotor2]");
+			var $optRotor1 = $("select[name=" + prefix + "Rotor1]");
+			
+			setupSelectOptions($optReflector, reflectors);
+			setupSelectOptions($optRotor3, rotors);
+			setupSelectOptions($optRotor2, rotors);
+			setupSelectOptions($optRotor1, rotors);
+			
+			var $enigma = $this.closest(".cipher-enigma");
+			addOrRemoveClass($enigma, "cipher-enigma-has-4wheels", (has.indexOf("4wheels") !== -1));
+			addOrRemoveClass($enigma, "cipher-enigma-has-plugboard", (has.indexOf("plugboard") !== -1));
+			addOrRemoveClass($enigma, "cipher-enigma-has-uhr", (has.indexOf("uhr") !== -1));
+			addOrRemoveClass($enigma, "cipher-enigma-has-settable-reflector", (has.indexOf("settable-reflector") !== -1));
+			addOrRemoveClass($enigma, "cipher-enigma-has-ukwd", (has.indexOf("ukwd") !== -1));
+			
+			$optReflector.trigger("init.dencode");
+		});
+		
+		$optReflectors.on("change init.dencode", function () {
+			var $this = $(this);
+			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			
+			var $optUkwd = $("input[name=" + prefix + "Ukwd]");
+			var $optRotor4 = $("select[name=" + prefix + "Rotor4]");
+			var $optRotor4Ring = $("select[name=" + prefix + "Rotor4Ring]");
+			var $optRotor4Position = $("select[name=" + prefix + "Rotor4Position]");
+			var ukwd = ($this.val() === "UKW-D");
+			
+			$optUkwd.prop("disabled", !ukwd);
+			$optRotor4.prop("disabled", ukwd);
+			$optRotor4Ring.prop("disabled", ukwd);
+			$optRotor4Position.prop("disabled", ukwd);
+		});
+		
+		$optPlugboards.on("input paste change init.dencode", function () {
+			var $this = $(this);
+			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			
+			var val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
+			
+			var sidx = this.selectionStart;
+			this.value = val;
+			this.selectionStart = this.selectionEnd = sidx;
+			
+			var pairs = val.trim().split(/\s+/);
+			var err = !validateWiring(pairs, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			
+			addOrRemoveClass($this, "dencode-option-error", err);
+			$("select[name=" + prefix + "Uhr]").prop("disabled", err || (pairs.length !== 10));
+		});
+		
+		$optUkwds.on("input paste change init.dencode", function () {
+			var $this = $(this);
+			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			
+			var val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
+			
+			var sidx = this.selectionStart;
+			this.value = val;
+			this.selectionStart = this.selectionEnd = sidx;
+			
+			var pairs = val.trim().split(/\s+/);
+			var err = !validateWiring(pairs, "AZXWVUTSRQPONMLKIHGFEDCB");
+			
+			addOrRemoveClass($this, "dencode-option-error", err);
+		});
+		
+		$optMachines.trigger("init.dencode");
+		$optPlugboards.trigger("init.dencode");
+		$optUkwds.trigger("init.dencode");
+		
+		function setupSelectOptions($select, optionValues) {
+			var currentIdx = $select.prop("selectedIndex");
+			
+			var $options = $select.find("option");
+			var newIdx = -1;
+			$options.each(function(index) {
+				var $option = $(this);
+				
+				var enable = (optionValues.indexOf($option.val()) !== -1);
+				$option.prop("disabled", !enable);
+				$option.prop("hidden", !enable);
+				if (enable && (index <= currentIdx || newIdx === -1)) {
+					newIdx = index;
+				}
+			});
+			
+			$select.prop("selectedIndex", newIdx);
+		}
+		
+		function addOrRemoveClass($elm, className, add) {
+			if (add) {
+				$elm.addClass(className);
+			} else {
+				$elm.removeClass(className);
+			}
+		}
+		
+		function isSameSalectOptions($o1, $o2) {
+			if ($o1.length !== $o2.length) {
+				return false;
+			}
+			
+			for (var i = 0; i < $o1.length; i++) {
+				if ($o1[i].value !== $o2[i].value) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+		
+		function validateWiring(pairs, letters) {
+			if (pairs.length === 0 || pairs[0].length === 0) {
+				return true;
+			}
+			
+			for (var i = 0; i < pairs.length; i++) {
+				if (pairs[i].length !== 2) {
+					// Illegal format
+					return false;
+				}
+			}
+			
+			var chars = pairs.join("");
+			
+			for (var i = 0; i < chars.length; i++) {
+				var ch = chars.charAt(i);
+				
+				if (letters.indexOf(ch) === -1) {
+					// Unsupported
+					return false;
+				}
+				
+				if (chars.indexOf(ch, i + 1) !== -1) {
+					// Duplicates
+					return false;
+				}
+			}
+			
+			return true;
+		}
+	})();
+	
 	
 	dencode();
 	
