@@ -225,10 +225,6 @@
 									<li id="loadQrcode" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><span class="glyphicon glyphicon-qrcode"></span> ${mf:h(msg['label.load.qrcode'])}</li>
 								</ul>
 							</span>
-							<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="v" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
-								<span class="glyphicon glyphicon-duplicate"></span>
-								<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
-							</button>
 							<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}">
 								<span class="glyphicon glyphicon-link"></span>
 								<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
