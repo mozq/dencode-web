@@ -19,6 +19,10 @@
 	<li>Swiss-K (Swiss Enigma K variant)</li>
 	<li>Railway Enigma "Rocket I"</li>
 	<li>Enigma T "Tirpitz" (Japanese Enigma)</li>
+	<li>Spanish Enigma, wiring D</li>
+	<li>Spanish Enigma, wiring F</li>
+	<li>Spanish Enigma, Delta (A 16081)</li>
+	<li>Spanish Enigma, Sonderschaltung / Delta (A 16101)</li>
 </ul>
 
 <p>The Enigma machine consists of the following components. Characters entered from the keyboard (Tastatur) pass through a plugboard (Steckerbrett), an entry wheel (ETW, Eintrittswalze), three or four rotors (Walze), a reflector (UKW, Umkehrwalze), and then the reverse. The encrypted result is displayed on the lamp board (Lampenfeld). Lettering is performed at all locations, including the rotor.</p>

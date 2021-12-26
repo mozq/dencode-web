@@ -19,6 +19,10 @@
 	<li>Swiss-K (Swiss Enigma K variant)</li>
 	<li>Railway Enigma "Rocket I"</li>
 	<li>Enigma T "Tirpitz" (Japanese Enigma)</li>
+	<li>Spanish Enigma, wiring D</li>
+	<li>Spanish Enigma, wiring F</li>
+	<li>Spanish Enigma, Delta (A 16081)</li>
+	<li>Spanish Enigma, Sonderschaltung / Delta (A 16101)</li>
 </ul>
 
 <p>Шифровальная машина "Энигма" состоит из следующих компонентов. Буквы, введенные с клавиатуры (Tastatur), проходят через коммутационная панель (Steckerbrett), колесо ввода (ETW, Eintrittswalze), три или четыре ротора (Walze), отражатель (UKW, (UKW, Umkehrwalze), а затем в обратном направлении, зашифрованный результат выводится на ламповое табло (Lampenfeld). В каждой точке, включая ротор, буквы транскрибируются.</p>

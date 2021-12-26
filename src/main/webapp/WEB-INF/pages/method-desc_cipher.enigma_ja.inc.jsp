@@ -19,6 +19,10 @@
 	<li>Swiss-K (Swiss Enigma K variant)</li>
 	<li>Railway Enigma "Rocket I"</li>
 	<li>Enigma T "Tirpitz" (Japanese Enigma)</li>
+	<li>Spanish Enigma, wiring D</li>
+	<li>Spanish Enigma, wiring F</li>
+	<li>Spanish Enigma, Delta (A 16081)</li>
+	<li>Spanish Enigma, Sonderschaltung / Delta (A 16101)</li>
 </ul>
 
 <p>エニグマ暗号機は以下のような構成になっています。キーボード (Tastatur) から入力された文字は、プラグボード (Steckerbrett)、エントリーウィール (ETW, Eintrittswalze)、3つまたは4つのローター (Walze)、リフレクター (UKW, Umkehrwalze) を通り、その後は逆の経路を辿って暗号化された結果がランプボード (Lampenfeld) に表示されます。ローターなど全ての場所で文字の換字が行われます。</p>
