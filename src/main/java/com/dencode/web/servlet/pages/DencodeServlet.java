@@ -44,43 +44,19 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		String nl;
 		String tz;
 		Map<String, String> options;
-		
-		if (reqres().request().getContentType().equals("application/json")) {
-			try (InputStream is = reqres().request().getInputStream()) {
-				ObjectMapper mapper = new ObjectMapper();
-				Map<String, Object> reqmap = mapper.readValue(is, new TypeReference<Map<String, Object>>() {});
-				
-				type = (String)reqmap.getOrDefault("type", "all");
-				method = (String)reqmap.getOrDefault("method", "all.all");
-				val = (String)reqmap.getOrDefault("value", "");
-				oe = CommonLogic.mapShortCharsetName((String)reqmap.getOrDefault("oe", "UTF-8"));
-				nl = (String)reqmap.getOrDefault("nl", "crlf");
-				tz = (String)reqmap.getOrDefault("tz", "UTC");
-				
-				options = (Map<String, String>)reqmap.get("options");
-			}
-		} else {
-			// Temporary code for migration
-			// TODO: Remove this code after migration
-			type = reqres().param("t", "all");
-			method = reqres().param("m", "all.all");
-			val = reqres().param("v", "");
-			oe = CommonLogic.mapShortCharsetName(reqres().param("oe", "UTF-8"));
-			nl = reqres().param("nl", "crlf");
-			tz = reqres().param("tz", "UTC");
+
+		try (InputStream is = reqres().request().getInputStream()) {
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> reqmap = mapper.readValue(is, new TypeReference<Map<String, Object>>() {});
 			
-			options = new HashMap<>();
-			options.put("encStrBinSeparatorEach", reqres().param("encStrBinSeparatorEach", null));
-			options.put("encStrHexSeparatorEach", reqres().param("encStrHexSeparatorEach", null));
-			options.put("encStrHexCase", reqres().param("encStrHexCase", null));
-			options.put("encStrBase64LineBreakEach", reqres().param("encStrBase64LineBreakEach", null));
-			options.put("encStrUnicodeEscapeSurrogatePairFormat", reqres().param("encStrUnicodeEscapeSurrogatePairFormat", null));
-			options.put("encCipherCaesarShift", reqres().param("encCipherCaesarShift", null));
-			options.put("decCipherCaesarShift", reqres().param("decCipherCaesarShift", null));
-			options.put("encCipherScytaleKey", reqres().param("encCipherScytaleKey", null));
-			options.put("decCipherScytaleKey", reqres().param("decCipherScytaleKey", null));
-			options.put("encCipherRailFenceKey", reqres().param("encCipherRailFenceKey", null));
-			options.put("decCipherRailFenceKey", reqres().param("decCipherRailFenceKey", null));
+			type = (String)reqmap.getOrDefault("type", "all");
+			method = (String)reqmap.getOrDefault("method", "all.all");
+			val = (String)reqmap.getOrDefault("value", "");
+			oe = CommonLogic.mapShortCharsetName((String)reqmap.getOrDefault("oe", "UTF-8"));
+			nl = (String)reqmap.getOrDefault("nl", "crlf");
+			tz = (String)reqmap.getOrDefault("tz", "UTC");
+			
+			options = (Map<String, String>)reqmap.get("options");
 		}
 		
 		Charset charset = Charset.forName(toCharsetName(oe));
@@ -91,17 +67,6 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		try {
 			Map<String, Object> dencodeResult = DencodeMapper.dencode(type, method, cond);
-			
-			// Temporary code for migration
-			// TODO: Remove this code after migration
-			if (dencodeResult.containsKey("encStrBase32")) {
-				dencodeResult.put("encStrBase32Encoding", dencodeResult.get("encStrBase32"));
-				dencodeResult.put("decStrBase32Encoding", dencodeResult.get("decStrBase32"));
-			}
-			if (dencodeResult.containsKey("encStrBase64")) {
-				dencodeResult.put("encStrBase64Encoding", dencodeResult.get("encStrBase64"));
-				dencodeResult.put("decStrBase64Encoding", dencodeResult.get("decStrBase64"));
-			}
 			
 			responseAsJson(dencodeResult);
 		} catch (OutOfMemoryError e) {

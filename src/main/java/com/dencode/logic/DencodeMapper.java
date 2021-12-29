@@ -234,19 +234,6 @@ public class DencodeMapper {
 					}
 				}
 			}
-			
-			// Temporary code for migration
-			// TODO: Remove this code after migration
-			for (String t : DENCODER_MAP.keySet()) {
-				Map<String, List<Method>> methodMap = DENCODER_MAP.get(t);
-				for (String m : methodMap.keySet()) {
-					for (Method function : methodMap.get(m)) {
-						if (!ret.containsKey(function.getName())) {
-							ret.put(function.getName(), null);
-						}
-					}
-				}
-			}
 		}
 		
 		
