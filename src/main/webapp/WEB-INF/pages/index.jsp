@@ -15,6 +15,7 @@
 	<meta name="msapplication-square70x70logo" content="${pageContext.request.contextPath}/static/img/icons/favicon70px.png" />
 	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/static/img/icons/favicon150px.png" />
 	<meta name="msapplication-square310x310logo" content="${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
+	<meta name="format-detection" content="address=no,date=no,email=no,telephone=no,url=no" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
 	<meta property="og:url" content="${baseURL}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
 	<meta property="og:image" content="${baseURL}${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
