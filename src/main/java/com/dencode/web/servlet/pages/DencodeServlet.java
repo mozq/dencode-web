@@ -19,7 +19,6 @@ package com.dencode.web.servlet.pages;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.time.ZoneId;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;

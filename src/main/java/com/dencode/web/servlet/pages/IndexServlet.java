@@ -71,7 +71,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	private static final Map<String, String> SUPPORTED_LOCALE_MAP;
 	static {
 		String[] supportedLocaleIds = config().getAsStringArray("locales");
-		Map<String, String> supportedLocaleMap = new LinkedHashMap<>();
+		Map<String, String> supportedLocaleMap = new LinkedHashMap<>(supportedLocaleIds.length);
 		for (String id : supportedLocaleIds) {
 			supportedLocaleMap.put(id, ResourceBundle.getBundle("messages", toLocale(id)).getString("locale.name"));
 		}
