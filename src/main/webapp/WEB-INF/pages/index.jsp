@@ -1073,9 +1073,20 @@
 							<c:if test="${methods.contains('string.unicode-normalization')}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encStrUnicodeNFKC'])}</th><td><span id="encStrUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${methods.contains('string.line-sort')}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSortAsc'])}</th><td><span id="encStrLineSortAsc" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('string.line-sort')}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSortDesc'])}</th><td><span id="encStrLineSortDesc" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('string.line-sort')}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSortReverse'])}</th><td><span id="encStrLineSortReverse" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('string.line-sort')}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSort'])}</th><td><span id="encStrLineSort" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encStrLineSort.option.order'])}</span>
+											<select name="encStrLineSortOrder" class="dencode-option form-control">
+												<option value="asc">${mf:h(msg['label.encStrLineSort.option.order.asc'])}</option>
+												<option value="desc">${mf:h(msg['label.encStrLineSort.option.order.desc'])}</option>
+												<option value="reverse">${mf:h(msg['label.encStrLineSort.option.order.reverse'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('string.line-unique')}"><tr data-dencode-method="string.line-unique"><th>${mf:h(msg['label.encStrLineUnique'])}</th><td><span id="encStrLineUnique" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>

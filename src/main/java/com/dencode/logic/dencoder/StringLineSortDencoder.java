@@ -34,20 +34,18 @@ public class StringLineSortDencoder {
 	
 	
 	@DencoderFunction
-	public static String encStrLineSortAsc(DencodeCondition cond) {
-		return encStrLineSortAsc(cond.valueAsLines());
+	public static String encStrLineSort(DencodeCondition cond) {
+		return encStrLineSort(cond.valueAsLines(), cond.options().getOrDefault("encStrLineSortOrder", "asc"));
 	}
 	
-	@DencoderFunction
-	public static String encStrLineSortDesc(DencodeCondition cond) {
-		return encStrLineSortDesc(cond.valueAsLines());
+
+	private static String encStrLineSort(List<String> varLines, String order) {
+		switch (order) {
+		case "desc": return encStrLineSortDesc(varLines);
+		case "reverse": return encStrLineSortReverse(varLines);
+		default: return encStrLineSortAsc(varLines);
+		}
 	}
-	
-	@DencoderFunction
-	public static String encStrLineSortReverse(DencodeCondition cond) {
-		return encStrLineSortReverse(cond.valueAsLines());
-	}
-	
 	
 	private static String encStrLineSortAsc(List<String> varLines) {
 		return varLines.stream()
