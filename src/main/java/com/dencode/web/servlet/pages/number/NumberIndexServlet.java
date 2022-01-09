@@ -16,7 +16,7 @@
  */
 package com.dencode.web.servlet.pages.number;
 
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebServlet;
 
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 

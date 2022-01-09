@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebServlet;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;

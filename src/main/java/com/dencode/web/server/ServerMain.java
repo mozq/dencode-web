@@ -19,25 +19,15 @@ package com.dencode.web.server;
 import java.io.File;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.Configuration.ClassList;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class ServerMain {
 
 	public static void main(String[] args) throws Exception {
-		System.setProperty("org.eclipse.jetty.util.log.class", "org.eclipse.jetty.util.log.StrErrLog");
-		System.setProperty("org.eclipse.jetty.LEVEL", "INFO");
-		
 		int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
 		String war = new File(".").list((dir, name) -> name.endsWith(".war"))[0];
 		
 		Server server = new Server(port);
-		
-		ClassList classlist = ClassList.setServerDefault(server);
-		classlist.addBefore(
-				"org.eclipse.jetty.webapp.JettyWebXmlConfiguration",
-				"org.eclipse.jetty.annotations.AnnotationConfiguration"
-				);
 		
 		WebAppContext webAppContext = new WebAppContext();
 		webAppContext.setContextPath("/");

@@ -27,8 +27,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.mifmi.commons4j.config.ConfigNotFoundException;
 import org.mifmi.commons4j.util.DateUtilz;

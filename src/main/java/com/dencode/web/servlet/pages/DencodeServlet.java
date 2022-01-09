@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import java.time.ZoneId;
 import java.util.Map;
 
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebServlet;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.model.DencodeCondition;

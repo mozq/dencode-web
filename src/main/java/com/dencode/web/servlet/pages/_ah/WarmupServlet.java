@@ -18,8 +18,8 @@ package com.dencode.web.servlet.pages._ah;
 
 import java.util.ResourceBundle;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;

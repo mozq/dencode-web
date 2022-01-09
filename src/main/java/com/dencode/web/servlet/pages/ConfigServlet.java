@@ -19,8 +19,8 @@ package com.dencode.web.servlet.pages;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.mifmi.commons4j.web.servlet.MifmiServletException;
 

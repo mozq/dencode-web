@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.mifmi.commons4j.app.message.Message;
 import org.mifmi.commons4j.app.message.MessageManager;
