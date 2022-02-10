@@ -80,6 +80,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		
 		switch (oe) {
 			case "Shift_JIS": return "windows-31j";
+			case "ISO-2022-JP": return "x-windows-iso2022jp";
 			case "windows-874": return "x-windows-874";
 		}
 		
