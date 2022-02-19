@@ -18,6 +18,8 @@ package com.dencode.web.servlet.pages;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.time.DateTimeException;
 import java.time.ZoneId;
 import java.util.Map;
 
@@ -58,9 +60,9 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			options = (Map<String, String>)reqmap.get("options");
 		}
 		
-		Charset charset = Charset.forName(toCharsetName(oe));
+		Charset charset = toCharset(oe, StandardCharsets.UTF_8);
 		String lineBreak = toLineBreakString(nl);
-		ZoneId zone = ZoneId.of(tz);
+		ZoneId zone = toZoneId(tz, "UTC");
 		
 		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, zone, options);
 		
@@ -91,12 +93,24 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return oe;
 	}
 	
+	private static Charset toCharset(String oe, Charset defaultCharset) {
+		
+		Charset charset;
+		try {
+			charset = Charset.forName(toCharsetName(oe));
+		} catch (IllegalArgumentException e) {
+			charset = defaultCharset;
+		}
+		
+		return charset;
+	}
+	
 	private static String toLineBreakString(String nl) {
-
+		
 		String lineBreak;
-		if (nl.equals("lf")) {
+		if ("lf".equals(nl)) {
 			lineBreak = "\n";
-		} else if (nl.equals("cr")) {
+		} else if ("cr".equals(nl)) {
 			lineBreak = "\r";
 		} else {
 			// crlf
@@ -104,5 +118,17 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 		
 		return lineBreak;
+	}
+	
+	private static ZoneId toZoneId(String tz, String defaultTz) {
+		
+		ZoneId zone;
+		try {
+			zone = ZoneId.of(tz);
+		} catch (DateTimeException | NullPointerException e) {
+			zone = ZoneId.of(defaultTz);
+		}
+		
+		return zone;
 	}
 }
