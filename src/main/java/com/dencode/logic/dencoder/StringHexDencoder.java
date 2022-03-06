@@ -49,7 +49,7 @@ public class StringHexDencoder {
 	
 	private static String decStrHex(String val, Charset charset) {
 		if (val == null || val.isEmpty()) {
-			return null;
+			return val;
 		}
 
 		val = val.replaceAll("\\s", "");

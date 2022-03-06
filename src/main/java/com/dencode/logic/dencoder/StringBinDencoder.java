@@ -48,7 +48,7 @@ public class StringBinDencoder {
 	
 	private static String decStrBin(String val, Charset charset) {
 		if (val == null || val.isEmpty()) {
-			return null;
+			return val;
 		}
 		
 		val = val.replaceAll("\\s", "");
