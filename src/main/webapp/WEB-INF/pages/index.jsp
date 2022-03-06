@@ -154,7 +154,6 @@
 							<li class="${(method eq 'color.rgb') ? 'active' : ''}" data-dencode-method="color.rgb"><a href="${mf:h(basePath)}/color/rgb">${mf:h(msg['color.rgb.method'])}</a></li>
 							<li class="${(method eq 'color.hsl') ? 'active' : ''}" data-dencode-method="color.hsl"><a href="${mf:h(basePath)}/color/hsl">${mf:h(msg['color.hsl.method'])}</a></li>
 							<li class="${(method eq 'color.hsv') ? 'active' : ''}" data-dencode-method="color.hsv"><a href="${mf:h(basePath)}/color/hsv">${mf:h(msg['color.hsv.method'])}</a></li>
-							<li class="${(method eq 'color.cmy') ? 'active' : ''}" data-dencode-method="color.cmy"><a href="${mf:h(basePath)}/color/cmy">${mf:h(msg['color.cmy.method'])}</a></li>
 							<li class="${(method eq 'color.cmyk') ? 'active' : ''}" data-dencode-method="color.cmyk"><a href="${mf:h(basePath)}/color/cmyk">${mf:h(msg['color.cmyk.method'])}</a></li>
 						</ul>
 					</li>
@@ -1193,7 +1192,6 @@
 							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['label.encColorRGBFn'])}</th><td><span id="encColorRGBFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.hsl')}"><tr data-dencode-method="color.hsl"><th>${mf:h(msg['label.encColorHSLFn'])}</th><td><span id="encColorHSLFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.hsv')}"><tr data-dencode-method="color.hsv"><th>${mf:h(msg['label.encColorHSVFn'])}</th><td><span id="encColorHSVFn" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('color.cmy')}"><tr data-dencode-method="color.cmy"><th>${mf:h(msg['label.encColorCMYFn'])}</th><td><span id="encColorCMYFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.cmyk')}"><tr data-dencode-method="color.cmyk"><th>${mf:h(msg['label.encColorCMYKFn'])}</th><td><span id="encColorCMYKFn" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 					</c:if>
