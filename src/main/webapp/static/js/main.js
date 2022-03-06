@@ -756,7 +756,7 @@ $(document).ready(function () {
 		$vLen.data("len-chars", res.textLength);
 		$vLen.data("len-bytes", res.textByteLength);
 		
-		_colors = (res.encColorRGBHex6) ? res.encColorRGBHex6.split("\n") : null;
+		_colors = (res.encColorRGBHex) ? res.encColorRGBHex.split("\n") : null;
 		if (_colors) {
 			setBgColor($v, _colors);
 		}

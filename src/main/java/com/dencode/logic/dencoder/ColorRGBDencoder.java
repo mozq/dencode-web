@@ -36,48 +36,22 @@ public class ColorRGBDencoder {
 	
 	
 	@DencoderFunction
-	public static String encColorRGBHex3(DencodeCondition cond) {
-		return encColorRGBHex3(cond.valueAsColors());
+	public static String encColorRGBHex(DencodeCondition cond) {
+		return encColorRGBHex(cond.valueAsColors());
 	}
-
-	@DencoderFunction
-	public static String encColorRGBHex6(DencodeCondition cond) {
-		return encColorRGBHex6(cond.valueAsColors());
-	}
-
+	
 	@DencoderFunction
 	public static String encColorRGBFn8(DencodeCondition cond) {
 		return encColorRGBFn8(cond.valueAsColors());
 	}
-
+	
 	@DencoderFunction
 	public static String encColorRGBFn(DencodeCondition cond) {
 		return encColorRGBFn(cond.valueAsColors());
 	}
 	
 	
-	private static String encColorRGBHex3(List<RGBColor> vals) {
-		return DencodeUtils.dencodeLines(vals, (rgb) -> {
-			if (rgb == null) {
-				return null;
-			}
-			
-			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
-			
-			StringBuilder sb = new StringBuilder();
-			sb.append('#');
-			sb.append(Integer.toHexString(Math.round(rgb.getR8() / 17)));
-			sb.append(Integer.toHexString(Math.round(rgb.getG8() / 17)));
-			sb.append(Integer.toHexString(Math.round(rgb.getB8() / 17)));
-			if (hasAlpha) {
-				sb.append(Integer.toHexString(Math.round((int) (255.0 * rgb.getA() / 17.0))));
-			}
-			
-			return sb.toString();
-		});
-	}
-	
-	private static String encColorRGBHex6(List<RGBColor> vals) {
+	private static String encColorRGBHex(List<RGBColor> vals) {
 		return DencodeUtils.dencodeLines(vals, (rgb) -> {
 			if (rgb == null) {
 				return null;

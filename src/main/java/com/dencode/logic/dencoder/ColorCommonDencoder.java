@@ -29,7 +29,7 @@ public class ColorCommonDencoder {
 	
 	
 	@DencoderFunction
-	public static String encColorRGBHex6(DencodeCondition cond) {
-		return ColorRGBDencoder.encColorRGBHex6(cond);
+	public static String encColorRGBHex(DencodeCondition cond) {
+		return ColorRGBDencoder.encColorRGBHex(cond);
 	}
 }
