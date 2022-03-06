@@ -49,27 +49,23 @@ public class ColorCMYKDencoder {
 			}
 			
 			CMYKColor cmyk = rgb.toCMYK();
-			boolean hasAlpha = (cmyk.getA() != 1.0);
+			boolean hasAlpha = (Double.compare(cmyk.getA(), 1.0) != 0);
 			
 			StringBuilder sb = new StringBuilder();
-			if (hasAlpha) {
-				sb.append("cmyka(");
-			} else {
-				sb.append("cmyk(");
-			}
-			appendRoundString(sb, cmyk.getC() * 100, 2, RoundingMode.HALF_UP);
+			sb.append("device-cmyk(");
+			appendRoundString(sb, cmyk.getC() * 100.0, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
-			appendRoundString(sb, cmyk.getM() * 100, 2, RoundingMode.HALF_UP);
+			sb.append(' ');
+			appendRoundString(sb, cmyk.getM() * 100.0, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
-			appendRoundString(sb, cmyk.getY() * 100, 2, RoundingMode.HALF_UP);
+			sb.append(' ');
+			appendRoundString(sb, cmyk.getY() * 100.0, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
-			appendRoundString(sb, cmyk.getK() * 100, 2, RoundingMode.HALF_UP);
+			sb.append(' ');
+			appendRoundString(sb, cmyk.getK() * 100.0, 2, RoundingMode.HALF_UP);
 			sb.append('%');
 			if (hasAlpha) {
-				sb.append(", ");
+				sb.append(" / ");
 				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
 			}
 			sb.append(')');

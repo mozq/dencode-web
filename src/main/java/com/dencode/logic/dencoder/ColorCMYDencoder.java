@@ -49,24 +49,20 @@ public class ColorCMYDencoder {
 			}
 			
 			CMYColor cmy = rgb.toCMY();
-			boolean hasAlpha = (cmy.getA() != 1.0);
+			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
 			
 			StringBuilder sb = new StringBuilder();
-			if (hasAlpha) {
-				sb.append("cmya(");
-			} else {
-				sb.append("cmy(");
-			}
+			sb.append("cmy(");
 			appendRoundString(sb, cmy.getC() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
+			sb.append(' ');
 			appendRoundString(sb, cmy.getM() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
+			sb.append(' ');
 			appendRoundString(sb, cmy.getY() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
 			if (hasAlpha) {
-				sb.append(", ");
+				sb.append(" / ");
 				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
 			}
 			sb.append(')');

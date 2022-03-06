@@ -61,8 +61,8 @@ public class ColorRGBDencoder {
 			if (rgb == null) {
 				return null;
 			}
-	
-			boolean hasAlpha = (rgb.getA() != 1.0);
+			
+			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append('#');
@@ -82,9 +82,9 @@ public class ColorRGBDencoder {
 			if (rgb == null) {
 				return null;
 			}
-	
-			boolean hasAlpha = (rgb.getA() != 1.0);
-	
+			
+			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
+			
 			StringBuilder sb = new StringBuilder();
 			sb.append('#');
 			
@@ -120,22 +120,18 @@ public class ColorRGBDencoder {
 			if (rgb == null) {
 				return null;
 			}
-	
-			boolean hasAlpha = (rgb.getA() != 1.0);
+			
+			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
 			
 			StringBuilder sb = new StringBuilder();
-			if (hasAlpha) {
-				sb.append("rgba(");
-			} else {
-				sb.append("rgb(");
-			}
+			sb.append("rgb(");
 			sb.append(rgb.getR8());
-			sb.append(", ");
+			sb.append(' ');
 			sb.append(rgb.getG8());
-			sb.append(", ");
+			sb.append(' ');
 			sb.append(rgb.getB8());
 			if (hasAlpha) {
-				sb.append(", ");
+				sb.append(" / ");
 				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
 			}
 			sb.append(')');
@@ -149,25 +145,21 @@ public class ColorRGBDencoder {
 			if (rgb == null) {
 				return null;
 			}
-	
-			boolean hasAlpha = (rgb.getA() != 1.0);
+			
+			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
 			
 			StringBuilder sb = new StringBuilder();
-			if (hasAlpha) {
-				sb.append("rgba(");
-			} else {
-				sb.append("rgb(");
-			}
+			sb.append("rgb(");
 			appendRoundString(sb, rgb.getR() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
+			sb.append(' ');
 			appendRoundString(sb, rgb.getG() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
+			sb.append(' ');
 			appendRoundString(sb, rgb.getB() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
 			if (hasAlpha) {
-				sb.append(", ");
+				sb.append(" / ");
 				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
 			}
 			sb.append(')');

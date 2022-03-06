@@ -49,23 +49,19 @@ public class ColorHSVDencoder {
 			}
 			
 			HSVColor hsv = rgb.toHSV();
-			boolean hasAlpha = (hsv.getA() != 1.0);
+			boolean hasAlpha = (Double.compare(hsv.getA(), 1.0) != 0);
 			
 			StringBuilder sb = new StringBuilder();
-			if (hasAlpha) {
-				sb.append("hsva(");
-			} else {
-				sb.append("hsv(");
-			}
+			sb.append("hsv(");
 			appendRoundString(sb, hsv.getH(), 2, RoundingMode.HALF_UP);
-			sb.append(", ");
+			sb.append(' ');
 			appendRoundString(sb, hsv.getS() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
-			sb.append(", ");
+			sb.append(' ');
 			appendRoundString(sb, hsv.getV() * 100, 2, RoundingMode.HALF_UP);
 			sb.append('%');
 			if (hasAlpha) {
-				sb.append(", ");
+				sb.append(" / ");
 				appendRoundString(sb, hsv.getA(), 2, RoundingMode.HALF_UP);
 			}
 			sb.append(')');
