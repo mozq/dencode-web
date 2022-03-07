@@ -1188,8 +1188,19 @@
 						<tbody>
 							<c:if test="${methods.contains('color.name')}"><tr data-dencode-method="color.name"><th>${mf:h(msg['label.encColorName'])}</th><td><span id="encColorName" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['label.encColorRGBHex'])}</th><td><span id="encColorRGBHex" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['label.encColorRGBFn8'])}</th><td><span id="encColorRGBFn8" class="for-disp"></span></td></tr></c:if>
-							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['label.encColorRGBFn'])}</th><td><span id="encColorRGBFn" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['label.encColorRGBFn'])}</th><td><span id="encColorRGBFn" class="for-disp"></span>
+								<form class="dencode-option-group form-inline" method="post">
+									<div class="form-group form-group-sm">
+										<div class="input-group">
+											<span class="input-group-addon">${mf:h(msg['label.encColorRGBFn.option.notation'])}</span>
+											<select name="encColorRGBFnNotation" class="dencode-option form-control">
+												<option value="percentage">${mf:h(msg['label.encColorRGBFn.option.notation.percentage'])}</option>
+												<option value="number">${mf:h(msg['label.encColorRGBFn.option.notation.number'])}</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('color.hsl')}"><tr data-dencode-method="color.hsl"><th>${mf:h(msg['label.encColorHSLFn'])}</th><td><span id="encColorHSLFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.hsv')}"><tr data-dencode-method="color.hsv"><th>${mf:h(msg['label.encColorHSVFn'])}</th><td><span id="encColorHSVFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.cmyk')}"><tr data-dencode-method="color.cmyk"><th>${mf:h(msg['label.encColorCMYKFn'])}</th><td><span id="encColorCMYKFn" class="for-disp"></span></td></tr></c:if>

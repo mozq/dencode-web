@@ -41,13 +41,11 @@ public class ColorRGBDencoder {
 	}
 	
 	@DencoderFunction
-	public static String encColorRGBFn8(DencodeCondition cond) {
-		return encColorRGBFn8(cond.valueAsColors());
-	}
-	
-	@DencoderFunction
 	public static String encColorRGBFn(DencodeCondition cond) {
-		return encColorRGBFn(cond.valueAsColors());
+		return encColorRGBFn(
+				cond.valueAsColors(),
+				DencodeUtils.getOption(cond.options(), "encColorRGBFnNotation", "percentage")
+				);
 	}
 	
 	
@@ -89,7 +87,7 @@ public class ColorRGBDencoder {
 		});
 	}
 	
-	private static String encColorRGBFn8(List<RGBColor> vals) {
+	private static String encColorRGBFn(List<RGBColor> vals, String notation) {
 		return DencodeUtils.dencodeLines(vals, (rgb) -> {
 			if (rgb == null) {
 				return null;
@@ -99,39 +97,26 @@ public class ColorRGBDencoder {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("rgb(");
-			sb.append(rgb.getR8());
-			sb.append(' ');
-			sb.append(rgb.getG8());
-			sb.append(' ');
-			sb.append(rgb.getB8());
-			if (hasAlpha) {
-				sb.append(" / ");
-				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
+			
+			if (notation.equals("number")) {
+				// number
+				sb.append(rgb.getR8());
+				sb.append(' ');
+				sb.append(rgb.getG8());
+				sb.append(' ');
+				sb.append(rgb.getB8());
+			} else {
+				// percentage
+				appendRoundString(sb, rgb.getR() * 100, 2, RoundingMode.HALF_UP);
+				sb.append('%');
+				sb.append(' ');
+				appendRoundString(sb, rgb.getG() * 100, 2, RoundingMode.HALF_UP);
+				sb.append('%');
+				sb.append(' ');
+				appendRoundString(sb, rgb.getB() * 100, 2, RoundingMode.HALF_UP);
+				sb.append('%');
 			}
-			sb.append(')');
 			
-			return sb.toString();
-		});
-	}
-	
-	private static String encColorRGBFn(List<RGBColor> vals) {
-		return DencodeUtils.dencodeLines(vals, (rgb) -> {
-			if (rgb == null) {
-				return null;
-			}
-			
-			boolean hasAlpha = (Double.compare(rgb.getA(), 1.0) != 0);
-			
-			StringBuilder sb = new StringBuilder();
-			sb.append("rgb(");
-			appendRoundString(sb, rgb.getR() * 100, 2, RoundingMode.HALF_UP);
-			sb.append('%');
-			sb.append(' ');
-			appendRoundString(sb, rgb.getG() * 100, 2, RoundingMode.HALF_UP);
-			sb.append('%');
-			sb.append(' ');
-			appendRoundString(sb, rgb.getB() * 100, 2, RoundingMode.HALF_UP);
-			sb.append('%');
 			if (hasAlpha) {
 				sb.append(" / ");
 				appendRoundString(sb, rgb.getA(), 2, RoundingMode.HALF_UP);
