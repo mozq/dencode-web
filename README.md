@@ -70,7 +70,6 @@ gcloud config set project {PROJECT_ID}
     - [RGB Color](https://dencode.com/color/rgb)
     - [HSL Color](https://dencode.com/color/hsl)
     - [HSV Color](https://dencode.com/color/hsv)
-    - [CMY Color](https://dencode.com/color/cmy)
     - [CMYK Color](https://dencode.com/color/cmyk)
 - [Cipher](https://dencode.com/cipher)
     - [Caesar Cipher](https://dencode.com/cipher/caesar)
