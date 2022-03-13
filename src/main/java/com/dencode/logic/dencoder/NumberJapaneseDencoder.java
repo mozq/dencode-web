@@ -83,7 +83,7 @@ public class NumberJapaneseDencoder {
 			BigDecimal bigDec;
 			try {
 				bigDec = NumberUtilz.parseJPNum(val);
-			} catch (NumberParseException e) {
+			} catch (NumberParseException | ArithmeticException e) {
 				return null;
 			}
 			

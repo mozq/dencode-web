@@ -99,7 +99,7 @@ public class NumberParser {
 			try {
 				Expression exp = new Expression(val, MathContext.DECIMAL128);
 				return exp.eval();
-			} catch (RuntimeException e2) {
+			} catch (RuntimeException e1) {
 				return null;
 			}
 		}
@@ -195,7 +195,7 @@ public class NumberParser {
 		
 		try {
 			return NumberUtilz.parseEnNumShortScale(val);
-		} catch (NumberParseException e1) {
+		} catch (NumberParseException | ArithmeticException e) {
 			return null;
 		}
 	}
@@ -207,7 +207,7 @@ public class NumberParser {
 		
 		try {
 			return NumberUtilz.parseJPNum(val);
-		} catch (NumberParseException e1) {
+		} catch (NumberParseException | ArithmeticException e) {
 			return null;
 		}
 	}

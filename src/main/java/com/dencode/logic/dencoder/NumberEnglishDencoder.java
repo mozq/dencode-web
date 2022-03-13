@@ -69,7 +69,7 @@ public class NumberEnglishDencoder {
 			BigDecimal bigDec;
 			try {
 				bigDec = NumberUtilz.parseEnNumShortScale(val);
-			} catch (NumberParseException e) {
+			} catch (NumberParseException | ArithmeticException e) {
 				return null;
 			}
 			
