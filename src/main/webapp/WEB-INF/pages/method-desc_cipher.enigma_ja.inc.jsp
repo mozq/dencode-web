@@ -52,7 +52,7 @@ EKMFLGDQVZNTOWYHXUSPAIBRCJ
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
-		<tr><th>Wheel</th><th>ABCDEFGHIJKLMNOPQRSTUVWXYZ</th></tr>
+		<tr><th>ウィール</th><th>ABCDEFGHIJKLMNOPQRSTUVWXYZ</th></tr>
 		<tr><td>ETW</td><td>ABCDEFGHIJKLMNOPQRSTUVWXYZ</td></tr>
 		<tr><td>I</td><td>EKMFLGDQVZNTOWYHXUSPAIBRCJ</td></tr>
 		<tr><td>II</td><td>AJDKSIRUXBLHWTMCQGZNPYFVOE</td></tr>
