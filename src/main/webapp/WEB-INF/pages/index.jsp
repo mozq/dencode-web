@@ -1941,7 +1941,7 @@
 <script id="adMiddleTmpl" type="text/template">
 	<tr id="adMiddle">
 		<td colspan="2" style="padding: 2em 0">
-			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="8967889103" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="8967889103" data-ad-format="rectangle, horizontal" data-full-width-responsive="true"></ins>
 		</td>
 	</tr>
 </script>
