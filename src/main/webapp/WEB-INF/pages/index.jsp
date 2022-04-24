@@ -946,6 +946,10 @@
 												<option value="4b">${mf:h(msg['label.encStrBin.option.separator.each.4bits'])}</option>
 												<option value="8b">${mf:h(msg['label.encStrBin.option.separator.each.8bits'])}</option>
 												<option value="16b">${mf:h(msg['label.encStrBin.option.separator.each.16bits'])}</option>
+												<option value="24b">${mf:h(msg['label.encStrBin.option.separator.each.24bits'])}</option>
+												<option value="32b">${mf:h(msg['label.encStrBin.option.separator.each.32bits'])}</option>
+												<option value="64b">${mf:h(msg['label.encStrBin.option.separator.each.64bits'])}</option>
+												<option value="128b">${mf:h(msg['label.encStrBin.option.separator.each.128bits'])}</option>
 											</select>
 										</div>
 									</div>
@@ -960,6 +964,10 @@
 												<option value="">${mf:h(msg['label.encStrHex.option.separator.each.none'])}</option>
 												<option value="1B">${mf:h(msg['label.encStrHex.option.separator.each.1byte'])}</option>
 												<option value="2B">${mf:h(msg['label.encStrHex.option.separator.each.2bytes'])}</option>
+												<option value="3B">${mf:h(msg['label.encStrHex.option.separator.each.3bytes'])}</option>
+												<option value="4B">${mf:h(msg['label.encStrHex.option.separator.each.4bytes'])}</option>
+												<option value="8B">${mf:h(msg['label.encStrHex.option.separator.each.8bytes'])}</option>
+												<option value="16B">${mf:h(msg['label.encStrHex.option.separator.each.16bytes'])}</option>
 											</select>
 										</div>
 										<div class="input-group">
