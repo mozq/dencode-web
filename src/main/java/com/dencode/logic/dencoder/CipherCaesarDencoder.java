@@ -26,9 +26,11 @@ import com.dencode.logic.model.DencodeCondition;
 
 @Dencoder(type="cipher", method="cipher.caesar")
 public class CipherCaesarDencoder {
-	
-	private static final String[] CIPHER_CAESAR_CYRILLIC_I_BREVE = new String[] { "И\u0306", "и\u0306" };
-	private static final String[] CIPHER_CAESAR_CYRILLIC_SHORT_I = new String[] { "Й", "й" };
+
+	private static final char[] CYRILLIC_I_CHARS = new char[] { 'И', 'и' };
+	private static final char CYRILLIC_BREVE_CHAR = '\u0306';
+	private static final String[] CYRILLIC_I_BREVE = new String[] { "И\u0306", "и\u0306" };
+	private static final String[] CYRILLIC_SHORT_I = new String[] { "Й", "й" };
 	
 	
 	private CipherCaesarDencoder() {
@@ -76,16 +78,23 @@ public class CipherCaesarDencoder {
 			shiftCyrillic += 32;
 		}
 		
-		// for diacritical mark support
+		int shiftJapanese = shift % 84;
+		if (shiftJapanese < 0) {
+			shiftJapanese += 84;
+		}
+		
 		val = Normalizer.normalize(val, Normalizer.Form.NFD);
-		int idxBrave = val.indexOf('\u0306');
+		
+		// for diacritical mark support
+		int idxBrave = val.indexOf(CYRILLIC_BREVE_CHAR);
 		if (idxBrave != -1) {
-			// Breve (U+0306) of 'Й' and 'й' is not a diacritical mark
-			val = StringUtilz.replaceAll(val, CIPHER_CAESAR_CYRILLIC_I_BREVE, CIPHER_CAESAR_CYRILLIC_SHORT_I);
+			if (StringUtilz.indexOf(val, CYRILLIC_I_CHARS, idxBrave - 1) != -1) {
+				// Breve (U+0306) of 'Й' and 'й' is not a diacritical mark
+				val = StringUtilz.replaceAll(val, CYRILLIC_I_BREVE, CYRILLIC_SHORT_I);
+			}
 		}
 		
 		int len = val.length();
-		
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++) {
 			char ch = val.charAt(i);
@@ -112,7 +121,25 @@ public class CipherCaesarDencoder {
 			
 			sb.append(ch);
 		}
+		val = Normalizer.normalize(sb.toString(), Normalizer.Form.NFC);
 		
-		return Normalizer.normalize(sb.toString(), Normalizer.Form.NFC);
+		len = val.length();
+		sb.setLength(0);
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if ('ぁ' <= ch && ch <= 'ゔ') {
+				// Japanese Hiragana
+				ch = (char)((ch - 'ぁ' + shiftJapanese) % 84 + 'ぁ');
+			} else if ('ァ' <= ch && ch <= 'ヴ') {
+				// Japanese Katakana
+				ch = (char)((ch - 'ァ' + shiftJapanese) % 84 + 'ァ');
+			}
+			
+			sb.append(ch);
+		}
+		val = sb.toString();
+		
+		return val;
 	}
 }
