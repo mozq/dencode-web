@@ -11,8 +11,8 @@ buildscript {
 plugins {
   id 'java'
   id 'war'
-  id 'com.eriwen.gradle.css' version '2.14.0'
-  id 'eu.butter.gradle.js' version '2.15.1'
+  id 'com.eriwen.gradle.css'
+  id 'com.eriwen.gradle.js'
 }
 
 apply plugin: 'com.google.cloud.tools.appengine-appyaml'
@@ -101,7 +101,7 @@ jar {
 task copyJar(type: Copy) {
   dependsOn jar
   
-  from project.libsDir
+  from project.libsDirectory
   include '*.jar'
   into appengine.stage.stagingDirectory
 }

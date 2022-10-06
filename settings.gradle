@@ -1,0 +1,20 @@
+// com.github.eriwen plugin (For Gradle 6 or later version)
+// See:
+//   - https://github.com/eriwen/gradle-css-plugin/issues/58
+//   - https://github.com/jenkinsci/job-dsl-plugin/commit/6b7a8d813c3c3b9f5daf0fcee823c9fd128d8f42
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+    maven { url 'https://jitpack.io' }
+  }
+  
+  resolutionStrategy {
+    eachPlugin {
+      if (requested.id.id == 'com.eriwen.gradle.css') {
+        useModule('com.github.eriwen:gradle-css-plugin:9fe88d7')
+      } else if (requested.id.id == 'com.eriwen.gradle.js') {
+        useModule('com.github.eriwen:gradle-js-plugin:d15f4ae')
+      }
+    }
+  }
+}
