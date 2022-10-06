@@ -1,4 +1,8 @@
-// com.github.eriwen plugin (For Gradle 6 or later version)
+// Google App Engine plugin
+// See: 
+//   - https://github.com/GoogleCloudPlatform/app-gradle-plugin
+// 
+// com.eriwen.gradle.* plugin (For Gradle 6 or later version)
 // See:
 //   - https://github.com/eriwen/gradle-css-plugin/issues/58
 //   - https://github.com/jenkinsci/job-dsl-plugin/commit/6b7a8d813c3c3b9f5daf0fcee823c9fd128d8f42
@@ -10,7 +14,9 @@ pluginManagement {
   
   resolutionStrategy {
     eachPlugin {
-      if (requested.id.id == 'com.eriwen.gradle.css') {
+      if (requested.id.id.startsWith('com.google.cloud.tools.appengine')) {
+        useModule("com.google.cloud.tools:appengine-gradle-plugin:${requested.version}")
+      } else if (requested.id.id == 'com.eriwen.gradle.css') {
         useModule('com.github.eriwen:gradle-css-plugin:9fe88d7')
       } else if (requested.id.id == 'com.eriwen.gradle.js') {
         useModule('com.github.eriwen:gradle-js-plugin:d15f4ae')

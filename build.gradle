@@ -1,22 +1,10 @@
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  
-  dependencies {
-    classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
-  }
-}
-
 plugins {
   id 'java'
   id 'war'
   id 'com.eriwen.gradle.css'
   id 'com.eriwen.gradle.js'
+  id 'com.google.cloud.tools.appengine-appyaml' version '+'
 }
-
-apply plugin: 'com.google.cloud.tools.appengine-appyaml'
-
 
 repositories {
   mavenCentral()
