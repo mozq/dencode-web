@@ -18,14 +18,15 @@ package com.dencode.logic.parser;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.util.regex.Pattern;
 
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
 
-import com.udojava.evalex.Expression;
+import com.ezylang.evalex.EvaluationException;
+import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.parser.ParseException;
 
 public class NumberParser {
 	
@@ -97,9 +98,9 @@ public class NumberParser {
 		} catch (NumberFormatException e) {
 			// Parse as expression
 			try {
-				Expression exp = new Expression(val, MathContext.DECIMAL128);
-				return exp.eval();
-			} catch (RuntimeException e1) {
+				Expression exp = new Expression(val);
+				return exp.evaluate().getNumberValue();
+			} catch (ParseException | EvaluationException e1) {
 				return null;
 			}
 		}
