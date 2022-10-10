@@ -756,12 +756,10 @@ $(document).ready(function () {
 		}).finally(function () {
 			_inProc = false;
 			
-			dencode();
+			$decIndicator.hide();
+			$encIndicator.hide();
 			
-			if (!_inProc) {
-				$decIndicator.hide();
-				$encIndicator.hide();
-			}
+			dencode();
 		});
 	}
 	
