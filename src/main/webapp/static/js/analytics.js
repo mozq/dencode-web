@@ -65,6 +65,25 @@ ga('send', 'pageview');
 			ga("send", "event", "value", "copy-to-clipboard", id);
 		});
 		
+		$(d).on("dencoded.dencode", function (ev, data, response) {
+			if (data.value.length === 0) {
+				return;
+			}
+			
+			var latestMessage = getLatestMessage();
+			gtag("event", "dencoded", {
+				dencode_type: data.type,
+				dencode_method: data.method,
+				dencode_value_length: data.value.length,
+				dencode_oe: data.oe,
+				dencode_nl: data.nl,
+				dencode_tz: data.tz,
+				dencode_error: (latestMessage) ? true : false,
+				dencode_message_id: (latestMessage) ? latestMessage.messageId : "",
+				dencode_message: (latestMessage) ? latestMessage.message : ""
+			});
+		});
+		
 		$("#vLen").on("click", function () {
 			var $this = $(this);
 			if ($this.hasClass("active")) {
