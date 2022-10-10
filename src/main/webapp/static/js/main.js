@@ -79,32 +79,6 @@ $(document).ready(function () {
 		}
 	}
 	
-	var ajaxDencodeSettings = {
-		async: true,
-		type: "POST",
-		url: contextPath + "/dencode",
-		contentType: 'application/json',
-		data: null,
-		cache: false,
-		dataType: "json",
-		success: function (data, dataType) {
-			clearMessages();
-			handleAjaxSuccess(data, dataType);
-			render(data.response);
-		},
-		error: function (xhr, textStatus, errorThrown) {
-			handleAjaxError(xhr, textStatus, errorThrown);
-		},
-		complete: function (xhr, textStatus) {
-			_inProc = false;
-			
-			dencode();
-			
-			$decIndicator.hide();
-			$encIndicator.hide();
-		}
-	};
-	
 	if (window.File) {
 		$document.on("drop", function (ev) {
 			var file = ev.originalEvent.dataTransfer.files[0];
@@ -737,20 +711,60 @@ $(document).ready(function () {
 		$decIndicator.show();
 		$encIndicator.show();
 		
-		var data = {
-				"type": type,
-				"method": method,
-				"value": v,
-				"oe": oe,
-				"nl": nl,
-				"tz": tz,
-				"options": options
+		var requestData = {
+				type: type,
+				method: method,
+				value: v,
+				oe: oe,
+				nl: nl,
+				tz: tz,
+				options: options
 			};
-		ajaxDencodeSettings.data = JSON.stringify(data);
 		
-		$.ajax(ajaxDencodeSettings);
+		fetch(contextPath + "/dencode", {
+			method: "POST",
+			cache: "no-cache",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(requestData)
+		}).then(function (response) {
+			if (!response.ok) {
+				var error = new Error(response.statusText);
+				error.statusCode = response.status;
+				throw error;
+			}
+			return response.json();
+		}).then(function (responseJson) {
+			clearMessages();
+			handleAjaxResponse(responseJson);
+			render(responseJson.response);
+			
+			$document.trigger("dencoded.dencode", [requestData, responseJson]);
+		}).catch(function (error) {
+			if (error.statusCode) {
+				// HTTP 4xx or 5xx error
+				setMessage(getMessageDefinition(null));
+				focusMessages();
+			} else {
+				// Network error
+				setMessage(getMessageDefinition("network.error"));
+				focusMessages();
+			}
+			
+			$document.trigger("dencoded.dencode", [requestData, null]);
+		}).finally(function () {
+			_inProc = false;
+			
+			dencode();
+			
+			if (!_inProc) {
+				$decIndicator.hide();
+				$encIndicator.hide();
+			}
+		});
 	}
-
+	
 	function render(res) {
 		$vLen.text(separateThousand(res.textLength));
 		$vLen.data("len-chars", res.textLength);
@@ -857,7 +871,10 @@ $(document).ready(function () {
 		if (_config) {
 			callback(_config);
 		} else {
-			$.getJSON(contextPath + "/config", function (config) {
+			fetch(contextPath + "/config")
+			.then(function (response) {
+				return response.json();
+			}).then(function (config) {
 				_config = config;
 				callback(_config);
 			});

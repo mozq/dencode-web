@@ -4,6 +4,7 @@ var _messageDefs = {
 	"__default": newMessage(null, "fatal", "Error", "Error")
 };
 var _messagesTmpl = Hogan.compile($("#messagesTmpl").html());
+var _latestMessage = null;
 
 function handleAjaxResponse(data) {
 	if (data.redirectUrl) {
@@ -12,30 +13,6 @@ function handleAjaxResponse(data) {
 	if (data.messages !== null && 0 < data.messages.length) {
 		setMessages(data.messages);
 		focusMessages();
-	}
-}
-
-function handleAjaxSuccess(data, dataType) {
-	handleAjaxResponse(data);
-}
-
-function handleAjaxError(xhr, textStatus, errorThrown) {
-	try {
-		var data = $.parseJSON(xhr.responseText);
-		handleAjaxResponse(data);
-	} catch (e) {
-		if (errorThrown && errorThrown.message) {
-			// Error having a message
-			setMessage(newMessage(null, "fatal", errorThrown.message, errorThrown.message));
-			focusMessages();
-		} else if (xhr.status === 0 && textStatus === "error") {
-			// Network error
-			setMessage(getMessageDefinition("network.error"));
-		} else {
-			// Unknown error
-			setMessage(getMessageDefinition(null));
-			focusMessages();
-		}
 	}
 }
 
@@ -104,22 +81,30 @@ function setMessages(messages) {
 	if (messages) {
 		var messagesHtml = "";
 		for (var i in messages) {
-			messagesHtml += _messagesTmpl.render(formatMessage(messages[i]));
+			_latestMessage = formatMessage(messages[i]);
+			messagesHtml += _messagesTmpl.render(_latestMessage);
 		}
 		$("#messages").html(messagesHtml);
 	}
 }
 
 function setMessage(message) {
-	$("#messages").html(_messagesTmpl.render(formatMessage(message)));
+	_latestMessage = formatMessage(message);
+	$("#messages").html(_messagesTmpl.render(_latestMessage));
 }
 
 function addMessage(message) {
-	$("#messages").append(_messagesTmpl.render(formatMessage(message)));
+	_latestMessage = formatMessage(message);
+	$("#messages").append(_messagesTmpl.render(_latestMessage));
 }
 
 function clearMessages() {
+	_latestMessage = null;
 	$("#messages").empty();
+}
+
+function getLatestMessage() {
+	return _latestMessage;
 }
 
 function redirect(url) {

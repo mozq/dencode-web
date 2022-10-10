@@ -83,7 +83,7 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		if (acceptHeader != null) {
 			acceptHeader = acceptHeader.toLowerCase();
 			if (acceptHeader.contains("application/json")) {
-				responseAsJson(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+				responseAsJson(HttpServletResponse.SC_OK, null);
 				return false;
 			}
 		}
