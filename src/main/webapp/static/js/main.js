@@ -713,11 +713,19 @@ $(document).ready(function () {
 			},
 			body: JSON.stringify(requestData)
 		}).then(function (response) {
+			if (response.headers.get("Content-Type").indexOf("application/json") === -1) {
+				var messageObject = getMessageDefinition(null);
+				var error = new Error(messageObject.message);
+				error.messageObject = messageObject;
+				throw error;
+			}
+			
 			if (!response.ok) {
 				var error = new Error(response.statusText);
 				error.statusCode = response.status;
 				throw error;
 			}
+			
 			return response.json();
 		}).then(function (responseJson) {
 			clearMessages();
@@ -726,15 +734,17 @@ $(document).ready(function () {
 			
 			$document.trigger("dencoded.dencode", [requestData, responseJson]);
 		}).catch(function (error) {
-			if (error.statusCode) {
+			if (error.messageObject) {
+				// Handled error
+				setMessage(error.messageObject);
+			} else if (error.statusCode) {
 				// HTTP 4xx or 5xx error
 				setMessage(getMessageDefinition(null));
-				focusMessages();
 			} else {
 				// Network error
 				setMessage(getMessageDefinition("network.error"));
-				focusMessages();
 			}
+			focusMessages();
 			
 			$document.trigger("dencoded.dencode", [requestData, null]);
 		}).finally(function () {

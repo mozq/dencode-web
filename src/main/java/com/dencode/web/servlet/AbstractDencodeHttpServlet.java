@@ -79,20 +79,16 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 			LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		
-		String acceptHeader = reqres().header("Accept");
-		if (acceptHeader != null) {
-			acceptHeader = acceptHeader.toLowerCase();
-			if (acceptHeader.contains("application/json")) {
-				responseAsJson(HttpServletResponse.SC_OK, null);
-				return false;
-			}
+		if (containsInHeader("Accept", "application/json")
+				|| (containsInHeader("Accept", "*/*") && containsInHeader("Content-Type", "application/json"))) {
+			responseAsJson(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+			return false;
 		}
 		
 		response().sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		return false;
 	}
 	
-
 	@Override
 	protected boolean handleError(Throwable e) throws Exception {
 		Message message;
@@ -258,7 +254,6 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		HttpServletResponse res = response();
 		
 		res.setStatus(statusCode);
-		
 		res.setHeader("Content-Type", "application/json; charset=UTF-8");
 		try (OutputStream out = res.getOutputStream()) {
 			writeAsJson(out, responseModel);
@@ -276,5 +271,20 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		} catch (IOException e) {
 			throw new MifmiServletException(e);
 		}
+	}
+	
+	private boolean containsInHeader(String headerName, String value) {
+		String headerValue = reqres().header(headerName);
+		if (headerValue == null) {
+			return false;
+		}
+		
+		if (!headerValue.contains(value)) {
+			if (!headerValue.toLowerCase().contains(value.toLowerCase())) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
