@@ -489,7 +489,6 @@ $(document).ready(function () {
 			var has = $selectedOption.attr("data-has").split(",");
 			
 			var $optReflector = $("select[name=" + prefix + "Reflector]");
-			var $optRotor4 = $("select[name=" + prefix + "Rotor4]");
 			var $optRotor3 = $("select[name=" + prefix + "Rotor3]");
 			var $optRotor2 = $("select[name=" + prefix + "Rotor2]");
 			var $optRotor1 = $("select[name=" + prefix + "Rotor1]");
@@ -544,7 +543,6 @@ $(document).ready(function () {
 		
 		$optUkwds.on("input paste change init.dencode", function () {
 			var $this = $(this);
-			var prefix = this.name.substr(0, 3) + "CipherEnigma";
 			
 			var val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
 			
@@ -587,20 +585,6 @@ $(document).ready(function () {
 			} else {
 				$elm.removeClass(className);
 			}
-		}
-		
-		function isSameSalectOptions($o1, $o2) {
-			if ($o1.length !== $o2.length) {
-				return false;
-			}
-			
-			for (var i = 0; i < $o1.length; i++) {
-				if ($o1[i].value !== $o2[i].value) {
-					return false;
-				}
-			}
-			
-			return true;
 		}
 		
 		function validateWiring(pairs, letters) {
