@@ -100,7 +100,7 @@ public class NumberParser {
 			try {
 				Expression exp = new Expression(val);
 				return exp.evaluate().getNumberValue();
-			} catch (ParseException | EvaluationException e1) {
+			} catch (ParseException | EvaluationException | NumberFormatException e1) {
 				return null;
 			}
 		}
