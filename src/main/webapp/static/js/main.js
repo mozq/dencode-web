@@ -312,7 +312,7 @@ $(document).ready(function () {
 	
 	$loadQrcode.on("click", function () {
 		if (!window.File) {
-			showMessageDialog($loadFile.attr("data-load-unsupported-message"));
+			showMessageDialog($loadQrcode.attr("data-load-unsupported-message"));
 			return false;
 		}
 		
