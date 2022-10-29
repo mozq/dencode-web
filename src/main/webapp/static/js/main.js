@@ -351,12 +351,12 @@ $(document).ready(function () {
 		var $toggleIcon = $this.children(".toggle-icon");
 		var $toggleShow = $($this.data("toggle-show"));
 		
-		if ($toggleIcon.hasClass("glyphicon-collapse-down")) {
+		if ($toggleIcon.hasClass("bi-caret-down-square")) {
 			$toggleShow.slideUp();
-			$toggleIcon.removeClass("glyphicon-collapse-down").addClass("glyphicon-expand");
+			$toggleIcon.removeClass("bi-caret-down-square").addClass("bi-caret-right-square");
 		} else {
 			$toggleShow.slideDown();
-			$toggleIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
+			$toggleIcon.removeClass("bi-caret-right-square").addClass("bi-caret-down-square");
 		}
 	});
 	
@@ -999,23 +999,25 @@ function getCurrentLineIndex(elm) {
 }
 
 function hidePopover($popovers) {
-	$popovers.popover("destroy");
+	$popovers.each(function(i, elm) {
+		var popover = bootstrap.Popover.getInstance(elm);
+		if (popover) {
+			popover.hide();
+		}
+	});
 }
 
 function showTooltip($elm, message, time) {
-	var title = $elm.attr("title");
-	$elm.removeAttr("title");
-	
-	$elm.tooltip({
+	var tooltip = new bootstrap.Tooltip($elm[0], {
 		trigger: "manual",
 		container: "body",
 		title: message
 	});
-	$elm.tooltip("show");
+	
+	tooltip.show();
 	
 	setTimeout(function() {
-		$elm.tooltip("destroy");
-		$elm.attr("title", title);
+		tooltip.dispose();
 	}, time);
 }
 

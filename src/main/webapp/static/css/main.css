@@ -1,33 +1,55 @@
 @charset "utf-8";
 
 .navbar {
-	min-height: 30px;
-	margin-bottom: 5px;
+	--bs-navbar-brand-margin-end: 2.5rem;
+	--bs-navbar-padding-y: 1px;
+	--bs-navbar-hover-color: black;
+	--bs-navbar-nav-link-padding-x: 0.5rem;
+	--bs-navbar-toggler-padding-y: 3px;
+	--bs-navbar-toggler-padding-x: 5px;
+	--bs-navbar-toggler-font-size: 0.9rem;
 }
 
-.navbar-header {
-	width: 100%;
+.navbar-toggler:hover {
+	background-color: #ddd;
 }
 
-.navbar-brand {
-	height: auto;
-	padding: 10px 15px;
-	font-size: 20px;
-	line-height: 20px;
+.navbar-nav {
+	--bs-nav-link-padding-y: 2px;
 }
 
-.navbar-text {
-	margin: 10px 20px;
+.navbar-nav .active {
+	color: #555;
+	background-color: #e7e7e7;
 }
 
-.navbar-toggle {
-	margin: 2px;
-	padding: 6px 10px;
+.nav-link:hover, .nav-link:active, .nav-link:focus {
+	text-decoration: none;
 }
 
-.navbar-nav > li > a {
-	padding-top: 5px;
-	padding-bottom: 3px;
+.dencode-option-group .input-group {
+	display: inline-flex;
+	width: auto;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+	--bs-btn-padding-y: 1px;
+	--bs-btn-padding-x: 5px;
+	--bs-btn-font-size: 0.8rem;
+}
+
+.btn-group-sm .dropdown-menu {
+	--bs-dropdown-font-size: 0.8rem;
+}
+
+.btn-group-vertical > .btn:first-child {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.input-group .btn-group-vertical > .btn {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 
 .btn {
@@ -39,7 +61,24 @@
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 	border: 1px solid #cccccc;
 	border-bottom-color: #b3b3b3;
-	box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn.active, .btn:active {
+	color: #333333;
+	background-color: #f5f5f5;
+	background-image: none;
+	outline: 0;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border: 1px solid #cccccc;
+	border-bottom-color: #b3b3b3;
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+.btn:hover {
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border: 1px solid #cccccc;
+	border-bottom-color: #b3b3b3;
 }
 
 .btn-v-icon-label {
@@ -47,10 +86,14 @@
 	line-height: 1;
 }
 
-.btn-v-icon-label .glyphicon {
+.btn-v-icon-label.dropdown-toggle::after {
+	margin-left: 0;
+	vertical-align: 0.1em;
+}
+
+.btn-v-icon-label i.bi {
 	display: block;
-	margin: 0;
-	padding: 0;
+	font-size: 1.1em;
 }
 
 .btn-v-icon-label .btn-label {
@@ -58,34 +101,27 @@
 	line-height: 1;
 }
 
-form .required:after {
-	display: inline;
-	color: #e32;
-	content: " *";
+.dropdown-menu {
+	--bs-dropdown-divider-margin-y: 0.3rem;
+	--bs-dropdown-item-padding-y: 0;
+	--bs-dropdown-link-active-color: black;
+	--bs-dropdown-link-active-bg: #eeeeff;
 }
 
-.well {
-	margin-bottom: 0px;
-}
-
-.dropdown-menu li {
+.dropdown-item {
 	cursor: pointer;
 }
 
-.dropdown-menu li:hover {
-	background-color: #f5f5f5f5;
-}
-
-.dropdown-menu li.active {
-	background-color: #eeeeff;
-	font-weight: bold;
-}
-.dropdown-menu li.divider {
-	margin: 3px 0;
+a.dropdown-item:hover, a.dropdown-item:active, a.dropdown-item:focus {
+	text-decoration: none;
 }
 
 .popover {
 	max-width: 50%;
+}
+
+.badge {
+	--bs-badge-border-radius: 0.9rem;
 }
 
 body {
@@ -94,13 +130,13 @@ body {
 
 h2 {
 	margin: 15px 0px 5px;
-	font-size: 18pt;
+	font-size: 1.5rem;
 	cursor: pointer;
 }
 
 h2 .toggle-icon {
-	vertical-align: 2pt;
-	font-size: 11pt;
+	vertical-align: 0.25em;
+	font-size: 0.6em;
 }
 
 h4 {
@@ -111,6 +147,16 @@ h4 {
 h5 {
 	margin: 1.5em 0 0.5em;
 	font-weight: bold;
+}
+
+a {
+	color: #337ab7;
+	text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+	color: #23527c;
+	text-decoration: underline;
 }
 
 .updating {
@@ -133,6 +179,7 @@ h5 {
 
 #localeMenu {
 	float: right;
+	margin: auto 1em auto auto;
 }
 
 #exp {
@@ -151,25 +198,9 @@ h5 {
 }
 
 #v {
-	overflow: auto;
 	resize: vertical;
-	width: 100%;
 	height: 9em;
-	min-height: 5em;
-}
-
-#expValue .input-group-addon {
-	margin: 0 !important;
-	padding: 0 !important;
-}
-
-#expValue .input-group-addon .btn {
-	height: 2.5em;
-}
-
-#expValue .input-group-addon .dropdown-menu li {
-	padding: 3px 20px;
-	line-height: 1.42857143;
+	min-height: 5.5em;
 }
 
 #expOptions {
@@ -192,7 +223,7 @@ h5 {
 }
 
 #vLen.active {
-	background-color: #4169e1; /* royalblue */
+	background-color: #4169e1 !important; /* royalblue */
 }
 
 #oeGroup {
@@ -273,7 +304,6 @@ table.dencoded-list td .for-copy textarea {
 	overflow: auto;
 	resize: vertical;
 	z-index: 0;
-	width: 100%;
 	height: 5em;
 	min-height: 5em;
 	margin: 0;
@@ -313,14 +343,8 @@ table.table-fit {
 	table-layout: auto !important;
 }
 
-#linkURL {
-	height: 2.5em;
-	color: black;
-	background-color: white;
-}
-
-#permanentLink .btn {
-	height: 2.5em;
+.popover:has(#permanentLink) {
+	width: 50%;
 }
 
 #otherDencodeNav {
@@ -353,14 +377,13 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer:active {
 }
 
 #messageDialog .modal-body {
-	padding: 30px 15px 15px;
+	--bs-modal-padding: 2rem;
 	text-align: center;
 }
 
 #messageDialog .modal-footer {
-	padding: 10px 15px 20px;
-	border-width: 0px;
-	text-align: center;
+	--bs-modal-footer-border-width: 0;
+	justify-content: center;
 }
 
 
