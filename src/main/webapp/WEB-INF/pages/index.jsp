@@ -172,6 +172,7 @@
 							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot18">${mf:h(msg['cipher.rot18.method'])}</a></li>
 							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot47">${mf:h(msg['cipher.rot47.method'])}</a></li>
 							<li class="${(method eq 'cipher.enigma') ? 'active' : ''}" data-dencode-method="cipher.enigma"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
+							<li class="${(method eq 'cipher.jis-keyboard') ? 'active' : ''}" data-dencode-method="cipher.jis-keyboard"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
 							<li class="${(method eq 'cipher.scytale') ? 'active' : ''}" data-dencode-method="cipher.scytale"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/scytale">${mf:h(msg['cipher.scytale.method'])}</a></li>
 							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rail-fence">${mf:h(msg['cipher.rail-fence.method'])}</a></li>
 						</ul>
@@ -1783,6 +1784,17 @@
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
 											<input type="text" name="encCipherEnigmaUkwd" class="dencode-option" value="" placeholder="${mf:h(msg['label.encCipherEnigma.option.ukwd.tooltip'])}" data-value-link-to="[name=decCipherEnigmaUkwd]" />
 										</div>
+									</div>
+								</form>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('cipher.jis-keyboard')}"><tr data-dencode-method="cipher.jis-keyboard"><th>${mf:h(msg['label.encCipherJisKeyboard'])}</th><td><span id="encCipherJisKeyboard" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.encCipherJisKeyboard.option.mode'])}</span>
+										<select name="encCipherJisKeyboardMode" class="dencode-option form-select">
+											<option value="lenient">${mf:h(msg['label.encCipherJisKeyboard.option.mode.lenient'])}</option>
+											<option value="strict">${mf:h(msg['label.encCipherJisKeyboard.option.mode.strict'])}</option>
+										</select>
 									</div>
 								</form>
 							</td></tr></c:if>
