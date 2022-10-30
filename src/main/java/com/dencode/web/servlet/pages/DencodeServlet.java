@@ -50,12 +50,12 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object> reqmap = mapper.readValue(is, new TypeReference<Map<String, Object>>() {});
 			
-			type = (String)reqmap.getOrDefault("type", "all");
-			method = (String)reqmap.getOrDefault("method", "all.all");
-			val = (String)reqmap.getOrDefault("value", "");
-			oe = CommonLogic.mapShortCharsetName((String)reqmap.getOrDefault("oe", "UTF-8"));
-			nl = (String)reqmap.getOrDefault("nl", "crlf");
-			tz = (String)reqmap.getOrDefault("tz", "UTC");
+			type = reqmap.getOrDefault("type", "all").toString();
+			method = reqmap.getOrDefault("method", "all.all").toString();
+			val = reqmap.getOrDefault("value", "").toString();
+			oe = CommonLogic.mapShortCharsetName(reqmap.getOrDefault("oe", "UTF-8").toString());
+			nl = reqmap.getOrDefault("nl", "crlf").toString();
+			tz = reqmap.getOrDefault("tz", "UTC").toString();
 			
 			options = (Map<String, String>)reqmap.get("options");
 		}
