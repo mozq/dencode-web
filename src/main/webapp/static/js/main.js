@@ -18,11 +18,13 @@ $(document).ready(function () {
 	
 	var _colors = null;
 	
+	var dencodeType = document.body.getAttribute("data-dencode-type");
+	var dencodeMethod = document.body.getAttribute("data-dencode-method");
+	
 	var $window = $(window);
 	var $document = $(document);
 	var $localeMenuLinks = $("#localeMenu .dropdown-menu a");
 	var $typeMenu = $("#typeMenu");
-	var $typeMenuItems = $typeMenu.find("li[data-dencode-type]");
 	var $typeMenuLinks = $typeMenu.find("a");
 	var $typeMenuLabels = $typeMenu.find(".dropdown-menu-label");
 	var $methodMenuItems = $typeMenu.find("li[data-dencode-method]");
@@ -624,8 +626,8 @@ $(document).ready(function () {
 	// function definitions
 	
 	function dencode() {
-		var type = $typeMenuItems.filter(".active").data("dencode-type");
-		var method = $methodMenuItems.filter(".active").data("dencode-method");
+		var type = dencodeType;
+		var method = dencodeMethod;
 		var v = $v.val();
 		var oe = $oeGroupBtns.filter(".active").data("oe");
 		var oex = $oexMenuItems.filter(".active").data("oe");
