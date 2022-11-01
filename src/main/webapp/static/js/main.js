@@ -244,7 +244,6 @@ $(document).ready(function () {
 
 			$oexBtn.text($this.text());
 			$oexBtn.data("oe", $this.data("oe"));
-			$oexBtn.data("oe-iana", $this.data("oe-iana"));
 			
 			dencode();
 		});
@@ -255,7 +254,6 @@ $(document).ready(function () {
 		}
 		$oexBtn.text($oexMenuItem.text());
 		$oexBtn.data("oe", $oexMenuItem.data("oe"));
-		$oexBtn.data("oe-iana", $oexMenuItem.data("oe-iana"));
 	}
 
 	if ($nlGroup.data("enable")) {
