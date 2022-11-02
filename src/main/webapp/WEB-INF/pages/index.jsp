@@ -297,7 +297,7 @@
 					<button class="btn ${(nl eq 'lf') ? 'active' : ''}" data-nl="lf">LF (UNIX/Mac)</button>
 					<button class="btn ${(nl eq 'cr') ? 'active' : ''}" data-nl="cr">CR (Old Mac)</button>
 				</div>
-				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" style="display: inline;">
+				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" style="display: none;">
 					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<span id="tz" data-tz=""></span>
 						<span class="caret"></span>
@@ -315,12 +315,12 @@
 		</div>
 		
 		<div id="decoded" ${(hasDecoded) ? '' : 'style="display: none;"'}>
-			<h2 data-toggle-show="#decodedListContainer">
+			<h2 data-bs-toggle="collapse" data-bs-target="#decodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.decoded'])}
 				<img id="decodingIndicator" src="${pageContext.request.contextPath}/static/img/loading-indicator.gif" style="display: none;" />
 			</h2>
-			<div id="decodedListContainer">
+			<div id="decodedListContainer" class="collapse show">
 				<table id="decodedList" class="dencoded-list">
 					<c:if test="${types.contains('string')}">
 						<tbody>
@@ -979,12 +979,12 @@
 		</div>
 		
 		<div id="encoded" ${(hasEncoded) ? '' : 'style="display: none;"'}>
-			<h2 data-toggle-show="#encodedListContainer">
+			<h2 data-bs-toggle="collapse" data-bs-target="#encodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.encoded'])}
 				<img id="encodingIndicator" src="${pageContext.request.contextPath}/static/img/loading-indicator.gif" style="display: none;" />
 			</h2>
-			<div id="encodedListContainer">
+			<div id="encodedListContainer" class="collapse show">
 				<table id="encodedList" class="dencoded-list">
 					<c:if test="${types.contains('string')}">
 						<tbody>
@@ -2033,7 +2033,7 @@
 </script>
 
 <script src="//polyfill.io/v3/polyfill.min.js?features=fetch"></script>
-<script src="//cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/hogan.js@3.0.2/dist/hogan-3.0.2.min.js" integrity="sha256-jIAAmB65ff5CEFvV6DRfRWjHFwqq+AHeV4le8f8PYp4=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>

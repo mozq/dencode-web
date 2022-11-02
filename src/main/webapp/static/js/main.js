@@ -389,13 +389,10 @@ $(document).ready(function () {
 	$subHeaders.on("click", function () {
 		var $this = $(this);
 		var $toggleIcon = $this.children(".toggle-icon");
-		var $toggleShow = $($this.data("toggle-show"));
 		
 		if ($toggleIcon.hasClass("bi-caret-down-square")) {
-			$toggleShow.slideUp();
 			$toggleIcon.removeClass("bi-caret-down-square").addClass("bi-caret-right-square");
 		} else {
-			$toggleShow.slideDown();
 			$toggleIcon.removeClass("bi-caret-right-square").addClass("bi-caret-down-square");
 		}
 	});
