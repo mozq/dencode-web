@@ -33,7 +33,6 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/favicon180px.png" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/all.min.css?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/css/all.min.css"))}" />
 	<script>var contextPath = "${pageContext.request.contextPath}";</script>
 	<title>${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}</title>
@@ -298,11 +297,20 @@
 					<button class="btn ${(nl eq 'lf') ? 'active' : ''}" data-nl="lf">LF (UNIX/Mac)</button>
 					<button class="btn ${(nl eq 'cr') ? 'active' : ''}" data-nl="cr">CR (Old Mac)</button>
 				</div>
-				<select id="tz" class="chzn-select" data-placeholder="${mf:h(msg['label.timeZone'])}" data-msg-chosen-no-results="${mf:h(msg['chosen.no.results'])}" data-enable="${(useTz) ? 'true' : 'false'}" style="display: none;">
-					<c:forEach var="tzVal" items="${tzMap}">
-						<option value="${mf:h(tzVal.key)}" ${(tz eq tzVal.key) ? 'selected' : ''}>${mf:h(tzVal.value)}</option>
-					</c:forEach>
-				</select>
+				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" style="display: inline;">
+					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<span id="tz" data-tz=""></span>
+						<span class="caret"></span>
+					</button>
+					<div id="tzMenu" class="dropdown-menu" role="menu">
+						<input id="tzMenuFilter" class="form-control" value="" />
+						<div id="tzMenuItems">
+							<c:forEach var="tzVal" items="${tzMap}">
+								<span class="dropdown-item ${(tz eq tzVal.key) ? 'active' : ''}" data-tz="${mf:h(tzVal.key)}">${mf:h(tzVal.value)}</span>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -2028,7 +2036,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/js/all.min.js"))}"></script>
 <script>

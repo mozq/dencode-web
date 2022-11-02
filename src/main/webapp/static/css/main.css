@@ -39,7 +39,7 @@
 }
 
 .btn-group-sm .dropdown-menu {
-	--bs-dropdown-font-size: 0.8rem;
+	--bs-dropdown-font-size: 0.9rem;
 }
 
 .btn-group-vertical > .btn:first-child {
@@ -246,6 +246,20 @@ a:hover, a:active, a:focus {
 
 #nlGroup {
 	margin-right: 3px;
+}
+
+#tzMenu {
+	padding: 7px 5px;
+}
+
+#tzMenuFilter {
+	margin: 0 0 5px;
+	padding: 0 1ex;
+}
+
+#tzMenuItems {
+	max-height: 40vh;
+	overflow-y: auto;
 }
 
 table.dencoded-list {
