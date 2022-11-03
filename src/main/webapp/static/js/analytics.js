@@ -2,7 +2,7 @@
 
 // Google Analytics for GA4
 (function () {
-	var s = document.createElement('script');
+	const s = document.createElement('script');
 	s.async = true;
 	s.src = "https://www.googletagmanager.com/gtag/js?id=G-LXQ6W8SL7X";
 	document.head.appendChild(s);
@@ -23,9 +23,9 @@ gtag('config', 'G-LXQ6W8SL7X');
 		});
 		
 		$(d).on("click", ".popover-toggle.permanent-link", function () {
-			var $this = $(this);
+			const $this = $(this);
 			if ($this.hasClass("active")) {
-				var method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+				const method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
 				gtag("event", "share", {
 					method: "show",
 					content_type: "link",
@@ -35,8 +35,8 @@ gtag('config', 'G-LXQ6W8SL7X');
 		});
 		
 		$(d).on("click", ".copy-to-clipboard", function () {
-			var $this = $(this);
-			var id = $this.attr("data-copy-id");
+			const $this = $(this);
+			const id = $this.attr("data-copy-id");
 			gtag("event", "share", {
 				method: "copy",
 				content_type: "value",
@@ -49,7 +49,7 @@ gtag('config', 'G-LXQ6W8SL7X');
 				return;
 			}
 			
-			var latestMessage = getLatestMessage();
+			const latestMessage = getLatestMessage();
 			gtag("event", "dencoded", {
 				dencode_type: data.type,
 				dencode_method: data.method,
@@ -64,14 +64,14 @@ gtag('config', 'G-LXQ6W8SL7X');
 		});
 		
 		$("#vLen").on("click", function () {
-			var $this = $(this);
+			const $this = $(this);
 			if ($this.hasClass("active")) {
 				gtag("event", "view_value_length");
 			}
 		});
 		
 		$("#follow").on("click", function () {
-			var $this = $(this);
+			const $this = $(this);
 			if ($this.hasClass("active")) {
 				gtag("event", "follow_on");
 			} else {
@@ -80,8 +80,8 @@ gtag('config', 'G-LXQ6W8SL7X');
 		});
 		
 		$("#decodedList").find("tr").on("selectrow.dencode", function () {
-			var $row = $(this);
-			var method = $row.attr("data-dencode-method");
+			const $row = $(this);
+			const method = $row.attr("data-dencode-method");
 			gtag("event", "select_item", {
 				item_list_id: "decoded-list",
 				items: [{item_id: method}]
@@ -89,8 +89,8 @@ gtag('config', 'G-LXQ6W8SL7X');
 		});
 		
 		$("#encodedList").find("tr").on("selectrow.dencode", function () {
-			var $row = $(this);
-			var method = $row.attr("data-dencode-method");
+			const $row = $(this);
+			const method = $row.attr("data-dencode-method");
 			gtag("event", "select_item", {
 				item_list_id: "encoded-list",
 				items: [{item_id: method}]

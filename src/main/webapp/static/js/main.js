@@ -3,65 +3,65 @@
 (function (window, document) {
 
 $(document).ready(function () {
-	var _inProc = false;
-	var _v = null;
-	var _oe = null;
-	var _nl = null;
-	var _tz = null;
-	var _options = null;
+	let _inProc = false;
+	let _v = null;
+	let _oe = null;
+	let _nl = null;
+	let _tz = null;
+	let _options = null;
 	
-	var _lengthTmpl = null;
-	var _permanentLinkTmpl = null;
-	var _forCopyTmpl = null;
+	let _lengthTmpl = null;
+	let _permanentLinkTmpl = null;
+	let _forCopyTmpl = null;
 	
-	var _config = null;
+	let _config = null;
 	
-	var _colors = null;
+	let _colors = null;
 	
-	var dencodeType = document.body.getAttribute("data-dencode-type");
-	var dencodeMethod = document.body.getAttribute("data-dencode-method");
+	const dencodeType = document.body.getAttribute("data-dencode-type");
+	const dencodeMethod = document.body.getAttribute("data-dencode-method");
 	
-	var $window = $(window);
-	var $document = $(document);
-	var $localeMenuLinks = $("#localeMenu .dropdown-menu a");
-	var $typeMenu = $("#typeMenu");
-	var $typeMenuLinks = $typeMenu.find("a");
-	var $typeMenuLabels = $typeMenu.find(".dropdown-menu-label");
-	var $methodMenuItems = $typeMenu.find("li[data-dencode-method]");
-	var $top = $("#top");
-	var $exp = $("#exp");
-	var $follow = $("#follow");
-	var $vLen = $("#vLen");
-	var $v = $("#v");
-	var $tz = $("#tz");
-	var $tzGroup = $("#tzGroup");
-	var $tzMenuItems = $("#tzMenuItems [data-tz]");
-	var $tzMenuFilter = $("#tzMenuFilter");
-	var $loadBtn = $("#load");
-	var $loadFile = $("#loadFile");
-	var $loadFileInput = $("#loadFileInput");
-	var $loadQrcode = $("#loadQrcode");
-	var $loadQrcodeInput = $("#loadQrcodeInput");
-	var $oeGroup = $("#oeGroup");
-	var $oeGroupBtns = $oeGroup.find(".btn:not(.dropdown-toggle)");
-	var $oexBtn = $("#oex");
-	var $oexMenuItems = $("#oexMenu li:not(.divider)");
-	var $nlGroup = $("#nlGroup");
-	var $nlGroupBtns = $nlGroup.find(".btn");
-	var $subHeaders = $("h2");
-	var $decIndicator = $("#decodingIndicator");
-	var $encIndicator = $("#encodingIndicator");
-	var $listRows = $(".dencoded-list > tbody > tr");
-	var $optionGroups = $(".dencode-option-group");
-	var $options = $(".dencode-option");
-	var $otherDencodeLinks = $(".other-dencode-link");
+	const $window = $(window);
+	const $document = $(document);
+	const $localeMenuLinks = $("#localeMenu .dropdown-menu a");
+	const $typeMenu = $("#typeMenu");
+	const $typeMenuLinks = $typeMenu.find("a");
+	const $typeMenuLabels = $typeMenu.find(".dropdown-menu-label");
+	const $methodMenuItems = $typeMenu.find("li[data-dencode-method]");
+	const $top = $("#top");
+	const $exp = $("#exp");
+	const $follow = $("#follow");
+	const $vLen = $("#vLen");
+	const $v = $("#v");
+	const $tz = $("#tz");
+	const $tzGroup = $("#tzGroup");
+	const $tzMenuItems = $("#tzMenuItems [data-tz]");
+	const $tzMenuFilter = $("#tzMenuFilter");
+	const $loadBtn = $("#load");
+	const $loadFile = $("#loadFile");
+	const $loadFileInput = $("#loadFileInput");
+	const $loadQrcode = $("#loadQrcode");
+	const $loadQrcodeInput = $("#loadQrcodeInput");
+	const $oeGroup = $("#oeGroup");
+	const $oeGroupBtns = $oeGroup.find(".btn:not(.dropdown-toggle)");
+	const $oexBtn = $("#oex");
+	const $oexMenuItems = $("#oexMenu li:not(.divider)");
+	const $nlGroup = $("#nlGroup");
+	const $nlGroupBtns = $nlGroup.find(".btn");
+	const $subHeaders = $("h2");
+	const $decIndicator = $("#decodingIndicator");
+	const $encIndicator = $("#encodingIndicator");
+	const $listRows = $(".dencoded-list > tbody > tr");
+	const $optionGroups = $(".dencode-option-group");
+	const $options = $(".dencode-option");
+	const $otherDencodeLinks = $(".other-dencode-link");
 	
 	
 	// Load previous settings from local storage
 	try {
 		if (localStorage) {
 			$options.each(function () {
-				var value = localStorage.getItem("options." + this.name);
+				const value = localStorage.getItem("options." + this.name);
 				if (value !== null) {
 					this.value = value;
 				} else if ("defaultValue" in this.dataset) {
@@ -74,7 +74,7 @@ $(document).ready(function () {
 	}
 	
 	// Load settings from location hash
-	var hash = location.hash;
+	const hash = location.hash;
 	if (hash !== null && hash.lastIndexOf("#v=", 0) === 0) {
 		$v.val(decodeURIComponent(hash.substring(3)));
 		if (history.replaceState) {
@@ -86,7 +86,7 @@ $(document).ready(function () {
 	
 	if (window.File) {
 		$document.on("drop", function (ev) {
-			var file = ev.originalEvent.dataTransfer.files[0];
+			const file = ev.originalEvent.dataTransfer.files[0];
 			loadValueFromFile(file);
 			
 			return false;
@@ -100,7 +100,7 @@ $(document).ready(function () {
 	});
 	
 	$document.on("click", function (ev) {
-		var $target = $(ev.target);
+		const $target = $(ev.target);
 
 		// hide popover when other area clicked
 		if ($target.closest(".popover-toggle, .popover").length === 0) {
@@ -115,7 +115,7 @@ $(document).ready(function () {
 	});
 	
 	$document.on("click", ".copy-to-clipboard", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
 		copyToClipboard($this);
 		$this.focus();
@@ -124,12 +124,12 @@ $(document).ready(function () {
 	});
 	
 	$document.on("click", ".popover-toggle.permanent-link", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
 		if ($this.hasClass("active")) {
 			hidePopover($this);
 		} else {
-			var method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+			const method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
 			if (!$this.data("bs.popover")) {
 				loadConfig(function (config) {
 					$this.popover({
@@ -141,7 +141,7 @@ $(document).ready(function () {
 							return content;
 						},
 						content: function () {
-							var permanentLink = getPermanentLink(method, config);
+							const permanentLink = getPermanentLink(method, config);
 							return getPermanentLinkTmpl().render({
 								permanentLink: permanentLink,
 								permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
@@ -157,7 +157,7 @@ $(document).ready(function () {
 	});
 	
 	$document.on("show.bs.popover", ".popover-toggle", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
 		hidePopover($(".popover-toggle.active").not($this));
 		
@@ -165,51 +165,51 @@ $(document).ready(function () {
 	});
 	
 	$document.on("hidden.bs.popover", ".popover-toggle", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
 		$this.removeClass("active");
 	});
 	
 	$("[data-value-link-to]").on("input paste change", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
-		var $target = $($this.attr("data-value-link-to"));
+		const $target = $($this.attr("data-value-link-to"));
 		$target.val($this.val());
 		$target.trigger("init.dencode");
 	});
 	
 	$localeMenuLinks.on("click", function (ev) {
-		var $this = $(this);
+		const $this = $(this);
 		
 		if ($this.closest("li").hasClass("active")) {
 			ev.preventDefault();
 			return;
 		}
 		
-		var v = $v.val();
+		const v = $v.val();
 		if (0 < v.length) {
 			this.href += "#v=" + encodeURIComponent(v);
 		}
 	});
 	
 	$typeMenuLinks.on("click", function (ev) {
-		var $this = $(this);
+		const $this = $(this);
 
 		if ($this.hasClass("dropdown-toggle") || $this.closest("li").hasClass("active")) {
 			ev.preventDefault();
 			return;
 		}
 		
-		var v = $v.val();
+		const v = $v.val();
 		if (0 < v.length) {
 			this.href += "#v=" + encodeURIComponent(v);
 		}
 	});
 	
 	$typeMenuLabels.on("click", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
-		var $dropdownMenuLink = $this.closest("li").find("ul.dropdown-menu li:first a");
+		const $dropdownMenuLink = $this.closest("li").find("ul.dropdown-menu li:first a");
 		$dropdownMenuLink[0].click();
 		
 		return false;
@@ -224,7 +224,7 @@ $(document).ready(function () {
 	});
 
 	if ($oeGroup.data("enable")) {
-		var $oexMenuItem = $oexMenuItems.filter(".active");
+		let $oexMenuItem = $oexMenuItems.filter(".active");
 		if ($oexMenuItem.length === 0) {
 			$oexMenuItem = $oexMenuItems.eq(0);
 		}
@@ -234,7 +234,7 @@ $(document).ready(function () {
 		$oeGroup.show();
 		
 		$oeGroupBtns.on("click", function () {
-			var $this = $(this);
+			const $this = $(this);
 			
 			if ($this.hasClass("active")) {
 				return;
@@ -247,7 +247,7 @@ $(document).ready(function () {
 		});
 
 		$oexMenuItems.on("click", function () {
-			var $this = $(this);
+			const $this = $(this);
 			
 			$oeGroupBtns.removeClass("active");
 			$oexMenuItems.removeClass("active");
@@ -265,7 +265,7 @@ $(document).ready(function () {
 		$nlGroup.show();
 		
 		$nlGroupBtns.on("click", function () {
-			var $this = $(this);
+			const $this = $(this);
 
 			if ($this.hasClass("active")) {
 				return;
@@ -279,7 +279,7 @@ $(document).ready(function () {
 	}
 
 	if ($tzGroup.data("enable")) {
-		var $tzMenuItem = $tzMenuItems.filter(".active");
+		let $tzMenuItem = $tzMenuItems.filter(".active");
 		if ($tzMenuItem.length === 0) {
 			$tzMenuItem = $tzMenuItems.eq(0);
 		}
@@ -289,19 +289,19 @@ $(document).ready(function () {
 		$tzGroup.show();
 		
 		$tzMenuFilter.on("input paste", function () {
-			var svals = $(this).val().toLowerCase().split(/\s+/g);
+			const svals = $(this).val().toLowerCase().split(/\s+/g);
 			
 			$tzMenuItems.each(function () {
-				var $this = $(this);
-				var val = $this.attr("data-tz-lc");
+				const $this = $(this);
+				let val = $this.attr("data-tz-lc");
 				if (!val) {
 					val = $this.text().toLowerCase();
 					$this.attr("data-tz-lc", val);
 				}
 				
-				var matched = true;
-				for (var i = 0; i < svals.length; i++) {
-					if (!val.includes(svals[i])) {
+				let matched = true;
+				for (const sval of svals) {
+					if (!val.includes(sval)) {
 						matched = false;
 						break;
 					}
@@ -316,7 +316,7 @@ $(document).ready(function () {
 		});
 		
 		$tzMenuItems.on("click", function () {
-			var $this = $(this);
+			const $this = $(this);
 			
 			$tzMenuItems.removeClass("active");
 			$this.addClass("active");
@@ -343,7 +343,7 @@ $(document).ready(function () {
 			return;
 		}
 		
-		var file = this.files[0];
+		const file = this.files[0];
 		this.value = "";
 		
 		loadValueFromFile(file);
@@ -365,14 +365,14 @@ $(document).ready(function () {
 			return;
 		}
 		
-		var file = this.files[0];
+		const file = this.files[0];
 		this.value = "";
 		
-		var reader = new FileReader();
+		const reader = new FileReader();
 		reader.onload = function () {
-			var img = new Image();
+			const img = new Image();
 			img.onload = function () {
-				var code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
+				const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
 				if (code === null) {
 					showMessageDialog($loadQrcode.attr("data-load-error-message"));
 					return;
@@ -387,8 +387,8 @@ $(document).ready(function () {
 	});
 	
 	$subHeaders.on("click", function () {
-		var $this = $(this);
-		var $toggleIcon = $this.children(".toggle-icon");
+		const $this = $(this);
+		const $toggleIcon = $this.children(".toggle-icon");
 		
 		if ($toggleIcon.hasClass("bi-caret-down-square")) {
 			$toggleIcon.removeClass("bi-caret-down-square").addClass("bi-caret-right-square");
@@ -404,7 +404,7 @@ $(document).ready(function () {
 			return;
 		}
 		
-		var $row = $(this);
+		const $row = $(this);
 		
 		if ($row.hasClass("invalid-value")) {
 			return;
@@ -428,29 +428,29 @@ $(document).ready(function () {
 	});
 	
 	$listRows.on("selectrow.dencode", function () {
-		var $row = $(this);
+		const $row = $(this);
 		
 		$row.addClass("active");
 		
-		var $forDisp = $row.find(".for-disp");
-		var id = $forDisp.attr("id");
-		var val = $forDisp.text();
+		const $forDisp = $row.find(".for-disp");
+		const id = $forDisp.attr("id");
+		const val = $forDisp.text();
 		
-		var forCopyHtml = getForCopyTmpl().render({
+		const forCopyHtml = getForCopyTmpl().render({
 			id: id,
 			value: val
 		});
 		
-		var $forCopy = $(forCopyHtml);
+		const $forCopy = $(forCopyHtml);
 		$forDisp.after($forCopy);
 	});
 	
 	$listRows.on("deselectrow.dencode", function () {
-		var $row = $(this);
+		const $row = $(this);
 		
 		$row.removeClass("active");
 		
-		var $forCopy = $row.find(".for-copy");
+		const $forCopy = $row.find(".for-copy");
 		$forCopy.remove();
 	});
 	
@@ -462,7 +462,7 @@ $(document).ready(function () {
 	}
 	
 	$vLen.on("click", function () {
-		var $this = $(this);
+		const $this = $(this);
 		
 		if ($this.hasClass("active")) {
 			$this.popover("hide");
@@ -479,8 +479,8 @@ $(document).ready(function () {
 			return content;
 		},
 		content: function () {
-			var chars = Number($vLen.data("len-chars"));
-			var bytes = Number($vLen.data("len-bytes"));
+			const chars = Number($vLen.data("len-chars"));
+			const bytes = Number($vLen.data("len-bytes"));
 			return getLengthTmpl().render({
 				chars: chars,
 				oneChar: (chars == 1),
@@ -491,10 +491,10 @@ $(document).ready(function () {
 	});
 	
 	$otherDencodeLinks.on("click", function (ev) {
-		var $this = $(this);
-		var method = $this.data("other-dencode-method");
+		const $this = $(this);
+		const method = $this.data("other-dencode-method");
 		
-		var $menuLinks = $methodMenuItems.filter("[data-dencode-method='" + method + "']").find("a");
+		const $menuLinks = $methodMenuItems.filter("[data-dencode-method='" + method + "']").find("a");
 		if (0 < $menuLinks.length) {
 			$menuLinks[0].click();
 		}
@@ -506,36 +506,36 @@ $(document).ready(function () {
 	(function () {
 		// for cipher.enigma
 		
-		var $optMachines = $("select[name=encCipherEnigmaMachine],select[name=decCipherEnigmaMachine]");
+		const $optMachines = $("select[name=encCipherEnigmaMachine],select[name=decCipherEnigmaMachine]");
 		
 		if ($optMachines.length === 0) {
 			return;
 		}
 		
-		var $optReflectors = $("select[name=encCipherEnigmaReflector],select[name=decCipherEnigmaReflector]");
-		var $optPlugboards = $("input[name=encCipherEnigmaPlugboard],input[name=decCipherEnigmaPlugboard]");
-		var $optUkwds = $("input[name=encCipherEnigmaUkwd],input[name=decCipherEnigmaUkwd]");
+		const $optReflectors = $("select[name=encCipherEnigmaReflector],select[name=decCipherEnigmaReflector]");
+		const $optPlugboards = $("input[name=encCipherEnigmaPlugboard],input[name=decCipherEnigmaPlugboard]");
+		const $optUkwds = $("input[name=encCipherEnigmaUkwd],input[name=decCipherEnigmaUkwd]");
 		
 		$optMachines.on("change init.dencode", function () {
-			var $this = $(this);
-			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			const $this = $(this);
+			const prefix = this.name.substr(0, 3) + "CipherEnigma";
 			
-			var $selectedOption = $this.find("option:selected");
-			var reflectors = $selectedOption.attr("data-reflectors").split(",");
-			var rotors = $selectedOption.attr("data-rotors").split(",");
-			var has = $selectedOption.attr("data-has").split(",");
+			const $selectedOption = $this.find("option:selected");
+			const reflectors = $selectedOption.attr("data-reflectors").split(",");
+			const rotors = $selectedOption.attr("data-rotors").split(",");
+			const has = $selectedOption.attr("data-has").split(",");
 			
-			var $optReflector = $("select[name=" + prefix + "Reflector]");
-			var $optRotor3 = $("select[name=" + prefix + "Rotor3]");
-			var $optRotor2 = $("select[name=" + prefix + "Rotor2]");
-			var $optRotor1 = $("select[name=" + prefix + "Rotor1]");
+			const $optReflector = $("select[name=" + prefix + "Reflector]");
+			const $optRotor3 = $("select[name=" + prefix + "Rotor3]");
+			const $optRotor2 = $("select[name=" + prefix + "Rotor2]");
+			const $optRotor1 = $("select[name=" + prefix + "Rotor1]");
 			
 			setupSelectOptions($optReflector, reflectors);
 			setupSelectOptions($optRotor3, rotors);
 			setupSelectOptions($optRotor2, rotors);
 			setupSelectOptions($optRotor1, rotors);
 			
-			var $enigma = $this.closest(".cipher-enigma");
+			const $enigma = $this.closest(".cipher-enigma");
 			addOrRemoveClass($enigma, "cipher-enigma-has-4wheels", (has.indexOf("4wheels") !== -1));
 			addOrRemoveClass($enigma, "cipher-enigma-has-plugboard", (has.indexOf("plugboard") !== -1));
 			addOrRemoveClass($enigma, "cipher-enigma-has-uhr", (has.indexOf("uhr") !== -1));
@@ -546,14 +546,14 @@ $(document).ready(function () {
 		});
 		
 		$optReflectors.on("change init.dencode", function () {
-			var $this = $(this);
-			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			const $this = $(this);
+			const prefix = this.name.substr(0, 3) + "CipherEnigma";
 			
-			var $optUkwd = $("input[name=" + prefix + "Ukwd]");
-			var $optRotor4 = $("select[name=" + prefix + "Rotor4]");
-			var $optRotor4Ring = $("select[name=" + prefix + "Rotor4Ring]");
-			var $optRotor4Position = $("select[name=" + prefix + "Rotor4Position]");
-			var ukwd = ($this.val() === "UKW-D");
+			const $optUkwd = $("input[name=" + prefix + "Ukwd]");
+			const $optRotor4 = $("select[name=" + prefix + "Rotor4]");
+			const $optRotor4Ring = $("select[name=" + prefix + "Rotor4Ring]");
+			const $optRotor4Position = $("select[name=" + prefix + "Rotor4Position]");
+			const ukwd = ($this.val() === "UKW-D");
 			
 			$optUkwd.prop("disabled", !ukwd);
 			$optRotor4.prop("disabled", ukwd);
@@ -562,33 +562,33 @@ $(document).ready(function () {
 		});
 		
 		$optPlugboards.on("input paste change init.dencode", function () {
-			var $this = $(this);
-			var prefix = this.name.substr(0, 3) + "CipherEnigma";
+			const $this = $(this);
+			const prefix = this.name.substr(0, 3) + "CipherEnigma";
 			
-			var val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
+			const val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
 			
-			var sidx = this.selectionStart;
+			const sidx = this.selectionStart;
 			this.value = val;
 			this.selectionStart = this.selectionEnd = sidx;
 			
-			var pairs = val.trim().split(/\s+/);
-			var err = !validateWiring(pairs, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+			const pairs = val.trim().split(/\s+/);
+			const err = !validateWiring(pairs, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			
 			addOrRemoveClass($this, "dencode-option-error", err);
 			$("select[name=" + prefix + "Uhr]").prop("disabled", err || (pairs.length !== 10));
 		});
 		
 		$optUkwds.on("input paste change init.dencode", function () {
-			var $this = $(this);
+			const $this = $(this);
 			
-			var val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
+			const val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
 			
-			var sidx = this.selectionStart;
+			const sidx = this.selectionStart;
 			this.value = val;
 			this.selectionStart = this.selectionEnd = sidx;
 			
-			var pairs = val.trim().split(/\s+/);
-			var err = !validateWiring(pairs, "AZXWVUTSRQPONMLKIHGFEDCB");
+			const pairs = val.trim().split(/\s+/);
+			const err = !validateWiring(pairs, "AZXWVUTSRQPONMLKIHGFEDCB");
 			
 			addOrRemoveClass($this, "dencode-option-error", err);
 		});
@@ -598,14 +598,14 @@ $(document).ready(function () {
 		$optUkwds.trigger("init.dencode");
 		
 		function setupSelectOptions($select, optionValues) {
-			var currentIdx = $select.prop("selectedIndex");
+			const currentIdx = $select.prop("selectedIndex");
 			
-			var $options = $select.find("option");
-			var newIdx = -1;
+			const $options = $select.find("option");
+			let newIdx = -1;
 			$options.each(function(index) {
-				var $option = $(this);
+				const $option = $(this);
 				
-				var enable = (optionValues.indexOf($option.val()) !== -1);
+				const enable = (optionValues.indexOf($option.val()) !== -1);
 				$option.prop("disabled", !enable);
 				$option.prop("hidden", !enable);
 				if (enable && (index <= currentIdx || newIdx === -1)) {
@@ -629,17 +629,17 @@ $(document).ready(function () {
 				return true;
 			}
 			
-			for (var i = 0; i < pairs.length; i++) {
-				if (pairs[i].length !== 2) {
+			for (const pair of pairs) {
+				if (pair.length !== 2) {
 					// Illegal format
 					return false;
 				}
 			}
 			
-			var chars = pairs.join("");
+			const chars = pairs.join("");
 			
-			for (var i = 0; i < chars.length; i++) {
-				var ch = chars.charAt(i);
+			for (let i = 0; i < chars.length; i++) {
+				const ch = chars.charAt(i);
 				
 				if (letters.indexOf(ch) === -1) {
 					// Unsupported
@@ -663,30 +663,22 @@ $(document).ready(function () {
 	// function definitions
 	
 	function dencode() {
-		var type = dencodeType;
-		var method = dencodeMethod;
-		var v = $v.val();
-		var oe = $oeGroupBtns.filter(".active").data("oe");
-		var oex = $oexMenuItems.filter(".active").data("oe");
-		var nl = $nlGroupBtns.filter(".active").data("nl");
-		var tz = $tz.data("tz");
-		var options = {};
+		const type = dencodeType;
+		const method = dencodeMethod;
+		const v = $v.val();
+		const oe = $oeGroupBtns.filter(".active").data("oe");
+		const oex = $oexMenuItems.filter(".active").data("oe");
+		const nl = $nlGroupBtns.filter(".active").data("nl");
+		const tz = $tz.data("tz");
+		let options = {};
 		$options.each(function () {
 			options[this.name] = this.value;
 		});
 		
-		if (!type || !method) {
-			type = "all";
-		}
-		
-		if (!method) {
-			method = "all.all";
-		}
-		
 		if (v === _v && oe === _oe && nl === _nl && tz === _tz) {
 			if (_options !== null) {
-				var matched = true;
-				for (var key in options) {
+				let matched = true;
+				for (const key in options) {
 					if (_options[key] !== options[key]) {
 						matched = false;
 						break;
@@ -698,7 +690,7 @@ $(document).ready(function () {
 			}
 		}
 		
-		var len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
+		const len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
 		$vLen.text(separateThousand(len));
 		
 		// Store settings to Cookie
@@ -732,7 +724,7 @@ $(document).ready(function () {
 		$decIndicator.show();
 		$encIndicator.show();
 		
-		var requestData = {
+		const requestData = {
 				type: type,
 				method: method,
 				value: v,
@@ -751,14 +743,14 @@ $(document).ready(function () {
 			body: JSON.stringify(requestData)
 		}).then(function (response) {
 			if (response.headers.get("Content-Type").indexOf("application/json") === -1) {
-				var messageObject = getMessageDefinition(null);
-				var error = new Error(messageObject.message);
+				const messageObject = getMessageDefinition(null);
+				const error = new Error(messageObject.message);
 				error.messageObject = messageObject;
 				throw error;
 			}
 			
 			if (!response.ok) {
-				var error = new Error(response.statusText);
+				const error = new Error(response.statusText);
 				error.statusCode = response.status;
 				throw error;
 			}
@@ -804,7 +796,7 @@ $(document).ready(function () {
 			setBgColor($v, _colors);
 		}
 		
-		for (var k in res) {
+		for (const k in res) {
 			setResponseValue(k, res[k]);
 		}
 	}
@@ -829,8 +821,8 @@ $(document).ready(function () {
 				$exp.addClass("follow");
 			} else {
 				$window.on("scroll.follow", function () {
-					var scrollTop = $window.scrollTop();
-					var offsetTop = $top.offset().top;
+					let scrollTop = $window.scrollTop();
+					const offsetTop = $top.offset().top;
 					if (scrollTop < offsetTop) {
 						scrollTop = offsetTop;
 					}
@@ -843,32 +835,32 @@ $(document).ready(function () {
 	}
 	
 	function getPermanentLink(method, config) {
-		var v = $v.val();
+		const v = $v.val();
 		
-		var $methodMenuItem = $methodMenuItems.filter("[data-dencode-method='" + method + "']");
-		var oeEnabled = (config[method + ".useOe"] === "true");
-		var nlEnabled = (config[method + ".useNl"] === "true");
-		var tzEnabled = (config[method + ".useTz"] === "true");
+		const $methodMenuItem = $methodMenuItems.filter("[data-dencode-method='" + method + "']");
+		const oeEnabled = (config[method + ".useOe"] === "true");
+		const nlEnabled = (config[method + ".useNl"] === "true");
+		const tzEnabled = (config[method + ".useTz"] === "true");
 		
-		var path = $methodMenuItem.find("a").attr("href");
+		let path = $methodMenuItem.find("a").attr("href");
 		if (!path) {
 			path = location.pathname;
 		}
 		
-		var url = location.protocol + "//" + location.host + path;
+		let url = location.protocol + "//" + location.host + path;
 		
 		url += "?v=" + encodeURIComponent(v);
 		
 		if (oeEnabled) {
-			var oe = $oeGroupBtns.filter(".active").data("oe");
+			const oe = $oeGroupBtns.filter(".active").data("oe");
 			url += "&oe=" + encodeURIComponent(oe);
 		}
 		if (nlEnabled) {
-			var nl = $nlGroupBtns.filter(".active").data("nl");
+			const nl = $nlGroupBtns.filter(".active").data("nl");
 			url += "&nl=" + encodeURIComponent(nl);
 		}
 		if (tzEnabled) {
-			var tz = $tz.data("tz");
+			const tz = $tz.data("tz");
 			url += "&tz=" + encodeURIComponent(tz);
 		}
 		
@@ -911,9 +903,9 @@ $(document).ready(function () {
 	}
 	
 	function loadValueFromFile(file) {
-		var encoding = $oeGroupBtns.filter(".active").data("oe");
+		const encoding = $oeGroupBtns.filter(".active").data("oe");
 		
-		var reader = new FileReader();
+		const reader = new FileReader();
 		reader.onload = function (ev) {
 			updateValue(this.result);
 		};
@@ -945,14 +937,14 @@ $(document).ready(function () {
 
 
 function setResponseValue(id, value) {
-	var forDispElm = document.getElementById(id);
+	const forDispElm = document.getElementById(id);
 	if (forDispElm === null) {
 		return;
 	}
 	
-	var $forDisp = $(forDispElm);
+	const $forDisp = $(forDispElm);
 	
-	var $row = $forDisp.closest("tr");
+	const $row = $forDisp.closest("tr");
 	if (value === null) {
 		$row.addClass("invalid-value");
 		$forDisp.text("");
@@ -961,24 +953,24 @@ function setResponseValue(id, value) {
 		$forDisp.text(value);
 	}
 	
-	var forCopyTextareaElm = document.getElementById(id + "ForCopy");
+	const forCopyTextareaElm = document.getElementById(id + "ForCopy");
 	if (forCopyTextareaElm) {
 		$(forCopyTextareaElm).val(value);
 	}
 }
 
 function setBgColor($elm, colors) {
-	var bgColor = null;
+	let bgColor = null;
 	if (colors) {
 		bgColor = getNonBlankValue(colors, getCurrentLineIndex($elm[0]));
 	}
 	
-	var color;
+	let color;
 	if (bgColor) {
-		var r = parseInt(bgColor.substring(1, 3), 16);
-		var g = parseInt(bgColor.substring(3, 5), 16);
-		var b = parseInt(bgColor.substring(5, 7), 16);
-		var a = (7 < bgColor.length) ? parseInt(bgColor.substring(7), 16) / 255.0 : 1.0;
+		const r = parseInt(bgColor.substring(1, 3), 16);
+		const g = parseInt(bgColor.substring(3, 5), 16);
+		const b = parseInt(bgColor.substring(5, 7), 16);
+		const a = (7 < bgColor.length) ? parseInt(bgColor.substring(7), 16) / 255.0 : 1.0;
 		
 		if (382 < (r + g + b) || a < 0.5) {
 			color = "black";
@@ -1003,9 +995,9 @@ function selectAllTextValue(elm) {
 	}
 	
 	if (document.createRange && window.getSelection) {
-		var range = document.createRange();
+		const range = document.createRange();
 		range.selectNode(elm);
-		var selection = window.getSelection();
+		const selection = window.getSelection();
 		selection.removeAllRanges();
 		selection.addRange(range);
 	}
@@ -1017,7 +1009,7 @@ function selectAllTextValue(elm) {
 
 function clearSelection(elm) {
 	if (window.getSelection) {
-		var selection = window.getSelection();
+		const selection = window.getSelection();
 		selection.removeAllRanges();
 	}
 	
@@ -1027,17 +1019,17 @@ function clearSelection(elm) {
 }
 
 function getCurrentLineIndex(elm) {
-	var cursorPos = elm.selectionStart;
-	var val = elm.value;
+	const cursorPos = elm.selectionStart;
+	const val = elm.value;
 	
-	var n = (val.substring(0, cursorPos).match(/\n/g) || []).length;
+	const n = (val.substring(0, cursorPos).match(/\n/g) || []).length;
 	
 	return n;
 }
 
 function hidePopover($popovers) {
 	$popovers.each(function(i, elm) {
-		var popover = bootstrap.Popover.getInstance(elm);
+		const popover = bootstrap.Popover.getInstance(elm);
 		if (popover) {
 			popover.hide();
 		}
@@ -1045,7 +1037,7 @@ function hidePopover($popovers) {
 }
 
 function showTooltip($elm, message, time) {
-	var tooltip = new bootstrap.Tooltip($elm[0], {
+	const tooltip = new bootstrap.Tooltip($elm[0], {
 		trigger: "manual",
 		container: "body",
 		title: message
@@ -1060,10 +1052,10 @@ function showTooltip($elm, message, time) {
 
 function copyToClipboard($elm) {
 
-	var copyElm = document.getElementById($elm.attr("data-copy-id"));
-	var $copy = $(copyElm);
-	var msg = $elm.attr("data-copy-message");
-	var errMsg = $elm.attr("data-copy-error-message");
+	const copyElm = document.getElementById($elm.attr("data-copy-id"));
+	const $copy = $(copyElm);
+	const msg = $elm.attr("data-copy-message");
+	const errMsg = $elm.attr("data-copy-error-message");
 	
 	$copy.removeClass("copying");
 	$copy.removeClass("copied");
@@ -1084,8 +1076,8 @@ function copyToClipboard($elm) {
 			showTooltip($elm, errMsg, 2000);
 		});
 	} else {
-		var readOnly = copyElm.readOnly;
-		var contentEditable = copyElm.contentEditable;
+		const readOnly = copyElm.readOnly;
+		const contentEditable = copyElm.contentEditable;
 		
 		copyElm.readOnly = true;
 		copyElm.contentEditable = true;
@@ -1118,16 +1110,16 @@ function getNonBlankValue(values, index) {
 		return null;
 	}
 	
-	var value;
+	let value;
 	
-	for (var i = Math.min(index, values.length - 1); 0 <= i; i--) {
+	for (let i = Math.min(index, values.length - 1); 0 <= i; i--) {
 		value = values[i];
 		if (value !== "") {
 			return value;
 		}
 	}
 	
-	for (var i = index + 1; i < values.length; i++) {
+	for (let i = index + 1; i < values.length; i++) {
 		value = values[i];
 		if (value !== "") {
 			return value;
@@ -1138,14 +1130,14 @@ function getNonBlankValue(values, index) {
 }
 
 function readQrcodeFromImage(imgElm, maxSizes) {
-	var minImgSize = Math.min(imgElm.width, imgElm.height);
+	const minImgSize = Math.min(imgElm.width, imgElm.height);
 	
-	var canvas = document.createElement("canvas");
+	const canvas = document.createElement("canvas");
 	
-	var code = null;
-	var parsedOrgSize = false;
-	for (var i = 0; i < maxSizes.length; i++) {
-		var r = Math.min(1.0, 1.0 * maxSizes[i] / minImgSize);
+	let code = null;
+	let parsedOrgSize = false;
+	for (const maxSize of maxSizes) {
+		const r = Math.min(1.0, 1.0 * maxSize / minImgSize);
 		
 		if (1.0 <= r) {
 			if (parsedOrgSize) {
@@ -1157,10 +1149,10 @@ function readQrcodeFromImage(imgElm, maxSizes) {
 		canvas.width = imgElm.width * r;
 		canvas.height = imgElm.height * r;
 		
-		var ctx = canvas.getContext("2d");
+		const ctx = canvas.getContext("2d");
 		ctx.scale(r, r);
 		ctx.drawImage(imgElm, 0, 0);
-		var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 		
 		code = jsQR(imageData.data, imageData.width, imageData.height);
 		if (code !== null) {

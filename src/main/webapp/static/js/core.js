@@ -1,10 +1,10 @@
 "use strict";
 
-var _messageDefs = {
+const _messageDefs = {
 	"__default": newMessage(null, "fatal", "Error", "Error")
 };
-var _messagesTmpl = Hogan.compile($("#messagesTmpl").html());
-var _latestMessage = null;
+const _messagesTmpl = Hogan.compile($("#messagesTmpl").html());
+let _latestMessage = null;
 
 function handleAjaxResponse(data) {
 	if (data.redirectUrl) {
@@ -82,9 +82,9 @@ function getMessageDefinition(messageId) {
 
 function setMessages(messages) {
 	if (messages) {
-		var messagesHtml = "";
-		for (var i in messages) {
-			_latestMessage = formatMessage(messages[i]);
+		let messagesHtml = "";
+		for (const message of messages) {
+			_latestMessage = formatMessage(message);
 			messagesHtml += _messagesTmpl.render(_latestMessage);
 		}
 		$("#messages").html(messagesHtml);
@@ -130,10 +130,10 @@ function br(value) {
 }
 
 function separateThousand(num) {
-	var strNum = String(num);
+	let strNum = String(num);
 	
-	var decPos = strNum.indexOf(".");
-	var dec = null;
+	const decPos = strNum.indexOf(".");
+	let dec = null;
 	if (0 <= decPos) {
 		dec = strNum.substring(decPos);
 		strNum = strNum.substring(0, decPos);
