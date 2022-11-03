@@ -1,6 +1,5 @@
-"use strict";
-
 (function (window, document) {
+"use strict";
 
 $(document).ready(function () {
 	let _inProc = false;

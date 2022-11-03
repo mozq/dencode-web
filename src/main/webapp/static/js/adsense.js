@@ -1,31 +1,30 @@
-"use strict";
-
 // Google AdSense
-(function (w, d) {
+(function (window, document) {
+	"use strict";
 	
 	// Lazy load adsbygoogle.js
-	$(w).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads touchstart.lzads scroll.lzads", function() {
-		$(w).off(".lzads");
+	$(window).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads touchstart.lzads scroll.lzads", function() {
+		$(window).off(".lzads");
 		
-		const s = d.createElement("script");
+		const s = document.createElement("script");
 		s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
 		s.async = true;
-		d.body.appendChild(s);
+		document.body.appendChild(s);
 	});
 	
-	$(d).ready(function () {
+	$(document).ready(function () {
 		const $listRows = $(".dencoded-list").find("tr");
 		
 		// Init Ads
 		$(".adsbygoogle").each(function () {
-			(w.adsbygoogle = w.adsbygoogle || []).push({});
+			(window.adsbygoogle = window.adsbygoogle || []).push({});
 		});
 		
 		// Show AdMiddle
 		$listRows.on("selectrow.dencode", function () {
 			const $row = $(this);
 			
-			const $window = $(w);
+			const $window = $(window);
 			const $adBottom = $("#adBottom");
 			if ($adBottom.offset().top > $window.scrollTop() + $window.height()) {
 				// AdBottom is out of display
@@ -40,7 +39,7 @@
 					} else {
 						const adMiddleHtml = $("#adMiddleTmpl").html();
 						$row.after(adMiddleHtml);
-						(w.adsbygoogle = w.adsbygoogle || []).push({});
+						(window.adsbygoogle = window.adsbygoogle || []).push({});
 					}
 				}
 			}

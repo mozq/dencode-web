@@ -1,28 +1,28 @@
-"use strict";
-
 // Google Analytics for GA4
-(function () {
+(function (window, document) {
+	"use strict";
+	
 	const s = document.createElement('script');
 	s.async = true;
 	s.src = "https://www.googletagmanager.com/gtag/js?id=G-LXQ6W8SL7X";
 	document.head.appendChild(s);
-})();
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-LXQ6W8SL7X');
-
-(function (w, d) {
-	$(d).ready(function () {
-		$(d).on("click", "#loadFromFile", function () {
+	
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-LXQ6W8SL7X');
+	
+	
+	$(document).ready(function () {
+		$(document).on("click", "#loadFromFile", function () {
 			gtag("event", "load_file");
 		});
 		
-		$(d).on("click", "#loadFromQrcode", function () {
+		$(document).on("click", "#loadFromQrcode", function () {
 			gtag("event", "load_qrcode");
 		});
 		
-		$(d).on("click", ".popover-toggle.permanent-link", function () {
+		$(document).on("click", ".popover-toggle.permanent-link", function () {
 			const $this = $(this);
 			if ($this.hasClass("active")) {
 				const method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
@@ -34,7 +34,7 @@ gtag('config', 'G-LXQ6W8SL7X');
 			}
 		});
 		
-		$(d).on("click", ".copy-to-clipboard", function () {
+		$(document).on("click", ".copy-to-clipboard", function () {
 			const $this = $(this);
 			const id = $this.attr("data-copy-id");
 			gtag("event", "share", {
@@ -44,7 +44,7 @@ gtag('config', 'G-LXQ6W8SL7X');
 			});
 		});
 		
-		$(d).on("dencoded.dencode", function (ev, data, response) {
+		$(document).on("dencoded.dencode", function (ev, data, response) {
 			if (data.value.length === 0) {
 				return;
 			}
