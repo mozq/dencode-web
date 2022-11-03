@@ -17,7 +17,10 @@ function handleAjaxResponse(data) {
 }
 
 function focusMessages() {
-	jumpInnerPageId("messages", -10, false);
+	window.scroll({
+		top: document.getElementById("messages").offsetTop -10,
+		behavior: "smooth"
+	});
 }
 
 function toMessageType(level) {
@@ -109,19 +112,6 @@ function getLatestMessage() {
 
 function redirect(url) {
 	window.location.href = url;
-}
-
-function jumpInnerPageId(id, offset, changeUrlHash) {
-    $("html, body").stop().animate(
-    		{ scrollTop: $("#" + id).offset().top + offset },
-    		100,
-    		"swing",
-    		function () {
-    			if (changeUrlHash) {
-    		        window.location.hash = "";
-    		        window.location.hash = id;
-    			}
-    		});
 }
 
 function escapeHTML(value) { 
