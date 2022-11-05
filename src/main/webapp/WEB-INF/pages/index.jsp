@@ -2042,7 +2042,7 @@
 	"use strict";
 	
 	addMessageDefinition(newMessage(
-			null,
+			"default.error",
 			"${mf:jsstr(msg['default.error.level'])}",
 			"${mf:jsstr(msg['default.error'])}",
 			"${mf:jsstr(msg['default.error.detail'])}"

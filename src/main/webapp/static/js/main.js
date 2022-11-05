@@ -756,8 +756,19 @@ $(document).ready(function () {
 			
 			return response.json();
 		}).then(function (responseJson) {
+			if (responseJson.redirectUrl) {
+				window.location.href = responseJson.redirectUrl;
+			}
+			
 			clearMessages();
-			handleAjaxResponse(responseJson);
+			if (responseJson.messages !== null && 0 < responseJson.messages.length) {
+				setMessages(responseJson.messages);
+				window.scroll({
+					top: document.getElementById("messages").offsetTop -10,
+					behavior: "smooth"
+				});
+			}
+			
 			render(responseJson.response);
 			
 			$document.trigger("dencoded.dencode", [requestData, responseJson]);
@@ -1160,6 +1171,27 @@ function readQrcodeFromImage(imgElm, maxSizes) {
 	}
 	
 	return code;
+}
+
+function separateThousand(num) {
+	let strNum = String(num);
+	
+	const decPos = strNum.indexOf(".");
+	let dec = null;
+	if (0 <= decPos) {
+		dec = strNum.substring(decPos);
+		strNum = strNum.substring(0, decPos);
+	}
+	
+	if (3 < strNum.length) {
+		strNum = strNum.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	}
+	
+	if (dec !== null) {
+		strNum += dec;
+	}
+	
+	return strNum;
 }
 
 })(window, document);
