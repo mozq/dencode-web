@@ -295,4 +295,94 @@ public class DencodeUtils {
 			return null;
 		}
 	}
+	
+	protected static void appendCombinedVoicedSoundMark(StringBuilder sb) {
+		if (sb.length() == 0) {
+			sb.append('゛');
+			return;
+		}
+		
+		char ch = sb.charAt(sb.length() - 1);
+		
+		char newCh = switch (ch) {
+		case 'か' -> 'が';
+		case 'き' -> 'ぎ';
+		case 'く' -> 'ぐ';
+		case 'け' -> 'げ';
+		case 'こ' -> 'ご';
+		case 'さ' -> 'ざ';
+		case 'し' -> 'じ';
+		case 'す' -> 'ず';
+		case 'せ' -> 'ぜ';
+		case 'そ' -> 'ぞ';
+		case 'た' -> 'だ';
+		case 'ち' -> 'ぢ';
+		case 'つ' -> 'づ';
+		case 'て' -> 'で';
+		case 'と' -> 'ど';
+		case 'は' -> 'ば';
+		case 'ひ' -> 'び';
+		case 'ふ' -> 'ぶ';
+		case 'へ' -> 'べ';
+		case 'ほ' -> 'ぼ';
+		case 'う' -> 'ゔ';
+		case 'カ' -> 'ガ';
+		case 'キ' -> 'ギ';
+		case 'ク' -> 'グ';
+		case 'ケ' -> 'ゲ';
+		case 'コ' -> 'ゴ';
+		case 'サ' -> 'ザ';
+		case 'シ' -> 'ジ';
+		case 'ス' -> 'ズ';
+		case 'セ' -> 'ゼ';
+		case 'ソ' -> 'ゾ';
+		case 'タ' -> 'ダ';
+		case 'チ' -> 'ヂ';
+		case 'ツ' -> 'ヅ';
+		case 'テ' -> 'デ';
+		case 'ト' -> 'ド';
+		case 'ハ' -> 'バ';
+		case 'ヒ' -> 'ビ';
+		case 'フ' -> 'ブ';
+		case 'ヘ' -> 'ベ';
+		case 'ホ' -> 'ボ';
+		case 'ウ' -> 'ヴ';
+		default -> ch;
+		};
+		
+		if (newCh == ch) {
+			sb.append('゛');
+		} else {
+			sb.setCharAt(sb.length() - 1, newCh);
+		}
+	}
+	
+	 protected static void appendCombinedSemiVoicedSoundMark(StringBuilder sb) {
+		if (sb.length() == 0) {
+			sb.append('゜');
+			return;
+		}
+		
+		char ch = sb.charAt(sb.length() - 1);
+		
+		char newCh = switch (ch) {
+		case 'は' -> 'ぱ';
+		case 'ひ' -> 'ぴ';
+		case 'ふ' -> 'ぷ';
+		case 'へ' -> 'ぺ';
+		case 'ほ' -> 'ぽ';
+		case 'ハ' -> 'パ';
+		case 'ヒ' -> 'ピ';
+		case 'フ' -> 'プ';
+		case 'ヘ' -> 'ペ';
+		case 'ホ' -> 'ポ';
+		default -> ch;
+		};
+		
+		if (newCh == ch) {
+			sb.append('゜');
+		} else {
+			sb.setCharAt(sb.length() - 1, newCh);
+		}
+	}
 }

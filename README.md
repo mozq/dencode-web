@@ -40,6 +40,7 @@ gcloud config set project {PROJECT_ID}
     - [Quoted-printable](https://dencode.com/string/quoted-printable)
     - [Unicode Escape](https://dencode.com/string/unicode-escape)
     - [Program String](https://dencode.com/string/program-string)
+    - [Morse Code](https://dencode.com/string/morse-code)
     - [Naming Convention](https://dencode.com/string/naming-convention)
         - [Camel Case](https://dencode.com/string/camel-case)
         - [Snake Case](https://dencode.com/string/snake-case)

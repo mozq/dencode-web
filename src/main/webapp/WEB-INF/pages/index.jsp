@@ -93,6 +93,8 @@
 							<li class="${(method eq 'string.unicode-escape') ? 'active' : ''}" data-dencode-method="string.unicode-escape"><a class="dropdown-item" href="${mf:h(basePath)}/string/unicode-escape">${mf:h(msg['string.unicode-escape.method'])}</a></li>
 							<li class="${(method eq 'string.program-string') ? 'active' : ''}" data-dencode-method="string.program-string"><a class="dropdown-item" href="${mf:h(basePath)}/string/program-string">${mf:h(msg['string.program-string.method'])}</a></li>
 							<li class="dropdown-divider"></li>
+							<li class="${(method eq 'string.morse-code') ? 'active' : ''}" data-dencode-method="string.morse-code"><a class="dropdown-item" href="${mf:h(basePath)}/string/morse-code">${mf:h(msg['string.morse-code.method'])}</a></li>
+							<li class="dropdown-divider"></li>
 							<li class="${(method eq 'string.naming-convention') ? 'active' : ''}" data-dencode-method="string.naming-convention"><a class="dropdown-item" href="${mf:h(basePath)}/string/naming-convention">${mf:h(msg['string.naming-convention.method'])}</a></li>
 							<li class="${(method eq 'string.camel-case') ? 'active' : ''}" data-dencode-method="string.camel-case"><a class="dropdown-item" href="${mf:h(basePath)}/string/camel-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.camel-case.method'])}</a></li>
 							<li class="${(method eq 'string.snake-case') ? 'active' : ''}" data-dencode-method="string.snake-case"><a class="dropdown-item" href="${mf:h(basePath)}/string/snake-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.snake-case.method'])}</a></li>
@@ -339,6 +341,20 @@
 							<c:if test="${methods.contains('string.quoted-printable')}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['label.decStrQuotedPrintable'])}</th><td><span id="decStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.unicode-escape')}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.decStrUnicodeEscape'])}</th><td><span id="decStrUnicodeEscape" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.program-string')}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.decStrProgramString'])}</th><td><span id="decStrProgramString" class="for-disp"></span></td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['label.decStrMorseCode'])}</th><td><span id="decStrMorseCode" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.decStrMorseCode.option.variant'])}</span>
+										<select name="decStrMorseCodeVariant" class="dencode-option form-select" data-value-link-to="[name=encStrMorseCodeVariant]">
+											<option value="international">${mf:h(msg['label.decStrMorseCode.option.variant.international'])}</option>
+											<option value="japanese">${mf:h(msg['label.decStrMorseCode.option.variant.japanese'])}</option>
+											<option value="russian">${mf:h(msg['label.decStrMorseCode.option.variant.russian'])}</option>
+										</select>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.unicode-normalization')}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.decStrUnicodeNFC'])}</th><td><span id="decStrUnicodeNFC" class="for-disp"></span></td></tr></c:if>
@@ -1096,6 +1112,21 @@
 								</form>
 							</td></tr></c:if>
 						</tbody>
+						<tbody>
+							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['label.decStrMorseCode'])}</th><td><span id="encStrMorseCode" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.encStrMorseCode.option.variant'])}</span>
+										<select name="encStrMorseCodeVariant" class="dencode-option form-select" data-value-link-to="[name=decStrMorseCodeVariant]">
+											<option value="international">${mf:h(msg['label.encStrMorseCode.option.variant.international'])}</option>
+											<option value="japanese">${mf:h(msg['label.encStrMorseCode.option.variant.japanese'])}</option>
+											<option value="russian">${mf:h(msg['label.encStrMorseCode.option.variant.russian'])}</option>
+										</select>
+									</div>
+								</form>
+							</td></tr></c:if>
+						</tbody>
+						<tbody>
 							<c:if test="${methods.contains('string.naming-convention') or methods.contains('string.camel-case')}"><tr data-dencode-method="string.camel-case"><th>${mf:h(msg['label.encStrUpperCamelCase'])}</th><td><span id="encStrUpperCamelCase" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.naming-convention') or methods.contains('string.camel-case')}"><tr data-dencode-method="string.camel-case"><th>${mf:h(msg['label.encStrLowerCamelCase'])}</th><td><span id="encStrLowerCamelCase" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.naming-convention') or methods.contains('string.snake-case')}"><tr data-dencode-method="string.snake-case"><th>${mf:h(msg['label.encStrUpperSnakeCase'])}</th><td><span id="encStrUpperSnakeCase" class="for-disp"></span></td></tr></c:if>

@@ -87,14 +87,14 @@ public class CipherJisKeyboardDencoder {
 		case 'p': sb.append('せ'); break;
 		case '@':
 			if (combineVoicedSoundMark) {
-				appendCombinedVoicedSoundMark(sb);
+				DencodeUtils.appendCombinedVoicedSoundMark(sb);
 			} else {
 				sb.append('゛');
 			}
 			break;
 		case '[':
 			if (combineVoicedSoundMark) {
-				appendCombinedSemiVoicedSoundMark(sb);
+				DencodeUtils.appendCombinedSemiVoicedSoundMark(sb);
 			} else {
 				sb.append('゜');
 			}
@@ -344,70 +344,6 @@ public class CipherJisKeyboardDencoder {
 			} else {
 				sb.append(ch);
 			}
-		}
-	}
-	
-	private static void appendCombinedVoicedSoundMark(StringBuilder sb) {
-		if (sb.length() == 0) {
-			sb.append('゛');
-			return;
-		}
-		
-		char ch = sb.charAt(sb.length() - 1);
-		
-		char newCh = switch (ch) {
-		case 'か' -> 'が';
-		case 'き' -> 'ぎ';
-		case 'く' -> 'ぐ';
-		case 'け' -> 'げ';
-		case 'こ' -> 'ご';
-		case 'さ' -> 'ざ';
-		case 'し' -> 'じ';
-		case 'す' -> 'ず';
-		case 'せ' -> 'ぜ';
-		case 'そ' -> 'ぞ';
-		case 'た' -> 'だ';
-		case 'ち' -> 'ぢ';
-		case 'つ' -> 'づ';
-		case 'て' -> 'で';
-		case 'と' -> 'ど';
-		case 'は' -> 'ば';
-		case 'ひ' -> 'び';
-		case 'ふ' -> 'ぶ';
-		case 'へ' -> 'べ';
-		case 'ほ' -> 'ぼ';
-		case 'う' -> 'ゔ';
-		default -> ch;
-		};
-		
-		if (newCh == ch) {
-			sb.append('゛');
-		} else {
-			sb.setCharAt(sb.length() - 1, newCh);
-		}
-	}
-	
-	private static void appendCombinedSemiVoicedSoundMark(StringBuilder sb) {
-		if (sb.length() == 0) {
-			sb.append('゜');
-			return;
-		}
-		
-		char ch = sb.charAt(sb.length() - 1);
-		
-		char newCh = switch (ch) {
-		case 'は' -> 'ぱ';
-		case 'ひ' -> 'ぴ';
-		case 'ふ' -> 'ぷ';
-		case 'へ' -> 'ぺ';
-		case 'ほ' -> 'ぽ';
-		default -> ch;
-		};
-		
-		if (newCh == ch) {
-			sb.append('゜');
-		} else {
-			sb.setCharAt(sb.length() - 1, newCh);
 		}
 	}
 }
