@@ -103,7 +103,7 @@ task copyDependencies(type: Copy) {
 appengineStage.finalizedBy copyJar, copyDependencies
 
 task appRunStage(type: JavaExec) {
-  dependsOn appengineStage
+  dependsOn appengineStage, copyJar, copyDependencies
   
   environment PORT: 8080
   workingDir appengine.stage.stagingDirectory
