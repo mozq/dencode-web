@@ -84,7 +84,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		String v = reqres().param("v", "");
 		String oe = CommonLogic.mapShortCharsetName(reqres().param("oe", reqres().cookie("oe", "UTF-8")));
 		String oex = (!oe.startsWith("UTF")) ? oe : reqres().cookie("oex", message("oe.ext.default"));
-		String nl = reqres().param("nl", reqres().cookie("nl", ""));
+		String nl = reqres().param("nl", reqres().cookie("nl", "crlf"));
 		String tz = reqres().param("tz", reqres().cookie("tz", null));
 		if (tz == null) {
 			tz = DateUtilz.localeToTimeZoneID(request().getLocale());
@@ -103,11 +103,12 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			method = "all.all";
 		}
 		
-		
-		reqres().setCookie("oe", oe, -1, "/", null);
-		reqres().setCookie("oex", oex, -1, "/", null);
-		reqres().setCookie("nl", nl, -1, "/", null);
-		reqres().setCookie("tz", tz, -1, "/", null);
+		// TODO: This is for a migration (Decommission Cookies). Will be removed after the migration.
+		reqres().removeCookie("oe");
+		reqres().removeCookie("oex");
+		reqres().removeCookie("nl");
+		reqres().removeCookie("tz");
+		reqres().removeCookie("follow");
 		
 		reqres().setAttribute("type", type);
 		reqres().setAttribute("method", method);

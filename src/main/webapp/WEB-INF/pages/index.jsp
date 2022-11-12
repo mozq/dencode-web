@@ -234,72 +234,72 @@
 				</div>
 			</form>
 			<div id="expOptions">
-				<div id="oeGroup" class="btn-group btn-group-sm" data-enable="${(useOe) ? 'true' : 'false'}" style="display: none;">
-					<button class="btn ${(oe eq 'UTF-8') ? 'active' : ''}" data-oe="UTF-8">UTF-8</button>
-					<button class="btn ${(oe eq 'UTF-16BE') ? 'active' : ''}" data-oe="UTF-16BE">UTF-16</button>
-					<button class="btn ${(oe eq 'UTF-32BE') ? 'active' : ''}" data-oe="UTF-32BE">UTF-32</button>
-					<button id="oex" class="btn ${(oe eq oex) ? 'active' : ''}" data-oe=""></button>
+				<div id="oeGroup" class="btn-group btn-group-sm" data-enable="${(useOe) ? 'true' : 'false'}" data-initial-value="${mf:h(oe)}" style="display: none;">
+					<button class="btn" data-oe="UTF-8">UTF-8</button>
+					<button class="btn" data-oe="UTF-16BE">UTF-16</button>
+					<button class="btn" data-oe="UTF-32BE">UTF-32</button>
+					<button id="oex" class="btn" data-oe=""></button>
 					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<span class="caret"></span>
 					</button>
-					<ul id="oexMenu" class="dropdown-menu" role="menu">
-						<li class="dropdown-item ${(oex eq 'UTF-16LE') ? 'active' : ''}" data-oe="UTF-16LE">UTF-16LE</li>
-						<li class="dropdown-item ${(oex eq 'UTF-32LE') ? 'active' : ''}" data-oe="UTF-32LE">UTF-32LE</li>
+					<ul id="oexMenu" class="dropdown-menu" role="menu" data-initial-value="${mf:h(oex)}">
+						<li class="dropdown-item" data-oe="UTF-16LE">UTF-16LE</li>
+						<li class="dropdown-item" data-oe="UTF-32LE">UTF-32LE</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'US-ASCII') ? 'active' : ''}" data-oe="US-ASCII">US-ASCII</li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-1') ? 'active' : ''}" data-oe="ISO-8859-1">ISO-8859-1 (Latin-1)</li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-15') ? 'active' : ''}" data-oe="ISO-8859-15">ISO-8859-15 (Latin-9)</li>
-						<li class="dropdown-item ${(oex eq 'windows-1252') ? 'active' : ''}" data-oe="windows-1252">Windows-1252</li>
+						<li class="dropdown-item" data-oe="US-ASCII">US-ASCII</li>
+						<li class="dropdown-item" data-oe="ISO-8859-1">ISO-8859-1 (Latin-1)</li>
+						<li class="dropdown-item" data-oe="ISO-8859-15">ISO-8859-15 (Latin-9)</li>
+						<li class="dropdown-item" data-oe="windows-1252">Windows-1252</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-2') ? 'active' : ''}" data-oe="ISO-8859-2">ISO-8859-2 (Latin-2)</li>
-						<li class="dropdown-item ${(oex eq 'windows-1250') ? 'active' : ''}" data-oe="windows-1250">Windows-1250</li>
+						<li class="dropdown-item" data-oe="ISO-8859-2">ISO-8859-2 (Latin-2)</li>
+						<li class="dropdown-item" data-oe="windows-1250">Windows-1250</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-3') ? 'active' : ''}" data-oe="ISO-8859-3">ISO-8859-3 (Latin-3)</li>
+						<li class="dropdown-item" data-oe="ISO-8859-3">ISO-8859-3 (Latin-3)</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-4') ? 'active' : ''}" data-oe="ISO-8859-4">ISO-8859-4 (Latin-4)</li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-13') ? 'active' : ''}" data-oe="ISO-8859-13">ISO-8859-13 (Latin-7)</li>
-						<li class="dropdown-item ${(oex eq 'windows-1257') ? 'active' : ''}" data-oe="windows-1257">Windows-1257</li>
+						<li class="dropdown-item" data-oe="ISO-8859-4">ISO-8859-4 (Latin-4)</li>
+						<li class="dropdown-item" data-oe="ISO-8859-13">ISO-8859-13 (Latin-7)</li>
+						<li class="dropdown-item" data-oe="windows-1257">Windows-1257</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'Shift_JIS') ? 'active' : ''}" data-oe="Shift_JIS">Shift_JIS</li>
-						<li class="dropdown-item ${(oex eq 'EUC-JP') ? 'active' : ''}" data-oe="EUC-JP">EUC-JP</li>
-						<li class="dropdown-item ${(oex eq 'ISO-2022-JP') ? 'active' : ''}" data-oe="ISO-2022-JP">ISO-2022-JP (JIS)</li>
+						<li class="dropdown-item" data-oe="Shift_JIS">Shift_JIS</li>
+						<li class="dropdown-item" data-oe="EUC-JP">EUC-JP</li>
+						<li class="dropdown-item" data-oe="ISO-2022-JP">ISO-2022-JP (JIS)</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'GB2312') ? 'active' : ''}" data-oe="GB2312">GB2312 (EUC-CN)</li>
-						<li class="dropdown-item ${(oex eq 'GB18030') ? 'active' : ''}" data-oe="GB18030">GB18030</li>
-						<li class="dropdown-item ${(oex eq 'Big5-HKSCS') ? 'active' : ''}" data-oe="Big5-HKSCS">Big5-HKSCS</li>
+						<li class="dropdown-item" data-oe="GB2312">GB2312 (EUC-CN)</li>
+						<li class="dropdown-item" data-oe="GB18030">GB18030</li>
+						<li class="dropdown-item" data-oe="Big5-HKSCS">Big5-HKSCS</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'EUC-KR') ? 'active' : ''}" data-oe="EUC-KR">EUC-KR (KS X 1001)</li>
-						<li class="dropdown-item ${(oex eq 'ISO-2022-KR') ? 'active' : ''}" data-oe="ISO-2022-KR">ISO-2022-KR</li>
+						<li class="dropdown-item" data-oe="EUC-KR">EUC-KR (KS X 1001)</li>
+						<li class="dropdown-item" data-oe="ISO-2022-KR">ISO-2022-KR</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-5') ? 'active' : ''}" data-oe="ISO-8859-5">ISO-8859-5</li>
-						<li class="dropdown-item ${(oex eq 'windows-1251') ? 'active' : ''}" data-oe="windows-1251">Windows-1251</li>
-						<li class="dropdown-item ${(oex eq 'KOI8-R') ? 'active' : ''}" data-oe="KOI8-R">KOI8-R</li>
-						<li class="dropdown-item ${(oex eq 'KOI8-U') ? 'active' : ''}" data-oe="KOI8-U">KOI8-U</li>
+						<li class="dropdown-item" data-oe="ISO-8859-5">ISO-8859-5</li>
+						<li class="dropdown-item" data-oe="windows-1251">Windows-1251</li>
+						<li class="dropdown-item" data-oe="KOI8-R">KOI8-R</li>
+						<li class="dropdown-item" data-oe="KOI8-U">KOI8-U</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-6') ? 'active' : ''}" data-oe="ISO-8859-6">ISO-8859-6</li>
-						<li class="dropdown-item ${(oex eq 'windows-1256') ? 'active' : ''}" data-oe="windows-1256">Windows-1256</li>
+						<li class="dropdown-item" data-oe="ISO-8859-6">ISO-8859-6</li>
+						<li class="dropdown-item" data-oe="windows-1256">Windows-1256</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-7') ? 'active' : ''}" data-oe="ISO-8859-7">ISO-8859-7</li>
-						<li class="dropdown-item ${(oex eq 'windows-1253') ? 'active' : ''}" data-oe="windows-1253">Windows-1253</li>
+						<li class="dropdown-item" data-oe="ISO-8859-7">ISO-8859-7</li>
+						<li class="dropdown-item" data-oe="windows-1253">Windows-1253</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-8') ? 'active' : ''}" data-oe="ISO-8859-8">ISO-8859-8</li>
-						<li class="dropdown-item ${(oex eq 'windows-1255') ? 'active' : ''}" data-oe="windows-1255">Windows-1255</li>
+						<li class="dropdown-item" data-oe="ISO-8859-8">ISO-8859-8</li>
+						<li class="dropdown-item" data-oe="windows-1255">Windows-1255</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'ISO-8859-9') ? 'active' : ''}" data-oe="ISO-8859-9">ISO-8859-9 (Latin-5)</li>
-						<li class="dropdown-item ${(oex eq 'windows-1254') ? 'active' : ''}" data-oe="windows-1254">Windows-1254</li>
+						<li class="dropdown-item" data-oe="ISO-8859-9">ISO-8859-9 (Latin-5)</li>
+						<li class="dropdown-item" data-oe="windows-1254">Windows-1254</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'TIS-620') ? 'active' : ''}" data-oe="TIS-620">TIS-620</li>
-						<li class="dropdown-item ${(oex eq 'windows-874') ? 'active' : ''}" data-oe="windows-874">Windows-874</li>
+						<li class="dropdown-item" data-oe="TIS-620">TIS-620</li>
+						<li class="dropdown-item" data-oe="windows-874">Windows-874</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item ${(oex eq 'windows-1258') ? 'active' : ''}" data-oe="windows-1258">Windows-1258</li>
+						<li class="dropdown-item" data-oe="windows-1258">Windows-1258</li>
 					</ul>
 				</div>
-				<div id="nlGroup" class="btn-group btn-group-sm" data-enable="${(useNl) ? 'true' : 'false'}" style="display: none;">
-					<button class="btn ${(nl eq 'crlf' or nl eq '') ? 'active' : ''}" data-nl="crlf">CRLF (Win)</button>
-					<button class="btn ${(nl eq 'lf') ? 'active' : ''}" data-nl="lf">LF (UNIX/Mac)</button>
-					<button class="btn ${(nl eq 'cr') ? 'active' : ''}" data-nl="cr">CR (Old Mac)</button>
+				<div id="nlGroup" class="btn-group btn-group-sm" data-enable="${(useNl) ? 'true' : 'false'}" data-initial-value="${mf:h(nl)}" style="display: none;">
+					<button class="btn" data-nl="crlf">CRLF (Win)</button>
+					<button class="btn" data-nl="lf">LF (UNIX/Mac)</button>
+					<button class="btn" data-nl="cr">CR (Old Mac)</button>
 				</div>
-				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" style="display: none;">
+				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" data-initial-value="${mf:h(tz)}" style="display: none;">
 					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<span id="tz" data-tz=""></span>
 						<span class="caret"></span>
@@ -308,7 +308,7 @@
 						<input id="tzMenuFilter" class="form-control" value="" />
 						<div id="tzMenuItems">
 							<c:forEach var="tzVal" items="${tzMap}">
-								<span class="dropdown-item ${(tz eq tzVal.key) ? 'active' : ''}" data-tz="${mf:h(tzVal.key)}">${mf:h(tzVal.value)}</span>
+								<span class="dropdown-item" data-tz="${mf:h(tzVal.key)}">${mf:h(tzVal.value)}</span>
 							</c:forEach>
 						</div>
 					</div>
@@ -2063,7 +2063,7 @@
 	</tr>
 </script>
 
-<script src="//polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+<script src="//polyfill.io/v3/polyfill.min.js?features=fetch%2CURLSearchParams"></script>
 <script src="//cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/hogan.js@3.0.2/dist/hogan-3.0.2.min.js" integrity="sha256-jIAAmB65ff5CEFvV6DRfRWjHFwqq+AHeV4le8f8PYp4=" crossorigin="anonymous"></script>

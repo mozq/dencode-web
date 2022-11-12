@@ -32,10 +32,6 @@ $(document).ready(function () {
 	const $follow = $("#follow");
 	const $vLen = $("#vLen");
 	const $v = $("#v");
-	const $tz = $("#tz");
-	const $tzGroup = $("#tzGroup");
-	const $tzMenuItems = $("#tzMenuItems [data-tz]");
-	const $tzMenuFilter = $("#tzMenuFilter");
 	const $loadBtn = $("#load");
 	const $loadFile = $("#loadFile");
 	const $loadFileInput = $("#loadFileInput");
@@ -44,9 +40,14 @@ $(document).ready(function () {
 	const $oeGroup = $("#oeGroup");
 	const $oeGroupBtns = $oeGroup.find(".btn:not(.dropdown-toggle)");
 	const $oexBtn = $("#oex");
-	const $oexMenuItems = $("#oexMenu li:not(.divider)");
+	const $oexMenu = $("#oexMenu");
+	const $oexMenuItems = $oexMenu.find(".dropdown-item");
 	const $nlGroup = $("#nlGroup");
 	const $nlGroupBtns = $nlGroup.find(".btn");
+	const $tz = $("#tz");
+	const $tzGroup = $("#tzGroup");
+	const $tzMenuItems = $("#tzMenuItems [data-tz]");
+	const $tzMenuFilter = $("#tzMenuFilter");
 	const $subHeaders = $("h2");
 	const $decIndicator = $("#decodingIndicator");
 	const $encIndicator = $("#encodingIndicator");
@@ -56,11 +57,23 @@ $(document).ready(function () {
 	const $otherDencodeLinks = $(".other-dencode-link");
 	
 	
-	// Load previous settings from local storage
 	try {
-		if (localStorage) {
+		// Get settings from request parameter
+		const params = new URLSearchParams(window.location.search);
+		let ioe = params.get("oe");
+		let inl = params.get("nl");
+		let itz = params.get("tz");
+		let ioex = null;
+		
+		// Load previous settings from local storage
+		if (window.localStorage) {
+			ioex = ioex || window.localStorage.getItem("oex");
+			ioe = ioe || window.localStorage.getItem("oe");
+			inl = inl || window.localStorage.getItem("nl");
+			itz = itz || window.localStorage.getItem("tz");
+			
 			$options.each(function () {
-				const value = localStorage.getItem("options." + this.name);
+				const value = window.localStorage.getItem("options." + this.name);
 				if (value !== null) {
 					this.value = value;
 				} else if ("defaultValue" in this.dataset) {
@@ -68,6 +81,21 @@ $(document).ready(function () {
 				}
 			});
 		}
+		
+		ioex = ioex || $oexMenu.attr("data-initial-value");
+		ioe = ioe || $oeGroup.attr("data-initial-value");
+		inl = inl || $nlGroup.attr("data-initial-value");
+		itz = itz || $tzGroup.attr("data-initial-value");
+		
+		ioex = (!ioe.startsWith("UTF")) ? ioe : ioex;
+		
+		$oexBtn.attr("data-oe", ioex);
+		$tz.attr("data-tz", itz);
+		
+		$oexMenuItems.filter(`[data-oe="${ioex}"]`).addClass("active");
+		$oeGroupBtns.filter(`[data-oe="${ioe}"]`).addClass("active");
+		$nlGroupBtns.filter(`[data-nl="${inl}"]`).addClass("active");
+		$tzMenuItems.filter(`[data-tz="${itz}"]`).addClass("active");
 	} catch (ex) {
 		// NOP
 	}
@@ -456,8 +484,12 @@ $(document).ready(function () {
 	$follow.on("click", function () {
 		toggleFollow();
 	});
-	if (document.cookie.indexOf("follow=yes") != -1) {
-		toggleFollow();
+	try {
+		if (window.localStorage.getItem("follow") === "true") {
+			toggleFollow();
+		}
+	} catch (ex) {
+		// NOP
 	}
 	
 	$vLen.on("click", function () {
@@ -692,17 +724,16 @@ $(document).ready(function () {
 		const len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
 		$vLen.text(separateThousand(len));
 		
-		// Store settings to Cookie
-		setCookie("oe", oe);
-		setCookie("oex", oex);
-		setCookie("nl", nl);
-		setCookie("tz", tz);
-		
-		// Store option settings to local storage
+		// Store settings to local storage
 		try {
-			if (localStorage) {
+			if (window.localStorage) {
+				window.localStorage.setItem("oe", oe);
+				window.localStorage.setItem("oex", oex);
+				window.localStorage.setItem("nl", nl);
+				window.localStorage.setItem("tz", tz);
+				
 				$options.each(function () {
-					localStorage.setItem("options." + this.name, this.value);
+					window.localStorage.setItem("options." + this.name, this.value);
 				});
 			}
 		} catch (ex) {
@@ -812,8 +843,8 @@ $(document).ready(function () {
 	}
 	
 	function toggleFollow() {
-
-		if ($follow.hasClass("active")) {
+		const isFollowActive = $follow.hasClass("active");
+		if (isFollowActive) {
 			$follow.removeClass("active");
 
 			if ($exp.hasClass("follow")) {
@@ -822,8 +853,6 @@ $(document).ready(function () {
 				$window.off("scroll.follow");
 				$exp.offset({top: $top.offset().top});
 			}
-
-			setCookie("follow", "no");
 		} else {
 			$follow.addClass("active");
 
@@ -839,8 +868,12 @@ $(document).ready(function () {
 					$exp.offset({top: scrollTop});
 				});
 			}
-			
-			setCookie("follow", "yes");
+		}
+		
+		try {
+			window.localStorage.setItem("follow", (isFollowActive) ? "false" : "true");
+		} catch (ex) {
+			// NOP
 		}
 	}
 	
@@ -1109,10 +1142,6 @@ function copyToClipboard($elm) {
 			$copy.blur();
 		}
 	}
-}
-
-function setCookie(name, value) {
-	document.cookie = name + "=" + encodeURIComponent(value) + "; path=/";
 }
 
 function getNonBlankValue(values, index) {
