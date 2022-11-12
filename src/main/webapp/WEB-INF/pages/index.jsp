@@ -523,7 +523,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="decCipherEnigmaRotor3" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor3]">
+											<select name="decCipherEnigmaRotor3" class="dencode-option" data-default-value="III" data-value-link-to="[name=encCipherEnigmaRotor3]">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -547,7 +547,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="decCipherEnigmaRotor1" class="dencode-option" data-default-value="III" data-value-link-to="[name=encCipherEnigmaRotor1]">
+											<select name="decCipherEnigmaRotor1" class="dencode-option" data-default-value="I" data-value-link-to="[name=encCipherEnigmaRotor1]">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1417,7 +1417,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="encCipherEnigmaRotor3" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor3]">
+											<select name="encCipherEnigmaRotor3" class="dencode-option" data-default-value="III" data-value-link-to="[name=decCipherEnigmaRotor3]">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1441,7 +1441,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="encCipherEnigmaRotor1" class="dencode-option" data-default-value="III" data-value-link-to="[name=decCipherEnigmaRotor1]">
+											<select name="encCipherEnigmaRotor1" class="dencode-option" data-default-value="I" data-value-link-to="[name=decCipherEnigmaRotor1]">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
