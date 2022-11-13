@@ -112,6 +112,10 @@
 	cursor: pointer;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+	--bs-dropdown-link-active-bg: #e7e7e7;
+}
+
 a.dropdown-item:hover, a.dropdown-item:active, a.dropdown-item:focus {
 	text-decoration: none;
 }
