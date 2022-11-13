@@ -108,7 +108,7 @@ public class DencodeCondition {
 		this.colorsValueParsed = false;
 		this.colorsValue = null;
 		
-		this.options = Collections.unmodifiableMap(options);
+		this.options = (options == null) ? Collections.emptyMap() : Collections.unmodifiableMap(options);
 	}
 	
 	
