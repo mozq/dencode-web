@@ -51,10 +51,10 @@
 					<span class="caret"></span>
 				</span>
 				<ul class="dropdown-menu dropdown-menu-end" role="menu">
-					<li class="${(localeId eq null) ? 'active' : ''}"><a class="dropdown-item" href="${pageContext.request.contextPath}/${mf:h(currentPath)}">${mf:h(msg['locale.name.default'])} (${mf:h(defaultLocaleName)})</a></li>
+					<li><a class="dropdown-item ${(localeId eq null) ? 'active' : ''}" href="${pageContext.request.contextPath}/${mf:h(currentPath)}">${mf:h(msg['locale.name.default'])} (${mf:h(defaultLocaleName)})</a></li>
 					<li class="dropdown-divider"></li>
 					<c:forEach var="loc" items="${supportedLocaleMap}">
-						<li class="${(localeId eq loc.key) ? 'active' : ''}"><a class="dropdown-item" href="${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}">${mf:h(loc.value)}</a></li>
+						<li><a class="dropdown-item ${(localeId eq loc.key) ? 'active' : ''}" href="${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}">${mf:h(loc.value)}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
