@@ -78,7 +78,7 @@ public class StringAscii85Dencoder {
 	
 	@DencoderFunction
 	public static String encStrAscii85(DencodeCondition cond) {
-		String variant = cond.options().getOrDefault("encStrAscii85Variant", "adobe");
+		String variant = cond.options().getOrDefault("encStrAscii85Variant", "z85");
 		switch (variant) {
 		case "btoa":
 			return encodeAscii85(
