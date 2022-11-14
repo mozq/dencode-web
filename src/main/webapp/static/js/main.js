@@ -101,13 +101,13 @@ $(document).ready(function () {
 	}
 	
 	// Load settings from location hash
-	const hash = location.hash;
+	const hash = window.location.hash;
 	if (hash !== null && hash.lastIndexOf("#v=", 0) === 0) {
 		$v.val(decodeURIComponent(hash.substring(3)));
-		if (history.replaceState) {
-			history.replaceState(null, null, location.pathname + location.search);
+		if (window.history.replaceState) {
+			window.history.replaceState(null, null, window.location.pathname + window.location.search);
 		} else {
-			location.hash = "";
+			window.location.hash = "";
 		}
 	}
 	
@@ -891,10 +891,10 @@ $(document).ready(function () {
 		
 		let path = $methodMenuItem.attr("href");
 		if (!path) {
-			path = location.pathname;
+			path = window.location.pathname;
 		}
 		
-		let url = location.protocol + "//" + location.host + path;
+		let url = window.location.protocol + "//" + window.location.host + path;
 		
 		url += "?v=" + encodeURIComponent(v);
 		
