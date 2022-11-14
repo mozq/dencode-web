@@ -77,38 +77,38 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'string.all') ? 'active' : ''}" data-dencode-method="string.all"><a class="dropdown-item" href="${mf:h(basePath)}/string">${mf:h(msg['string.all.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string" data-dencode-method="string.all">${mf:h(msg['string.all.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.bin') ? 'active' : ''}" data-dencode-method="string.bin"><a class="dropdown-item" href="${mf:h(basePath)}/string/bin">${mf:h(msg['string.bin.method'])}</a></li>
-							<li class="${(method eq 'string.hex') ? 'active' : ''}" data-dencode-method="string.hex"><a class="dropdown-item" href="${mf:h(basePath)}/string/hex">${mf:h(msg['string.hex.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/bin" data-dencode-method="string.bin">${mf:h(msg['string.bin.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/hex" data-dencode-method="string.hex">${mf:h(msg['string.hex.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.html-escape') ? 'active' : ''}" data-dencode-method="string.html-escape"><a class="dropdown-item" href="${mf:h(basePath)}/string/html-escape">${mf:h(msg['string.html-escape.method'])}</a></li>
-							<li class="${(method eq 'string.url-encoding') ? 'active' : ''}" data-dencode-method="string.url-encoding"><a class="dropdown-item" href="${mf:h(basePath)}/string/url-encoding">${mf:h(msg['string.url-encoding.method'])}</a></li>
-							<li class="${(method eq 'string.punycode') ? 'active' : ''}" data-dencode-method="string.punycode"><a class="dropdown-item" href="${mf:h(basePath)}/string/punycode">${mf:h(msg['string.punycode.method'])}</a></li>
-							<li class="${(method eq 'string.base32') ? 'active' : ''}" data-dencode-method="string.base32"><a class="dropdown-item" href="${mf:h(basePath)}/string/base32">${mf:h(msg['string.base32.method'])}</a></li>
-							<li class="${(method eq 'string.base45') ? 'active' : ''}" data-dencode-method="string.base45"><a class="dropdown-item" href="${mf:h(basePath)}/string/base45">${mf:h(msg['string.base45.method'])}</a></li>
-							<li class="${(method eq 'string.base64') ? 'active' : ''}" data-dencode-method="string.base64"><a class="dropdown-item" href="${mf:h(basePath)}/string/base64">${mf:h(msg['string.base64.method'])}</a></li>
-							<li class="${(method eq 'string.ascii85') ? 'active' : ''}" data-dencode-method="string.ascii85"><a class="dropdown-item" href="${mf:h(basePath)}/string/ascii85">${mf:h(msg['string.ascii85.method'])}</a></li>
-							<li class="${(method eq 'string.quoted-printable') ? 'active' : ''}" data-dencode-method="string.quoted-printable"><a class="dropdown-item" href="${mf:h(basePath)}/string/quoted-printable">${mf:h(msg['string.quoted-printable.method'])}</a></li>
-							<li class="${(method eq 'string.unicode-escape') ? 'active' : ''}" data-dencode-method="string.unicode-escape"><a class="dropdown-item" href="${mf:h(basePath)}/string/unicode-escape">${mf:h(msg['string.unicode-escape.method'])}</a></li>
-							<li class="${(method eq 'string.program-string') ? 'active' : ''}" data-dencode-method="string.program-string"><a class="dropdown-item" href="${mf:h(basePath)}/string/program-string">${mf:h(msg['string.program-string.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/html-escape" data-dencode-method="string.html-escape">${mf:h(msg['string.html-escape.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/url-encoding" data-dencode-method="string.url-encoding">${mf:h(msg['string.url-encoding.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/punycode" data-dencode-method="string.punycode">${mf:h(msg['string.punycode.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/base32" data-dencode-method="string.base32">${mf:h(msg['string.base32.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/base45" data-dencode-method="string.base45">${mf:h(msg['string.base45.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/base64" data-dencode-method="string.base64">${mf:h(msg['string.base64.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/ascii85" data-dencode-method="string.ascii85">${mf:h(msg['string.ascii85.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/quoted-printable" data-dencode-method="string.quoted-printable">${mf:h(msg['string.quoted-printable.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/unicode-escape" data-dencode-method="string.unicode-escape">${mf:h(msg['string.unicode-escape.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/program-string" data-dencode-method="string.program-string">${mf:h(msg['string.program-string.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.morse-code') ? 'active' : ''}" data-dencode-method="string.morse-code"><a class="dropdown-item" href="${mf:h(basePath)}/string/morse-code">${mf:h(msg['string.morse-code.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/morse-code" data-dencode-method="string.morse-code">${mf:h(msg['string.morse-code.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.naming-convention') ? 'active' : ''}" data-dencode-method="string.naming-convention"><a class="dropdown-item" href="${mf:h(basePath)}/string/naming-convention">${mf:h(msg['string.naming-convention.method'])}</a></li>
-							<li class="${(method eq 'string.camel-case') ? 'active' : ''}" data-dencode-method="string.camel-case"><a class="dropdown-item" href="${mf:h(basePath)}/string/camel-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.camel-case.method'])}</a></li>
-							<li class="${(method eq 'string.snake-case') ? 'active' : ''}" data-dencode-method="string.snake-case"><a class="dropdown-item" href="${mf:h(basePath)}/string/snake-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.snake-case.method'])}</a></li>
-							<li class="${(method eq 'string.kebab-case') ? 'active' : ''}" data-dencode-method="string.kebab-case"><a class="dropdown-item" href="${mf:h(basePath)}/string/kebab-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.kebab-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/naming-convention" data-dencode-method="string.naming-convention">${mf:h(msg['string.naming-convention.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/camel-case" data-dencode-method="string.camel-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.camel-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/snake-case" data-dencode-method="string.snake-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.snake-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/kebab-case" data-dencode-method="string.kebab-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.kebab-case.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.character-width') ? 'active' : ''}" data-dencode-method="string.character-width"><a class="dropdown-item" href="${mf:h(basePath)}/string/character-width">${mf:h(msg['string.character-width.method'])}</a></li>
-							<li class="${(method eq 'string.letter-case') ? 'active' : ''}" data-dencode-method="string.letter-case"><a class="dropdown-item" href="${mf:h(basePath)}/string/letter-case">${mf:h(msg['string.letter-case.method'])}</a></li>
-							<li class="${(method eq 'string.text-initials') ? 'active' : ''}" data-dencode-method="string.text-initials"><a class="dropdown-item" href="${mf:h(basePath)}/string/text-initials">${mf:h(msg['string.text-initials.method'])}</a></li>
-							<li class="${(method eq 'string.text-reverse') ? 'active' : ''}" data-dencode-method="string.text-reverse"><a class="dropdown-item" href="${mf:h(basePath)}/string/text-reverse">${mf:h(msg['string.text-reverse.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/character-width" data-dencode-method="string.character-width">${mf:h(msg['string.character-width.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/letter-case" data-dencode-method="string.letter-case">${mf:h(msg['string.letter-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/text-initials" data-dencode-method="string.text-initials">${mf:h(msg['string.text-initials.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/text-reverse" data-dencode-method="string.text-reverse">${mf:h(msg['string.text-reverse.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.unicode-normalization') ? 'active' : ''}" data-dencode-method="string.unicode-normalization"><a class="dropdown-item" href="${mf:h(basePath)}/string/unicode-normalization">${mf:h(msg['string.unicode-normalization.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/unicode-normalization" data-dencode-method="string.unicode-normalization">${mf:h(msg['string.unicode-normalization.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'string.line-sort') ? 'active' : ''}" data-dencode-method="string.line-sort"><a class="dropdown-item" href="${mf:h(basePath)}/string/line-sort">${mf:h(msg['string.line-sort.method'])}</a></li>
-							<li class="${(method eq 'string.line-unique') ? 'active' : ''}" data-dencode-method="string.line-unique"><a class="dropdown-item" href="${mf:h(basePath)}/string/line-unique">${mf:h(msg['string.line-unique.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/line-sort" data-dencode-method="string.line-sort">${mf:h(msg['string.line-sort.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/line-unique" data-dencode-method="string.line-unique">${mf:h(msg['string.line-unique.method'])}</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number">
@@ -117,16 +117,16 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'number.all') ? 'active' : ''}" data-dencode-method="number.all"><a class="dropdown-item" href="${mf:h(basePath)}/number">${mf:h(msg['number.all.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number" data-dencode-method="number.all">${mf:h(msg['number.all.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'number.dec') ? 'active' : ''}" data-dencode-method="number.dec"><a class="dropdown-item" href="${mf:h(basePath)}/number/dec">${mf:h(msg['number.dec.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/dec" data-dencode-method="number.dec">${mf:h(msg['number.dec.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'number.bin') ? 'active' : ''}" data-dencode-method="number.bin"><a class="dropdown-item" href="${mf:h(basePath)}/number/bin">${mf:h(msg['number.bin.method'])}</a></li>
-							<li class="${(method eq 'number.oct') ? 'active' : ''}" data-dencode-method="number.oct"><a class="dropdown-item" href="${mf:h(basePath)}/number/oct">${mf:h(msg['number.oct.method'])}</a></li>
-							<li class="${(method eq 'number.hex') ? 'active' : ''}" data-dencode-method="number.hex"><a class="dropdown-item" href="${mf:h(basePath)}/number/hex">${mf:h(msg['number.hex.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/bin" data-dencode-method="number.bin">${mf:h(msg['number.bin.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/oct" data-dencode-method="number.oct">${mf:h(msg['number.oct.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/hex" data-dencode-method="number.hex">${mf:h(msg['number.hex.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'number.english') ? 'active' : ''}" data-dencode-method="number.english"><a class="dropdown-item" href="${mf:h(basePath)}/number/english">${mf:h(msg['number.english.method'])}</a></li>
-							<li class="${(method eq 'number.japanese') ? 'active' : ''}" data-dencode-method="number.japanese"><a class="dropdown-item" href="${mf:h(basePath)}/number/japanese">${mf:h(msg['number.japanese.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/english" data-dencode-method="number.english">${mf:h(msg['number.english.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/japanese" data-dencode-method="number.japanese">${mf:h(msg['number.japanese.method'])}</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'date') ? 'active' : ''}" role="presentation" data-dencode-type="date">
@@ -135,14 +135,14 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'date.all') ? 'active' : ''}" data-dencode-method="date.all"><a class="dropdown-item" href="${mf:h(basePath)}/date">${mf:h(msg['date.all.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date" data-dencode-method="date.all">${mf:h(msg['date.all.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'date.unix-time') ? 'active' : ''}" data-dencode-method="date.unix-time"><a class="dropdown-item" href="${mf:h(basePath)}/date/unix-time">${mf:h(msg['date.unix-time.method'])}</a></li>
-							<li class="${(method eq 'date.w3cdtf') ? 'active' : ''}" data-dencode-method="date.w3cdtf"><a class="dropdown-item" href="${mf:h(basePath)}/date/w3cdtf">${mf:h(msg['date.w3cdtf.method'])}</a></li>
-							<li class="${(method eq 'date.iso8601') ? 'active' : ''}" data-dencode-method="date.iso8601"><a class="dropdown-item" href="${mf:h(basePath)}/date/iso8601">${mf:h(msg['date.iso8601.method'])}</a></li>
-							<li class="${(method eq 'date.rfc2822') ? 'active' : ''}" data-dencode-method="date.rfc2822"><a class="dropdown-item" href="${mf:h(basePath)}/date/rfc2822">${mf:h(msg['date.rfc2822.method'])}</a></li>
-							<li class="${(method eq 'date.ctime') ? 'active' : ''}" data-dencode-method="date.ctime"><a class="dropdown-item" href="${mf:h(basePath)}/date/ctime">${mf:h(msg['date.ctime.method'])}</a></li>
-							<li class="${(method eq 'date.japanese-era') ? 'active' : ''}" data-dencode-method="date.japanese-era"><a class="dropdown-item" href="${mf:h(basePath)}/date/japanese-era">${mf:h(msg['date.japanese-era.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date/unix-time" data-dencode-method="date.unix-time">${mf:h(msg['date.unix-time.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date/w3cdtf" data-dencode-method="date.w3cdtf">${mf:h(msg['date.w3cdtf.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date/iso8601" data-dencode-method="date.iso8601">${mf:h(msg['date.iso8601.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date/rfc2822" data-dencode-method="date.rfc2822">${mf:h(msg['date.rfc2822.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date/ctime" data-dencode-method="date.ctime">${mf:h(msg['date.ctime.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/date/japanese-era" data-dencode-method="date.japanese-era">${mf:h(msg['date.japanese-era.method'])}</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'color') ? 'active' : ''}" role="presentation" data-dencode-type="color">
@@ -151,13 +151,13 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'color.all') ? 'active' : ''}" data-dencode-method="color.all"><a class="dropdown-item" href="${mf:h(basePath)}/color">${mf:h(msg['color.all.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/color" data-dencode-method="color.all">${mf:h(msg['color.all.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'color.name') ? 'active' : ''}" data-dencode-method="color.name"><a class="dropdown-item" href="${mf:h(basePath)}/color/name">${mf:h(msg['color.name.method'])}</a></li>
-							<li class="${(method eq 'color.rgb') ? 'active' : ''}" data-dencode-method="color.rgb"><a class="dropdown-item" href="${mf:h(basePath)}/color/rgb">${mf:h(msg['color.rgb.method'])}</a></li>
-							<li class="${(method eq 'color.hsl') ? 'active' : ''}" data-dencode-method="color.hsl"><a class="dropdown-item" href="${mf:h(basePath)}/color/hsl">${mf:h(msg['color.hsl.method'])}</a></li>
-							<li class="${(method eq 'color.hsv') ? 'active' : ''}" data-dencode-method="color.hsv"><a class="dropdown-item" href="${mf:h(basePath)}/color/hsv">${mf:h(msg['color.hsv.method'])}</a></li>
-							<li class="${(method eq 'color.cmyk') ? 'active' : ''}" data-dencode-method="color.cmyk"><a class="dropdown-item" href="${mf:h(basePath)}/color/cmyk">${mf:h(msg['color.cmyk.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/color/name" data-dencode-method="color.name">${mf:h(msg['color.name.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/color/rgb" data-dencode-method="color.rgb">${mf:h(msg['color.rgb.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/color/hsl" data-dencode-method="color.hsl">${mf:h(msg['color.hsl.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/color/hsv" data-dencode-method="color.hsv">${mf:h(msg['color.hsv.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/color/cmyk" data-dencode-method="color.cmyk">${mf:h(msg['color.cmyk.method'])}</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher">
@@ -166,16 +166,16 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'cipher.all') ? 'active' : ''}" data-dencode-method="cipher.all"><a class="dropdown-item" href="${mf:h(basePath)}/cipher">${mf:h(msg['cipher.all.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher" data-dencode-method="cipher.all">${mf:h(msg['cipher.all.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'cipher.caesar') ? 'active' : ''}" data-dencode-method="cipher.caesar"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/caesar">${mf:h(msg['cipher.caesar.method'])}</a></li>
-							<li class="${(method eq 'cipher.rot13') ? 'active' : ''}" data-dencode-method="cipher.rot13"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot13">${mf:h(msg['cipher.rot13.method'])}</a></li>
-							<li class="${(method eq 'cipher.rot18') ? 'active' : ''}" data-dencode-method="cipher.rot18"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot18">${mf:h(msg['cipher.rot18.method'])}</a></li>
-							<li class="${(method eq 'cipher.rot47') ? 'active' : ''}" data-dencode-method="cipher.rot47"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot47">${mf:h(msg['cipher.rot47.method'])}</a></li>
-							<li class="${(method eq 'cipher.enigma') ? 'active' : ''}" data-dencode-method="cipher.enigma"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
-							<li class="${(method eq 'cipher.jis-keyboard') ? 'active' : ''}" data-dencode-method="cipher.jis-keyboard"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
-							<li class="${(method eq 'cipher.scytale') ? 'active' : ''}" data-dencode-method="cipher.scytale"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/scytale">${mf:h(msg['cipher.scytale.method'])}</a></li>
-							<li class="${(method eq 'cipher.rail-fence') ? 'active' : ''}" data-dencode-method="cipher.rail-fence"><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rail-fence">${mf:h(msg['cipher.rail-fence.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/caesar" data-dencode-method="cipher.caesar">${mf:h(msg['cipher.caesar.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot13" data-dencode-method="cipher.rot13">${mf:h(msg['cipher.rot13.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot18" data-dencode-method="cipher.rot18">${mf:h(msg['cipher.rot18.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot47" data-dencode-method="cipher.rot47">${mf:h(msg['cipher.rot47.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/scytale" data-dencode-method="cipher.scytale">${mf:h(msg['cipher.scytale.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rail-fence" data-dencode-method="cipher.rail-fence">${mf:h(msg['cipher.rail-fence.method'])}</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash">
@@ -184,15 +184,15 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="${(method eq 'hash.all') ? 'active' : ''}" data-dencode-method="hash.all"><a class="dropdown-item" href="${mf:h(basePath)}/hash">${mf:h(msg['hash.all.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash" data-dencode-method="hash.all">${mf:h(msg['hash.all.method'])}</a></li>
 							<li class="dropdown-divider"></li>
-							<li class="${(method eq 'hash.md2') ? 'active' : ''}" data-dencode-method="hash.md2"><a class="dropdown-item" href="${mf:h(basePath)}/hash/md2">${mf:h(msg['hash.md2.method'])}</a></li>
-							<li class="${(method eq 'hash.md5') ? 'active' : ''}" data-dencode-method="hash.md5"><a class="dropdown-item" href="${mf:h(basePath)}/hash/md5">${mf:h(msg['hash.md5.method'])}</a></li>
-							<li class="${(method eq 'hash.sha1') ? 'active' : ''}" data-dencode-method="hash.sha1"><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha1">${mf:h(msg['hash.sha1.method'])}</a></li>
-							<li class="${(method eq 'hash.sha256') ? 'active' : ''}" data-dencode-method="hash.sha256"><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha256">${mf:h(msg['hash.sha256.method'])}</a></li>
-							<li class="${(method eq 'hash.sha384') ? 'active' : ''}" data-dencode-method="hash.sha384"><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha384">${mf:h(msg['hash.sha384.method'])}</a></li>
-							<li class="${(method eq 'hash.sha512') ? 'active' : ''}" data-dencode-method="hash.sha512"><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha512">${mf:h(msg['hash.sha512.method'])}</a></li>
-							<li class="${(method eq 'hash.crc32') ? 'active' : ''}" data-dencode-method="hash.crc32"><a class="dropdown-item" href="${mf:h(basePath)}/hash/crc32">${mf:h(msg['hash.crc32.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/md2" data-dencode-method="hash.md2">${mf:h(msg['hash.md2.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/md5" data-dencode-method="hash.md5">${mf:h(msg['hash.md5.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha1" data-dencode-method="hash.sha1">${mf:h(msg['hash.sha1.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha256" data-dencode-method="hash.sha256">${mf:h(msg['hash.sha256.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha384" data-dencode-method="hash.sha384">${mf:h(msg['hash.sha384.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/sha512" data-dencode-method="hash.sha512">${mf:h(msg['hash.sha512.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/hash/crc32" data-dencode-method="hash.crc32">${mf:h(msg['hash.crc32.method'])}</a></li>
 						</ul>
 					</li>
 				</ul>

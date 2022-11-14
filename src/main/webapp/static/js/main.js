@@ -26,7 +26,7 @@ $(document).ready(function () {
 	const $typeMenu = $("#typeMenu");
 	const $typeMenuLinks = $typeMenu.find("a");
 	const $typeMenuLabels = $typeMenu.find(".dropdown-menu-label");
-	const $methodMenuItems = $typeMenu.find("li[data-dencode-method]");
+	const $methodMenuLinks = $typeMenu.find("a[data-dencode-method]");
 	const $top = $("#top");
 	const $exp = $("#exp");
 	const $follow = $("#follow");
@@ -110,6 +110,10 @@ $(document).ready(function () {
 			location.hash = "";
 		}
 	}
+	
+	// Initialize menu
+	$methodMenuLinks.filter(`[data-dencode-method="${dencodeMethod}"]`).addClass("active");
+	
 	
 	if (window.File) {
 		$document.on("drop", function (ev) {
@@ -525,7 +529,7 @@ $(document).ready(function () {
 		const $this = $(this);
 		const method = $this.data("other-dencode-method");
 		
-		const $menuLinks = $methodMenuItems.filter("[data-dencode-method='" + method + "']").find("a");
+		const $menuLinks = $methodMenuLinks.filter(`[data-dencode-method="${method}"]`);
 		if (0 < $menuLinks.length) {
 			$menuLinks[0].click();
 		}
@@ -880,12 +884,12 @@ $(document).ready(function () {
 	function getPermanentLink(method, config) {
 		const v = $v.val();
 		
-		const $methodMenuItem = $methodMenuItems.filter("[data-dencode-method='" + method + "']");
+		const $methodMenuItem = $methodMenuLinks.filter(`[data-dencode-method="${method}"]`);
 		const oeEnabled = (config[method + ".useOe"] === "true");
 		const nlEnabled = (config[method + ".useNl"] === "true");
 		const tzEnabled = (config[method + ".useTz"] === "true");
 		
-		let path = $methodMenuItem.find("a").attr("href");
+		let path = $methodMenuItem.attr("href");
 		if (!path) {
 			path = location.pathname;
 		}

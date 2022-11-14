@@ -18,7 +18,7 @@
 	--bs-nav-link-padding-y: 2px;
 }
 
-.navbar-nav .active {
+.nav-item.active {
 	color: #555;
 	background-color: #e7e7e7;
 }
