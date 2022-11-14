@@ -114,6 +114,112 @@ $(document).ready(function () {
 	// Initialize menu
 	$methodMenuLinks.filter(`[data-dencode-method="${dencodeMethod}"]`).addClass("active");
 	
+	// Initialize buttons
+	if ($oeGroup.data("enable")) {
+		let $oexMenuItem = $oexMenuItems.filter(".active");
+		if ($oexMenuItem.length === 0) {
+			$oexMenuItem = $oexMenuItems.eq(0);
+		}
+		$oexBtn.text($oexMenuItem.text());
+		$oexBtn.data("oe", $oexMenuItem.data("oe"));
+		
+		$oeGroup.show();
+		
+		$oeGroupBtns.on("click", function () {
+			const $this = $(this);
+			
+			if ($this.hasClass("active")) {
+				return;
+			}
+			
+			$oeGroupBtns.removeClass("active");
+			$this.addClass("active");
+			
+			dencode();
+		});
+
+		$oexMenuItems.on("click", function () {
+			const $this = $(this);
+			
+			$oeGroupBtns.removeClass("active");
+			$oexMenuItems.removeClass("active");
+			$this.addClass("active");
+			$oexBtn.addClass("active");
+
+			$oexBtn.text($this.text());
+			$oexBtn.data("oe", $this.data("oe"));
+			
+			dencode();
+		});
+	}
+
+	if ($nlGroup.data("enable")) {
+		$nlGroup.show();
+		
+		$nlGroupBtns.on("click", function () {
+			const $this = $(this);
+
+			if ($this.hasClass("active")) {
+				return;
+			}
+			
+			$nlGroupBtns.removeClass("active");
+			$this.addClass("active");
+			
+			dencode();
+		});
+	}
+
+	if ($tzGroup.data("enable")) {
+		let $tzMenuItem = $tzMenuItems.filter(".active");
+		if ($tzMenuItem.length === 0) {
+			$tzMenuItem = $tzMenuItems.eq(0);
+		}
+		$tz.text($tzMenuItem.text());
+		$tz.data("tz", $tzMenuItem.data("tz"));
+		
+		$tzGroup.show();
+		
+		$tzMenuFilter.on("input paste", function () {
+			const svals = $(this).val().toLowerCase().split(/\s+/g);
+			
+			$tzMenuItems.each(function () {
+				const $this = $(this);
+				let val = $this.attr("data-tz-lc");
+				if (!val) {
+					val = $this.text().toLowerCase();
+					$this.attr("data-tz-lc", val);
+				}
+				
+				let matched = true;
+				for (const sval of svals) {
+					if (!val.includes(sval)) {
+						matched = false;
+						break;
+					}
+				}
+				
+				if (matched) {
+					$this.show();
+				} else {
+					$this.hide();
+				}
+			});
+		});
+		
+		$tzMenuItems.on("click", function () {
+			const $this = $(this);
+			
+			$tzMenuItems.removeClass("active");
+			$this.addClass("active");
+			
+			$tz.text($this.text());
+			$tz.data("tz", $this.data("tz"));
+			
+			dencode();
+		});
+	}
+	
 	
 	if (window.File) {
 		$document.on("drop", function (ev) {
@@ -253,111 +359,6 @@ $(document).ready(function () {
 	$v.on("keyup click", function () {
 		setBgColor($v, _colors);
 	});
-
-	if ($oeGroup.data("enable")) {
-		let $oexMenuItem = $oexMenuItems.filter(".active");
-		if ($oexMenuItem.length === 0) {
-			$oexMenuItem = $oexMenuItems.eq(0);
-		}
-		$oexBtn.text($oexMenuItem.text());
-		$oexBtn.data("oe", $oexMenuItem.data("oe"));
-		
-		$oeGroup.show();
-		
-		$oeGroupBtns.on("click", function () {
-			const $this = $(this);
-			
-			if ($this.hasClass("active")) {
-				return;
-			}
-			
-			$oeGroupBtns.removeClass("active");
-			$this.addClass("active");
-			
-			dencode();
-		});
-
-		$oexMenuItems.on("click", function () {
-			const $this = $(this);
-			
-			$oeGroupBtns.removeClass("active");
-			$oexMenuItems.removeClass("active");
-			$this.addClass("active");
-			$oexBtn.addClass("active");
-
-			$oexBtn.text($this.text());
-			$oexBtn.data("oe", $this.data("oe"));
-			
-			dencode();
-		});
-	}
-
-	if ($nlGroup.data("enable")) {
-		$nlGroup.show();
-		
-		$nlGroupBtns.on("click", function () {
-			const $this = $(this);
-
-			if ($this.hasClass("active")) {
-				return;
-			}
-			
-			$nlGroupBtns.removeClass("active");
-			$this.addClass("active");
-			
-			dencode();
-		});
-	}
-
-	if ($tzGroup.data("enable")) {
-		let $tzMenuItem = $tzMenuItems.filter(".active");
-		if ($tzMenuItem.length === 0) {
-			$tzMenuItem = $tzMenuItems.eq(0);
-		}
-		$tz.text($tzMenuItem.text());
-		$tz.data("tz", $tzMenuItem.data("tz"));
-		
-		$tzGroup.show();
-		
-		$tzMenuFilter.on("input paste", function () {
-			const svals = $(this).val().toLowerCase().split(/\s+/g);
-			
-			$tzMenuItems.each(function () {
-				const $this = $(this);
-				let val = $this.attr("data-tz-lc");
-				if (!val) {
-					val = $this.text().toLowerCase();
-					$this.attr("data-tz-lc", val);
-				}
-				
-				let matched = true;
-				for (const sval of svals) {
-					if (!val.includes(sval)) {
-						matched = false;
-						break;
-					}
-				}
-				
-				if (matched) {
-					$this.show();
-				} else {
-					$this.hide();
-				}
-			});
-		});
-		
-		$tzMenuItems.on("click", function () {
-			const $this = $(this);
-			
-			$tzMenuItems.removeClass("active");
-			$this.addClass("active");
-			
-			$tz.text($this.text());
-			$tz.data("tz", $this.data("tz"));
-			
-			dencode();
-		});
-	}
 	
 	$loadFile.on("click", function () {
 		if (!window.File) {
