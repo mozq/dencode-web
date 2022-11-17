@@ -34,6 +34,7 @@ public class ServerMain {
 		webAppContext.setWar(war);
 		webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
 		webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.welcomeServlets", "true");
+		webAppContext.getSessionHandler().setUsingCookies(false);
 		server.setHandler(webAppContext);
 		
 		server.start();
