@@ -24,9 +24,7 @@ import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
 
-import com.ezylang.evalex.EvaluationException;
 import com.ezylang.evalex.Expression;
-import com.ezylang.evalex.parser.ParseException;
 
 public class NumberParser {
 	
@@ -100,7 +98,7 @@ public class NumberParser {
 			try {
 				Expression exp = new Expression(val);
 				return exp.evaluate().getNumberValue();
-			} catch (ParseException | EvaluationException | NumberFormatException | NullPointerException e1) {
+			} catch (Exception e1) {
 				return null;
 			}
 		}
