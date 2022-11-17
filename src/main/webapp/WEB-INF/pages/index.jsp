@@ -223,8 +223,8 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right" role="menu">
-							<%-- <li id="loadFile" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><i class="bi bi-file-earmark-arrow-up"></i> ${mf:h(msg['label.load.file'])}</li> --%>
-							<li id="loadQrcode" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}"><i class="bi bi-qr-code-scan"></i> ${mf:h(msg['label.load.qrcode'])}</li>
+							<%-- <li id="loadFile" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-file-earmark-arrow-up"></i> ${mf:h(msg['label.load.file'])}</li> --%>
+							<li id="loadQrcode" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${mf:h(msg['label.load.qrcode'])}</li>
 						</ul>
 						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}">
 							<i class="bi bi-link-45deg"></i>
@@ -243,55 +243,55 @@
 						<span class="caret"></span>
 					</button>
 					<ul id="oexMenu" class="dropdown-menu" role="menu" data-initial-value="${mf:h(oex)}">
-						<li class="dropdown-item" data-oe="UTF-16LE">UTF-16LE</li>
-						<li class="dropdown-item" data-oe="UTF-32LE">UTF-32LE</li>
+						<li class="dropdown-item" data-oe="UTF-16LE" tabindex="0">UTF-16LE</li>
+						<li class="dropdown-item" data-oe="UTF-32LE" tabindex="0">UTF-32LE</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="US-ASCII">US-ASCII</li>
-						<li class="dropdown-item" data-oe="ISO-8859-1">ISO-8859-1 (Latin-1)</li>
-						<li class="dropdown-item" data-oe="ISO-8859-15">ISO-8859-15 (Latin-9)</li>
-						<li class="dropdown-item" data-oe="windows-1252">Windows-1252</li>
+						<li class="dropdown-item" data-oe="US-ASCII" tabindex="0">US-ASCII</li>
+						<li class="dropdown-item" data-oe="ISO-8859-1" tabindex="0">ISO-8859-1 (Latin-1)</li>
+						<li class="dropdown-item" data-oe="ISO-8859-15" tabindex="0">ISO-8859-15 (Latin-9)</li>
+						<li class="dropdown-item" data-oe="windows-1252" tabindex="0">Windows-1252</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-2">ISO-8859-2 (Latin-2)</li>
-						<li class="dropdown-item" data-oe="windows-1250">Windows-1250</li>
+						<li class="dropdown-item" data-oe="ISO-8859-2" tabindex="0">ISO-8859-2 (Latin-2)</li>
+						<li class="dropdown-item" data-oe="windows-1250" tabindex="0">Windows-1250</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-3">ISO-8859-3 (Latin-3)</li>
+						<li class="dropdown-item" data-oe="ISO-8859-3" tabindex="0">ISO-8859-3 (Latin-3)</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-4">ISO-8859-4 (Latin-4)</li>
-						<li class="dropdown-item" data-oe="ISO-8859-13">ISO-8859-13 (Latin-7)</li>
-						<li class="dropdown-item" data-oe="windows-1257">Windows-1257</li>
+						<li class="dropdown-item" data-oe="ISO-8859-4" tabindex="0">ISO-8859-4 (Latin-4)</li>
+						<li class="dropdown-item" data-oe="ISO-8859-13" tabindex="0">ISO-8859-13 (Latin-7)</li>
+						<li class="dropdown-item" data-oe="windows-1257" tabindex="0">Windows-1257</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="Shift_JIS">Shift_JIS</li>
-						<li class="dropdown-item" data-oe="EUC-JP">EUC-JP</li>
-						<li class="dropdown-item" data-oe="ISO-2022-JP">ISO-2022-JP (JIS)</li>
+						<li class="dropdown-item" data-oe="Shift_JIS" tabindex="0">Shift_JIS</li>
+						<li class="dropdown-item" data-oe="EUC-JP" tabindex="0">EUC-JP</li>
+						<li class="dropdown-item" data-oe="ISO-2022-JP" tabindex="0">ISO-2022-JP (JIS)</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="GB2312">GB2312 (EUC-CN)</li>
-						<li class="dropdown-item" data-oe="GB18030">GB18030</li>
-						<li class="dropdown-item" data-oe="Big5-HKSCS">Big5-HKSCS</li>
+						<li class="dropdown-item" data-oe="GB2312" tabindex="0">GB2312 (EUC-CN)</li>
+						<li class="dropdown-item" data-oe="GB18030" tabindex="0">GB18030</li>
+						<li class="dropdown-item" data-oe="Big5-HKSCS" tabindex="0">Big5-HKSCS</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="EUC-KR">EUC-KR (KS X 1001)</li>
-						<li class="dropdown-item" data-oe="ISO-2022-KR">ISO-2022-KR</li>
+						<li class="dropdown-item" data-oe="EUC-KR" tabindex="0">EUC-KR (KS X 1001)</li>
+						<li class="dropdown-item" data-oe="ISO-2022-KR" tabindex="0">ISO-2022-KR</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-5">ISO-8859-5</li>
-						<li class="dropdown-item" data-oe="windows-1251">Windows-1251</li>
-						<li class="dropdown-item" data-oe="KOI8-R">KOI8-R</li>
-						<li class="dropdown-item" data-oe="KOI8-U">KOI8-U</li>
+						<li class="dropdown-item" data-oe="ISO-8859-5" tabindex="0">ISO-8859-5</li>
+						<li class="dropdown-item" data-oe="windows-1251" tabindex="0">Windows-1251</li>
+						<li class="dropdown-item" data-oe="KOI8-R" tabindex="0">KOI8-R</li>
+						<li class="dropdown-item" data-oe="KOI8-U" tabindex="0">KOI8-U</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-6">ISO-8859-6</li>
-						<li class="dropdown-item" data-oe="windows-1256">Windows-1256</li>
+						<li class="dropdown-item" data-oe="ISO-8859-6" tabindex="0">ISO-8859-6</li>
+						<li class="dropdown-item" data-oe="windows-1256" tabindex="0">Windows-1256</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-7">ISO-8859-7</li>
-						<li class="dropdown-item" data-oe="windows-1253">Windows-1253</li>
+						<li class="dropdown-item" data-oe="ISO-8859-7" tabindex="0">ISO-8859-7</li>
+						<li class="dropdown-item" data-oe="windows-1253" tabindex="0">Windows-1253</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-8">ISO-8859-8</li>
-						<li class="dropdown-item" data-oe="windows-1255">Windows-1255</li>
+						<li class="dropdown-item" data-oe="ISO-8859-8" tabindex="0">ISO-8859-8</li>
+						<li class="dropdown-item" data-oe="windows-1255" tabindex="0">Windows-1255</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-9">ISO-8859-9 (Latin-5)</li>
-						<li class="dropdown-item" data-oe="windows-1254">Windows-1254</li>
+						<li class="dropdown-item" data-oe="ISO-8859-9" tabindex="0">ISO-8859-9 (Latin-5)</li>
+						<li class="dropdown-item" data-oe="windows-1254" tabindex="0">Windows-1254</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="TIS-620">TIS-620</li>
-						<li class="dropdown-item" data-oe="windows-874">Windows-874</li>
+						<li class="dropdown-item" data-oe="TIS-620" tabindex="0">TIS-620</li>
+						<li class="dropdown-item" data-oe="windows-874" tabindex="0">Windows-874</li>
 						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="windows-1258">Windows-1258</li>
+						<li class="dropdown-item" data-oe="windows-1258" tabindex="0">Windows-1258</li>
 					</ul>
 				</div>
 				<div id="nlGroup" class="btn-group btn-group-sm" data-enable="${(useNl) ? 'true' : 'false'}" data-initial-value="${mf:h(nl)}" style="display: none;">
@@ -308,7 +308,7 @@
 						<input id="tzMenuFilter" class="form-control" value="" />
 						<div id="tzMenuItems">
 							<c:forEach var="tzVal" items="${tzMap}">
-								<span class="dropdown-item" data-tz="${mf:h(tzVal.key)}">${mf:h(tzVal.value)}</span>
+								<span class="dropdown-item" data-tz="${mf:h(tzVal.key)}" tabindex="0">${mf:h(tzVal.value)}</span>
 							</c:forEach>
 						</div>
 					</div>

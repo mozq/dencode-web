@@ -315,6 +315,12 @@ $(document).ready(function () {
 		$target.trigger("init.dencode");
 	});
 	
+	$(".dropdown-item").on("keyup", function (ev) {
+		if (ev.key === "Enter") {
+			ev.target.click();
+		}
+	});
+	
 	$localeMenuLinks.on("click", function (ev) {
 		const $this = $(this);
 		
