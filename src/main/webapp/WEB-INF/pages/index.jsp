@@ -72,7 +72,7 @@
 						<a class="nav-link" href="${mf:h(basePath)}/">${mf:h(msg['all.type'])}</a>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'string') ? 'active' : ''}" role="presentation" data-dencode-type="string">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['string.type'])}</span>
 							<span class="caret"></span>
 						</a>
@@ -112,7 +112,7 @@
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number">
-						<a hreff=""#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['number.type'])}</span>
 							<span class="caret"></span>
 						</a>
@@ -130,7 +130,7 @@
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'date') ? 'active' : ''}" role="presentation" data-dencode-type="date">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['date.type'])}</span>
 							<span class="caret"></span>
 						</a>
@@ -146,7 +146,7 @@
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'color') ? 'active' : ''}" role="presentation" data-dencode-type="color">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['color.type'])}</span>
 							<span class="caret"></span>
 						</a>
@@ -161,7 +161,7 @@
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['cipher.type'])}</span>
 							<span class="caret"></span>
 						</a>
@@ -179,7 +179,7 @@
 						</ul>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="dropdown-menu-label">${mf:h(msg['hash.type'])}</span>
 							<span class="caret"></span>
 						</a>
