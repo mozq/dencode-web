@@ -31,17 +31,19 @@ public class CipherScytaleDencoder {
 	@DencoderFunction
 	public static String encCipherScytale(DencodeCondition cond) {
 		return encCipherScytale(cond.valueAsCodePointsWithLf(),
-				DencodeUtils.getOptionAsInt(cond.options(), "encCipherScytaleKey", 2));
+				DencodeUtils.getOptionAsInt(cond.options(), "encCipherScytaleKey", 2),
+				DencodeUtils.getOption(cond.options(), "encCipherScytaleKeyPer", "y").equals("x"));
 	}
 	
 	@DencoderFunction
 	public static String decCipherScytale(DencodeCondition cond) {
 		return decCipherScytale(cond.valueAsCodePointsWithLf(),
-				DencodeUtils.getOptionAsInt(cond.options(), "decCipherScytaleKey", 2));
+				DencodeUtils.getOptionAsInt(cond.options(), "decCipherScytaleKey", 2),
+				DencodeUtils.getOption(cond.options(), "decCipherScytaleKeyPer", "y").equals("x"));
 	}
 	
 	
-	private static String encCipherScytale(int[] cps, int key) {
+	private static String encCipherScytale(int[] cps, int key, boolean keyPerX) {
 		if (cps == null) {
 			return null;
 		}
@@ -56,6 +58,13 @@ public class CipherScytaleDencoder {
 		
 		int maxY = key;
 		int maxX = (int)Math.ceil(((double)len) / maxY);
+		if (keyPerX) {
+			// Swap x/y
+			int tmpX = maxX;
+			maxX = maxY;
+			maxY = tmpX;
+		}
+		
 		for (int x = 0; x < maxX; x++) {
 			for (int idx = x; idx < len; idx = idx + maxX) {
 				int cp = cps[idx];
@@ -66,7 +75,7 @@ public class CipherScytaleDencoder {
 		return sb.toString();
 	}
 	
-	private static String decCipherScytale(int[] cps, int key) {
+	private static String decCipherScytale(int[] cps, int key, boolean keyPerX) {
 		if (cps == null) {
 			return null;
 		}
@@ -79,10 +88,21 @@ public class CipherScytaleDencoder {
 		
 		StringBuilder sb = new StringBuilder(len);
 		
-		int maxX = (int)Math.ceil(((double)len) / key);
+		int maxX;
+		int maxY;
+		if (keyPerX) {
+			// Key per X
+			maxX = key;
+			maxY = (int)Math.ceil(((double)len) / maxX);
+		} else {
+			// Key per Y
+			maxX = (int)Math.ceil(((double)len) / key);
+			maxY = Math.min(key, (int)Math.ceil(((double)len) / maxX));
+		}
+		
 		int minX = len % maxX;
 		minX = (minX == 0) ? maxX : minX;
-		int maxY = Math.min(key, (int)Math.ceil(((double)len) / maxX));
+		
 		for (int y = 1; y <= maxY; y++) {
 			boolean isBottom = (y == maxY);
 			

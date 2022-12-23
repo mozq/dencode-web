@@ -957,6 +957,12 @@
 											<option value="19">19</option>
 											<option value="20">20</option>
 										</select>
+										
+										<span class="input-group-text">${mf:h(msg['label.decCipherScytale.option.keyPer'])}</span>
+										<select name="decCipherScytaleKeyPer" class="dencode-option form-select" data-value-link-to="[name=encCipherScytaleKeyPer]">
+											<option value="y">${mf:h(msg['label.decCipherScytale.option.keyPer.y'])}</option>
+											<option value="x">${mf:h(msg['label.decCipherScytale.option.keyPer.x'])}</option>
+										</select>
 									</div>
 								</form>
 							</td></tr></c:if>
@@ -1861,6 +1867,12 @@
 											<option value="18">18</option>
 											<option value="19">19</option>
 											<option value="20">20</option>
+										</select>
+										
+										<span class="input-group-text">${mf:h(msg['label.encCipherScytale.option.keyPer'])}</span>
+										<select name="encCipherScytaleKeyPer" class="dencode-option form-select" data-value-link-to="[name=decCipherScytaleKeyPer]">
+											<option value="y">${mf:h(msg['label.encCipherScytale.option.keyPer.y'])}</option>
+											<option value="x">${mf:h(msg['label.encCipherScytale.option.keyPer.x'])}</option>
 										</select>
 									</div>
 								</form>
