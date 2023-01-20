@@ -15,6 +15,8 @@ Cipher text: GSRH RH Z HVXIVG NVHHZTV</pre>
 <pre>Plain : אבגדהוזחטיכלמנסעפצקרשת
 Cipher: תשרקצפעסנמלכיטחזוהדגבא</pre>
 
+<p>Since there is reciprocity that plaintext can be obtained by encrypting ciphertext again, decryption can be done in the same flow as encryption.</p>
+
 
 <h4>Other language support</h4>
 <p>In addition to Latin and Hebrew letters, Cyrillic and Japanese Hiragana / Katakana are supported.</p>

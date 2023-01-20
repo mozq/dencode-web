@@ -9,3 +9,5 @@ Cipher: PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~!"#$%&amp;'()*+,-./012345
 
 <pre>Plain text : THIS IS A SECRET MESSAGE 123!
 Cipher text: %wx$ x$ p $tr#t% |t$$pvt `abP</pre>
+
+<p>Since there is reciprocity that plaintext can be obtained by encrypting ciphertext again, decryption can be done in the same flow as encryption.</p>

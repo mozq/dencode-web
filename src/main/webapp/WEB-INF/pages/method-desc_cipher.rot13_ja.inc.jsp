@@ -9,3 +9,5 @@
 
 <pre>暗号化前の文章: THIS IS A SECRET MESSAGE
 暗号化後の文章: GUVF VF N FRPERG ZRFFNTR</pre>
+
+<p>暗号文を再度暗号化すると平文が得られるという反転性があるため、暗号化と同じ流れで復号化もできます。</p>

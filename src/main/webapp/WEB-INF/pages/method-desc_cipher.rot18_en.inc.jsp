@@ -9,3 +9,5 @@ Cipher: NOPQRSTUVWXYZABCDEFGHIJKLM5678901234</pre>
 
 <pre>Plain text : THIS IS A SECRET MESSAGE 123
 Cipher text: GUVF VF N FRPERG ZRFFNTR 567</pre>
+
+<p>Since there is reciprocity that plaintext can be obtained by encrypting ciphertext again, decryption can be done in the same flow as encryption.</p>
