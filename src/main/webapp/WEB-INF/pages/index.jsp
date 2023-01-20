@@ -2076,28 +2076,14 @@
 	</tr>
 </script>
 
+<script type="text/message" data-id="default.error" data-level="${mf:h(msg['default.error.level'])}" data-message="${mf:h(msg['default.error'])}" data-detail="${mf:h(msg['default.error.detail'])}"></script>
+<script type="text/message" data-id="network.error" data-level="${mf:h(msg['network.error.level'])}" data-message="${mf:h(msg['network.error'])}" data-detail="${mf:h(msg['network.error.detail'])}"></script>
+
 <script src="//polyfill.io/v3/polyfill.min.js?features=fetch%2CURLSearchParams"></script>
 <script src="//cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/hogan.js@3.0.2/dist/hogan-3.0.2.min.js" integrity="sha256-jIAAmB65ff5CEFvV6DRfRWjHFwqq+AHeV4le8f8PYp4=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/js/all.min.js"))}"></script>
-<script>
-	"use strict";
-	
-	addMessageDefinition(newMessage(
-			"default.error",
-			"${mf:jsstr(msg['default.error.level'])}",
-			"${mf:jsstr(msg['default.error'])}",
-			"${mf:jsstr(msg['default.error.detail'])}"
-			));
-	
-	addMessageDefinition(newMessage(
-			"network.error",
-			"${mf:jsstr(msg['network.error.level'])}",
-			"${mf:jsstr(msg['network.error'])}",
-			"${mf:jsstr(msg['network.error.detail'])}"
-			));
-</script>
 </body>
 </html>

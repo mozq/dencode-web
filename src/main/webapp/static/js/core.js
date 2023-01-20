@@ -5,6 +5,17 @@ const _messageDefs = {
 const _messagesTmpl = Hogan.compile($("#messagesTmpl").html());
 let _latestMessage = null;
 
+
+$("script[type='text/message']").each(function () {
+	addMessageDefinition(newMessage(
+			this.dataset.id,
+			this.dataset.level,
+			this.dataset.message,
+			this.dataset.detail
+			));
+});
+
+
 function toMessageType(level) {
 	switch (level) {
 	case "success":
