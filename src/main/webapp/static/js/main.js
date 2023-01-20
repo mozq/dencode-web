@@ -17,6 +17,7 @@ $(document).ready(function () {
 	
 	let _colors = null;
 	
+	const contextPath = document.body.getAttribute("data-context-path");
 	const dencodeType = document.body.getAttribute("data-dencode-type");
 	const dencodeMethod = document.body.getAttribute("data-dencode-method");
 	
