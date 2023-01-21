@@ -97,4 +97,21 @@
 			});
 		});
 	});
+	
+	function getLatestMessage() {
+		const messageElm = document.querySelector("#messages div.alert:last-of-type");
+		if (!messageElm) {
+			return null;
+		}
+		
+		const mElm = messageElm.querySelector("strong");
+		const dElm = messageElm.querySelector("p");
+		
+		return {
+			messageId: messageElm.dataset.messageId,
+			level: messageElm.dataset.level,
+			message: mElm.innerText,
+			detail: (dElm) ? dElm.innerText : ""
+		};
+	}
 })(window, document);

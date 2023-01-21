@@ -9,6 +9,7 @@ $(document).ready(function () {
 	let _tz = null;
 	let _options = null;
 	
+	let _messageTmpl = null;
 	let _lengthTmpl = null;
 	let _permanentLinkTmpl = null;
 	let _forCopyTmpl = null;
@@ -785,7 +786,7 @@ $(document).ready(function () {
 			body: JSON.stringify(requestData)
 		}).then(function (response) {
 			if (response.headers.get("Content-Type").indexOf("application/json") === -1) {
-				const messageObject = getMessageDefinition(null);
+				const messageObject = getMessage("default.error");
 				const error = new Error(messageObject.message);
 				error.messageObject = messageObject;
 				throw error;
@@ -805,11 +806,8 @@ $(document).ready(function () {
 			
 			clearMessages();
 			if (responseJson.messages !== null && 0 < responseJson.messages.length) {
-				setMessages(responseJson.messages);
-				window.scroll({
-					top: document.getElementById("messages").offsetTop -10,
-					behavior: "smooth"
-				});
+				showMessages(responseJson.messages);
+				focusMessages();
 			}
 			
 			render(responseJson.response);
@@ -818,13 +816,13 @@ $(document).ready(function () {
 		}).catch(function (error) {
 			if (error.messageObject) {
 				// Handled error
-				setMessage(error.messageObject);
+				showMessages(error.messageObject);
 			} else if (error.statusCode) {
 				// HTTP 4xx or 5xx error
-				setMessage(getMessageDefinition(null));
+				showMessages(getMessage("default.error"));
 			} else {
 				// Network error
-				setMessage(getMessageDefinition("network.error"));
+				showMessages(getMessage("network.error"));
 			}
 			focusMessages();
 			
@@ -922,6 +920,13 @@ $(document).ready(function () {
 		return url;
 	}
 	
+	function getMessageTmpl() {
+		if (_messageTmpl === null) {
+			_messageTmpl = Hogan.compile($("#messageTmpl").html());
+		}
+		return _messageTmpl;
+	}
+	
 	function getLengthTmpl() {
 		if (_lengthTmpl === null) {
 			_lengthTmpl = Hogan.compile($("#lengthTmpl").html());
@@ -984,8 +989,35 @@ $(document).ready(function () {
 		}, 1);
 	}
 	
-	function showMessageDialog(message) {
-		$("#messageDialogBody").text(message);
+	function showMessages(messages) {
+		let messagesHtml = "";
+		
+		if (messages) {
+			if (Array.isArray(messages)) {
+				for (const message of messages) {
+					messagesHtml += getMessageTmpl().render(formatMessage(message));
+				}
+			} else {
+				messagesHtml = getMessageTmpl().render(formatMessage(messages));
+			}
+		}
+		
+		$("#messages").html(messagesHtml);
+	}
+	
+	function clearMessages() {
+		$("#messages").empty();
+	}
+
+	function focusMessages() {
+		window.scroll({
+			top: document.getElementById("messages").offsetTop - 10,
+			behavior: "smooth"
+		});
+	}
+	
+	function showMessageDialog(messageText) {
+		$("#messageDialogBody").text(messageText);
 		$("#messageDialog").modal("show");
 	}
 });
@@ -1233,6 +1265,54 @@ function separateThousand(num) {
 	}
 	
 	return strNum;
+}
+
+function getMessage(messageId) {
+	const m = document.querySelector("script[type='text/message'][data-id='" + messageId + "']");
+	return newMessage(
+			m.dataset.id,
+			m.dataset.level,
+			m.dataset.message,
+			m.dataset.detail
+			);
+}
+
+function formatMessage(message) {
+	if (message.type) {
+		return message;
+	} else {
+		return newMessage(
+				message.messageId,
+				message.level,
+				message.message,
+				message.detail
+				);
+	}
+}
+
+function newMessage(messageId, level, message, detail) {
+	return {
+		"messageId": messageId,
+		"level": level,
+		"type": toMessageType(level),
+		"message": message,
+		"detail": detail
+	};
+}
+
+function toMessageType(level) {
+	switch (level) {
+	case "success":
+		return "success";
+	case "info":
+		return "info";
+	case "warn":
+		return "warning";
+	case "error": //FALLTHRU
+	case "fatal": //FALLTHRU
+	default:
+		return "danger";
+	}
 }
 
 })(window, document);

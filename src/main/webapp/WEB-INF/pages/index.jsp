@@ -2013,14 +2013,10 @@
 	</form>
 </div>
 
-<script id="messagesTmpl" type="text/template">
-	<div class="alert {{#type}}alert-{{type}}{{/type}} alert-dismissible" role="alert">
-		{{#message}}
-			<strong>{{message}}</strong>
-		{{/message}}
-		{{#detail}}
-			<p>{{detail}}</p>
-		{{/detail}}
+<script id="messageTmpl" type="text/template">
+	<div class="alert {{#type}}alert-{{type}}{{/type}} alert-dismissible" data-message-id="{{messageId}}" data-message-level="{{level}}" role="alert">
+		<strong>{{message}}</strong>
+		{{#detail}}<p>{{detail}}</p>{{/detail}}
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="${mf:h(msg['label.close'])}"></button>
 	</div>
 </script>

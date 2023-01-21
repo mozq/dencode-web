@@ -51,7 +51,6 @@ minifyCss {
 combineJs {
   encoding 'UTF-8'
   source "${webAppDirName}/static/js/analytics.js"
-  source "${webAppDirName}/static/js/core.js"
   source "${webAppDirName}/static/js/main.js"
   source "${webAppDirName}/static/js/adsense.js"
   dest "${buildDir}/minify/js/all.js"
