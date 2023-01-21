@@ -178,8 +178,10 @@
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot18" data-dencode-method="cipher.rot18">${mf:h(msg['cipher.rot18.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot47" data-dencode-method="cipher.rot47">${mf:h(msg['cipher.rot47.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/atbash" data-dencode-method="cipher.atbash">${mf:h(msg['cipher.atbash.method'])}</a></li>
+							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
+							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/scytale" data-dencode-method="cipher.scytale">${mf:h(msg['cipher.scytale.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rail-fence" data-dencode-method="cipher.rail-fence">${mf:h(msg['cipher.rail-fence.method'])}</a></li>
 						</ul>
@@ -1379,9 +1381,9 @@
 							<c:if test="${methods.contains('cipher.rot13')}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.encCipherROT13'])}</th><td><span id="encCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.encCipherROT18'])}</th><td><span id="encCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.encCipherROT47'])}</th><td><span id="encCipherROT47" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('cipher.atbash')}"><tr data-dencode-method="cipher.atbash"><th>${mf:h(msg['label.encCipherAtbash'])}</th><td><span id="encCipherAtbash" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${methods.contains('cipher.atbash')}"><tr data-dencode-method="cipher.atbash"><th>${mf:h(msg['label.encCipherAtbash'])}</th><td><span id="encCipherAtbash" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.encCipherEnigma'])}</th><td><span id="encCipherEnigma" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="dencode-option-grid cipher-enigma">
