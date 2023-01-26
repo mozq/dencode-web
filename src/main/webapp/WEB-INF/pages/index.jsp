@@ -178,6 +178,7 @@
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot18" data-dencode-method="cipher.rot18">${mf:h(msg['cipher.rot18.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/rot47" data-dencode-method="cipher.rot47">${mf:h(msg['cipher.rot47.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/atbash" data-dencode-method="cipher.atbash">${mf:h(msg['cipher.atbash.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/affine" data-dencode-method="cipher.affine">${mf:h(msg['cipher.affine.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
@@ -481,6 +482,97 @@
 							<c:if test="${methods.contains('cipher.rot13')}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['label.decCipherROT13'])}</th><td><span id="decCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.decCipherROT18'])}</th><td><span id="decCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.decCipherROT47'])}</th><td><span id="decCipherROT47" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('cipher.affine')}"><tr data-dencode-method="cipher.affine"><th>${mf:h(msg['label.decCipherAffine'])}</th><td><span id="decCipherAffine" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.decCipherAffine.option.a'])}</span>
+										<select name="decCipherAffineA" class="dencode-option form-select" data-default-value="1" data-value-link-to="[name=encCipherAffineA]">
+											<option value="-25">-25</option>
+											<option value="-23">-23</option>
+											<option value="-21">-21</option>
+											<option value="-19">-19</option>
+											<option value="-17">-17</option>
+											<option value="-15">-15</option>
+											<option value="-13">-13</option>
+											<option value="-11">-11</option>
+											<option value="-9">-9</option>
+											<option value="-7">-7</option>
+											<option value="-5">-5</option>
+											<option value="-3">-3</option>
+											<option value="-1">-1</option>
+											<option value="1">1</option>
+											<option value="3">3</option>
+											<option value="5">5</option>
+											<option value="7">7</option>
+											<option value="9">9</option>
+											<option value="11">11</option>
+											<option value="13">13</option>
+											<option value="15">15</option>
+											<option value="17">17</option>
+											<option value="19">19</option>
+											<option value="21">21</option>
+											<option value="23">23</option>
+											<option value="25">25</option>
+										</select>
+									</div>
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.decCipherAffine.option.b'])}</span>
+										<select name="decCipherAffineB" class="dencode-option form-select" data-default-value="0" data-value-link-to="[name=encCipherAffineB]">
+											<option value="-25">-25</option>
+											<option value="-24">-24</option>
+											<option value="-23">-23</option>
+											<option value="-22">-22</option>
+											<option value="-21">-21</option>
+											<option value="-20">-20</option>
+											<option value="-19">-19</option>
+											<option value="-18">-18</option>
+											<option value="-17">-17</option>
+											<option value="-16">-16</option>
+											<option value="-15">-15</option>
+											<option value="-14">-14</option>
+											<option value="-13">-13</option>
+											<option value="-12">-12</option>
+											<option value="-11">-11</option>
+											<option value="-10">-10</option>
+											<option value="-9">-9</option>
+											<option value="-8">-8</option>
+											<option value="-7">-7</option>
+											<option value="-6">-6</option>
+											<option value="-5">-5</option>
+											<option value="-4">-4</option>
+											<option value="-3">-3</option>
+											<option value="-2">-2</option>
+											<option value="-1">-1</option>
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
+											<option value="10">10</option>
+											<option value="11">11</option>
+											<option value="12">12</option>
+											<option value="13">13</option>
+											<option value="14">14</option>
+											<option value="15">15</option>
+											<option value="16">16</option>
+											<option value="17">17</option>
+											<option value="18">18</option>
+											<option value="19">19</option>
+											<option value="20">20</option>
+											<option value="21">21</option>
+											<option value="22">22</option>
+											<option value="23">23</option>
+											<option value="24">24</option>
+											<option value="25">25</option>
+										</select>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.decCipherEnigma'])}</th><td><span id="decCipherEnigma" class="for-disp"></span>
@@ -1382,6 +1474,97 @@
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['label.encCipherROT18'])}</th><td><span id="encCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['label.encCipherROT47'])}</th><td><span id="encCipherROT47" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.atbash')}"><tr data-dencode-method="cipher.atbash"><th>${mf:h(msg['label.encCipherAtbash'])}</th><td><span id="encCipherAtbash" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('cipher.affine')}"><tr data-dencode-method="cipher.affine"><th>${mf:h(msg['label.encCipherAffine'])}</th><td><span id="encCipherAffine" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.encCipherAffine.option.a'])}</span>
+										<select name="encCipherAffineA" class="dencode-option form-select" data-default-value="1" data-value-link-to="[name=decCipherAffineA]">
+											<option value="-25">-25</option>
+											<option value="-23">-23</option>
+											<option value="-21">-21</option>
+											<option value="-19">-19</option>
+											<option value="-17">-17</option>
+											<option value="-15">-15</option>
+											<option value="-13">-13</option>
+											<option value="-11">-11</option>
+											<option value="-9">-9</option>
+											<option value="-7">-7</option>
+											<option value="-5">-5</option>
+											<option value="-3">-3</option>
+											<option value="-1">-1</option>
+											<option value="1">1</option>
+											<option value="3">3</option>
+											<option value="5">5</option>
+											<option value="7">7</option>
+											<option value="9">9</option>
+											<option value="11">11</option>
+											<option value="13">13</option>
+											<option value="15">15</option>
+											<option value="17">17</option>
+											<option value="19">19</option>
+											<option value="21">21</option>
+											<option value="23">23</option>
+											<option value="25">25</option>
+										</select>
+									</div>
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.encCipherAffine.option.b'])}</span>
+										<select name="encCipherAffineB" class="dencode-option form-select" data-default-value="0" data-value-link-to="[name=decCipherAffineB]">
+											<option value="-25">-25</option>
+											<option value="-24">-24</option>
+											<option value="-23">-23</option>
+											<option value="-22">-22</option>
+											<option value="-21">-21</option>
+											<option value="-20">-20</option>
+											<option value="-19">-19</option>
+											<option value="-18">-18</option>
+											<option value="-17">-17</option>
+											<option value="-16">-16</option>
+											<option value="-15">-15</option>
+											<option value="-14">-14</option>
+											<option value="-13">-13</option>
+											<option value="-12">-12</option>
+											<option value="-11">-11</option>
+											<option value="-10">-10</option>
+											<option value="-9">-9</option>
+											<option value="-8">-8</option>
+											<option value="-7">-7</option>
+											<option value="-6">-6</option>
+											<option value="-5">-5</option>
+											<option value="-4">-4</option>
+											<option value="-3">-3</option>
+											<option value="-2">-2</option>
+											<option value="-1">-1</option>
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
+											<option value="10">10</option>
+											<option value="11">11</option>
+											<option value="12">12</option>
+											<option value="13">13</option>
+											<option value="14">14</option>
+											<option value="15">15</option>
+											<option value="16">16</option>
+											<option value="17">17</option>
+											<option value="18">18</option>
+											<option value="19">19</option>
+											<option value="20">20</option>
+											<option value="21">21</option>
+											<option value="22">22</option>
+											<option value="23">23</option>
+											<option value="24">24</option>
+											<option value="25">25</option>
+										</select>
+									</div>
+								</form>
+							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.encCipherEnigma'])}</th><td><span id="encCipherEnigma" class="for-disp"></span>

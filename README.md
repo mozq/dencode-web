@@ -78,6 +78,7 @@ gcloud config set project {PROJECT_ID}
     - [ROT18](https://dencode.com/cipher/rot18)
     - [ROT47](https://dencode.com/cipher/rot47)
     - [Atbash Cipher](https://dencode.com/cipher/atbash)
+    - [Affine Cipher](https://dencode.com/cipher/affine)
     - [Enigma Cipher](https://dencode.com/cipher/enigma)
     - [JIS Keyboard](https://dencode.com/cipher/jis-keyboard)
     - [Scytale Cipher](https://dencode.com/cipher/scytale)

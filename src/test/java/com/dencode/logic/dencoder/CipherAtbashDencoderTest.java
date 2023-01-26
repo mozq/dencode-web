@@ -51,6 +51,7 @@ public class CipherAtbashDencoderTest {
 		
 		// Cyrillic alphabets
 		testDencoder("АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", "ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА");
+		testDencoder("абвгдежзийклмнопрстуфхцчшщъыьэюя", "яюэьыъщшчцхфутсрпонмлкйизжедгвба");
 		
 		// Unsupported characters
 		testDencoder(" ", " ");
