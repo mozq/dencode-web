@@ -19,6 +19,7 @@ package com.dencode.web.server;
 import java.io.File;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class ServerMain {
@@ -35,6 +36,11 @@ public class ServerMain {
 		webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
 		webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.welcomeServlets", "true");
 		webAppContext.getSessionHandler().setUsingCookies(false);
+		
+		ErrorPageErrorHandler errorHandler = new ErrorPageErrorHandler();
+		errorHandler.addErrorPage(404, "/error/404");
+		webAppContext.setErrorHandler(errorHandler);
+		
 		server.setHandler(webAppContext);
 		
 		server.start();
