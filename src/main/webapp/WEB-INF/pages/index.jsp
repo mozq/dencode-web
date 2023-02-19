@@ -1196,11 +1196,26 @@
 							<c:if test="${methods.contains('string.unicode-escape')}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.encStrUnicodeEscape'])}</th><td><span id="encStrUnicodeEscape" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrUnicodeEscape.option.surrogatePair'])}</span>
-										<select name="encStrUnicodeEscapeSurrogatePairFormat" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encStrUnicodeEscape.option.surrogatePair.format.uuCodeUnit'])}</option>
-											<option value="ubcp">${mf:h(msg['label.encStrUnicodeEscape.option.surrogatePair.format.uBracketCodePoint'])}</option>
-											<option value="Ucp">${mf:h(msg['label.encStrUnicodeEscape.option.surrogatePair.format.UCodePoint'])}</option>
+										<span class="input-group-text">${mf:h(msg['label.encStrUnicodeEscape.option.notation'])}</span>
+										<select name="encStrUnicodeEscapeNotation" class="dencode-option form-select">
+											<option value="cubu">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cubu'])}</option>
+											<option value="cpbu_bub">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbu_bub'])}</option>
+											<option value="cpbu_bU">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbu_bU'])}</option>
+											<option value="cpbub">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbub'])}</option>
+											<option value="cpbxb">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbxb'])}</option>
+											<option value="cpb">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpb'])}</option>
+											<option value="cpahx">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpahx'])}</option>
+											<option value="cupu">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cupu'])}</option>
+											<option value="cp">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cp'])}</option>
+											<option value="cp0x">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cp0x'])}</option>
+											<option value="cnbNb">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cnbNb'])}</option>
+										</select>
+									</div>
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.encStrUnicodeEscape.option.case'])}</span>
+										<select name="encStrUnicodeEscapeCase" class="dencode-option form-select">
+											<option value="upper">${mf:h(msg['label.encStrUnicodeEscape.option.case.upper'])}</option>
+											<option value="lower">${mf:h(msg['label.encStrUnicodeEscape.option.case.lower'])}</option>
 										</select>
 									</div>
 								</form>
