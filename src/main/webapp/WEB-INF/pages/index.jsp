@@ -21,7 +21,10 @@
 	<meta property="og:image" content="${baseURL}${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta property="og:locale" content="${mf:h(msg['locale'])}" />
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}" />
+	<c:choose>
+		<c:when test="${method eq 'all.all'}"><meta property="og:title" content="${mf:h(msg['site.name'])} | ${mf:h(msg[mf:strcat(method, '.title')])}" /></c:when>
+		<c:otherwise><meta property="og:title" content="${mf:h(msg[mf:strcat(method, '.title')])} - ${mf:h(msg['site.name'])}" /></c:otherwise>
+	</c:choose>
 	<meta property="og:description" content="${mf:h(msg[mf:strcat(method, '.desc')])}" />
 	<c:forEach var="loc" items="${supportedLocaleMap}">
 		<link rel="alternate" hreflang="${mf:h(loc.key)}" href="${baseURL}${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}" />
@@ -40,7 +43,10 @@
 	<script defer src="//cdn.jsdelivr.net/npm/hogan.js@3.0.2/dist/hogan-3.0.2.min.js" integrity="sha256-jIAAmB65ff5CEFvV6DRfRWjHFwqq+AHeV4le8f8PYp4=" crossorigin="anonymous"></script>
 	<script defer src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath("/static/js/all.min.js"))}"></script>
-	<title>${mf:h(msg[mf:strcat(method, '.title')])}${mf:h(msg['site.title.suffix'])}</title>
+	<c:choose>
+		<c:when test="${method eq 'all.all'}"><title>${mf:h(msg['site.name'])} | ${mf:h(msg[mf:strcat(method, '.title')])}</title></c:when>
+		<c:otherwise><title>${mf:h(msg[mf:strcat(method, '.title')])} - ${mf:h(msg['site.name'])}</title></c:otherwise>
+	</c:choose>
 </head>
 <body data-context-path="${pageContext.request.contextPath}" data-dencode-type="${type}" data-dencode-method="${method}">
 <header>
