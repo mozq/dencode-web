@@ -18,9 +18,9 @@ dependencies {
   
   implementation 'org.eclipse.jetty:apache-jstl:11.0.+'
   implementation 'commons-codec:commons-codec:1.15'
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.+'
-  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.+'
-  implementation 'com.ezylang:EvalEx:3.+'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.+'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.+'
+  implementation 'com.ezylang:EvalEx:3.0.+'
   
   implementation 'com.github.mifmi:mifmi-commons4j:v0.3.+'
   implementation 'com.github.mozq:enigma4j:v1.+'
