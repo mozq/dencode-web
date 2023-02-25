@@ -162,6 +162,7 @@ public class CipherJisKeyboardDencoderTest {
 	
 	private DencodeCondition condition(String value, Charset charset, String mode) {
 		return new DencodeCondition(value, charset, "\r\n", null, new HashMap<>() {
+			private static final long serialVersionUID = 1L;
 			{
 				put("encCipherJisKeyboardMode", mode);
 			}
