@@ -72,7 +72,7 @@
 		<tr><td>111100</td><td>8</td></tr>
 		<tr><td>111101</td><td>9</td></tr>
 		<tr><td>111110</td><td>+</td></tr>
-		<tr><td>111111</td><td>-</td></tr>
+		<tr><td>111111</td><td>/</td></tr>
 	</table>
 </div>
 

@@ -31,7 +31,6 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.codec.binary.Hex;
 import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 
@@ -42,6 +41,9 @@ public class DencodeUtils {
 	private static final BigDecimal DEC_TWO = BigDecimal.valueOf(2);
 	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
+	
+	private static final char[] HEX_DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	private static final char[] HEX_DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 	
 	
 	private DencodeUtils() {
@@ -102,6 +104,24 @@ public class DencodeUtils {
 		
 		if (value == null) {
 			return defaultValue;
+		}
+		
+		try {
+			return Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			return defaultValue;
+		}
+	}
+	
+	protected static int getOptionAsInt(Map<String, String> options, String key, int defaultValue, int defaultEmptyValue) {
+		String value = options.get(key);
+		
+		if (value == null) {
+			return defaultValue;
+		}
+		
+		if (value.isEmpty()) {
+			return defaultEmptyValue;
 		}
 		
 		try {
@@ -225,7 +245,7 @@ public class DencodeUtils {
 						
 						// Output stacked bits
 						bits <<= (bitsPer - bitsIdx);
-						appendDigit(sb, bits);
+						sb.append(numToHexDigit(bits, false));
 						
 						break;
 					}
@@ -233,7 +253,7 @@ public class DencodeUtils {
 				
 				if (bitsIdx == bitsPer) {
 					// Output bits
-					appendDigit(sb, bits);
+					sb.append(numToHexDigit(bits, false));
 					
 					bits = 0;
 					bitsIdx = 0;
@@ -252,26 +272,37 @@ public class DencodeUtils {
 		}
 	}
 	
-	private static void appendDigit(StringBuilder sb, int n) {
-		switch (n) {
-		case 0: sb.append('0'); break;
-		case 1: sb.append('1'); break;
-		case 2: sb.append('2'); break;
-		case 3: sb.append('3'); break;
-		case 4: sb.append('4'); break;
-		case 5: sb.append('5'); break;
-		case 6: sb.append('6'); break;
-		case 7: sb.append('7'); break;
-		case 8: sb.append('8'); break;
-		case 9: sb.append('9'); break;
-		case 10: sb.append('a'); break;
-		case 11: sb.append('b'); break;
-		case 12: sb.append('c'); break;
-		case 13: sb.append('d'); break;
-		case 14: sb.append('e'); break;
-		case 15: sb.append('f'); break;
-		default: assert false : "n=" + n;
+	protected static char numToHexDigit(int n, boolean upperCase) {
+		if (n < 0 || 16 <= n) {
+			throw new IllegalArgumentException("n=" + n);
 		}
+		return (upperCase) ? HEX_DIGITS_UPPER[n] : HEX_DIGITS_LOWER[n];
+	}
+	
+	protected static int hexDigitToNum(char ch) {
+		if ('0' <= ch && ch <= '9') {
+			return ch - '0';
+		} else if ('A' <= ch && ch <= 'F') {
+			return 10 + (ch - 'A');
+		} else if ('a' <= ch && ch <= 'f') {
+			return 10 + (ch - 'a');
+		} else {
+			throw new IllegalArgumentException("Hex digit=" + ch);
+		}
+	}
+	
+	protected static String binaryToHexString(byte[] bin, boolean upperCase) {
+		int len = bin.length;
+		
+		StringBuilder sb = new StringBuilder(len * 2);
+		for (byte b : bin) {
+			int high = (b >>> 4) & 0x0F;
+			int low = b & 0x0F;
+			sb.append(DencodeUtils.numToHexDigit(high, upperCase));
+			sb.append(DencodeUtils.numToHexDigit(low, upperCase));
+		}
+		
+		return sb.toString();
 	}
 	
 	protected static String encDate(ZonedDateTime dateVal, DateTimeFormatter formatter, DateTimeFormatter formatterWithMsec) {
@@ -287,10 +318,11 @@ public class DencodeUtils {
 	}
 	
 	protected static String encHash(byte[] binValue, String algo) {
+		boolean upperCase = false;
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance(algo);
 			byte[] digest = messageDigest.digest(binValue);
-			return Hex.encodeHexString(digest);
+			return binaryToHexString(digest, upperCase);
 		} catch (NoSuchAlgorithmException e) {
 			return null;
 		}

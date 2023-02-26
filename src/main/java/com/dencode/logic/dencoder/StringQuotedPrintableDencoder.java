@@ -16,15 +16,13 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
-import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.net.QuotedPrintableCodec;
 import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -34,8 +32,10 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="string", method="string.quoted-printable")
 public class StringQuotedPrintableDencoder {
 	
+	private static final int MAX_LINE_LENGTH = 76;
+	
 	private static final Pattern RFC2047_SPACE = Pattern.compile("\\?=\\s+=\\?");
-	private static final Pattern RFC2047_QP = Pattern.compile("=\\?(.+?)\\?Q\\?(.+?)\\?=", Pattern.CASE_INSENSITIVE);
+	private static final Pattern RFC2047_QP = Pattern.compile("=\\?(.+?)(?:\\*.+?)?\\?Q\\?(.+?)\\?=", Pattern.CASE_INSENSITIVE); // Also supports RFC 2231
 	
 	private StringQuotedPrintableDencoder() {
 		// NOP
@@ -54,9 +54,70 @@ public class StringQuotedPrintableDencoder {
 	
 	
 	private static String encStrQuotedPrintable(byte[] binValue) {
-		boolean strict = (3 <= binValue.length);
-		QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec(strict);
-		return new String(quotedPrintableCodec.encode(binValue), StandardCharsets.US_ASCII);
+		int len = binValue.length;
+		
+		int lineLen = 0;
+		StringBuilder sb = new StringBuilder(len * 3);
+		for (int i = 0; i < len; i++) {
+			byte b = binValue[i];
+			
+			boolean lastPrev1 = (i + 2 == len);
+			boolean last = (i + 1 == len);
+			boolean lastOfLine = last;
+			if (!last) {
+				byte b1 = binValue[i + 1];
+				
+				if (lastPrev1 && (b == (byte)'\r' && b1 == (byte)'\n')) {
+					// CR + LF + EOF
+					last = true;
+				} else if (b1 == (byte)'\r' || b1 == (byte)'\n') {
+					// ?? + CR or ?? + LF
+					lastOfLine = true;
+				}
+			}
+			
+			// TODO: Ignore trailing white-spaces
+			
+			if (((byte)'!' <= b && b <= (byte)'~' && b != (byte)'=')
+					|| (!lastOfLine && (b == (byte)' ' || b == (byte)'\t'))
+					|| (!last && (b == (byte)'\r' || b == (byte)'\n'))) {
+				// Printable (!..~) excludes =
+				// SPACE or TAB, excludes last character of line
+				// CR or LF, excludes last character
+				// ** Passed through white-spaces (SPACE, TAB, CR, LF) other than the end of a line **
+				
+				lineLen += 1;
+				if (MAX_LINE_LENGTH < lineLen || (!last && MAX_LINE_LENGTH == lineLen)) {
+					// Soft line-break
+					sb.append("=\r\n");
+					lineLen = 1;
+				}
+				if (b == (byte)'\r' || b == (byte)'\n') {
+					// Hard line-break
+					lineLen = 0;
+				}
+				
+				sb.append((char)b);
+			} else {
+				// Non-printable
+				
+				lineLen += 3;
+				if (MAX_LINE_LENGTH < lineLen || (!last && MAX_LINE_LENGTH == lineLen)) {
+					// Soft line-break
+					sb.append("=\r\n");
+					lineLen = 3;
+				}
+				
+				int high = (b & 0xF0) >>> 4;
+				int low = b & 0x0F;
+				
+				sb.append('=');
+				sb.append(DencodeUtils.numToHexDigit(high, true));
+				sb.append(DencodeUtils.numToHexDigit(low, true));
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	private static String decStrQuotedPrintable(String val, Charset charset) {
@@ -85,28 +146,78 @@ public class StringQuotedPrintableDencoder {
 				}
 				
 				String v = m.group(2);
-
-				QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
-				try {
-					v = quotedPrintableCodec.decode(v, cs);
-				} catch (DecoderException e) {
-					return null;
-				}
 				v = v.replace('_', ' ');
 				
+				String decodedValue = decode(v, cs);
+				if (decodedValue == null) {
+					return null;
+				}
+				
 				m.appendReplacement(sb, "");
-				sb.append(v);
+				sb.append(decodedValue);
 			} while (m.find());
 			m.appendTail(sb);
 			
 			return sb.toString();
 		} else {
-			QuotedPrintableCodec quotedPrintableCodec = new QuotedPrintableCodec();
-			try {
-				return quotedPrintableCodec.decode(val, charset);
-			} catch (DecoderException e) {
-				return null;
+			return decode(val, charset);
+		}
+	}
+	
+	private static String decode(String val, Charset charset) {
+		int idx = val.indexOf('=');
+		if (idx == -1) {
+			return val;
+		}
+		
+		int len = val.length();
+		ByteArrayOutputStream binBuf = new ByteArrayOutputStream(len);
+		
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if (ch == '=') {
+				int leftChNum = (len - i - 1);
+				if (leftChNum == 0) {
+					// Last
+					continue;
+				} else if (leftChNum == 1) {
+					char ch1 = val.charAt(++i);
+					if (ch1 == '\r' && ch1 == '\n') {
+						continue;
+					}
+					
+					return null;
+				} else if (leftChNum >= 2) {
+					try {
+						char ch1 = val.charAt(++i);
+						char ch2 = val.charAt(++i);
+						
+						// Soft line-break
+						if (ch1 == '\r' && ch2 == '\n') {
+							continue;
+						} else if (ch1 == '\r') {
+							i--;
+							continue;
+						} else if (ch1 == '\n') {
+							i--;
+							continue;
+						}
+						
+						int high = DencodeUtils.hexDigitToNum(ch1);
+						int low = DencodeUtils.hexDigitToNum(ch2);
+						binBuf.write((byte)((high << 4) | low));
+					} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+						return null;
+					}
+				}
+			} else if (ch == '+') {
+				binBuf.write((byte)' ');
+			} else {
+				binBuf.write((byte)ch);
 			}
 		}
+		
+		return binBuf.toString(charset);
 	}
 }

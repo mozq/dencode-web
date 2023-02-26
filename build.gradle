@@ -17,7 +17,6 @@ dependencies {
   providedCompile 'org.eclipse.jetty:apache-jsp:11.0.+'
   
   implementation 'org.eclipse.jetty:apache-jstl:11.0.+'
-  implementation 'commons-codec:commons-codec:1.15'
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.+'
   implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.+'
   implementation 'com.ezylang:EvalEx:3.0.+'

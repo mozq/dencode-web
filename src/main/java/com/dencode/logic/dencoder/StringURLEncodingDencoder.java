@@ -16,11 +16,9 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.net.URLCodec;
 import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
@@ -30,6 +28,8 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="string", method="string.url-encoding")
 public class StringURLEncodingDencoder {
 	
+	private static final char[] DECODING_SYMBOLS = {'%', '+'};
+	
 	private StringURLEncodingDencoder() {
 		// NOP
 	}
@@ -38,7 +38,7 @@ public class StringURLEncodingDencoder {
 	@DencoderFunction
 	public static String encStrURLEncoding(DencodeCondition cond) {
 		return encStrURLEncoding(cond.valueAsBinary(),
-				DencodeUtils.getOption(cond.options(), "encStrURLEncodingSpace", ""));
+				DencodeUtils.getOption(cond.options(), "encStrURLEncodingSpace", "").equals("form"));
 	}
 	
 	@DencoderFunction
@@ -47,17 +47,33 @@ public class StringURLEncodingDencoder {
 	}
 	
 	
-	private static String encStrURLEncoding(byte[] binValue, String space) {
-		URLCodec urlCodec = new URLCodec();
-		String encodedURL = new String(urlCodec.encode(binValue), StandardCharsets.US_ASCII);
+	private static String encStrURLEncoding(byte[] binValue,  boolean formSpace) {
+		StringBuilder sb = new StringBuilder(binValue.length * 3);
 		
-		if (!space.equals("form")) {
-			if (encodedURL.indexOf('+') != -1) {
-				encodedURL = encodedURL.replace("+", "%20");
+		for (byte b : binValue) {
+			if (((byte)'A' <= b && b <= (byte)'Z')
+					|| ((byte)'a' <= b && b <= (byte)'z')
+					|| ((byte)'0' <= b && b <= (byte)'9')
+					|| b == (byte)'-'
+					|| b == (byte)'.'
+					|| b == (byte)'_'
+					|| b == (byte)'~'
+					) {
+				// RFC 3986 - 2.3. Unreserved Characters
+				// unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~"
+				sb.append((char)b);
+			} else if (formSpace && b == (byte)' ') {
+				sb.append('+');
+			} else {
+				int high = (b & 0xF0) >>> 4;
+				int low = b & 0x0F;
+				sb.append('%');
+				sb.append(DencodeUtils.numToHexDigit(high, true));
+				sb.append(DencodeUtils.numToHexDigit(low, true));
 			}
 		}
 		
-		return encodedURL;
+		return sb.toString();
 	}
 	
 	private static String decStrURLEncoding(String val, Charset charset) {
@@ -65,14 +81,32 @@ public class StringURLEncodingDencoder {
 			return null;
 		}
 		
-		byte[] bin = val.getBytes(StandardCharsets.US_ASCII);
-		
-		URLCodec urlCodec = new URLCodec();
-		try {
-			byte[] decodedValue = urlCodec.decode(bin);
-			return new String(decodedValue, charset);
-		} catch (DecoderException e) {
-			return null;
+		int sidx = StringUtilz.indexOf(val, DECODING_SYMBOLS);
+		if (sidx == -1) {
+			return val;
 		}
+		
+		int len = val.length();
+		ByteArrayOutputStream binBuf = new ByteArrayOutputStream(len);
+		
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if (ch == '%') {
+				try {
+					int high = DencodeUtils.hexDigitToNum(val.charAt(++i));
+					int low = DencodeUtils.hexDigitToNum(val.charAt(++i));
+					binBuf.write((byte)((high << 4) | low));
+				} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+					return null;
+				}
+			} else if (ch == '+') {
+				binBuf.write((byte)' ');
+			} else {
+				binBuf.write((byte)ch);
+			}
+		}
+		
+		return binBuf.toString(charset);
 	}
 }
