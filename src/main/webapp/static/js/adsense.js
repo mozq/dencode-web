@@ -3,7 +3,7 @@
 	"use strict";
 	
 	// Lazy load adsbygoogle.js
-	$(window).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads touchstart.lzads scroll.lzads", function() {
+	$(window).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads scroll.lzads", function() {
 		$(window).off(".lzads");
 		
 		const s = document.createElement("script");

@@ -408,22 +408,24 @@ $(document).ready(function () {
 		const file = this.files[0];
 		this.value = "";
 		
-		const reader = new FileReader();
-		reader.onload = function () {
-			const img = new Image();
-			img.onload = function () {
-				const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
-				if (code === null) {
-					showMessageDialog($loadQrcode.attr("data-load-error-message"));
-					return;
-				}
-				
-				updateValue(code.data);
-				showTooltip($loadBtn, $loadQrcode.attr("data-load-message"), 2000);
-			};
-			img.src = this.result;
-		}
-		reader.readAsDataURL(file);
+		loadScript("#scriptJsqr", function () {
+			const reader = new FileReader();
+			reader.onload = function () {
+				const img = new Image();
+				img.onload = function () {
+					const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
+					if (code === null) {
+						showMessageDialog($loadQrcode.attr("data-load-error-message"));
+						return;
+					}
+					
+					updateValue(code.data);
+					showTooltip($loadBtn, $loadQrcode.attr("data-load-message"), 2000);
+				};
+				img.src = this.result;
+			}
+			reader.readAsDataURL(file);
+		}.bind(this));
 	});
 	
 	$subHeaders.on("click", function () {
@@ -1313,6 +1315,22 @@ function toMessageType(level) {
 	default:
 		return "danger";
 	}
+}
+
+function loadScript(scriptTagQuery, callback) {
+	const s = document.querySelector(scriptTagQuery);
+	if (s.dataset.loaded === "true") {
+		callback();
+		return;
+	}
+	
+	s.remove();
+	s.addEventListener("load", function () {
+		this.dataset.loaded = "true";
+		callback();
+	});
+	s.src = s.dataset.src;
+	document.body.appendChild(s);
 }
 
 })(window, document);
