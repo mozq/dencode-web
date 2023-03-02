@@ -281,7 +281,7 @@ $(document).ready(function () {
 						},
 						content: function () {
 							const permanentLink = getPermanentLink(method, config);
-							return getPermanentLinkTmpl().render({
+							return renderTemplate(getPermanentLinkTmpl(), {
 								permanentLink: permanentLink,
 								permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
 							});
@@ -478,7 +478,7 @@ $(document).ready(function () {
 		const id = $forDisp.attr("id");
 		const val = $forDisp.text();
 		
-		const forCopyHtml = getForCopyTmpl().render({
+		const forCopyHtml = renderTemplate(getForCopyTmpl(), {
 			id: id,
 			value: val
 		});
@@ -527,7 +527,7 @@ $(document).ready(function () {
 		content: function () {
 			const chars = Number($vLen.data("len-chars"));
 			const bytes = Number($vLen.data("len-bytes"));
-			return getLengthTmpl().render({
+			return renderTemplate(getLengthTmpl(), {
 				chars: chars,
 				oneChar: (chars == 1),
 				bytes: bytes,
@@ -924,28 +924,28 @@ $(document).ready(function () {
 	
 	function getMessageTmpl() {
 		if (_messageTmpl === null) {
-			_messageTmpl = Hogan.compile($("#messageTmpl").html());
+			_messageTmpl = $("#messageTmpl").html();
 		}
 		return _messageTmpl;
 	}
 	
 	function getLengthTmpl() {
 		if (_lengthTmpl === null) {
-			_lengthTmpl = Hogan.compile($("#lengthTmpl").html());
+			_lengthTmpl = $("#lengthTmpl").html();
 		}
 		return _lengthTmpl;
 	}
 	
 	function getPermanentLinkTmpl() {
 		if (_permanentLinkTmpl === null) {
-			_permanentLinkTmpl = Hogan.compile($("#permanentLinkTmpl").html());
+			_permanentLinkTmpl = $("#permanentLinkTmpl").html();
 		}
 		return _permanentLinkTmpl;
 	}
 	
 	function getForCopyTmpl() {
 		if (_forCopyTmpl === null) {
-			_forCopyTmpl = Hogan.compile($("#forCopyTmpl").html());
+			_forCopyTmpl = $("#forCopyTmpl").html();
 		}
 		return _forCopyTmpl;
 	}
@@ -997,10 +997,10 @@ $(document).ready(function () {
 		if (messages) {
 			if (Array.isArray(messages)) {
 				for (const message of messages) {
-					messagesHtml += getMessageTmpl().render(formatMessage(message));
+					messagesHtml += renderTemplate(getMessageTmpl(), formatMessage(message));
 				}
 			} else {
-				messagesHtml = getMessageTmpl().render(formatMessage(messages));
+				messagesHtml = renderTemplate(getMessageTmpl(), formatMessage(messages));
 			}
 		}
 		
@@ -1331,6 +1331,56 @@ function loadScript(scriptTagQuery, callback) {
 	});
 	s.src = s.dataset.src;
 	document.body.appendChild(s);
+}
+
+function renderTemplate(tmpl, p) {
+	const r = /([\s\S]*?)\{\{([\#\^/]?)(.+?)\}\}([^\{]*)/g;
+	let buf = "";
+	let currentName = "";
+	let skip = false;
+	while((m = r.exec(tmpl)) != null) {
+		const pv = m[1];
+		const type = m[2];
+		const name = m[3];
+		const sv = m[4];
+		
+		if (!skip) {
+			buf += pv;
+		}
+		
+		if (type === "#") {
+			currentName = name;
+			skip = !p[name];
+		 } else if (type === "^") {
+			currentName = name;
+			skip = p[name];
+		} else if (type === "/") {
+			if (name !== currentName) {
+				throw new Error("Wrong close mustache {{/" + name + "}}");
+			}
+			currentName = "";
+			skip = false;
+		} else if (type === "") {
+			if (!skip) {
+				const v = p[name];
+				if (v !== undefined && v !== null && v !== "") {
+					buf += ("" + v).replace(/&/g, "&amp;")
+							.replace(/</g, "&lt;")
+							.replace(/>/g, "&gt;")
+							.replace(/"/g, "&quot;")
+							.replace(/'/g, "&#39;");
+				}
+			}
+		} else {
+			throw new Error("Unsupported type {{" + type + "}}");
+		}
+		
+		if (!skip) {
+			buf += sv;
+		}
+	}
+	
+	return buf;
 }
 
 })(window, document);

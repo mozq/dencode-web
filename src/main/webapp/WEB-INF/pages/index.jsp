@@ -40,7 +40,6 @@
 	<script defer src="//polyfill.io/v3/polyfill.min.js?features=fetch%2CURLSearchParams"></script>
 	<script defer src="//cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-lSABj6XYH05NydBq+1dvkMu6uiCc/MbLYOFGRkf3iQs=" crossorigin="anonymous"></script>
-	<script defer src="//cdn.jsdelivr.net/npm/hogan.js@3.0.2/dist/hogan-3.0.2.min.js" integrity="sha256-jIAAmB65ff5CEFvV6DRfRWjHFwqq+AHeV4le8f8PYp4=" crossorigin="anonymous"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath('/static/js/all.min.js'))}"></script>
 	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 	<c:choose>
