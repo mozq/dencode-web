@@ -266,6 +266,14 @@ a:hover, a:active, a:focus {
 	overflow-y: auto;
 }
 
+#encodingIndicator, #decodingIndicator {
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	stroke: #999;
+	fill: none;
+}
+
 table.dencoded-list {
 	table-layout: fixed;
 	width: 100%;

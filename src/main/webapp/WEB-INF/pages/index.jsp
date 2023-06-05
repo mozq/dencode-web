@@ -334,7 +334,11 @@
 			<h2 data-bs-toggle="collapse" data-bs-target="#decodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.decoded'])}
-				<img id="decodingIndicator" src="${pageContext.request.contextPath}/static/img/loading-indicator.gif" style="display: none;" />
+				<svg id="decodingIndicator" viewBox="0 0 100 100" style="display: none;">
+					<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
+						<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
+					</circle>
+				</svg>
 			</h2>
 			<div id="decodedListContainer" class="collapse show">
 				<table id="decodedList" class="dencoded-list">
@@ -1109,7 +1113,11 @@
 			<h2 data-bs-toggle="collapse" data-bs-target="#encodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.encoded'])}
-				<img id="encodingIndicator" src="${pageContext.request.contextPath}/static/img/loading-indicator.gif" style="display: none;" />
+				<svg id="encodingIndicator" viewBox="0 0 100 100" style="display: none;">
+					<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
+						<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
+					</circle>
+				</svg>
 			</h2>
 			<div id="encodedListContainer" class="collapse show">
 				<table id="encodedList" class="dencoded-list">
