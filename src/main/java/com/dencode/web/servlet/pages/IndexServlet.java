@@ -47,10 +47,6 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		Map<String, String> tzMap = new HashMap<String, String>(tzList.size());
 		Instant now = Instant.now();
 		for (String id : tzList) {
-			if (id.startsWith("Etc/")) {
-				continue;
-			}
-			
 			ZoneId zone = ZoneId.of(id);
 			ZoneOffset offset = zone.getRules().getStandardOffset(now);
 			String offsetId = offset.getId();
