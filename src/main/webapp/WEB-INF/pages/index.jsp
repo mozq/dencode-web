@@ -185,6 +185,7 @@
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/atbash" data-dencode-method="cipher.atbash">${mf:h(msg['cipher.atbash.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/affine" data-dencode-method="cipher.affine">${mf:h(msg['cipher.affine.method'])}</a></li>
 							<li class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/vigenere" data-dencode-method="cipher.vigenere">${mf:h(msg['cipher.vigenere.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
 							<li class="dropdown-divider"></li>
@@ -584,6 +585,14 @@
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
+							<c:if test="${methods.contains('cipher.vigenere')}"><tr data-dencode-method="cipher.vigenere"><th>${mf:h(msg['label.decCipherVigenere'])}</th><td><span id="decCipherVigenere" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.decCipherVigenere.option.key'])}</span>
+										<input name="decCipherVigenereKey" class="dencode-option form-control" value="" placeholder="${mf:h(msg['label.decCipherVigenere.option.key.tooltip'])}" data-value-link-to="[name=encCipherVigenereKey]" />
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.decCipherEnigma'])}</th><td><span id="decCipherEnigma" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="dencode-option-grid cipher-enigma">
@@ -1595,6 +1604,14 @@
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
+							<c:if test="${methods.contains('cipher.vigenere')}"><tr data-dencode-method="cipher.vigenere"><th>${mf:h(msg['label.encCipherVigenere'])}</th><td><span id="encCipherVigenere" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['label.encCipherVigenere.option.key'])}</span>
+										<input name="encCipherVigenereKey" class="dencode-option form-control" value="" placeholder="${mf:h(msg['label.encCipherVigenere.option.key.tooltip'])}" data-value-link-to="[name=decCipherVigenereKey]" />
+									</div>
+								</form>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['label.encCipherEnigma'])}</th><td><span id="encCipherEnigma" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="dencode-option-grid cipher-enigma">
