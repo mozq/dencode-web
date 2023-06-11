@@ -187,6 +187,7 @@
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/vigenere" data-dencode-method="cipher.vigenere">${mf:h(msg['cipher.vigenere.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${mf:h(msg['cipher.enigma.method'])}</a></li>
+							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${mf:h(msg['cipher.jis-keyboard.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/cipher/scytale" data-dencode-method="cipher.scytale">${mf:h(msg['cipher.scytale.method'])}</a></li>
@@ -2067,6 +2068,8 @@
 									</div>
 								</form>
 							</td></tr></c:if>
+						</tbody>
+						<tbody>
 							<c:if test="${methods.contains('cipher.jis-keyboard')}"><tr data-dencode-method="cipher.jis-keyboard"><th>${mf:h(msg['label.encCipherJisKeyboard'])}</th><td><span id="encCipherJisKeyboard" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
