@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.jis-keyboard")
+@Dencoder(type="cipher", method="cipher.jis-keyboard", hasEncoder=true, hasDecoder=false)
 public class CipherJisKeyboardDencoder {
 	
 	private CipherJisKeyboardDencoder() {

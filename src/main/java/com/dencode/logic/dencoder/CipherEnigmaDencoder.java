@@ -29,7 +29,7 @@ import net.mozq.enigma4j.scrambler.Reflector;
 import net.mozq.enigma4j.scrambler.UnsupportedWiringException;
 import net.mozq.enigma4j.scrambler.WiringPair;
 
-@Dencoder(type="cipher", method="cipher.enigma")
+@Dencoder(type="cipher", method="cipher.enigma", hasEncoder=true, hasDecoder=true)
 public class CipherEnigmaDencoder {
 	
 	private CipherEnigmaDencoder() {

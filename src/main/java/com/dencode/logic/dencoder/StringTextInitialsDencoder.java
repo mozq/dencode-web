@@ -24,7 +24,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.text-initials")
+@Dencoder(type="string", method="string.text-initials", hasEncoder=true, hasDecoder=false)
 public class StringTextInitialsDencoder {
 	
 	private StringTextInitialsDencoder() {

@@ -23,7 +23,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.line-unique")
+@Dencoder(type="string", method="string.line-unique", hasEncoder=true, hasDecoder=false)
 public class StringLineUniqueDencoder {
 	
 	private StringLineUniqueDencoder() {

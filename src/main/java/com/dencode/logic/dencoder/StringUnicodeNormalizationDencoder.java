@@ -22,7 +22,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.unicode-normalization")
+@Dencoder(type="string", method="string.unicode-normalization", hasEncoder=true, hasDecoder=true)
 public class StringUnicodeNormalizationDencoder {
 	
 	private StringUnicodeNormalizationDencoder() {

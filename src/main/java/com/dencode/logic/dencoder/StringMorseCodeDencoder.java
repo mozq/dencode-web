@@ -24,7 +24,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.morse-code")
+@Dencoder(type="string", method="string.morse-code", hasEncoder=true, hasDecoder=true)
 public class StringMorseCodeDencoder {
 	
 	private static class Char {

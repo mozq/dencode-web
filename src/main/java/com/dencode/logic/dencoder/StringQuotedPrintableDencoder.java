@@ -29,7 +29,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.quoted-printable")
+@Dencoder(type="string", method="string.quoted-printable", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringQuotedPrintableDencoder {
 	
 	private static final int MAX_LINE_LENGTH = 76;

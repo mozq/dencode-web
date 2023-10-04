@@ -25,7 +25,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="date", method="date.w3cdtf")
+@Dencoder(type="date", method="date.w3cdtf", hasEncoder=true, hasDecoder=false, useTz=true)
 public class DateW3CDTFDencoder {
 	
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ssXXX", Locale.US);

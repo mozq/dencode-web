@@ -102,18 +102,16 @@ If you want to add other languages, please add or modify the following source co
 - Add translated files
     - /src/main/resources/messages_*.properties [Required]
     - /src/main/webapp/WEB-INF/pages/policy_*.inc.jsp [Optional]
-    - /src/main/webapp/WEB-INF/pages/method-desc_*.*_*.inc.jsp [Optional]
+    - /src/main/webapp/WEB-INF/pages/method-desc_\*.\*_*.inc.jsp [Optional]
 
 ## How to add another encoder and decoder
 If you want to add another encoder and decoder, please add or modify the following source code.
 
 - Add a new dencoder class
-    - /src/main/java/com/dencode/logic/dencoder/*.java [Required]
-- Append new settings for the dencoder
-    - /src/main/resources/config.properties [Required]
+    - /src/main/java/com/dencode/logic/dencoder/*Dencoder.java [Required]
 - Append the encoding and decoding rows for the dencoder
     - /src/main/webapp/WEB-INF/pages/index.jsp [Required]
 - Append label texts for index.jsp
     - /src/main/resources/messages_*.properties [Required]
 - Add description files
-    - /src/main/webapp/WEB-INF/pages/method-desc_*.*_*.inc.jsp [Optional]
+    - /src/main/webapp/WEB-INF/pages/method-desc_\*.\*_*.inc.jsp [Optional]

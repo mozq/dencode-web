@@ -25,7 +25,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.ascii85")
+@Dencoder(type="string", method="string.ascii85", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringAscii85Dencoder {
 	private static int BASE_N = 85;
 	private static int BASE_N_P2 = BASE_N * BASE_N;

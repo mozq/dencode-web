@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.cbor.databind.CBORMapper;
 
-@Dencoder(type="string", method="string.base45")
+@Dencoder(type="string", method="string.base45", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringBase45Dencoder {
 	private static int BASE_N = 45;
 	

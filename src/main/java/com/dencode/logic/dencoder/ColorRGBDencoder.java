@@ -27,7 +27,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="color", method="color.rgb")
+@Dencoder(type="color", method="color.rgb", hasEncoder=true, hasDecoder=false)
 public class ColorRGBDencoder {
 	
 	private ColorRGBDencoder() {

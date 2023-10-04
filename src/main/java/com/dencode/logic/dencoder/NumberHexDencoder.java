@@ -24,7 +24,7 @@ import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 import com.dencode.logic.parser.NumberParser;
 
-@Dencoder(type="number", method="number.hex")
+@Dencoder(type="number", method="number.hex", hasEncoder=true, hasDecoder=true)
 public class NumberHexDencoder {
 	
 	private NumberHexDencoder() {

@@ -14,8 +14,6 @@ $(document).ready(function () {
 	let _permanentLinkTmpl = null;
 	let _forCopyTmpl = null;
 	
-	let _config = null;
-	
 	let _colors = null;
 	
 	const contextPath = document.body.getAttribute("data-context-path");
@@ -269,8 +267,10 @@ $(document).ready(function () {
 			hidePopover($this);
 		} else {
 			const method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+			const type = method.substring(0, method.indexOf("."));
+			
 			if (!$this.data("bs.popover")) {
-				loadConfig(function (config) {
+				loadDencoder(type, method, function (dencoder) {
 					$this.popover({
 						trigger: "manual",
 						container: "body",
@@ -280,7 +280,7 @@ $(document).ready(function () {
 							return content;
 						},
 						content: function () {
-							const permanentLink = getPermanentLink(method, config);
+							const permanentLink = getPermanentLink(method, dencoder);
 							return renderTemplate(getPermanentLinkTmpl(), {
 								permanentLink: permanentLink,
 								permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
@@ -889,13 +889,10 @@ $(document).ready(function () {
 		}
 	}
 	
-	function getPermanentLink(method, config) {
+	function getPermanentLink(method, dencoder) {
 		const v = $v.val();
 		
 		const $methodMenuItem = $methodMenuLinks.filter(`[data-dencode-method="${method}"]`);
-		const oeEnabled = (config[method + ".useOe"] === "true");
-		const nlEnabled = (config[method + ".useNl"] === "true");
-		const tzEnabled = (config[method + ".useTz"] === "true");
 		
 		let path = $methodMenuItem.attr("href");
 		if (!path) {
@@ -906,15 +903,15 @@ $(document).ready(function () {
 		
 		url += "?v=" + encodeURIComponent(v);
 		
-		if (oeEnabled) {
+		if (dencoder === null || dencoder.useOe) {
 			const oe = $oeGroupBtns.filter(".active").data("oe");
 			url += "&oe=" + encodeURIComponent(oe);
 		}
-		if (nlEnabled) {
+		if (dencoder === null || dencoder.useNl) {
 			const nl = $nlGroupBtns.filter(".active").data("nl");
 			url += "&nl=" + encodeURIComponent(nl);
 		}
-		if (tzEnabled) {
+		if (dencoder === null || dencoder.useTz) {
 			const tz = $tz.data("tz");
 			url += "&tz=" + encodeURIComponent(tz);
 		}
@@ -950,18 +947,15 @@ $(document).ready(function () {
 		return _forCopyTmpl;
 	}
 	
-	function loadConfig(callback) {
-		if (_config) {
-			callback(_config);
-		} else {
-			fetch(contextPath + "/config")
-			.then(function (response) {
-				return response.json();
-			}).then(function (config) {
-				_config = config;
-				callback(_config);
-			});
-		}
+	function loadDencoder(type, method, callback) {
+		fetch(contextPath + "/dencoders/" + type + "/" + method)
+		.then(function (response) {
+			return response.json();
+		}).then(function (dencoder) {
+			callback(dencoder);
+		}).catch(function () {
+			callback(null);
+		});
 	}
 	
 	function loadValueFromFile(file) {

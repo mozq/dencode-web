@@ -23,7 +23,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.punycode")
+@Dencoder(type="string", method="string.punycode", hasEncoder=true, hasDecoder=true)
 public class StringPunycodeDencoder {
 	
 	private StringPunycodeDencoder() {

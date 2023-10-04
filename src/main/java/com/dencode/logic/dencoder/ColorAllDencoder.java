@@ -17,19 +17,11 @@
 package com.dencode.logic.dencoder;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
-import com.dencode.logic.dencoder.annotation.DencoderFunction;
-import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="hash", method="hash.sha1", hasEncoder=true, hasDecoder=false, useOe=true, useNl=true)
-public class HashSHA1Dencoder {
+@Dencoder(type="color", method="color.all", hasEncoder=true, hasDecoder=false)
+public class ColorAllDencoder {
 	
-	private HashSHA1Dencoder() {
+	private ColorAllDencoder() {
 		// NOP
-	}
-	
-	
-	@DencoderFunction
-	public static String encHashSHA1(DencodeCondition cond) {
-		return DencodeUtils.encHash(cond.valueAsBinary(), "SHA-1");
 	}
 }

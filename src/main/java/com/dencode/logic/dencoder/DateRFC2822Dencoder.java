@@ -26,7 +26,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="date", method="date.rfc2822")
+@Dencoder(type="date", method="date.rfc2822", hasEncoder=true, hasDecoder=false, useTz=true)
 public class DateRFC2822Dencoder {
 	
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, dd MMM uuuu HH:mm:ss zzz", Locale.US);

@@ -27,7 +27,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.unicode-escape")
+@Dencoder(type="string", method="string.unicode-escape", hasEncoder=true, hasDecoder=true, useNl=true)
 public class StringUnicodeEscapeDencoder {
 	
 	private static char[] NOTATION_PREFIXES = new char[]{'\\', '%', '&', '0', 'U'};

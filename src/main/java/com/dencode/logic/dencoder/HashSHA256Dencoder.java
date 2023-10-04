@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="hash", method="hash.sha256")
+@Dencoder(type="hash", method="hash.sha256", hasEncoder=true, hasDecoder=false, useOe=true, useNl=true)
 public class HashSHA256Dencoder {
 	
 	private HashSHA256Dencoder() {

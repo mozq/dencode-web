@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.rot18")
+@Dencoder(type="cipher", method="cipher.rot18", hasEncoder=true, hasDecoder=true)
 public class CipherROT18Dencoder {
 	
 	private CipherROT18Dencoder() {

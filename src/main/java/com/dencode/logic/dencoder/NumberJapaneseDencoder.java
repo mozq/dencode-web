@@ -26,7 +26,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="number", method="number.japanese")
+@Dencoder(type="number", method="number.japanese", hasEncoder=true, hasDecoder=true)
 public class NumberJapaneseDencoder {
 	
 	private NumberJapaneseDencoder() {

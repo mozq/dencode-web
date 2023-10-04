@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.text-reverse")
+@Dencoder(type="string", method="string.text-reverse", hasEncoder=true, hasDecoder=false)
 public class StringTextReverseDencoder {
 	
 	private StringTextReverseDencoder() {

@@ -23,7 +23,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="date", method="date.unix-time")
+@Dencoder(type="date", method="date.unix-time", hasEncoder=true, hasDecoder=false, useTz=true)
 public class DateUnixTimeDencoder {
 	
 	private DateUnixTimeDencoder() {

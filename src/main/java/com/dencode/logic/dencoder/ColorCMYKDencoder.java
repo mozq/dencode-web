@@ -28,7 +28,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="color", method="color.cmyk")
+@Dencoder(type="color", method="color.cmyk", hasEncoder=true, hasDecoder=false)
 public class ColorCMYKDencoder {
 	
 	private ColorCMYKDencoder() {

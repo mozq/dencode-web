@@ -25,7 +25,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.url-encoding")
+@Dencoder(type="string", method="string.url-encoding", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringURLEncodingDencoder {
 	
 	private static final char[] DECODING_SYMBOLS = {'%', '+'};

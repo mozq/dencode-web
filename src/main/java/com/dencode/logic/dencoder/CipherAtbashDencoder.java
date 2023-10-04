@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.atbash")
+@Dencoder(type="cipher", method="cipher.atbash", hasEncoder=true, hasDecoder=false)
 public class CipherAtbashDencoder {
 	private static final String HEBREW_ALPHABETS = "אבגדהוזחטיכלמנסעפצקרשת";
 	

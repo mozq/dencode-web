@@ -31,7 +31,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.base64")
+@Dencoder(type="string", method="string.base64", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringBase64Dencoder {
 	
 	private static final int[] BASE64_BITS = {

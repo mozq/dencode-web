@@ -332,7 +332,7 @@
 			</div>
 		</div>
 		
-		<div id="decoded" ${(hasDecoded) ? '' : 'style="display: none;"'}>
+		<div id="decoded" ${(hasDecoder) ? '' : 'style="display: none;"'}>
 			<h2 data-bs-toggle="collapse" data-bs-target="#decodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.decoded'])}
@@ -1119,7 +1119,7 @@
 			</div>
 		</div>
 		
-		<div id="encoded" ${(hasEncoded) ? '' : 'style="display: none;"'}>
+		<div id="encoded" ${(hasEncoder) ? '' : 'style="display: none;"'}>
 			<h2 data-bs-toggle="collapse" data-bs-target="#encodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.encoded'])}

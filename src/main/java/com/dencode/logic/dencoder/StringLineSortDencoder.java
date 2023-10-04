@@ -25,7 +25,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.line-sort")
+@Dencoder(type="string", method="string.line-sort", hasEncoder=true, hasDecoder=false)
 public class StringLineSortDencoder {
 	
 	private StringLineSortDencoder() {

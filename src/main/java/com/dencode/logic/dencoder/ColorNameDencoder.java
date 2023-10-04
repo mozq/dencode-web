@@ -24,7 +24,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="color", method="color.name")
+@Dencoder(type="color", method="color.name", hasEncoder=true, hasDecoder=false)
 public class ColorNameDencoder {
 	
 	private ColorNameDencoder() {

@@ -24,6 +24,24 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Dencoder {
+	/** Dencode type */
 	String type();
+	
+	/** Dencode method */
 	String method();
+	
+	/** true if has encoder functions */
+	boolean hasEncoder();
+	
+	/** true if has decoder functions */
+	boolean hasDecoder();
+	
+	/** true if uses "oe" output-encoding parameter */
+	boolean useOe() default false;
+	
+	/** true if uses "nl" new-line parameter */
+	boolean useNl() default false;
+	
+	/** true if uses "tz" time-zone parameter */
+	boolean useTz() default false;
 }

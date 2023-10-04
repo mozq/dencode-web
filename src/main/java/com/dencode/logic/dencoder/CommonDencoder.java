@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="*", method="*")
+@Dencoder(type="*", method="*", hasEncoder=false, hasDecoder=false)
 public class CommonDencoder {
 	
 	private CommonDencoder() {

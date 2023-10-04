@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="hash", method="hash.md2")
+@Dencoder(type="hash", method="hash.md2", hasEncoder=true, hasDecoder=false, useOe=true, useNl=true)
 public class HashMD2Dencoder {
 	
 	private HashMD2Dencoder() {

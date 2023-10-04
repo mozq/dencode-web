@@ -24,7 +24,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.snake-case")
+@Dencoder(type="string", method="string.snake-case", hasEncoder=true, hasDecoder=false)
 public class StringSnakeCaseDencoder {
 	
 	private StringSnakeCaseDencoder() {

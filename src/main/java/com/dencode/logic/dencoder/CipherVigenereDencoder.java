@@ -22,7 +22,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.vigenere")
+@Dencoder(type="cipher", method="cipher.vigenere", hasEncoder=true, hasDecoder=true)
 public class CipherVigenereDencoder {
 	
 	private static final int[] BLANK_KEY_INDEXES = new int[0];

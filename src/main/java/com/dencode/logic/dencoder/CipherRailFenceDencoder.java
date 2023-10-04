@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.rail-fence")
+@Dencoder(type="cipher", method="cipher.rail-fence", hasEncoder=true, hasDecoder=true)
 public class CipherRailFenceDencoder {
 
 	private CipherRailFenceDencoder() {

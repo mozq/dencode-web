@@ -22,7 +22,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.html-escape")
+@Dencoder(type="string", method="string.html-escape", hasEncoder=true, hasDecoder=true, useNl=true)
 public class StringHTMLEscapeDencoder {
 	
 	private StringHTMLEscapeDencoder() {

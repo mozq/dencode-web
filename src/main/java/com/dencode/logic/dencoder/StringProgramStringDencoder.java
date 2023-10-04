@@ -22,7 +22,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="string", method="string.program-string")
+@Dencoder(type="string", method="string.program-string", hasEncoder=true, hasDecoder=true, useNl=true)
 public class StringProgramStringDencoder {
 	
 	private static final char PROGRAM_STRING_ESCAPE_CHAR = '\\';

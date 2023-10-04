@@ -27,7 +27,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="date", method="date.japanese-era")
+@Dencoder(type="date", method="date.japanese-era", hasEncoder=true, hasDecoder=false, useTz=true)
 public class DateJapaneseEraDencoder {
 	
 	private static final DateTimeFormatter FORMATTER_JA = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);

@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -51,6 +52,7 @@ public class DencodeMapper {
 	private static final List<String> AVAILABLE_DC_TYPES;
 	private static final List<String> AVAILABLE_DC_METHODS;
 	private static final Map<String, List<String>> AVAILABLE_DC_TYPE_METHODS;
+	private static final Map<String, Dencoder> DENCODER_DEFINITIONS;
 	static {
 		String packageName = CommonDencoder.class.getPackageName();
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -61,11 +63,14 @@ public class DencodeMapper {
 		List<String> dcTypes = new ArrayList<>();
 		List<String> dcMethods = new ArrayList<>();
 		Map<String, List<String>> dcTypeMethods = new HashMap<>();
+		Map<String, Dencoder> dencoderDefinitions = new HashMap<>(classes.size());
 		
 		for (Class<?> clazz : classes) {
 			Dencoder dencoder = clazz.getDeclaredAnnotation(Dencoder.class);
 			String type = dencoder.type();
 			String method = dencoder.method();
+			
+			dencoderDefinitions.put(type + "/" + method, dencoder);
 			
 			for (Method classMethod : clazz.getDeclaredMethods()) {
 				if (classMethod.isAnnotationPresent(DencoderFunction.class)) {
@@ -113,6 +118,7 @@ public class DencodeMapper {
 		AVAILABLE_DC_TYPES = Collections.unmodifiableList(dcTypes);
 		AVAILABLE_DC_METHODS = Collections.unmodifiableList(dcMethods);
 		AVAILABLE_DC_TYPE_METHODS = Collections.unmodifiableMap(dcTypeMethods); // inner list is modifiable
+		DENCODER_DEFINITIONS = Collections.unmodifiableMap(dencoderDefinitions);
 	}
 	
 
@@ -166,6 +172,14 @@ public class DencodeMapper {
 				return List.of();
 			}
 		}
+	}
+	
+	public static Dencoder getDencoderDefinition(String type, String method) {
+		return DENCODER_DEFINITIONS.get(type + "/" + method);
+	}
+	
+	public static Collection<Dencoder> getAllDencoderDefinitions() {
+		return DENCODER_DEFINITIONS.values();
 	}
 	
 	public static Map<String, Object> dencode(String type, String method, DencodeCondition cond) {

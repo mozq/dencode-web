@@ -30,10 +30,10 @@ import java.util.stream.Collectors;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.mifmi.commons4j.config.ConfigNotFoundException;
 import org.mifmi.commons4j.util.DateUtilz;
 
 import com.dencode.logic.DencodeMapper;
+import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
@@ -99,6 +99,12 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			method = "all.all";
 		}
 		
+		Dencoder dencoder = DencodeMapper.getDencoderDefinition(type, method);
+		if (dencoder == null) {
+			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
 		// TODO: This is for a migration (Decommission Cookies). Will be removed after the migration.
 		reqres().removeCookie("oe");
 		reqres().removeCookie("oex");
@@ -130,17 +136,12 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			reqres().setAttribute("currentPath", "");
 		}
 		
-		try {
-			reqres().setAttribute("useOe", config().getAsBoolean(method + ".useOe"));
-			reqres().setAttribute("useNl", config().getAsBoolean(method + ".useNl"));
-			reqres().setAttribute("useTz", config().getAsBoolean(method + ".useTz"));
-			
-			reqres().setAttribute("hasEncoded", config().getAsBoolean(method + ".hasEncoded"));
-			reqres().setAttribute("hasDecoded", config().getAsBoolean(method + ".hasDecoded"));
-		} catch (ConfigNotFoundException e) {
-			reqres().response().sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		}
+		reqres().setAttribute("useOe", dencoder.useOe());
+		reqres().setAttribute("useNl", dencoder.useNl());
+		reqres().setAttribute("useTz", dencoder.useTz());
+		
+		reqres().setAttribute("hasEncoder", dencoder.hasEncoder());
+		reqres().setAttribute("hasDecoder", dencoder.hasDecoder());
 		
 		reqres().setAttribute("types", DencodeMapper.getAvailableTypesOf(type));
 		reqres().setAttribute("methods", DencodeMapper.getAvailableMethodsOf(type, method));

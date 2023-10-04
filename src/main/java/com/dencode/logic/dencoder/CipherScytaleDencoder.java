@@ -20,7 +20,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.scytale")
+@Dencoder(type="cipher", method="cipher.scytale", hasEncoder=true, hasDecoder=true)
 public class CipherScytaleDencoder {
 	
 	private CipherScytaleDencoder() {

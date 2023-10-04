@@ -29,7 +29,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="date", method="date.iso8601")
+@Dencoder(type="date", method="date.iso8601", hasEncoder=true, hasDecoder=false, useTz=true)
 public class DateISO8601Dencoder {
 	
 	private static final DateTimeFormatter FORMATTER_BASIC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmssXX", Locale.US);

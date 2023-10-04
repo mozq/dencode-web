@@ -24,7 +24,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="cipher", method="cipher.caesar")
+@Dencoder(type="cipher", method="cipher.caesar", hasEncoder=true, hasDecoder=true)
 public class CipherCaesarDencoder {
 
 	private static final char[] CYRILLIC_I_CHARS = new char[] { 'И', 'и' };

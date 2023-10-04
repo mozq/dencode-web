@@ -28,7 +28,7 @@ import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
-@Dencoder(type="color", method="color.hsl")
+@Dencoder(type="color", method="color.hsl", hasEncoder=true, hasDecoder=false)
 public class ColorHSLDencoder {
 	
 	private ColorHSLDencoder() {
