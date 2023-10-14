@@ -6,6 +6,11 @@ plugins {
   id 'com.google.cloud.tools.appengine-appyaml' version '+'
 }
 
+group = 'com.dencode'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = 17
+targetCompatibility = 17
+
 repositories {
   mavenCentral()
   maven { url 'https://jitpack.io' }
@@ -28,14 +33,6 @@ dependencies {
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
 }
 
-appengine {
-  deploy {
-    projectId 'GCLOUD_CONFIG'
-    version 'GCLOUD_CONFIG'
-    promote false
-    stopPreviousVersion false
-  }
-}
 
 combineCss {
   source "${webAppDirName}/static/css/main.css"
@@ -72,45 +69,47 @@ war {
     from "${buildDir}/minify/css/"
     into "/static/css/"
   }
-  
   webInf {
     from "${buildDir}/minify/js/"
     into "/static/js/"
   }
 }
 
-jar {
+appengine {
+  deploy {
+    projectId 'GCLOUD_CONFIG'
+    version 'GCLOUD_CONFIG'
+    promote false
+    stopPreviousVersion false
+  }
+}
+
+task archiveServerMainJar(type: Jar) {
+  archiveAppendix = 'server-main'
+  
+  from sourceSets.main.output
+  include 'com/dencode/web/server/**'
   manifest {
     attributes 'Main-Class': 'com.dencode.web.server.ServerMain'
   }
 }
 
-task copyJar(type: Copy) {
-  dependsOn jar
+task bundleServer(type: Copy) {
+  dependsOn archiveServerMainJar, appengineStage
   
-  from project.libsDirectory
-  include '*.jar'
-  into appengine.stage.stagingDirectory
-}
-
-task copyDependencies(type: Copy) {
+  from archiveServerMainJar.archiveFile
   from configurations.providedCompile
   into appengine.stage.stagingDirectory
 }
 
-appengineStage.finalizedBy copyJar, copyDependencies
-
 task appRunStage(type: JavaExec) {
-  dependsOn appengineStage, copyJar, copyDependencies
+  dependsOn bundleServer
+  
+  mainClass = 'com.dencode.web.server.ServerMain'
   
   environment PORT: 8080
   workingDir appengine.stage.stagingDirectory
   classpath "${appengine.stage.stagingDirectory}/*"
-  main 'com.dencode.web.server.ServerMain'
 }
 
-group = 'com.dencode'
-version = '1.0.0-SNAPSHOT'
-
-sourceCompatibility = 17
-targetCompatibility = 17
+appengineDeploy.dependsOn bundleServer
