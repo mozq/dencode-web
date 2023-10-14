@@ -17,8 +17,8 @@ dependencies {
   providedCompile 'org.eclipse.jetty:apache-jsp:11.0.+'
   
   implementation 'org.eclipse.jetty:apache-jstl:11.0.+'
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.+'
-  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.+'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.+'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.15.+'
   implementation 'com.ezylang:EvalEx:3.0.+'
   
   implementation 'com.github.mifmi:mifmi-commons4j:v0.3.+'
