@@ -37,7 +37,7 @@ public class StringProgramStringDencoder {
 	@DencoderFunction
 	public static String encStrProgramString(DencodeCondition cond) {
 		return encStrProgramString(cond.value(),
-				DencodeUtils.getOption(cond.options(), "encStrProgramStringQuotes", "double"));
+				DencodeUtils.getOption(cond.options(), "string.program-string.quotes", DencodeUtils.getOption(cond.options(), "encStrProgramStringQuotes", "double")));
 	}
 	
 	@DencoderFunction

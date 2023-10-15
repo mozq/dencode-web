@@ -31,15 +31,15 @@ public class CipherAffineDencoder {
 	@DencoderFunction
 	public static String encCipherAffine(DencodeCondition cond) {
 		return encCipherAffine(cond.value(),
-				DencodeUtils.getOptionAsInt(cond.options(), "encCipherAffineA", 1),
-				DencodeUtils.getOptionAsInt(cond.options(), "encCipherAffineB", 0));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.affine.a", DencodeUtils.getOptionAsInt(cond.options(), "encCipherAffineA", 1)),
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.affine.b", DencodeUtils.getOptionAsInt(cond.options(), "encCipherAffineB", 0)));
 	}
 	
 	@DencoderFunction
 	public static String decCipherAffine(DencodeCondition cond) {
 		return decCipherAffine(cond.value(),
-				DencodeUtils.getOptionAsInt(cond.options(), "decCipherAffineA", 1),
-				DencodeUtils.getOptionAsInt(cond.options(), "decCipherAffineB", 0));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.affine.a", DencodeUtils.getOptionAsInt(cond.options(), "decCipherAffineA", 1)),
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.affine.b", DencodeUtils.getOptionAsInt(cond.options(), "decCipherAffineB", 0)));
 	}
 	
 	private static String encCipherAffine(String val, int a, int b) {

@@ -80,53 +80,53 @@ public class DateISO8601Dencoder {
 	@DencoderFunction
 	public static String encDateISO8601(DencodeCondition cond) {
 		return encDateISO8601Basic(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "encDateISO8601DecimalMark", "."));
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601DecimalMark", ".")));
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ext(DencodeCondition cond) {
 		return encDateISO8601Ext(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "encDateISO8601ExtDecimalMark", "."));
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601ExtDecimalMark", ".")));
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Week(DencodeCondition cond) {
 		return encDateISO8601Week(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "encDateISO8601WeekDecimalMark", "."));
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601WeekDecimalMark", ".")));
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ordinal(DencodeCondition cond) {
 		return encDateISO8601Ordinal(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "encDateISO8601OrdinalDecimalMark", "."));
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601OrdinalDecimalMark", ".")));
 	}
 	
 	
 	private static String encDateISO8601Basic(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_BASIC, chooseDecimalMarkFormatter(decimalMark, FORMATTER_BASIC_DOT_MSEC, FORMATTER_BASIC_COMMA_MSEC));
+			return DencodeUtils.encDate(dateVal, FORMATTER_BASIC, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_BASIC_DOT_MSEC, FORMATTER_BASIC_COMMA_MSEC));
 		});
 	}
 	
 	private static String encDateISO8601Ext(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_EXT, chooseDecimalMarkFormatter(decimalMark, FORMATTER_EXT_DOT_MSEC, FORMATTER_EXT_COMMA_MSEC));
+			return DencodeUtils.encDate(dateVal, FORMATTER_EXT, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_EXT_DOT_MSEC, FORMATTER_EXT_COMMA_MSEC));
 		});
 	}
 	
 	private static String encDateISO8601Week(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_WEEK, chooseDecimalMarkFormatter(decimalMark, FORMATTER_WEEK_DOT_MSEC, FORMATTER_WEEK_COMMA_MSEC));
+			return DencodeUtils.encDate(dateVal, FORMATTER_WEEK, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_WEEK_DOT_MSEC, FORMATTER_WEEK_COMMA_MSEC));
 		});
 	}
 	
 	private static String encDateISO8601Ordinal(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_ORDINAL, chooseDecimalMarkFormatter(decimalMark, FORMATTER_ORDINAL_DOT_MSEC, FORMATTER_ORDINAL_COMMA_MSEC));
+			return DencodeUtils.encDate(dateVal, FORMATTER_ORDINAL, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_ORDINAL_DOT_MSEC, FORMATTER_ORDINAL_COMMA_MSEC));
 		});
 	}
 	
-	private static DateTimeFormatter chooseDecimalMarkFormatter(String decimalMark, DateTimeFormatter dotFormatter, DateTimeFormatter commaFormatter) {
-		return (decimalMark.equals(",")) ? commaFormatter : dotFormatter;
+	private static DateTimeFormatter chooseDecimalSeparatorFormatter(String decimalSeparator, DateTimeFormatter dotFormatter, DateTimeFormatter commaFormatter) {
+		return (decimalSeparator.equals(",")) ? commaFormatter : dotFormatter;
 	}
 }

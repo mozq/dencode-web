@@ -53,7 +53,8 @@ $(document).ready(function () {
 	const $encIndicator = $("#encodingIndicator");
 	const $listRows = $(".dencoded-list > tbody > tr");
 	const $optionGroups = $(".dencode-option-group");
-	const $options = $(".dencode-option");
+	const $options = $(".dencode-option:not([name^=_])");
+	const $syncOptions = $(".dencode-option[data-sync-with]");
 	const $otherDencodeLinks = $(".other-dencode-link");
 	
 	
@@ -79,7 +80,17 @@ $(document).ready(function () {
 				} else if ("defaultValue" in this.dataset) {
 					this.value = this.dataset.defaultValue;
 				}
+				
+				const $target = $syncOptions.filter(`[data-sync-with="${this.name}"]`);
+				$target.val(this.value);
 			});
+			
+			// TODO: This is for a migration (Change option name). Will be removed after the migration.
+			for (const k of Object.keys(window.localStorage)) {
+				if (k.startsWith("options.enc") || k.startsWith("options.dec")) {
+					window.localStorage.removeItem(k);
+				}
+			}
 		}
 		
 		ioex = ioex || $oexMenu.attr("data-initial-value");
@@ -309,14 +320,6 @@ $(document).ready(function () {
 		$this.removeClass("active");
 	});
 	
-	$("[data-value-link-to]").on("input paste change", function () {
-		const $this = $(this);
-		
-		const $target = $($this.attr("data-value-link-to"));
-		$target.val($this.val());
-		$target.trigger("init.dencode");
-	});
-	
 	$(".dropdown-item").on("keyup", function (ev) {
 		if (ev.key === "Enter") {
 			ev.target.click();
@@ -466,7 +469,22 @@ $(document).ready(function () {
 	$optionGroups.on("click", false);
 	
 	$options.on("input paste change", function () {
+		const $this = $(this);
+		
+		const $syncOpts = $syncOptions.filter(`[data-sync-with="${this.name}"]`);
+		$syncOpts.val($this.val());
+		$syncOpts.trigger("init.dencode");
+		
 		dencode();
+	});
+	
+	$syncOptions.on("input paste change", function () {
+		const $this = $(this);
+		
+		const optName = $this.attr("data-sync-with");
+		const $opt = $options.filter(`[name="${optName}"]`);
+		$opt.val($this.val());
+		$opt.trigger("change");
 	});
 	
 	$listRows.on("selectrow.dencode", function () {
@@ -552,29 +570,29 @@ $(document).ready(function () {
 	(function () {
 		// for cipher.enigma
 		
-		const $optMachines = $("select[name=encCipherEnigmaMachine],select[name=decCipherEnigmaMachine]");
+		const $optMachines = $("select[name='cipher.enigma.machine'],select[name='_cipher.enigma.machine']");
 		
 		if ($optMachines.length === 0) {
 			return;
 		}
 		
-		const $optReflectors = $("select[name=encCipherEnigmaReflector],select[name=decCipherEnigmaReflector]");
-		const $optPlugboards = $("input[name=encCipherEnigmaPlugboard],input[name=decCipherEnigmaPlugboard]");
-		const $optUkwds = $("input[name=encCipherEnigmaUkwd],input[name=decCipherEnigmaUkwd]");
+		const $optReflectors = $("select[name='cipher.enigma.reflector'],select[name='_cipher.enigma.reflector']");
+		const $optPlugboards = $("input[name='cipher.enigma.plugboard'],input[name='_cipher.enigma.plugboard']");
+		const $optUkwds = $("input[name='cipher.enigma.ukwd'],input[name='_cipher.enigma.ukwd']");
 		
 		$optMachines.on("change init.dencode", function () {
 			const $this = $(this);
-			const prefix = this.name.substr(0, 3) + "CipherEnigma";
+			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
 			const $selectedOption = $this.find("option:selected");
 			const reflectors = $selectedOption.attr("data-reflectors").split(",");
 			const rotors = $selectedOption.attr("data-rotors").split(",");
 			const has = $selectedOption.attr("data-has").split(",");
 			
-			const $optReflector = $("select[name=" + prefix + "Reflector]");
-			const $optRotor3 = $("select[name=" + prefix + "Rotor3]");
-			const $optRotor2 = $("select[name=" + prefix + "Rotor2]");
-			const $optRotor1 = $("select[name=" + prefix + "Rotor1]");
+			const $optReflector = $(`select[name="${prefix}.reflector"]`);
+			const $optRotor3 = $(`select[name="${prefix}.rotor3"]`);
+			const $optRotor2 = $(`select[name="${prefix}.rotor2"]`);
+			const $optRotor1 = $(`select[name="${prefix}.rotor1"]`);
 			
 			setupSelectOptions($optReflector, reflectors);
 			setupSelectOptions($optRotor3, rotors);
@@ -593,12 +611,12 @@ $(document).ready(function () {
 		
 		$optReflectors.on("change init.dencode", function () {
 			const $this = $(this);
-			const prefix = this.name.substr(0, 3) + "CipherEnigma";
+			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
-			const $optUkwd = $("input[name=" + prefix + "Ukwd]");
-			const $optRotor4 = $("select[name=" + prefix + "Rotor4]");
-			const $optRotor4Ring = $("select[name=" + prefix + "Rotor4Ring]");
-			const $optRotor4Position = $("select[name=" + prefix + "Rotor4Position]");
+			const $optUkwd = $(`input[name="${prefix}.ukwd"]`);
+			const $optRotor4 = $(`select[name="${prefix}.rotor4"]`);
+			const $optRotor4Ring = $(`select[name="${prefix}.rotor4-ring"]`);
+			const $optRotor4Position = $(`select[name="${prefix}.rotor4-position"]`);
 			const ukwd = ($this.val() === "UKW-D");
 			
 			$optUkwd.prop("disabled", !ukwd);
@@ -609,7 +627,7 @@ $(document).ready(function () {
 		
 		$optPlugboards.on("input paste change init.dencode", function () {
 			const $this = $(this);
-			const prefix = this.name.substr(0, 3) + "CipherEnigma";
+			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
 			const val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
 			
@@ -621,7 +639,7 @@ $(document).ready(function () {
 			const err = !validateWiring(pairs, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			
 			addOrRemoveClass($this, "dencode-option-error", err);
-			$("select[name=" + prefix + "Uhr]").prop("disabled", err || (pairs.length !== 10));
+			$(`select[name="${prefix}.uhr"]`).prop("disabled", err || (pairs.length !== 10));
 		});
 		
 		$optUkwds.on("input paste change init.dencode", function () {

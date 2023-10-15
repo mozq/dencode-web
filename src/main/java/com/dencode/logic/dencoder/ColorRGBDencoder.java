@@ -44,7 +44,7 @@ public class ColorRGBDencoder {
 	public static String encColorRGBFn(DencodeCondition cond) {
 		return encColorRGBFn(
 				cond.valueAsColors(),
-				DencodeUtils.getOption(cond.options(), "encColorRGBFnNotation", "percentage")
+				DencodeUtils.getOption(cond.options(), "color.rgb.notation", DencodeUtils.getOption(cond.options(), "encColorRGBFnNotation", "percentage"))
 				);
 	}
 	

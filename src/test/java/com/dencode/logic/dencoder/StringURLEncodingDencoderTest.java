@@ -124,7 +124,7 @@ public class StringURLEncodingDencoderTest {
 		String encodedValue = StringURLEncodingDencoder.encStrURLEncoding(new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encStrURLEncodingSpace", space);
+				put("string.url-encoding.space", space);
 			}
 		}));
 		assertEquals(expectedEncodedValue, encodedValue);

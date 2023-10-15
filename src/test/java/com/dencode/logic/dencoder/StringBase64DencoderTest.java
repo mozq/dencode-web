@@ -115,7 +115,7 @@ public class StringBase64DencoderTest {
 		String encodedValue = StringBase64Dencoder.encStrBase64(new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encStrBase64LineBreakEach", lineBreakEach);
+				put("string.base64.line-break-each", lineBreakEach);
 			}
 		}));
 		assertEquals(expectedEncodedValue, encodedValue);

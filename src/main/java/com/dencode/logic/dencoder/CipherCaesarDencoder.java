@@ -41,13 +41,13 @@ public class CipherCaesarDencoder {
 	@DencoderFunction
 	public static String encCipherCaesar(DencodeCondition cond) {
 		return encCipherCaesar(cond.value(),
-				DencodeUtils.getOptionAsInt(cond.options(), "encCipherCaesarShift", -3));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.caesar.shift", DencodeUtils.getOptionAsInt(cond.options(), "encCipherCaesarShift", -3)));
 	}
 	
 	@DencoderFunction
 	public static String decCipherCaesar(DencodeCondition cond) {
 		return decCipherCaesar(cond.value(),
-				DencodeUtils.getOptionAsInt(cond.options(), "decCipherCaesarShift", -3));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.caesar.shift", DencodeUtils.getOptionAsInt(cond.options(), "decCipherCaesarShift", -3)));
 	}
 	
 	

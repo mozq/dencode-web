@@ -260,8 +260,8 @@ public class CipherScytaleDencoderTest {
 		String encodedValue = CipherScytaleDencoder.encCipherScytale(new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encCipherScytaleKey", String.valueOf(key));
-				put("encCipherScytaleKeyPer", keyPer);
+				put("cipher.scytale.key", String.valueOf(key));
+				put("cipher.scytale.key-per", keyPer);
 			}
 		}));
 		assertEquals(expectedEncodedValue, encodedValue);
@@ -269,8 +269,8 @@ public class CipherScytaleDencoderTest {
 		String decodedValue = CipherScytaleDencoder.decCipherScytale(new DencodeCondition(encodedValue, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("decCipherScytaleKey", String.valueOf(key));
-				put("decCipherScytaleKeyPer", keyPer);
+				put("cipher.scytale.key", String.valueOf(key));
+				put("cipher.scytale.key-per", keyPer);
 			}
 		}));
 		if (expectedDecodedValue == null) {

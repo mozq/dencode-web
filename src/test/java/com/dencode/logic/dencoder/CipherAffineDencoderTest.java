@@ -412,8 +412,8 @@ public class CipherAffineDencoderTest {
 		String encodedValue = CipherAffineDencoder.encCipherAffine(new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encCipherAffineA", String.valueOf(a));
-				put("encCipherAffineB", String.valueOf(b));
+				put("cipher.affine.a", String.valueOf(a));
+				put("cipher.affine.b", String.valueOf(b));
 			}
 		}));
 		assertEquals(expectedEncodedValue, encodedValue);
@@ -421,8 +421,8 @@ public class CipherAffineDencoderTest {
 		String decodedValue = CipherAffineDencoder.decCipherAffine(new DencodeCondition(encodedValue, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("decCipherAffineA", String.valueOf(a));
-				put("decCipherAffineB", String.valueOf(b));
+				put("cipher.affine.a", String.valueOf(a));
+				put("cipher.affine.b", String.valueOf(b));
 			}
 		}));
 		if (expectedDecodedValue == null) {

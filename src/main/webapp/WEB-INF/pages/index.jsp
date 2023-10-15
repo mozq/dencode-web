@@ -366,11 +366,11 @@
 							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['label.decStrMorseCode'])}</th><td><span id="decStrMorseCode" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decStrMorseCode.option.variant'])}</span>
-										<select name="decStrMorseCodeVariant" class="dencode-option form-select" data-value-link-to="[name=encStrMorseCodeVariant]">
-											<option value="international">${mf:h(msg['label.decStrMorseCode.option.variant.international'])}</option>
-											<option value="japanese">${mf:h(msg['label.decStrMorseCode.option.variant.japanese'])}</option>
-											<option value="russian">${mf:h(msg['label.decStrMorseCode.option.variant.russian'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.morse-code.variant'])}</span>
+										<select name="_string.morse-code.variant" class="dencode-option form-select" data-sync-with="string.morse-code.variant">
+											<option value="international">${mf:h(msg['string.morse-code.variant.international'])}</option>
+											<option value="japanese">${mf:h(msg['string.morse-code.variant.japanese'])}</option>
+											<option value="russian">${mf:h(msg['string.morse-code.variant.russian'])}</option>
 										</select>
 									</div>
 								</form>
@@ -400,92 +400,92 @@
 							<c:if test="${methods.contains('cipher.caesar')}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.decCipherCaesar'])}</th><td><span id="decCipherCaesar" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decCipherCaesar.option.shift'])}</span>
-										<select name="decCipherCaesarShift" class="dencode-option form-select" data-default-value="-3" data-value-link-to="[name=encCipherCaesarShift]">
-											<option value="-42">${mf:h(msg['label.decCipherCaesar.option.shift.b42'])}</option>
-											<option value="-41">${mf:h(msg['label.decCipherCaesar.option.shift.b41'])}</option>
-											<option value="-40">${mf:h(msg['label.decCipherCaesar.option.shift.b40'])}</option>
-											<option value="-39">${mf:h(msg['label.decCipherCaesar.option.shift.b39'])}</option>
-											<option value="-38">${mf:h(msg['label.decCipherCaesar.option.shift.b38'])}</option>
-											<option value="-37">${mf:h(msg['label.decCipherCaesar.option.shift.b37'])}</option>
-											<option value="-36">${mf:h(msg['label.decCipherCaesar.option.shift.b36'])}</option>
-											<option value="-35">${mf:h(msg['label.decCipherCaesar.option.shift.b35'])}</option>
-											<option value="-34">${mf:h(msg['label.decCipherCaesar.option.shift.b34'])}</option>
-											<option value="-33">${mf:h(msg['label.decCipherCaesar.option.shift.b33'])}</option>
-											<option value="-32">${mf:h(msg['label.decCipherCaesar.option.shift.b32'])}</option>
-											<option value="-31">${mf:h(msg['label.decCipherCaesar.option.shift.b31'])}</option>
-											<option value="-30">${mf:h(msg['label.decCipherCaesar.option.shift.b30'])}</option>
-											<option value="-29">${mf:h(msg['label.decCipherCaesar.option.shift.b29'])}</option>
-											<option value="-28">${mf:h(msg['label.decCipherCaesar.option.shift.b28'])}</option>
-											<option value="-27">${mf:h(msg['label.decCipherCaesar.option.shift.b27'])}</option>
-											<option value="-26">${mf:h(msg['label.decCipherCaesar.option.shift.b26'])}</option>
-											<option value="-25">${mf:h(msg['label.decCipherCaesar.option.shift.b25'])}</option>
-											<option value="-24">${mf:h(msg['label.decCipherCaesar.option.shift.b24'])}</option>
-											<option value="-23">${mf:h(msg['label.decCipherCaesar.option.shift.b23'])}</option>
-											<option value="-22">${mf:h(msg['label.decCipherCaesar.option.shift.b22'])}</option>
-											<option value="-21">${mf:h(msg['label.decCipherCaesar.option.shift.b21'])}</option>
-											<option value="-20">${mf:h(msg['label.decCipherCaesar.option.shift.b20'])}</option>
-											<option value="-19">${mf:h(msg['label.decCipherCaesar.option.shift.b19'])}</option>
-											<option value="-18">${mf:h(msg['label.decCipherCaesar.option.shift.b18'])}</option>
-											<option value="-17">${mf:h(msg['label.decCipherCaesar.option.shift.b17'])}</option>
-											<option value="-16">${mf:h(msg['label.decCipherCaesar.option.shift.b16'])}</option>
-											<option value="-15">${mf:h(msg['label.decCipherCaesar.option.shift.b15'])}</option>
-											<option value="-14">${mf:h(msg['label.decCipherCaesar.option.shift.b14'])}</option>
-											<option value="-13">${mf:h(msg['label.decCipherCaesar.option.shift.b13'])}</option>
-											<option value="-12">${mf:h(msg['label.decCipherCaesar.option.shift.b12'])}</option>
-											<option value="-11">${mf:h(msg['label.decCipherCaesar.option.shift.b11'])}</option>
-											<option value="-10">${mf:h(msg['label.decCipherCaesar.option.shift.b10'])}</option>
-											<option value="-9">${mf:h(msg['label.decCipherCaesar.option.shift.b9'])}</option>
-											<option value="-8">${mf:h(msg['label.decCipherCaesar.option.shift.b8'])}</option>
-											<option value="-7">${mf:h(msg['label.decCipherCaesar.option.shift.b7'])}</option>
-											<option value="-6">${mf:h(msg['label.decCipherCaesar.option.shift.b6'])}</option>
-											<option value="-5">${mf:h(msg['label.decCipherCaesar.option.shift.b5'])}</option>
-											<option value="-4">${mf:h(msg['label.decCipherCaesar.option.shift.b4'])}</option>
-											<option value="-3">${mf:h(msg['label.decCipherCaesar.option.shift.b3'])}</option>
-											<option value="-2">${mf:h(msg['label.decCipherCaesar.option.shift.b2'])}</option>
-											<option value="-1">${mf:h(msg['label.decCipherCaesar.option.shift.b1'])}</option>
-											<option value="1">${mf:h(msg['label.decCipherCaesar.option.shift.1'])}</option>
-											<option value="2">${mf:h(msg['label.decCipherCaesar.option.shift.2'])}</option>
-											<option value="3">${mf:h(msg['label.decCipherCaesar.option.shift.3'])}</option>
-											<option value="4">${mf:h(msg['label.decCipherCaesar.option.shift.4'])}</option>
-											<option value="5">${mf:h(msg['label.decCipherCaesar.option.shift.5'])}</option>
-											<option value="6">${mf:h(msg['label.decCipherCaesar.option.shift.6'])}</option>
-											<option value="7">${mf:h(msg['label.decCipherCaesar.option.shift.7'])}</option>
-											<option value="8">${mf:h(msg['label.decCipherCaesar.option.shift.8'])}</option>
-											<option value="9">${mf:h(msg['label.decCipherCaesar.option.shift.9'])}</option>
-											<option value="10">${mf:h(msg['label.decCipherCaesar.option.shift.10'])}</option>
-											<option value="11">${mf:h(msg['label.decCipherCaesar.option.shift.11'])}</option>
-											<option value="12">${mf:h(msg['label.decCipherCaesar.option.shift.12'])}</option>
-											<option value="13">${mf:h(msg['label.decCipherCaesar.option.shift.13'])}</option>
-											<option value="14">${mf:h(msg['label.decCipherCaesar.option.shift.14'])}</option>
-											<option value="15">${mf:h(msg['label.decCipherCaesar.option.shift.15'])}</option>
-											<option value="16">${mf:h(msg['label.decCipherCaesar.option.shift.16'])}</option>
-											<option value="17">${mf:h(msg['label.decCipherCaesar.option.shift.17'])}</option>
-											<option value="18">${mf:h(msg['label.decCipherCaesar.option.shift.18'])}</option>
-											<option value="19">${mf:h(msg['label.decCipherCaesar.option.shift.19'])}</option>
-											<option value="20">${mf:h(msg['label.decCipherCaesar.option.shift.20'])}</option>
-											<option value="21">${mf:h(msg['label.decCipherCaesar.option.shift.21'])}</option>
-											<option value="22">${mf:h(msg['label.decCipherCaesar.option.shift.22'])}</option>
-											<option value="23">${mf:h(msg['label.decCipherCaesar.option.shift.23'])}</option>
-											<option value="24">${mf:h(msg['label.decCipherCaesar.option.shift.24'])}</option>
-											<option value="25">${mf:h(msg['label.decCipherCaesar.option.shift.25'])}</option>
-											<option value="26">${mf:h(msg['label.decCipherCaesar.option.shift.26'])}</option>
-											<option value="27">${mf:h(msg['label.decCipherCaesar.option.shift.27'])}</option>
-											<option value="28">${mf:h(msg['label.decCipherCaesar.option.shift.28'])}</option>
-											<option value="29">${mf:h(msg['label.decCipherCaesar.option.shift.29'])}</option>
-											<option value="30">${mf:h(msg['label.decCipherCaesar.option.shift.30'])}</option>
-											<option value="31">${mf:h(msg['label.decCipherCaesar.option.shift.31'])}</option>
-											<option value="32">${mf:h(msg['label.decCipherCaesar.option.shift.32'])}</option>
-											<option value="33">${mf:h(msg['label.decCipherCaesar.option.shift.33'])}</option>
-											<option value="34">${mf:h(msg['label.decCipherCaesar.option.shift.34'])}</option>
-											<option value="35">${mf:h(msg['label.decCipherCaesar.option.shift.35'])}</option>
-											<option value="36">${mf:h(msg['label.decCipherCaesar.option.shift.36'])}</option>
-											<option value="37">${mf:h(msg['label.decCipherCaesar.option.shift.37'])}</option>
-											<option value="38">${mf:h(msg['label.decCipherCaesar.option.shift.38'])}</option>
-											<option value="39">${mf:h(msg['label.decCipherCaesar.option.shift.39'])}</option>
-											<option value="40">${mf:h(msg['label.decCipherCaesar.option.shift.40'])}</option>
-											<option value="41">${mf:h(msg['label.decCipherCaesar.option.shift.41'])}</option>
-											<option value="42">${mf:h(msg['label.decCipherCaesar.option.shift.42'])}</option>
+										<span class="input-group-text">${mf:h(msg['_cipher.caesar.shift'])}</span>
+										<select name="_cipher.caesar.shift" class="dencode-option form-select" data-sync-with="cipher.caesar.shift">
+											<option value="-42">${mf:h(msg['_cipher.caesar.shift.b42'])}</option>
+											<option value="-41">${mf:h(msg['_cipher.caesar.shift.b41'])}</option>
+											<option value="-40">${mf:h(msg['_cipher.caesar.shift.b40'])}</option>
+											<option value="-39">${mf:h(msg['_cipher.caesar.shift.b39'])}</option>
+											<option value="-38">${mf:h(msg['_cipher.caesar.shift.b38'])}</option>
+											<option value="-37">${mf:h(msg['_cipher.caesar.shift.b37'])}</option>
+											<option value="-36">${mf:h(msg['_cipher.caesar.shift.b36'])}</option>
+											<option value="-35">${mf:h(msg['_cipher.caesar.shift.b35'])}</option>
+											<option value="-34">${mf:h(msg['_cipher.caesar.shift.b34'])}</option>
+											<option value="-33">${mf:h(msg['_cipher.caesar.shift.b33'])}</option>
+											<option value="-32">${mf:h(msg['_cipher.caesar.shift.b32'])}</option>
+											<option value="-31">${mf:h(msg['_cipher.caesar.shift.b31'])}</option>
+											<option value="-30">${mf:h(msg['_cipher.caesar.shift.b30'])}</option>
+											<option value="-29">${mf:h(msg['_cipher.caesar.shift.b29'])}</option>
+											<option value="-28">${mf:h(msg['_cipher.caesar.shift.b28'])}</option>
+											<option value="-27">${mf:h(msg['_cipher.caesar.shift.b27'])}</option>
+											<option value="-26">${mf:h(msg['_cipher.caesar.shift.b26'])}</option>
+											<option value="-25">${mf:h(msg['_cipher.caesar.shift.b25'])}</option>
+											<option value="-24">${mf:h(msg['_cipher.caesar.shift.b24'])}</option>
+											<option value="-23">${mf:h(msg['_cipher.caesar.shift.b23'])}</option>
+											<option value="-22">${mf:h(msg['_cipher.caesar.shift.b22'])}</option>
+											<option value="-21">${mf:h(msg['_cipher.caesar.shift.b21'])}</option>
+											<option value="-20">${mf:h(msg['_cipher.caesar.shift.b20'])}</option>
+											<option value="-19">${mf:h(msg['_cipher.caesar.shift.b19'])}</option>
+											<option value="-18">${mf:h(msg['_cipher.caesar.shift.b18'])}</option>
+											<option value="-17">${mf:h(msg['_cipher.caesar.shift.b17'])}</option>
+											<option value="-16">${mf:h(msg['_cipher.caesar.shift.b16'])}</option>
+											<option value="-15">${mf:h(msg['_cipher.caesar.shift.b15'])}</option>
+											<option value="-14">${mf:h(msg['_cipher.caesar.shift.b14'])}</option>
+											<option value="-13">${mf:h(msg['_cipher.caesar.shift.b13'])}</option>
+											<option value="-12">${mf:h(msg['_cipher.caesar.shift.b12'])}</option>
+											<option value="-11">${mf:h(msg['_cipher.caesar.shift.b11'])}</option>
+											<option value="-10">${mf:h(msg['_cipher.caesar.shift.b10'])}</option>
+											<option value="-9">${mf:h(msg['_cipher.caesar.shift.b9'])}</option>
+											<option value="-8">${mf:h(msg['_cipher.caesar.shift.b8'])}</option>
+											<option value="-7">${mf:h(msg['_cipher.caesar.shift.b7'])}</option>
+											<option value="-6">${mf:h(msg['_cipher.caesar.shift.b6'])}</option>
+											<option value="-5">${mf:h(msg['_cipher.caesar.shift.b5'])}</option>
+											<option value="-4">${mf:h(msg['_cipher.caesar.shift.b4'])}</option>
+											<option value="-3">${mf:h(msg['_cipher.caesar.shift.b3'])}</option>
+											<option value="-2">${mf:h(msg['_cipher.caesar.shift.b2'])}</option>
+											<option value="-1">${mf:h(msg['_cipher.caesar.shift.b1'])}</option>
+											<option value="1">${mf:h(msg['_cipher.caesar.shift.1'])}</option>
+											<option value="2">${mf:h(msg['_cipher.caesar.shift.2'])}</option>
+											<option value="3">${mf:h(msg['_cipher.caesar.shift.3'])}</option>
+											<option value="4">${mf:h(msg['_cipher.caesar.shift.4'])}</option>
+											<option value="5">${mf:h(msg['_cipher.caesar.shift.5'])}</option>
+											<option value="6">${mf:h(msg['_cipher.caesar.shift.6'])}</option>
+											<option value="7">${mf:h(msg['_cipher.caesar.shift.7'])}</option>
+											<option value="8">${mf:h(msg['_cipher.caesar.shift.8'])}</option>
+											<option value="9">${mf:h(msg['_cipher.caesar.shift.9'])}</option>
+											<option value="10">${mf:h(msg['_cipher.caesar.shift.10'])}</option>
+											<option value="11">${mf:h(msg['_cipher.caesar.shift.11'])}</option>
+											<option value="12">${mf:h(msg['_cipher.caesar.shift.12'])}</option>
+											<option value="13">${mf:h(msg['_cipher.caesar.shift.13'])}</option>
+											<option value="14">${mf:h(msg['_cipher.caesar.shift.14'])}</option>
+											<option value="15">${mf:h(msg['_cipher.caesar.shift.15'])}</option>
+											<option value="16">${mf:h(msg['_cipher.caesar.shift.16'])}</option>
+											<option value="17">${mf:h(msg['_cipher.caesar.shift.17'])}</option>
+											<option value="18">${mf:h(msg['_cipher.caesar.shift.18'])}</option>
+											<option value="19">${mf:h(msg['_cipher.caesar.shift.19'])}</option>
+											<option value="20">${mf:h(msg['_cipher.caesar.shift.20'])}</option>
+											<option value="21">${mf:h(msg['_cipher.caesar.shift.21'])}</option>
+											<option value="22">${mf:h(msg['_cipher.caesar.shift.22'])}</option>
+											<option value="23">${mf:h(msg['_cipher.caesar.shift.23'])}</option>
+											<option value="24">${mf:h(msg['_cipher.caesar.shift.24'])}</option>
+											<option value="25">${mf:h(msg['_cipher.caesar.shift.25'])}</option>
+											<option value="26">${mf:h(msg['_cipher.caesar.shift.26'])}</option>
+											<option value="27">${mf:h(msg['_cipher.caesar.shift.27'])}</option>
+											<option value="28">${mf:h(msg['_cipher.caesar.shift.28'])}</option>
+											<option value="29">${mf:h(msg['_cipher.caesar.shift.29'])}</option>
+											<option value="30">${mf:h(msg['_cipher.caesar.shift.30'])}</option>
+											<option value="31">${mf:h(msg['_cipher.caesar.shift.31'])}</option>
+											<option value="32">${mf:h(msg['_cipher.caesar.shift.32'])}</option>
+											<option value="33">${mf:h(msg['_cipher.caesar.shift.33'])}</option>
+											<option value="34">${mf:h(msg['_cipher.caesar.shift.34'])}</option>
+											<option value="35">${mf:h(msg['_cipher.caesar.shift.35'])}</option>
+											<option value="36">${mf:h(msg['_cipher.caesar.shift.36'])}</option>
+											<option value="37">${mf:h(msg['_cipher.caesar.shift.37'])}</option>
+											<option value="38">${mf:h(msg['_cipher.caesar.shift.38'])}</option>
+											<option value="39">${mf:h(msg['_cipher.caesar.shift.39'])}</option>
+											<option value="40">${mf:h(msg['_cipher.caesar.shift.40'])}</option>
+											<option value="41">${mf:h(msg['_cipher.caesar.shift.41'])}</option>
+											<option value="42">${mf:h(msg['_cipher.caesar.shift.42'])}</option>
 										</select>
 									</div>
 								</form>
@@ -496,8 +496,8 @@
 							<c:if test="${methods.contains('cipher.affine')}"><tr data-dencode-method="cipher.affine"><th>${mf:h(msg['label.decCipherAffine'])}</th><td><span id="decCipherAffine" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decCipherAffine.option.a'])}</span>
-										<select name="decCipherAffineA" class="dencode-option form-select" data-default-value="1" data-value-link-to="[name=encCipherAffineA]">
+										<span class="input-group-text">${mf:h(msg['cipher.affine.a'])}</span>
+										<select name="_cipher.affine.a" class="dencode-option form-select" data-sync-with="cipher.affine.a">
 											<option value="-25">-25</option>
 											<option value="-23">-23</option>
 											<option value="-21">-21</option>
@@ -527,8 +527,8 @@
 										</select>
 									</div>
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decCipherAffine.option.b'])}</span>
-										<select name="decCipherAffineB" class="dencode-option form-select" data-default-value="0" data-value-link-to="[name=encCipherAffineB]">
+										<span class="input-group-text">${mf:h(msg['cipher.affine.b'])}</span>
+										<select name="_cipher.affine.b" class="dencode-option form-select" data-sync-with="cipher.affine.b">
 											<option value="-25">-25</option>
 											<option value="-24">-24</option>
 											<option value="-23">-23</option>
@@ -589,8 +589,8 @@
 							<c:if test="${methods.contains('cipher.vigenere')}"><tr data-dencode-method="cipher.vigenere"><th>${mf:h(msg['label.decCipherVigenere'])}</th><td><span id="decCipherVigenere" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decCipherVigenere.option.key'])}</span>
-										<input name="decCipherVigenereKey" class="dencode-option form-control" value="" placeholder="${mf:h(msg['label.decCipherVigenere.option.key.tooltip'])}" data-value-link-to="[name=encCipherVigenereKey]" />
+										<span class="input-group-text">${mf:h(msg['cipher.vigenere.key'])}</span>
+										<input name="_cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.vigenere.key.tooltip'])}" data-sync-with="cipher.vigenere.key" />
 									</div>
 								</form>
 							</td></tr></c:if>
@@ -598,10 +598,10 @@
 								<form class="dencode-option-group" method="post">
 									<div class="dencode-option-grid cipher-enigma">
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.decCipherEnigma.option.machine'])}
+											${mf:h(msg['cipher.enigma.machine'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all">
-											<select name="decCipherEnigmaMachine" class="dencode-option" data-value-link-to="[name=encCipherEnigmaMachine]">
+											<select name="_cipher.enigma.machine" class="dencode-option" data-sync-with="cipher.enigma.machine">
 												<option value="I" data-reflectors="UKW-A,UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V" data-has="plugboard,uhr,ukwd">Enigma I</option>
 												<option value="M3" data-reflectors="UKW-B,UKW-C" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="plugboard">Enigma M3</option>
 												<option value="M4" data-reflectors="UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="4wheels,plugboard,ukwd">Enigma M4 (U-boat Enigma)</option>
@@ -624,10 +624,10 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.decCipherEnigma.option.wheels'])}
+											${mf:h(msg['cipher.enigma.wheels'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector">
-											<select name="decCipherEnigmaReflector" class="dencode-option" data-value-link-to="[name=encCipherEnigmaReflector]">
+											<select name="_cipher.enigma.reflector" class="dencode-option" data-sync-with="cipher.enigma.reflector">
 												<option value="UKW">UKW</option>
 												<option value="UKW-A">UKW-A</option>
 												<option value="UKW-B">UKW-B</option>
@@ -636,13 +636,13 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="decCipherEnigmaRotor4" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor4]">
+											<select name="_cipher.enigma.rotor4" class="dencode-option" data-sync-with="cipher.enigma.rotor4">
 												<option value="Beta">Beta</option>
 												<option value="Gamma">Gamma</option>
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="decCipherEnigmaRotor3" class="dencode-option" data-default-value="III" data-value-link-to="[name=encCipherEnigmaRotor3]">
+											<select name="_cipher.enigma.rotor3" class="dencode-option" data-sync-with="cipher.enigma.rotor3">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -654,7 +654,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="decCipherEnigmaRotor2" class="dencode-option" data-default-value="II" data-value-link-to="[name=encCipherEnigmaRotor2]">
+											<select name="_cipher.enigma.rotor2" class="dencode-option" data-sync-with="cipher.enigma.rotor2">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -666,7 +666,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="decCipherEnigmaRotor1" class="dencode-option" data-default-value="I" data-value-link-to="[name=encCipherEnigmaRotor1]">
+											<select name="_cipher.enigma.rotor1" class="dencode-option" data-sync-with="cipher.enigma.rotor1">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -679,10 +679,10 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.decCipherEnigma.option.rings'])}
+											${mf:h(msg['cipher.enigma.rings'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-ring">
-											<select name="decCipherEnigmaReflectorRing" class="dencode-option" data-value-link-to="[name=encCipherEnigmaReflectorRing]">
+											<select name="_cipher.enigma.reflector-ring" class="dencode-option" data-sync-with="cipher.enigma.reflector-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -712,7 +712,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="decCipherEnigmaRotor4Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor4Ring]">
+											<select name="_cipher.enigma.rotor4-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor4-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -742,7 +742,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="decCipherEnigmaRotor3Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor3Ring]">
+											<select name="_cipher.enigma.rotor3-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor3-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -772,7 +772,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="decCipherEnigmaRotor2Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor2Ring]">
+											<select name="_cipher.enigma.rotor2-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor2-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -802,7 +802,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="decCipherEnigmaRotor1Ring" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor1Ring]">
+											<select name="_cipher.enigma.rotor1-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor1-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -833,10 +833,10 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.decCipherEnigma.option.positions'])}
+											${mf:h(msg['cipher.enigma.positions'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-position">
-											<select name="decCipherEnigmaReflectorPosition" class="dencode-option" data-value-link-to="[name=encCipherEnigmaReflectorPosition]">
+											<select name="_cipher.enigma.reflector-position" class="dencode-option" data-sync-with="cipher.enigma.reflector-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -866,7 +866,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="decCipherEnigmaRotor4Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor4Position]">
+											<select name="_cipher.enigma.rotor4-position" class="dencode-option" data-sync-with="cipher.enigma.rotor4-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -896,7 +896,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="decCipherEnigmaRotor3Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor3Position]">
+											<select name="_cipher.enigma.rotor3-position" class="dencode-option" data-sync-with="cipher.enigma.rotor3-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -926,7 +926,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="decCipherEnigmaRotor2Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor2Position]">
+											<select name="_cipher.enigma.rotor2-position" class="dencode-option" data-sync-with="cipher.enigma.rotor2-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -956,7 +956,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="decCipherEnigmaRotor1Position" class="dencode-option" data-value-link-to="[name=encCipherEnigmaRotor1Position]">
+											<select name="_cipher.enigma.rotor1-position" class="dencode-option" data-sync-with="cipher.enigma.rotor1-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -987,16 +987,16 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-plugboard">
-											${mf:h(msg['label.decCipherEnigma.option.plugboard'])}
+											${mf:h(msg['cipher.enigma.plugboard'])}
 										</div>
 										<div class="dencode-option-grid-label cipher-enigma-option-uhr">
-											${mf:h(msg['label.decCipherEnigma.option.uhr'])}
+											${mf:h(msg['cipher.enigma.uhr'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-plugboard">
-											<input type="text" name="decCipherEnigmaPlugboard" class="dencode-option" value="" placeholder="${mf:h(msg['label.decCipherEnigma.option.plugboard.tooltip'])}" data-value-link-to="[name=encCipherEnigmaPlugboard]" />
+											<input type="text" name="_cipher.enigma.plugboard" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.plugboard.tooltip'])}" data-sync-with="cipher.enigma.plugboard" />
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-uhr">
-											<select name="decCipherEnigmaUhr" class="dencode-option" data-value-link-to="[name=encCipherEnigmaUhr]">
+											<select name="_cipher.enigma.uhr" class="dencode-option" data-sync-with="cipher.enigma.uhr">
 												<option value="0">00</option>
 												<option value="1">01</option>
 												<option value="2">02</option>
@@ -1041,10 +1041,10 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-ukwd">
-											${mf:h(msg['label.decCipherEnigma.option.ukwd'])}
+											${mf:h(msg['cipher.enigma.ukwd'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
-											<input type="text" name="decCipherEnigmaUkwd" class="dencode-option" value="" placeholder="${mf:h(msg['label.decCipherEnigma.option.ukwd.tooltip'])}" data-value-link-to="[name=encCipherEnigmaUkwd]" />
+											<input type="text" name="_cipher.enigma.ukwd" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" data-sync-with="cipher.enigma.ukwd" />
 										</div>
 									</div>
 								</form>
@@ -1054,8 +1054,8 @@
 							<c:if test="${methods.contains('cipher.scytale')}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.decCipherScytale'])}</th><td><span id="decCipherScytale" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decCipherScytale.option.key'])}</span>
-										<select name="decCipherScytaleKey" class="dencode-option form-select" data-value-link-to="[name=encCipherScytaleKey]">
+										<span class="input-group-text">${mf:h(msg['cipher.scytale.key'])}</span>
+										<select name="_cipher.scytale.key" class="dencode-option form-select" data-sync-with="cipher.scytale.key">
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
@@ -1077,10 +1077,10 @@
 											<option value="20">20</option>
 										</select>
 										
-										<span class="input-group-text">${mf:h(msg['label.decCipherScytale.option.keyPer'])}</span>
-										<select name="decCipherScytaleKeyPer" class="dencode-option form-select" data-value-link-to="[name=encCipherScytaleKeyPer]">
-											<option value="y">${mf:h(msg['label.decCipherScytale.option.keyPer.y'])}</option>
-											<option value="x">${mf:h(msg['label.decCipherScytale.option.keyPer.x'])}</option>
+										<span class="input-group-text">${mf:h(msg['cipher.scytale.key-per'])}</span>
+										<select name="_cipher.scytale.key-per" class="dencode-option form-select" data-sync-with="cipher.scytale.key-per">
+											<option value="y">${mf:h(msg['cipher.scytale.key-per.y'])}</option>
+											<option value="x">${mf:h(msg['cipher.scytale.key-per.x'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1088,8 +1088,8 @@
 							<c:if test="${methods.contains('cipher.rail-fence')}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['label.decCipherRailFence'])}</th><td><span id="decCipherRailFence" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.decCipherRailFence.option.key'])}</span>
-										<select name="decCipherRailFenceKey" class="dencode-option form-select" data-value-link-to="[name=encCipherRailFenceKey]">
+										<span class="input-group-text">${mf:h(msg['cipher.rail-fence.key'])}</span>
+										<select name="_cipher.rail-fence.key" class="dencode-option form-select" data-sync-with="cipher.rail-fence.key">
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
@@ -1136,16 +1136,16 @@
 							<c:if test="${methods.contains('string.bin')}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['label.encStrBin'])}</th><td><span id="encStrBin" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrBin.option.separator'])}</span>
-										<select name="encStrBinSeparatorEach" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encStrBin.option.separator.each.none'])}</option>
-											<option value="4b">${mf:h(msg['label.encStrBin.option.separator.each.4bits'])}</option>
-											<option value="8b">${mf:h(msg['label.encStrBin.option.separator.each.8bits'])}</option>
-											<option value="16b">${mf:h(msg['label.encStrBin.option.separator.each.16bits'])}</option>
-											<option value="24b">${mf:h(msg['label.encStrBin.option.separator.each.24bits'])}</option>
-											<option value="32b">${mf:h(msg['label.encStrBin.option.separator.each.32bits'])}</option>
-											<option value="64b">${mf:h(msg['label.encStrBin.option.separator.each.64bits'])}</option>
-											<option value="128b">${mf:h(msg['label.encStrBin.option.separator.each.128bits'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.bin.separator-each'])}</span>
+										<select name="string.bin.separator-each" class="dencode-option form-select">
+											<option value="">${mf:h(msg['string.bin.separator-each.none'])}</option>
+											<option value="4b">${mf:h(msg['string.bin.separator-each.4bits'])}</option>
+											<option value="8b">${mf:h(msg['string.bin.separator-each.8bits'])}</option>
+											<option value="16b">${mf:h(msg['string.bin.separator-each.16bits'])}</option>
+											<option value="24b">${mf:h(msg['string.bin.separator-each.24bits'])}</option>
+											<option value="32b">${mf:h(msg['string.bin.separator-each.32bits'])}</option>
+											<option value="64b">${mf:h(msg['string.bin.separator-each.64bits'])}</option>
+											<option value="128b">${mf:h(msg['string.bin.separator-each.128bits'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1153,22 +1153,22 @@
 							<c:if test="${methods.contains('string.hex')}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['label.encStrHex'])}</th><td><span id="encStrHex" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrHex.option.separator'])}</span>
-										<select name="encStrHexSeparatorEach" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encStrHex.option.separator.each.none'])}</option>
-											<option value="1B">${mf:h(msg['label.encStrHex.option.separator.each.1byte'])}</option>
-											<option value="2B">${mf:h(msg['label.encStrHex.option.separator.each.2bytes'])}</option>
-											<option value="3B">${mf:h(msg['label.encStrHex.option.separator.each.3bytes'])}</option>
-											<option value="4B">${mf:h(msg['label.encStrHex.option.separator.each.4bytes'])}</option>
-											<option value="8B">${mf:h(msg['label.encStrHex.option.separator.each.8bytes'])}</option>
-											<option value="16B">${mf:h(msg['label.encStrHex.option.separator.each.16bytes'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.hex.separator-each'])}</span>
+										<select name="string.hex.separator-each" class="dencode-option form-select">
+											<option value="">${mf:h(msg['string.hex.separator-each.none'])}</option>
+											<option value="1B">${mf:h(msg['string.hex.separator-each.1byte'])}</option>
+											<option value="2B">${mf:h(msg['string.hex.separator-each.2bytes'])}</option>
+											<option value="3B">${mf:h(msg['string.hex.separator-each.3bytes'])}</option>
+											<option value="4B">${mf:h(msg['string.hex.separator-each.4bytes'])}</option>
+											<option value="8B">${mf:h(msg['string.hex.separator-each.8bytes'])}</option>
+											<option value="16B">${mf:h(msg['string.hex.separator-each.16bytes'])}</option>
 										</select>
 									</div>
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrHex.option.case'])}</span>
-										<select name="encStrHexCase" class="dencode-option form-select">
-											<option value="lower">${mf:h(msg['label.encStrHex.option.case.lower'])}</option>
-											<option value="upper">${mf:h(msg['label.encStrHex.option.case.upper'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.hex.case'])}</span>
+										<select name="string.hex.case" class="dencode-option form-select">
+											<option value="lower">${mf:h(msg['string.hex.case.lower'])}</option>
+											<option value="upper">${mf:h(msg['string.hex.case.upper'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1180,10 +1180,10 @@
 							<c:if test="${methods.contains('string.url-encoding')}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['label.encStrURLEncoding'])}</th><td><span id="encStrURLEncoding" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrURLEncoding.option.space'])}</span>
-										<select name="encStrURLEncodingSpace" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encStrURLEncoding.option.space.default'])}</option>
-											<option value="form">${mf:h(msg['label.encStrURLEncoding.option.space.form'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.url-encoding.space'])}</span>
+										<select name="string.url-encoding.space" class="dencode-option form-select">
+											<option value="">${mf:h(msg['string.url-encoding.space.default'])}</option>
+											<option value="form">${mf:h(msg['string.url-encoding.space.form'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1194,11 +1194,11 @@
 							<c:if test="${methods.contains('string.base64')}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['label.encStrBase64'])}</th><td><span id="encStrBase64" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrBase64.option.lineBreak'])}</span>
-										<select name="encStrBase64LineBreakEach" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encStrBase64.option.lineBreak.each.none'])}</option>
-											<option value="64">${mf:h(msg['label.encStrBase64.option.lineBreak.each.64'])}</option>
-											<option value="76">${mf:h(msg['label.encStrBase64.option.lineBreak.each.76'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.base64.line-break-each'])}</span>
+										<select name="string.base64.line-break-each" class="dencode-option form-select">
+											<option value="">${mf:h(msg['string.base64.line-break-each.none'])}</option>
+											<option value="64">${mf:h(msg['string.base64.line-break-each.64'])}</option>
+											<option value="76">${mf:h(msg['string.base64.line-break-each.76'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1206,11 +1206,11 @@
 							<c:if test="${methods.contains('string.ascii85')}"><tr data-dencode-method="string.ascii85"><th>${mf:h(msg['label.encStrAscii85'])}</th><td><span id="encStrAscii85" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrAscii85.option.variant'])}</span>
-										<select name="encStrAscii85Variant" class="dencode-option form-select">
-											<option value="z85">${mf:h(msg['label.encStrAscii85.option.variant.z85'])}</option>
-											<option value="adobe">${mf:h(msg['label.encStrAscii85.option.variant.adobe'])}</option>
-											<option value="btoa">${mf:h(msg['label.encStrAscii85.option.variant.btoa'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.ascii85.variant'])}</span>
+										<select name="string.ascii85.variant" class="dencode-option form-select">
+											<option value="z85">${mf:h(msg['string.ascii85.variant.z85'])}</option>
+											<option value="adobe">${mf:h(msg['string.ascii85.variant.adobe'])}</option>
+											<option value="btoa">${mf:h(msg['string.ascii85.variant.btoa'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1219,26 +1219,26 @@
 							<c:if test="${methods.contains('string.unicode-escape')}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['label.encStrUnicodeEscape'])}</th><td><span id="encStrUnicodeEscape" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrUnicodeEscape.option.notation'])}</span>
-										<select name="encStrUnicodeEscapeNotation" class="dencode-option form-select">
-											<option value="cubu">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cubu'])}</option>
-											<option value="cpbu_bub">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbu_bub'])}</option>
-											<option value="cpbu_bU">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbu_bU'])}</option>
-											<option value="cpbub">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbub'])}</option>
-											<option value="cpbxb">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpbxb'])}</option>
-											<option value="cpb">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpb'])}</option>
-											<option value="cpahx">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cpahx'])}</option>
-											<option value="cupu">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cupu'])}</option>
-											<option value="cp">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cp'])}</option>
-											<option value="cp0x">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cp0x'])}</option>
-											<option value="cnbNb">${mf:h(msg['label.encStrUnicodeEscape.option.notation.cnbNb'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.unicode-escape.notation'])}</span>
+										<select name="string.unicode-escape.notation" class="dencode-option form-select">
+											<option value="cubu">${mf:h(msg['string.unicode-escape.notation.cubu'])}</option>
+											<option value="cpbu_bub">${mf:h(msg['string.unicode-escape.notation.cpbu_bub'])}</option>
+											<option value="cpbu_bU">${mf:h(msg['string.unicode-escape.notation.cpbu_bU'])}</option>
+											<option value="cpbub">${mf:h(msg['string.unicode-escape.notation.cpbub'])}</option>
+											<option value="cpbxb">${mf:h(msg['string.unicode-escape.notation.cpbxb'])}</option>
+											<option value="cpb">${mf:h(msg['string.unicode-escape.notation.cpb'])}</option>
+											<option value="cpahx">${mf:h(msg['string.unicode-escape.notation.cpahx'])}</option>
+											<option value="cupu">${mf:h(msg['string.unicode-escape.notation.cupu'])}</option>
+											<option value="cp">${mf:h(msg['string.unicode-escape.notation.cp'])}</option>
+											<option value="cp0x">${mf:h(msg['string.unicode-escape.notation.cp0x'])}</option>
+											<option value="cnbNb">${mf:h(msg['string.unicode-escape.notation.cnbNb'])}</option>
 										</select>
 									</div>
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrUnicodeEscape.option.case'])}</span>
-										<select name="encStrUnicodeEscapeCase" class="dencode-option form-select">
-											<option value="upper">${mf:h(msg['label.encStrUnicodeEscape.option.case.upper'])}</option>
-											<option value="lower">${mf:h(msg['label.encStrUnicodeEscape.option.case.lower'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.unicode-escape.case'])}</span>
+										<select name="string.unicode-escape.case" class="dencode-option form-select">
+											<option value="upper">${mf:h(msg['string.unicode-escape.case.upper'])}</option>
+											<option value="lower">${mf:h(msg['string.unicode-escape.case.lower'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1246,25 +1246,25 @@
 							<c:if test="${methods.contains('string.program-string')}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['label.encStrProgramString'])}</th><td><span id="encStrProgramString" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrProgramString.option.quotes'])}</span>
-										<select name="encStrProgramStringQuotes" class="dencode-option form-select">
-											<option value="double">${mf:h(msg['label.encStrProgramString.option.quotes.double'])}</option>
-											<option value="single">${mf:h(msg['label.encStrProgramString.option.quotes.single'])}</option>
-											<option value="none">${mf:h(msg['label.encStrProgramString.option.quotes.none'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.program-string.quotes'])}</span>
+										<select name="string.program-string.quotes" class="dencode-option form-select">
+											<option value="double">${mf:h(msg['string.program-string.quotes.double'])}</option>
+											<option value="single">${mf:h(msg['string.program-string.quotes.single'])}</option>
+											<option value="none">${mf:h(msg['string.program-string.quotes.none'])}</option>
 										</select>
 									</div>
 								</form>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
-							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['label.decStrMorseCode'])}</th><td><span id="encStrMorseCode" class="for-disp"></span>
+							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['label.encStrMorseCode'])}</th><td><span id="encStrMorseCode" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrMorseCode.option.variant'])}</span>
-										<select name="encStrMorseCodeVariant" class="dencode-option form-select" data-value-link-to="[name=decStrMorseCodeVariant]">
-											<option value="international">${mf:h(msg['label.encStrMorseCode.option.variant.international'])}</option>
-											<option value="japanese">${mf:h(msg['label.encStrMorseCode.option.variant.japanese'])}</option>
-											<option value="russian">${mf:h(msg['label.encStrMorseCode.option.variant.russian'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.morse-code.variant'])}</span>
+										<select name="string.morse-code.variant" class="dencode-option form-select">
+											<option value="international">${mf:h(msg['string.morse-code.variant.international'])}</option>
+											<option value="japanese">${mf:h(msg['string.morse-code.variant.japanese'])}</option>
+											<option value="russian">${mf:h(msg['string.morse-code.variant.russian'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1296,11 +1296,11 @@
 							<c:if test="${methods.contains('string.line-sort')}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['label.encStrLineSort'])}</th><td><span id="encStrLineSort" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encStrLineSort.option.order'])}</span>
-										<select name="encStrLineSortOrder" class="dencode-option form-select">
-											<option value="asc">${mf:h(msg['label.encStrLineSort.option.order.asc'])}</option>
-											<option value="desc">${mf:h(msg['label.encStrLineSort.option.order.desc'])}</option>
-											<option value="reverse">${mf:h(msg['label.encStrLineSort.option.order.reverse'])}</option>
+										<span class="input-group-text">${mf:h(msg['string.line-sort.order'])}</span>
+										<select name="string.line-sort.order" class="dencode-option form-select">
+											<option value="asc">${mf:h(msg['string.line-sort.order.asc'])}</option>
+											<option value="desc">${mf:h(msg['string.line-sort.order.desc'])}</option>
+											<option value="reverse">${mf:h(msg['string.line-sort.order.reverse'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1321,17 +1321,17 @@
 							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['label.encNumEnShortScale'])}</th><td><span id="encNumEnShortScale" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encNumEnShortScale.option.fractionalPartNotation'])}</span>
-										<select name="encNumEnShortScaleFractionalPartNotation" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encNumEnShortScale.option.fractionalPartNotation.default'])}</option>
-											<option value="fraction">${mf:h(msg['label.encNumEnShortScale.option.fractionalPartNotation.fraction'])}</option>
+										<span class="input-group-text">${mf:h(msg['number.english.decimal-notation'])}</span>
+										<select name="number.english.decimal-notation" class="dencode-option form-select">
+											<option value="">${mf:h(msg['number.english.decimal-notation.default'])}</option>
+											<option value="fraction">${mf:h(msg['number.english.decimal-notation.fraction'])}</option>
 										</select>
 									</div>
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encNumEnShortScale.option.system'])}</span>
-										<select name="encNumEnShortScaleSystem" class="dencode-option form-select">
-											<option value="">${mf:h(msg['label.encNumEnShortScale.option.system.default'])}</option>
-											<option value="cw">${mf:h(msg['label.encNumEnShortScale.option.system.cw'])}</option>
+										<span class="input-group-text">${mf:h(msg['number.english.system'])}</span>
+										<select name="number.english.system" class="dencode-option form-select">
+											<option value="">${mf:h(msg['number.english.system.default'])}</option>
+											<option value="cw">${mf:h(msg['number.english.system.cw'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1347,10 +1347,10 @@
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601'])}</th><td><span id="encDateISO8601" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encDateISO8601.option.decimalMark'])}</span>
-										<select name="encDateISO8601DecimalMark" class="dencode-option form-select">
-											<option value=".">${mf:h(msg['label.encDateISO8601.option.decimalMark.dot'])}</option>
-											<option value=",">${mf:h(msg['label.encDateISO8601.option.decimalMark.comma'])}</option>
+										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
+										<select name="date.iso8601.decimal-separator" class="dencode-option form-select">
+											<option value=".">${mf:h(msg['date.iso8601.decimal-separator.dot'])}</option>
+											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1358,10 +1358,10 @@
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ext'])}</th><td><span id="encDateISO8601Ext" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encDateISO8601Ext.option.decimalMark'])}</span>
-										<select name="encDateISO8601ExtDecimalMark" class="dencode-option form-select">
-											<option value=".">${mf:h(msg['label.encDateISO8601Ext.option.decimalMark.dot'])}</option>
-											<option value=",">${mf:h(msg['label.encDateISO8601Ext.option.decimalMark.comma'])}</option>
+										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
+										<select name="_date.iso8601.decimal-separator_ext" class="dencode-option form-select" data-sync-with="date.iso8601.decimal-separator">
+											<option value=".">${mf:h(msg['date.iso8601.decimal-separator.dot'])}</option>
+											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1369,10 +1369,10 @@
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Week'])}</th><td><span id="encDateISO8601Week" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encDateISO8601Week.option.decimalMark'])}</span>
-										<select name="encDateISO8601WeekDecimalMark" class="dencode-option form-select">
-											<option value=".">${mf:h(msg['label.encDateISO8601Week.option.decimalMark.dot'])}</option>
-											<option value=",">${mf:h(msg['label.encDateISO8601Week.option.decimalMark.comma'])}</option>
+										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
+										<select name="_date.iso8601.decimal-separator_week" class="dencode-option form-select" data-sync-with="date.iso8601.decimal-separator">
+											<option value=".">${mf:h(msg['date.iso8601.decimal-separator.dot'])}</option>
+											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1380,10 +1380,10 @@
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['label.encDateISO8601Ordinal'])}</th><td><span id="encDateISO8601Ordinal" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encDateISO8601Ordinal.option.decimalMark'])}</span>
-										<select name="encDateISO8601OrdinalDecimalMark" class="dencode-option form-select">
-											<option value=".">${mf:h(msg['label.encDateISO8601Ordinal.option.decimalMark.dot'])}</option>
-											<option value=",">${mf:h(msg['label.encDateISO8601Ordinal.option.decimalMark.comma'])}</option>
+										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
+										<select name="_date.iso8601.decimal-separator_ordinal" class="dencode-option form-select" data-sync-with="date.iso8601.decimal-separator">
+											<option value=".">${mf:h(msg['date.iso8601.decimal-separator.dot'])}</option>
+											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1400,10 +1400,10 @@
 							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['label.encColorRGBFn'])}</th><td><span id="encColorRGBFn" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encColorRGBFn.option.notation'])}</span>
-										<select name="encColorRGBFnNotation" class="dencode-option form-select">
-											<option value="percentage">${mf:h(msg['label.encColorRGBFn.option.notation.percentage'])}</option>
-											<option value="number">${mf:h(msg['label.encColorRGBFn.option.notation.number'])}</option>
+										<span class="input-group-text">${mf:h(msg['color.rgb.notation'])}</span>
+										<select name="color.rgb.notation" class="dencode-option form-select">
+											<option value="percentage">${mf:h(msg['color.rgb.notation.percentage'])}</option>
+											<option value="number">${mf:h(msg['color.rgb.notation.number'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1418,92 +1418,92 @@
 							<c:if test="${methods.contains('cipher.caesar')}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['label.encCipherCaesar'])}</th><td><span id="encCipherCaesar" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherCaesar.option.shift'])}</span>
-										<select name="encCipherCaesarShift" class="dencode-option form-select" data-default-value="-3" data-value-link-to="[name=decCipherCaesarShift]">
-											<option value="-42">${mf:h(msg['label.encCipherCaesar.option.shift.b42'])}</option>
-											<option value="-41">${mf:h(msg['label.encCipherCaesar.option.shift.b41'])}</option>
-											<option value="-40">${mf:h(msg['label.encCipherCaesar.option.shift.b40'])}</option>
-											<option value="-39">${mf:h(msg['label.encCipherCaesar.option.shift.b39'])}</option>
-											<option value="-38">${mf:h(msg['label.encCipherCaesar.option.shift.b38'])}</option>
-											<option value="-37">${mf:h(msg['label.encCipherCaesar.option.shift.b37'])}</option>
-											<option value="-36">${mf:h(msg['label.encCipherCaesar.option.shift.b36'])}</option>
-											<option value="-35">${mf:h(msg['label.encCipherCaesar.option.shift.b35'])}</option>
-											<option value="-34">${mf:h(msg['label.encCipherCaesar.option.shift.b34'])}</option>
-											<option value="-33">${mf:h(msg['label.encCipherCaesar.option.shift.b33'])}</option>
-											<option value="-32">${mf:h(msg['label.encCipherCaesar.option.shift.b32'])}</option>
-											<option value="-31">${mf:h(msg['label.encCipherCaesar.option.shift.b31'])}</option>
-											<option value="-30">${mf:h(msg['label.encCipherCaesar.option.shift.b30'])}</option>
-											<option value="-29">${mf:h(msg['label.encCipherCaesar.option.shift.b29'])}</option>
-											<option value="-28">${mf:h(msg['label.encCipherCaesar.option.shift.b28'])}</option>
-											<option value="-27">${mf:h(msg['label.encCipherCaesar.option.shift.b27'])}</option>
-											<option value="-26">${mf:h(msg['label.encCipherCaesar.option.shift.b26'])}</option>
-											<option value="-25">${mf:h(msg['label.encCipherCaesar.option.shift.b25'])}</option>
-											<option value="-24">${mf:h(msg['label.encCipherCaesar.option.shift.b24'])}</option>
-											<option value="-23">${mf:h(msg['label.encCipherCaesar.option.shift.b23'])}</option>
-											<option value="-22">${mf:h(msg['label.encCipherCaesar.option.shift.b22'])}</option>
-											<option value="-21">${mf:h(msg['label.encCipherCaesar.option.shift.b21'])}</option>
-											<option value="-20">${mf:h(msg['label.encCipherCaesar.option.shift.b20'])}</option>
-											<option value="-19">${mf:h(msg['label.encCipherCaesar.option.shift.b19'])}</option>
-											<option value="-18">${mf:h(msg['label.encCipherCaesar.option.shift.b18'])}</option>
-											<option value="-17">${mf:h(msg['label.encCipherCaesar.option.shift.b17'])}</option>
-											<option value="-16">${mf:h(msg['label.encCipherCaesar.option.shift.b16'])}</option>
-											<option value="-15">${mf:h(msg['label.encCipherCaesar.option.shift.b15'])}</option>
-											<option value="-14">${mf:h(msg['label.encCipherCaesar.option.shift.b14'])}</option>
-											<option value="-13">${mf:h(msg['label.encCipherCaesar.option.shift.b13'])}</option>
-											<option value="-12">${mf:h(msg['label.encCipherCaesar.option.shift.b12'])}</option>
-											<option value="-11">${mf:h(msg['label.encCipherCaesar.option.shift.b11'])}</option>
-											<option value="-10">${mf:h(msg['label.encCipherCaesar.option.shift.b10'])}</option>
-											<option value="-9">${mf:h(msg['label.encCipherCaesar.option.shift.b9'])}</option>
-											<option value="-8">${mf:h(msg['label.encCipherCaesar.option.shift.b8'])}</option>
-											<option value="-7">${mf:h(msg['label.encCipherCaesar.option.shift.b7'])}</option>
-											<option value="-6">${mf:h(msg['label.encCipherCaesar.option.shift.b6'])}</option>
-											<option value="-5">${mf:h(msg['label.encCipherCaesar.option.shift.b5'])}</option>
-											<option value="-4">${mf:h(msg['label.encCipherCaesar.option.shift.b4'])}</option>
-											<option value="-3">${mf:h(msg['label.encCipherCaesar.option.shift.b3'])}</option>
-											<option value="-2">${mf:h(msg['label.encCipherCaesar.option.shift.b2'])}</option>
-											<option value="-1">${mf:h(msg['label.encCipherCaesar.option.shift.b1'])}</option>
-											<option value="1">${mf:h(msg['label.encCipherCaesar.option.shift.1'])}</option>
-											<option value="2">${mf:h(msg['label.encCipherCaesar.option.shift.2'])}</option>
-											<option value="3">${mf:h(msg['label.encCipherCaesar.option.shift.3'])}</option>
-											<option value="4">${mf:h(msg['label.encCipherCaesar.option.shift.4'])}</option>
-											<option value="5">${mf:h(msg['label.encCipherCaesar.option.shift.5'])}</option>
-											<option value="6">${mf:h(msg['label.encCipherCaesar.option.shift.6'])}</option>
-											<option value="7">${mf:h(msg['label.encCipherCaesar.option.shift.7'])}</option>
-											<option value="8">${mf:h(msg['label.encCipherCaesar.option.shift.8'])}</option>
-											<option value="9">${mf:h(msg['label.encCipherCaesar.option.shift.9'])}</option>
-											<option value="10">${mf:h(msg['label.encCipherCaesar.option.shift.10'])}</option>
-											<option value="11">${mf:h(msg['label.encCipherCaesar.option.shift.11'])}</option>
-											<option value="12">${mf:h(msg['label.encCipherCaesar.option.shift.12'])}</option>
-											<option value="13">${mf:h(msg['label.encCipherCaesar.option.shift.13'])}</option>
-											<option value="14">${mf:h(msg['label.encCipherCaesar.option.shift.14'])}</option>
-											<option value="15">${mf:h(msg['label.encCipherCaesar.option.shift.15'])}</option>
-											<option value="16">${mf:h(msg['label.encCipherCaesar.option.shift.16'])}</option>
-											<option value="17">${mf:h(msg['label.encCipherCaesar.option.shift.17'])}</option>
-											<option value="18">${mf:h(msg['label.encCipherCaesar.option.shift.18'])}</option>
-											<option value="19">${mf:h(msg['label.encCipherCaesar.option.shift.19'])}</option>
-											<option value="20">${mf:h(msg['label.encCipherCaesar.option.shift.20'])}</option>
-											<option value="21">${mf:h(msg['label.encCipherCaesar.option.shift.21'])}</option>
-											<option value="22">${mf:h(msg['label.encCipherCaesar.option.shift.22'])}</option>
-											<option value="23">${mf:h(msg['label.encCipherCaesar.option.shift.23'])}</option>
-											<option value="24">${mf:h(msg['label.encCipherCaesar.option.shift.24'])}</option>
-											<option value="25">${mf:h(msg['label.encCipherCaesar.option.shift.25'])}</option>
-											<option value="26">${mf:h(msg['label.encCipherCaesar.option.shift.26'])}</option>
-											<option value="27">${mf:h(msg['label.encCipherCaesar.option.shift.27'])}</option>
-											<option value="28">${mf:h(msg['label.encCipherCaesar.option.shift.28'])}</option>
-											<option value="29">${mf:h(msg['label.encCipherCaesar.option.shift.29'])}</option>
-											<option value="30">${mf:h(msg['label.encCipherCaesar.option.shift.30'])}</option>
-											<option value="31">${mf:h(msg['label.encCipherCaesar.option.shift.31'])}</option>
-											<option value="32">${mf:h(msg['label.encCipherCaesar.option.shift.32'])}</option>
-											<option value="33">${mf:h(msg['label.encCipherCaesar.option.shift.33'])}</option>
-											<option value="34">${mf:h(msg['label.encCipherCaesar.option.shift.34'])}</option>
-											<option value="35">${mf:h(msg['label.encCipherCaesar.option.shift.35'])}</option>
-											<option value="36">${mf:h(msg['label.encCipherCaesar.option.shift.36'])}</option>
-											<option value="37">${mf:h(msg['label.encCipherCaesar.option.shift.37'])}</option>
-											<option value="38">${mf:h(msg['label.encCipherCaesar.option.shift.38'])}</option>
-											<option value="39">${mf:h(msg['label.encCipherCaesar.option.shift.39'])}</option>
-											<option value="40">${mf:h(msg['label.encCipherCaesar.option.shift.40'])}</option>
-											<option value="41">${mf:h(msg['label.encCipherCaesar.option.shift.41'])}</option>
-											<option value="42">${mf:h(msg['label.encCipherCaesar.option.shift.42'])}</option>
+										<span class="input-group-text">${mf:h(msg['cipher.caesar.shift'])}</span>
+										<select name="cipher.caesar.shift" class="dencode-option form-select" data-default-value="-3">
+											<option value="-42">${mf:h(msg['cipher.caesar.shift.b42'])}</option>
+											<option value="-41">${mf:h(msg['cipher.caesar.shift.b41'])}</option>
+											<option value="-40">${mf:h(msg['cipher.caesar.shift.b40'])}</option>
+											<option value="-39">${mf:h(msg['cipher.caesar.shift.b39'])}</option>
+											<option value="-38">${mf:h(msg['cipher.caesar.shift.b38'])}</option>
+											<option value="-37">${mf:h(msg['cipher.caesar.shift.b37'])}</option>
+											<option value="-36">${mf:h(msg['cipher.caesar.shift.b36'])}</option>
+											<option value="-35">${mf:h(msg['cipher.caesar.shift.b35'])}</option>
+											<option value="-34">${mf:h(msg['cipher.caesar.shift.b34'])}</option>
+											<option value="-33">${mf:h(msg['cipher.caesar.shift.b33'])}</option>
+											<option value="-32">${mf:h(msg['cipher.caesar.shift.b32'])}</option>
+											<option value="-31">${mf:h(msg['cipher.caesar.shift.b31'])}</option>
+											<option value="-30">${mf:h(msg['cipher.caesar.shift.b30'])}</option>
+											<option value="-29">${mf:h(msg['cipher.caesar.shift.b29'])}</option>
+											<option value="-28">${mf:h(msg['cipher.caesar.shift.b28'])}</option>
+											<option value="-27">${mf:h(msg['cipher.caesar.shift.b27'])}</option>
+											<option value="-26">${mf:h(msg['cipher.caesar.shift.b26'])}</option>
+											<option value="-25">${mf:h(msg['cipher.caesar.shift.b25'])}</option>
+											<option value="-24">${mf:h(msg['cipher.caesar.shift.b24'])}</option>
+											<option value="-23">${mf:h(msg['cipher.caesar.shift.b23'])}</option>
+											<option value="-22">${mf:h(msg['cipher.caesar.shift.b22'])}</option>
+											<option value="-21">${mf:h(msg['cipher.caesar.shift.b21'])}</option>
+											<option value="-20">${mf:h(msg['cipher.caesar.shift.b20'])}</option>
+											<option value="-19">${mf:h(msg['cipher.caesar.shift.b19'])}</option>
+											<option value="-18">${mf:h(msg['cipher.caesar.shift.b18'])}</option>
+											<option value="-17">${mf:h(msg['cipher.caesar.shift.b17'])}</option>
+											<option value="-16">${mf:h(msg['cipher.caesar.shift.b16'])}</option>
+											<option value="-15">${mf:h(msg['cipher.caesar.shift.b15'])}</option>
+											<option value="-14">${mf:h(msg['cipher.caesar.shift.b14'])}</option>
+											<option value="-13">${mf:h(msg['cipher.caesar.shift.b13'])}</option>
+											<option value="-12">${mf:h(msg['cipher.caesar.shift.b12'])}</option>
+											<option value="-11">${mf:h(msg['cipher.caesar.shift.b11'])}</option>
+											<option value="-10">${mf:h(msg['cipher.caesar.shift.b10'])}</option>
+											<option value="-9">${mf:h(msg['cipher.caesar.shift.b9'])}</option>
+											<option value="-8">${mf:h(msg['cipher.caesar.shift.b8'])}</option>
+											<option value="-7">${mf:h(msg['cipher.caesar.shift.b7'])}</option>
+											<option value="-6">${mf:h(msg['cipher.caesar.shift.b6'])}</option>
+											<option value="-5">${mf:h(msg['cipher.caesar.shift.b5'])}</option>
+											<option value="-4">${mf:h(msg['cipher.caesar.shift.b4'])}</option>
+											<option value="-3">${mf:h(msg['cipher.caesar.shift.b3'])}</option>
+											<option value="-2">${mf:h(msg['cipher.caesar.shift.b2'])}</option>
+											<option value="-1">${mf:h(msg['cipher.caesar.shift.b1'])}</option>
+											<option value="1">${mf:h(msg['cipher.caesar.shift.1'])}</option>
+											<option value="2">${mf:h(msg['cipher.caesar.shift.2'])}</option>
+											<option value="3">${mf:h(msg['cipher.caesar.shift.3'])}</option>
+											<option value="4">${mf:h(msg['cipher.caesar.shift.4'])}</option>
+											<option value="5">${mf:h(msg['cipher.caesar.shift.5'])}</option>
+											<option value="6">${mf:h(msg['cipher.caesar.shift.6'])}</option>
+											<option value="7">${mf:h(msg['cipher.caesar.shift.7'])}</option>
+											<option value="8">${mf:h(msg['cipher.caesar.shift.8'])}</option>
+											<option value="9">${mf:h(msg['cipher.caesar.shift.9'])}</option>
+											<option value="10">${mf:h(msg['cipher.caesar.shift.10'])}</option>
+											<option value="11">${mf:h(msg['cipher.caesar.shift.11'])}</option>
+											<option value="12">${mf:h(msg['cipher.caesar.shift.12'])}</option>
+											<option value="13">${mf:h(msg['cipher.caesar.shift.13'])}</option>
+											<option value="14">${mf:h(msg['cipher.caesar.shift.14'])}</option>
+											<option value="15">${mf:h(msg['cipher.caesar.shift.15'])}</option>
+											<option value="16">${mf:h(msg['cipher.caesar.shift.16'])}</option>
+											<option value="17">${mf:h(msg['cipher.caesar.shift.17'])}</option>
+											<option value="18">${mf:h(msg['cipher.caesar.shift.18'])}</option>
+											<option value="19">${mf:h(msg['cipher.caesar.shift.19'])}</option>
+											<option value="20">${mf:h(msg['cipher.caesar.shift.20'])}</option>
+											<option value="21">${mf:h(msg['cipher.caesar.shift.21'])}</option>
+											<option value="22">${mf:h(msg['cipher.caesar.shift.22'])}</option>
+											<option value="23">${mf:h(msg['cipher.caesar.shift.23'])}</option>
+											<option value="24">${mf:h(msg['cipher.caesar.shift.24'])}</option>
+											<option value="25">${mf:h(msg['cipher.caesar.shift.25'])}</option>
+											<option value="26">${mf:h(msg['cipher.caesar.shift.26'])}</option>
+											<option value="27">${mf:h(msg['cipher.caesar.shift.27'])}</option>
+											<option value="28">${mf:h(msg['cipher.caesar.shift.28'])}</option>
+											<option value="29">${mf:h(msg['cipher.caesar.shift.29'])}</option>
+											<option value="30">${mf:h(msg['cipher.caesar.shift.30'])}</option>
+											<option value="31">${mf:h(msg['cipher.caesar.shift.31'])}</option>
+											<option value="32">${mf:h(msg['cipher.caesar.shift.32'])}</option>
+											<option value="33">${mf:h(msg['cipher.caesar.shift.33'])}</option>
+											<option value="34">${mf:h(msg['cipher.caesar.shift.34'])}</option>
+											<option value="35">${mf:h(msg['cipher.caesar.shift.35'])}</option>
+											<option value="36">${mf:h(msg['cipher.caesar.shift.36'])}</option>
+											<option value="37">${mf:h(msg['cipher.caesar.shift.37'])}</option>
+											<option value="38">${mf:h(msg['cipher.caesar.shift.38'])}</option>
+											<option value="39">${mf:h(msg['cipher.caesar.shift.39'])}</option>
+											<option value="40">${mf:h(msg['cipher.caesar.shift.40'])}</option>
+											<option value="41">${mf:h(msg['cipher.caesar.shift.41'])}</option>
+											<option value="42">${mf:h(msg['cipher.caesar.shift.42'])}</option>
 										</select>
 									</div>
 								</form>
@@ -1515,8 +1515,8 @@
 							<c:if test="${methods.contains('cipher.affine')}"><tr data-dencode-method="cipher.affine"><th>${mf:h(msg['label.encCipherAffine'])}</th><td><span id="encCipherAffine" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherAffine.option.a'])}</span>
-										<select name="encCipherAffineA" class="dencode-option form-select" data-default-value="1" data-value-link-to="[name=decCipherAffineA]">
+										<span class="input-group-text">${mf:h(msg['cipher.affine.a'])}</span>
+										<select name="cipher.affine.a" class="dencode-option form-select" data-default-value="1">
 											<option value="-25">-25</option>
 											<option value="-23">-23</option>
 											<option value="-21">-21</option>
@@ -1546,8 +1546,8 @@
 										</select>
 									</div>
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherAffine.option.b'])}</span>
-										<select name="encCipherAffineB" class="dencode-option form-select" data-default-value="0" data-value-link-to="[name=decCipherAffineB]">
+										<span class="input-group-text">${mf:h(msg['cipher.affine.b'])}</span>
+										<select name="cipher.affine.b" class="dencode-option form-select" data-default-value="0">
 											<option value="-25">-25</option>
 											<option value="-24">-24</option>
 											<option value="-23">-23</option>
@@ -1608,8 +1608,8 @@
 							<c:if test="${methods.contains('cipher.vigenere')}"><tr data-dencode-method="cipher.vigenere"><th>${mf:h(msg['label.encCipherVigenere'])}</th><td><span id="encCipherVigenere" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherVigenere.option.key'])}</span>
-										<input name="encCipherVigenereKey" class="dencode-option form-control" value="" placeholder="${mf:h(msg['label.encCipherVigenere.option.key.tooltip'])}" data-value-link-to="[name=decCipherVigenereKey]" />
+										<span class="input-group-text">${mf:h(msg['cipher.vigenere.key'])}</span>
+										<input name="cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.vigenere.key.tooltip'])}" />
 									</div>
 								</form>
 							</td></tr></c:if>
@@ -1617,10 +1617,10 @@
 								<form class="dencode-option-group" method="post">
 									<div class="dencode-option-grid cipher-enigma">
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.encCipherEnigma.option.machine'])}
+											${mf:h(msg['cipher.enigma.machine'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all">
-											<select name="encCipherEnigmaMachine" class="dencode-option" data-value-link-to="[name=decCipherEnigmaMachine]">
+											<select name="cipher.enigma.machine" class="dencode-option">
 												<option value="I" data-reflectors="UKW-A,UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V" data-has="plugboard,uhr,ukwd">Enigma I</option>
 												<option value="M3" data-reflectors="UKW-B,UKW-C" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="plugboard">Enigma M3</option>
 												<option value="M4" data-reflectors="UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="4wheels,plugboard,ukwd">Enigma M4 (U-boat Enigma)</option>
@@ -1643,10 +1643,10 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.encCipherEnigma.option.wheels'])}
+											${mf:h(msg['cipher.enigma.wheels'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector">
-											<select name="encCipherEnigmaReflector" class="dencode-option" data-value-link-to="[name=decCipherEnigmaReflector]">
+											<select name="cipher.enigma.reflector" class="dencode-option">
 												<option value="UKW">UKW</option>
 												<option value="UKW-A">UKW-A</option>
 												<option value="UKW-B">UKW-B</option>
@@ -1655,13 +1655,13 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="encCipherEnigmaRotor4" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor4]">
+											<select name="cipher.enigma.rotor4" class="dencode-option">
 												<option value="Beta">Beta</option>
 												<option value="Gamma">Gamma</option>
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="encCipherEnigmaRotor3" class="dencode-option" data-default-value="III" data-value-link-to="[name=decCipherEnigmaRotor3]">
+											<select name="cipher.enigma.rotor3" class="dencode-option" data-default-value="III">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1673,7 +1673,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="encCipherEnigmaRotor2" class="dencode-option" data-default-value="II" data-value-link-to="[name=decCipherEnigmaRotor2]">
+											<select name="cipher.enigma.rotor2" class="dencode-option" data-default-value="II">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1685,7 +1685,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="encCipherEnigmaRotor1" class="dencode-option" data-default-value="I" data-value-link-to="[name=decCipherEnigmaRotor1]">
+											<select name="cipher.enigma.rotor1" class="dencode-option" data-default-value="I">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1698,10 +1698,10 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.encCipherEnigma.option.rings'])}
+											${mf:h(msg['cipher.enigma.rings'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-ring">
-											<select name="encCipherEnigmaReflectorRing" class="dencode-option" data-value-link-to="[name=decCipherEnigmaReflectorRing]">
+											<select name="cipher.enigma.reflector-ring" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1731,7 +1731,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="encCipherEnigmaRotor4Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor4Ring]">
+											<select name="cipher.enigma.rotor4-ring" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1761,7 +1761,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="encCipherEnigmaRotor3Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor3Ring]">
+											<select name="cipher.enigma.rotor3-ring" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1791,7 +1791,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="encCipherEnigmaRotor2Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor2Ring]">
+											<select name="cipher.enigma.rotor2-ring" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1821,7 +1821,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="encCipherEnigmaRotor1Ring" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor1Ring]">
+											<select name="cipher.enigma.rotor1-ring" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1852,10 +1852,10 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all">
-											${mf:h(msg['label.encCipherEnigma.option.positions'])}
+											${mf:h(msg['cipher.enigma.positions'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-position">
-											<select name="encCipherEnigmaReflectorPosition" class="dencode-option" data-value-link-to="[name=decCipherEnigmaReflectorPosition]">
+											<select name="cipher.enigma.reflector-position" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1885,7 +1885,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="encCipherEnigmaRotor4Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor4Position]">
+											<select name="cipher.enigma.rotor4-position" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1915,7 +1915,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="encCipherEnigmaRotor3Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor3Position]">
+											<select name="cipher.enigma.rotor3-position" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1945,7 +1945,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="encCipherEnigmaRotor2Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor2Position]">
+											<select name="cipher.enigma.rotor2-position" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1975,7 +1975,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="encCipherEnigmaRotor1Position" class="dencode-option" data-value-link-to="[name=decCipherEnigmaRotor1Position]">
+											<select name="cipher.enigma.rotor1-position" class="dencode-option">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -2006,16 +2006,16 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-plugboard">
-											${mf:h(msg['label.encCipherEnigma.option.plugboard'])}
+											${mf:h(msg['cipher.enigma.plugboard'])}
 										</div>
 										<div class="dencode-option-grid-label cipher-enigma-option-uhr">
-											${mf:h(msg['label.encCipherEnigma.option.uhr'])}
+											${mf:h(msg['cipher.enigma.uhr'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-plugboard">
-											<input type="text" name="encCipherEnigmaPlugboard" class="dencode-option" value="" placeholder="${mf:h(msg['label.encCipherEnigma.option.plugboard.tooltip'])}" data-value-link-to="[name=decCipherEnigmaPlugboard]" />
+											<input type="text" name="cipher.enigma.plugboard" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.plugboard.tooltip'])}" />
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-uhr">
-											<select name="encCipherEnigmaUhr" class="dencode-option" data-value-link-to="[name=decCipherEnigmaUhr]">
+											<select name="cipher.enigma.uhr" class="dencode-option">
 												<option value="0">00</option>
 												<option value="1">01</option>
 												<option value="2">02</option>
@@ -2060,10 +2060,10 @@
 										</div>
 										
 										<div class="dencode-option-grid-label grid-col-all cipher-enigma-option-ukwd">
-											${mf:h(msg['label.encCipherEnigma.option.ukwd'])}
+											${mf:h(msg['cipher.enigma.ukwd'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
-											<input type="text" name="encCipherEnigmaUkwd" class="dencode-option" value="" placeholder="${mf:h(msg['label.encCipherEnigma.option.ukwd.tooltip'])}" data-value-link-to="[name=decCipherEnigmaUkwd]" />
+											<input type="text" name="cipher.enigma.ukwd" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" />
 										</div>
 									</div>
 								</form>
@@ -2073,10 +2073,10 @@
 							<c:if test="${methods.contains('cipher.jis-keyboard')}"><tr data-dencode-method="cipher.jis-keyboard"><th>${mf:h(msg['label.encCipherJisKeyboard'])}</th><td><span id="encCipherJisKeyboard" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherJisKeyboard.option.mode'])}</span>
-										<select name="encCipherJisKeyboardMode" class="dencode-option form-select">
-											<option value="lenient">${mf:h(msg['label.encCipherJisKeyboard.option.mode.lenient'])}</option>
-											<option value="strict">${mf:h(msg['label.encCipherJisKeyboard.option.mode.strict'])}</option>
+										<span class="input-group-text">${mf:h(msg['cipher.jis-keyboard.mode'])}</span>
+										<select name="cipher.jis-keyboard.mode" class="dencode-option form-select">
+											<option value="lenient">${mf:h(msg['cipher.jis-keyboard.mode.lenient'])}</option>
+											<option value="strict">${mf:h(msg['cipher.jis-keyboard.mode.strict'])}</option>
 										</select>
 									</div>
 								</form>
@@ -2086,8 +2086,8 @@
 							<c:if test="${methods.contains('cipher.scytale')}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['label.encCipherScytale'])}</th><td><span id="encCipherScytale" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherScytale.option.key'])}</span>
-										<select name="encCipherScytaleKey" class="dencode-option form-select" data-value-link-to="[name=decCipherScytaleKey]">
+										<span class="input-group-text">${mf:h(msg['cipher.scytale.key'])}</span>
+										<select name="cipher.scytale.key" class="dencode-option form-select">
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
@@ -2109,10 +2109,10 @@
 											<option value="20">20</option>
 										</select>
 										
-										<span class="input-group-text">${mf:h(msg['label.encCipherScytale.option.keyPer'])}</span>
-										<select name="encCipherScytaleKeyPer" class="dencode-option form-select" data-value-link-to="[name=decCipherScytaleKeyPer]">
-											<option value="y">${mf:h(msg['label.encCipherScytale.option.keyPer.y'])}</option>
-											<option value="x">${mf:h(msg['label.encCipherScytale.option.keyPer.x'])}</option>
+										<span class="input-group-text">${mf:h(msg['cipher.scytale.key-per'])}</span>
+										<select name="cipher.scytale.key-per" class="dencode-option form-select">
+											<option value="y">${mf:h(msg['cipher.scytale.key-per.y'])}</option>
+											<option value="x">${mf:h(msg['cipher.scytale.key-per.x'])}</option>
 										</select>
 									</div>
 								</form>
@@ -2120,8 +2120,8 @@
 							<c:if test="${methods.contains('cipher.rail-fence')}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['label.encCipherRailFence'])}</th><td><span id="encCipherRailFence" class="for-disp"></span>
 								<form class="dencode-option-group" method="post">
 									<div class="input-group">
-										<span class="input-group-text">${mf:h(msg['label.encCipherRailFence.option.key'])}</span>
-										<select name="encCipherRailFenceKey" class="dencode-option form-select" data-value-link-to="[name=decCipherRailFenceKey]">
+										<span class="input-group-text">${mf:h(msg['cipher.rail-fence.key'])}</span>
+										<select name="cipher.rail-fence.key" class="dencode-option form-select">
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>

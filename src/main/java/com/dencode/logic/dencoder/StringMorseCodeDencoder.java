@@ -294,7 +294,7 @@ public class StringMorseCodeDencoder {
 	
 	@DencoderFunction
 	public static String encStrMorseCode(DencodeCondition cond) {
-		String variant = DencodeUtils.getOption(cond.options(), "encStrMorseCodeVariant", "international");
+		String variant = DencodeUtils.getOption(cond.options(), "string.morse-code.variant", DencodeUtils.getOption(cond.options(), "encStrMorseCodeVariant", "international"));
 		
 		Map<Char, String> encMap = switch (variant) {
 		case "international" -> ENC_MAP_INTERNATIONAL;
@@ -308,7 +308,7 @@ public class StringMorseCodeDencoder {
 	
 	@DencoderFunction
 	public static String decStrMorseCode(DencodeCondition cond) {
-		String variant = DencodeUtils.getOption(cond.options(), "decStrMorseCodeVariant", "international");
+		String variant = DencodeUtils.getOption(cond.options(), "string.morse-code.variant", DencodeUtils.getOption(cond.options(), "decStrMorseCodeVariant", "international"));
 		
 		MorseTreeNode node = switch (variant) {
 		case "international" -> DEC_NODE_INTERNATIONAL;

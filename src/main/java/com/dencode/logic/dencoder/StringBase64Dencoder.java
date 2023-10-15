@@ -65,7 +65,7 @@ public class StringBase64Dencoder {
 	@DencoderFunction
 	public static String encStrBase64(DencodeCondition cond) {
 		return encStrBase64(cond.valueAsBinary(),
-				DencodeUtils.getOptionAsInt(cond.options(), "encStrBase64LineBreakEach", 0, 0));
+				DencodeUtils.getOptionAsInt(cond.options(), "string.base64.line-break-each", DencodeUtils.getOptionAsInt(cond.options(), "encStrBase64LineBreakEach", 0, 0), 0));
 	}
 	
 	@DencoderFunction

@@ -174,7 +174,7 @@ public class StringAscii85DencoderTest {
 	
 	private DencodeCondition condition(String value, String format, Charset charset) {
 		Map<String, String> options = new HashMap<>();
-		options.put("encStrAscii85Variant", format);
+		options.put("string.ascii85.variant", format);
 		return new DencodeCondition(value, charset, "\r\n", null, options);
 	}
 

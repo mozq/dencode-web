@@ -33,7 +33,7 @@ public class StringBinDencoder {
 	@DencoderFunction
 	public static String encStrBin(DencodeCondition cond) {
 		return encStrBin(cond.valueAsBinary(),
-				DencodeUtils.getOption(cond.options(), "encStrBinSeparatorEach", ""));
+				DencodeUtils.getOption(cond.options(), "string.bin.separator-each", DencodeUtils.getOption(cond.options(), "encStrBinSeparatorEach", "")));
 	}
 	
 	@DencoderFunction

@@ -333,8 +333,8 @@ public class StringUnicodeEscapeDencoderTest {
 		String encodedValue = StringUnicodeEscapeDencoder.encStrUnicodeEscape(new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encStrUnicodeEscapeNotation", notation);
-				put("encStrUnicodeEscapeCase", hexCase);
+				put("string.unicode-escape.notation", notation);
+				put("string.unicode-escape.case", hexCase);
 			}
 		}));
 		assertEquals(expectedEncodedValue, encodedValue);

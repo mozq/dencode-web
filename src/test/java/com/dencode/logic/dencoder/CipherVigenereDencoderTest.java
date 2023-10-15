@@ -210,7 +210,7 @@ public class CipherVigenereDencoderTest {
 		String encodedValue = CipherVigenereDencoder.encCipherVigenere(new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encCipherVigenereKey", key);
+				put("cipher.vigenere.key", key);
 			}
 		}));
 		assertEquals(expectedEncodedValue, encodedValue);
@@ -218,7 +218,7 @@ public class CipherVigenereDencoderTest {
 		String decodedValue = CipherVigenereDencoder.decCipherVigenere(new DencodeCondition(encodedValue, StandardCharsets.UTF_8, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("decCipherVigenereKey", key);
+				put("cipher.vigenere.key", key);
 			}
 		}));
 		if (expectedDecodedValue == null) {

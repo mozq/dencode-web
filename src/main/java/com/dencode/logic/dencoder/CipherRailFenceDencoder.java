@@ -31,13 +31,13 @@ public class CipherRailFenceDencoder {
 	@DencoderFunction
 	public static String encCipherRailFence(DencodeCondition cond) {
 		return encCipherRailFence(cond.valueAsCodePointsWithLf(),
-				DencodeUtils.getOptionAsInt(cond.options(), "encCipherRailFenceKey", 2));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.rail-fence.key", DencodeUtils.getOptionAsInt(cond.options(), "encCipherRailFenceKey", 2)));
 	}
 	
 	@DencoderFunction
 	public static String decCipherRailFence(DencodeCondition cond) {
 		return decCipherRailFence(cond.valueAsCodePointsWithLf(),
-				DencodeUtils.getOptionAsInt(cond.options(), "decCipherRailFenceKey", 2));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.rail-fence.key", DencodeUtils.getOptionAsInt(cond.options(), "decCipherRailFenceKey", 2)));
 	}
 	
 	

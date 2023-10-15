@@ -29,153 +29,153 @@ public class StringMorseCodeDencoderTest {
 	
 	@Test
 	public void testInternational() {
-		String variant = "international";
+		String language = "international";
 		
-		testDencoder("", "", "", variant);
+		testDencoder("", "", "", language);
 		
-		testDencoder("A", ".-", "A", variant);
-		testDencoder("a", ".-", "A", variant);
+		testDencoder("A", ".-", "A", language);
+		testDencoder("a", ".-", "A", language);
 		
-		testDencoder("ABCDEFGHIJKLMNOPQRSTUVWXYZ", ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", variant);
-		testDencoder("abcdefghijklmnopqrstuvwxyz", ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", variant);
+		testDencoder("ABCDEFGHIJKLMNOPQRSTUVWXYZ", ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", language);
+		testDencoder("abcdefghijklmnopqrstuvwxyz", ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", language);
 		
-		testDencoder("1234567890", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "1234567890", variant);
+		testDencoder("1234567890", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "1234567890", language);
 		
-		testDencoder(".,:?'-/()\"=+@", ".-.-.- --..-- ---... ..--.. .----. -....- -..-. -.--. -.--.- .-..-. -...- .-.-. .--.-.", ".,:?'-/()\"=+@", variant);
-		testDencoder("×", "-..-", "X", variant);
+		testDencoder(".,:?'-/()\"=+@", ".-.-.- --..-- ---... ..--.. .----. -....- -..-. -.--. -.--.- .-..-. -...- .-.-. .--.-.", ".,:?'-/()\"=+@", language);
+		testDencoder("×", "-..-", "X", language);
 		
 		
-		testDencoder(" ", "/", " ", variant);
-		testDencoder("A Z", ".- / --..", "A Z", variant);
-		testDencoder("A  Z", ".- / / --..", "A  Z", variant);
-		testDencoder(" Z", "/ --..", " Z", variant);
-		testDencoder("  Z", "/ / --..", "  Z", variant);
-		testDencoder("A ", ".- /", "A ", variant);
-		testDencoder("A  ", ".- / /", "A  ", variant);
+		testDencoder(" ", "/", " ", language);
+		testDencoder("A Z", ".- / --..", "A Z", language);
+		testDencoder("A  Z", ".- / / --..", "A  Z", language);
+		testDencoder(" Z", "/ --..", " Z", language);
+		testDencoder("  Z", "/ / --..", "  Z", language);
+		testDencoder("A ", ".- /", "A ", language);
+		testDencoder("A  ", ".- / /", "A  ", language);
 		
 		// New line
-		testDencoder("A\r\nZ", ".-\r\n--..", "A\r\nZ", variant);
-		testDencoder("\r\nZ", "\r\n--..", "\r\nZ", variant);
-		testDencoder("A\r\n", ".-\r\n", "A\r\n", variant);
+		testDencoder("A\r\nZ", ".-\r\n--..", "A\r\nZ", language);
+		testDencoder("\r\nZ", "\r\n--..", "\r\nZ", language);
+		testDencoder("A\r\n", ".-\r\n", "A\r\n", language);
 		
 		// Undefined code
-		testDencoder(null, "......... / .........\r\n.........", "......... .........\r\n.........", variant);
-		testDencoder(null, "\r\n.........\r\n", "\r\n.........\r\n", variant);
-		testDencoder(null, " ......... \r\n ", ".........\r\n", variant);
+		testDencoder(null, "......... / .........\r\n.........", "......... .........\r\n.........", language);
+		testDencoder(null, "\r\n.........\r\n", "\r\n.........\r\n", language);
+		testDencoder(null, " ......... \r\n ", ".........\r\n", language);
 		
 		// Unsupported letter
-		testDencoder("*** ***\r\n***", "* * * / * * *\r\n* * *", "*** ***\r\n***", variant);
+		testDencoder("*** ***\r\n***", "* * * / * * *\r\n* * *", "*** ***\r\n***", language);
 		
 		// Alternative code symbols
-		testDencoder(null, "・－／", "A ", variant);
+		testDencoder(null, "・－／", "A ", language);
 	}
 	
 	@Test
 	public void testJapanese() {
-		String variant = "japanese";
+		String language = "japanese";
 		
-		testDencoder("", "", "", variant);
+		testDencoder("", "", "", language);
 		
-		testDencoder("イ", ".-", "イ", variant);
-		testDencoder("ィ", ".-", "イ", variant);
+		testDencoder("イ", ".-", "イ", language);
+		testDencoder("ィ", ".-", "イ", language);
 
-		testDencoder("イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセスン", ".- .-.- -... -.-. -.. . ..-.. ..-. --. .... -.--. .--- -.- .-.. -- -. --- ---. .--. --.- .-. ... - ..- .-..- ..-- .-... ...- .-- -..- -.-- --.. ---- -.--- .-.-- --.-- -.-.- -.-.. -..-- -...- ..-.- --.-. .--.. --..- -..-. .---. ---.- .-.-.", "イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセスン", variant);
-		testDencoder("いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせすん", ".- .-.- -... -.-. -.. . ..-.. ..-. --. .... -.--. .--- -.- .-.. -- -. --- ---. .--. --.- .-. ... - ..- .-..- ..-- .-... ...- .-- -..- -.-- --.. ---- -.--- .-.-- --.-- -.-.- -.-.. -..-- -...- ..-.- --.-. .--.. --..- -..-. .---. ---.- .-.-.", "イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセスン", variant);
+		testDencoder("イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセスン", ".- .-.- -... -.-. -.. . ..-.. ..-. --. .... -.--. .--- -.- .-.. -- -. --- ---. .--. --.- .-. ... - ..- .-..- ..-- .-... ...- .-- -..- -.-- --.. ---- -.--- .-.-- --.-- -.-.- -.-.. -..-- -...- ..-.- --.-. .--.. --..- -..-. .---. ---.- .-.-.", "イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセスン", language);
+		testDencoder("いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせすん", ".- .-.- -... -.-. -.. . ..-.. ..-. --. .... -.--. .--- -.- .-.. -- -. --- ---. .--. --.- .-. ... - ..- .-..- ..-- .-... ...- .-- -..- -.-- --.. ---- -.--- .-.-- --.-- -.-.- -.-.. -..-- -...- ..-.- --.-. .--.. --..- -..-. .---. ---.- .-.-.", "イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセスン", language);
 		
-		testDencoder("ぁぃぅぇぉっゃゅょ", "--.-- .- ..- -.--- .-... .--. .-- -..-- --", "アイウエオツヤユヨ", variant);
-		testDencoder("ァィゥェォッャュョ", "--.-- .- ..- -.--- .-... .--. .-- -..-- --", "アイウエオツヤユヨ", variant);
+		testDencoder("ぁぃぅぇぉっゃゅょ", "--.-- .- ..- -.--- .-... .--. .-- -..-- --", "アイウエオツヤユヨ", language);
+		testDencoder("ァィゥェォッャュョ", "--.-- .- ..- -.--- .-... .--. .-- -..-- --", "アイウエオツヤユヨ", language);
 		
-		testDencoder("ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ", ".-.. .. -.-.. .. ...- .. -.-- .. ---- .. -.-.- .. --.-. .. ---.- .. .---. .. ---. .. -. .. ..-. .. .--. .. .-.-- .. ..-.. .. -... .. --..- .. --.. .. . .. -.. .. ..- ..", "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ", variant);
-		testDencoder("がぎぐげござじずぜぞだぢづでどばびぶべぼゔ", ".-.. .. -.-.. .. ...- .. -.-- .. ---- .. -.-.- .. --.-. .. ---.- .. .---. .. ---. .. -. .. ..-. .. .--. .. .-.-- .. ..-.. .. -... .. --..- .. --.. .. . .. -.. .. ..- ..", "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ", variant);
+		testDencoder("ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ", ".-.. .. -.-.. .. ...- .. -.-- .. ---- .. -.-.- .. --.-. .. ---.- .. .---. .. ---. .. -. .. ..-. .. .--. .. .-.-- .. ..-.. .. -... .. --..- .. --.. .. . .. -.. .. ..- ..", "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ", language);
+		testDencoder("がぎぐげござじずぜぞだぢづでどばびぶべぼゔ", ".-.. .. -.-.. .. ...- .. -.-- .. ---- .. -.-.- .. --.-. .. ---.- .. .---. .. ---. .. -. .. ..-. .. .--. .. .-.-- .. ..-.. .. -... .. --..- .. --.. .. . .. -.. .. ..- ..", "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ", language);
 		
-		testDencoder("パピプペポ", "-... ..--. --..- ..--. --.. ..--. . ..--. -.. ..--.", "パピプペポ", variant);
-		testDencoder("ぱぴぷぺぽ", "-... ..--. --..- ..--. --.. ..--. . ..--. -.. ..--.", "パピプペポ", variant);
+		testDencoder("パピプペポ", "-... ..--. --..- ..--. --.. ..--. . ..--. -.. ..--.", "パピプペポ", language);
+		testDencoder("ぱぴぷぺぽ", "-... ..--. --..- ..--. --.. ..--. . ..--. -.. ..--.", "パピプペポ", language);
 		
-		testDencoder("１２３４５６７８９０", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "１２３４５６７８９０", variant);
-		testDencoder("1234567890", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "１２３４５６７８９０", variant);
+		testDencoder("１２３４５６７８９０", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "１２３４５６７８９０", language);
+		testDencoder("1234567890", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "１２３４５６７８９０", language);
 		
-		testDencoder("ー、。（）", ".--.- .-.-.- .-.-.. -.--.- .-..-.", "ー、。（）", variant);
-		testDencoder("，.", ".-.-.- .-.-..", "、。", variant);
-		testDencoder("()", "-.--.- .-..-.", "（）", variant);
+		testDencoder("ー、。（）", ".--.- .-.-.- .-.-.. -.--.- .-..-.", "ー、。（）", language);
+		testDencoder("，.", ".-.-.- .-.-..", "、。", language);
+		testDencoder("()", "-.--.- .-..-.", "（）", language);
 		
 		// Word space
-		testDencoder(" ", "/", " ", variant);
-		testDencoder("イ ン", ".- / .-.-.", "イ ン", variant);
-		testDencoder("イ  ン", ".- / / .-.-.", "イ  ン", variant);
-		testDencoder(" ン", "/ .-.-.", " ン", variant);
-		testDencoder("  ン", "/ / .-.-.", "  ン", variant);
-		testDencoder("イ ", ".- /", "イ ", variant);
-		testDencoder("イ  ", ".- / /", "イ  ", variant);
+		testDencoder(" ", "/", " ", language);
+		testDencoder("イ ン", ".- / .-.-.", "イ ン", language);
+		testDencoder("イ  ン", ".- / / .-.-.", "イ  ン", language);
+		testDencoder(" ン", "/ .-.-.", " ン", language);
+		testDencoder("  ン", "/ / .-.-.", "  ン", language);
+		testDencoder("イ ", ".- /", "イ ", language);
+		testDencoder("イ  ", ".- / /", "イ  ", language);
 		
 		// New line
-		testDencoder("イ\r\nン", ".-\r\n.-.-.", "イ\r\nン", variant);
-		testDencoder("\r\nン", "\r\n.-.-.", "\r\nン", variant);
-		testDencoder("イ\r\n", ".-\r\n", "イ\r\n", variant);
+		testDencoder("イ\r\nン", ".-\r\n.-.-.", "イ\r\nン", language);
+		testDencoder("\r\nン", "\r\n.-.-.", "\r\nン", language);
+		testDencoder("イ\r\n", ".-\r\n", "イ\r\n", language);
 		
 		// Undefined code
-		testDencoder(null, "......... / .........\r\n.........", "......... .........\r\n.........", variant);
-		testDencoder(null, "\r\n.........\r\n", "\r\n.........\r\n", variant);
-		testDencoder(null, " ......... \r\n ", ".........\r\n", variant);
+		testDencoder(null, "......... / .........\r\n.........", "......... .........\r\n.........", language);
+		testDencoder(null, "\r\n.........\r\n", "\r\n.........\r\n", language);
+		testDencoder(null, " ......... \r\n ", ".........\r\n", language);
 		
 		// Unsupported letter
-		testDencoder("*** ***\r\n***", "* * * / * * *\r\n* * *", "*** ***\r\n***", variant);
+		testDencoder("*** ***\r\n***", "* * * / * * *\r\n* * *", "*** ***\r\n***", language);
 		
 		// Alternative code symbols
-		testDencoder(null, "・－／", "イ ", variant);
+		testDencoder(null, "・－／", "イ ", language);
 	}
 	
 	@Test
 	public void testRussian() {
-		String variant = "russian";
+		String language = "russian";
 		
-		testDencoder("", "", "", variant);
+		testDencoder("", "", "", language);
 		
-		testDencoder("А", ".-", "А", variant);
-		testDencoder("а", ".-", "А", variant);
+		testDencoder("А", ".-", "А", language);
+		testDencoder("а", ".-", "А", language);
 		
-		testDencoder("АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", ".- -... .-- --. -.. . ...- --.. .. .--- -.- .-.. -- -. --- .--. .-. ... - ..- ..-. .... -.-. ---. ---- --.- --.-- -.-- -..- ..-.. ..-- .-.-", "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", variant);
-		testDencoder("абвгдежзийклмнопрстуфхцчшщъыьэюя", ".- -... .-- --. -.. . ...- --.. .. .--- -.- .-.. -- -. --- .--. .-. ... - ..- ..-. .... -.-. ---. ---- --.- --.-- -.-- -..- ..-.. ..-- .-.-", "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", variant);
-		testDencoder("ЁѢ", ". ..-..", "ЕЭ", variant);
-		testDencoder("ёѣ", ". ..-..", "ЕЭ", variant);
+		testDencoder("АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", ".- -... .-- --. -.. . ...- --.. .. .--- -.- .-.. -- -. --- .--. .-. ... - ..- ..-. .... -.-. ---. ---- --.- --.-- -.-- -..- ..-.. ..-- .-.-", "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", language);
+		testDencoder("абвгдежзийклмнопрстуфхцчшщъыьэюя", ".- -... .-- --. -.. . ...- --.. .. .--- -.- .-.. -- -. --- .--. .-. ... - ..- ..-. .... -.-. ---. ---- --.- --.-- -.-- -..- ..-.. ..-- .-.-", "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", language);
+		testDencoder("ЁѢ", ". ..-..", "ЕЭ", language);
+		testDencoder("ёѣ", ". ..-..", "ЕЭ", language);
 		
-		testDencoder("1234567890", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "1234567890", variant);
+		testDencoder("1234567890", ".---- ..--- ...-- ....- ..... -.... --... ---.. ----. -----", "1234567890", language);
 		
-		testDencoder(".,:;()'\"—/?!-@", "...... .-.-.- ---... -.-.- -.--.- -.--.- .----. .-..-. -....- -..-. ..--.. --..-- -...- .--.-.", ".,:;(('\"—/?!-@", variant);
+		testDencoder(".,:;()'\"—/?!-@", "...... .-.-.- ---... -.-.- -.--.- -.--.- .----. .-..-. -....- -..-. ..--.. --..-- -...- .--.-.", ".,:;(('\"—/?!-@", language);
 		
 		// Word space
-		testDencoder(" ", "/", " ", variant);
-		testDencoder("А Я", ".- / .-.-", "А Я", variant);
-		testDencoder("А  Я", ".- / / .-.-", "А  Я", variant);
-		testDencoder(" Я", "/ .-.-", " Я", variant);
-		testDencoder("  Я", "/ / .-.-", "  Я", variant);
-		testDencoder("А ", ".- /", "А ", variant);
-		testDencoder("А  ", ".- / /", "А  ", variant);
+		testDencoder(" ", "/", " ", language);
+		testDencoder("А Я", ".- / .-.-", "А Я", language);
+		testDencoder("А  Я", ".- / / .-.-", "А  Я", language);
+		testDencoder(" Я", "/ .-.-", " Я", language);
+		testDencoder("  Я", "/ / .-.-", "  Я", language);
+		testDencoder("А ", ".- /", "А ", language);
+		testDencoder("А  ", ".- / /", "А  ", language);
 		
 		// New line
-		testDencoder("А\r\nЯ", ".-\r\n.-.-", "А\r\nЯ", variant);
-		testDencoder("\r\nЯ", "\r\n.-.-", "\r\nЯ", variant);
-		testDencoder("А\r\n", ".-\r\n", "А\r\n", variant);
+		testDencoder("А\r\nЯ", ".-\r\n.-.-", "А\r\nЯ", language);
+		testDencoder("\r\nЯ", "\r\n.-.-", "\r\nЯ", language);
+		testDencoder("А\r\n", ".-\r\n", "А\r\n", language);
 		
 		// Undefined code
-		testDencoder(null, "......... / .........\r\n.........", "......... .........\r\n.........", variant);
-		testDencoder(null, "\r\n.........\r\n", "\r\n.........\r\n", variant);
-		testDencoder(null, " ......... \r\n ", ".........\r\n", variant);
+		testDencoder(null, "......... / .........\r\n.........", "......... .........\r\n.........", language);
+		testDencoder(null, "\r\n.........\r\n", "\r\n.........\r\n", language);
+		testDencoder(null, " ......... \r\n ", ".........\r\n", language);
 		
 		// Unsupported letter
-		testDencoder("*** ***\r\n***", "* * * / * * *\r\n* * *", "*** ***\r\n***", variant);
+		testDencoder("*** ***\r\n***", "* * * / * * *\r\n* * *", "*** ***\r\n***", language);
 		
 		// Alternative code symbols
-		testDencoder(null, "・－／", "А ", variant);
+		testDencoder(null, "・－／", "А ", language);
 	}
 	
-	private void testDencoder(String value, String expectedEncodedValue, String expectedDecodedValue, String variant) {
+	private void testDencoder(String value, String expectedEncodedValue, String expectedDecodedValue, String language) {
 		if (value == null ) {
-			String decodedValue = StringMorseCodeDencoder.decStrMorseCode(condition(expectedEncodedValue, variant));
+			String decodedValue = StringMorseCodeDencoder.decStrMorseCode(condition(expectedEncodedValue, language));
 			assertEquals(expectedDecodedValue, decodedValue);
 		} else {
-			String encodedValue = StringMorseCodeDencoder.encStrMorseCode(condition(value, variant));
+			String encodedValue = StringMorseCodeDencoder.encStrMorseCode(condition(value, language));
 			assertEquals(expectedEncodedValue, encodedValue);
-			String decodedValue = StringMorseCodeDencoder.decStrMorseCode(condition(encodedValue, variant));
+			String decodedValue = StringMorseCodeDencoder.decStrMorseCode(condition(encodedValue, language));
 			assertEquals(expectedDecodedValue, decodedValue);
 		}
 	}
@@ -184,8 +184,7 @@ public class StringMorseCodeDencoderTest {
 		return new DencodeCondition(value, StandardCharsets.UTF_8, "\r\n", null, new HashMap<String, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put("encStrMorseCodeVariant", variant);
-					put("decStrMorseCodeVariant", variant);
+					put("string.morse-code.variant", variant);
 				}
 				});
 	}

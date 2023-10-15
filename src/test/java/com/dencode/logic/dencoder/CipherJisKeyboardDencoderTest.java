@@ -164,7 +164,7 @@ public class CipherJisKeyboardDencoderTest {
 		return new DencodeCondition(value, charset, "\r\n", null, new HashMap<>() {
 			private static final long serialVersionUID = 1L;
 			{
-				put("encCipherJisKeyboardMode", mode);
+				put("cipher.jis-keyboard.mode", mode);
 			}
 		});
 	}

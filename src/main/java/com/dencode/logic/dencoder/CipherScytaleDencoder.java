@@ -31,15 +31,15 @@ public class CipherScytaleDencoder {
 	@DencoderFunction
 	public static String encCipherScytale(DencodeCondition cond) {
 		return encCipherScytale(cond.valueAsCodePointsWithLf(),
-				DencodeUtils.getOptionAsInt(cond.options(), "encCipherScytaleKey", 2),
-				DencodeUtils.getOption(cond.options(), "encCipherScytaleKeyPer", "y").equals("x"));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.scytale.key", DencodeUtils.getOptionAsInt(cond.options(), "encCipherScytaleKey", 2)),
+				DencodeUtils.getOption(cond.options(), "cipher.scytale.key-per", DencodeUtils.getOption(cond.options(), "encCipherScytaleKeyPer", "y")).equals("x"));
 	}
 	
 	@DencoderFunction
 	public static String decCipherScytale(DencodeCondition cond) {
 		return decCipherScytale(cond.valueAsCodePointsWithLf(),
-				DencodeUtils.getOptionAsInt(cond.options(), "decCipherScytaleKey", 2),
-				DencodeUtils.getOption(cond.options(), "decCipherScytaleKeyPer", "y").equals("x"));
+				DencodeUtils.getOptionAsInt(cond.options(), "cipher.scytale.key", DencodeUtils.getOptionAsInt(cond.options(), "decCipherScytaleKey", 2)),
+				DencodeUtils.getOption(cond.options(), "cipher.scytale.key-per", DencodeUtils.getOption(cond.options(), "decCipherScytaleKeyPer", "y")).equals("x"));
 	}
 	
 	
