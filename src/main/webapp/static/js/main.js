@@ -1350,6 +1350,7 @@ function renderTemplate(tmpl, p) {
 	let buf = "";
 	let currentName = "";
 	let skip = false;
+	let m;
 	while((m = r.exec(tmpl)) != null) {
 		const pv = m[1];
 		const type = m[2];
