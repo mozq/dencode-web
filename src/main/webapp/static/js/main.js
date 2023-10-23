@@ -1170,8 +1170,8 @@ function copyToClipboard($elm) {
 		}, 2000);
 	}, 1);
 	
-	if (navigator.clipboard) {
-		navigator.clipboard.writeText(copyElm.value).then(function() {
+	if (window.navigator.clipboard) {
+		window.navigator.clipboard.writeText(copyElm.value).then(function() {
 			showTooltip($elm, msg, 2000);
 		}).catch(function (err) {
 			showTooltip($elm, errMsg, 2000);
