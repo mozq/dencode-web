@@ -1,0 +1,79 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  
+  dependencies {
+    classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20230802'
+    classpath group: 'com.yahoo.platform.yui', name: 'yuicompressor', version: '2.4.8'
+  }
+}
+
+import com.google.javascript.jscomp.CompilationLevel
+import com.google.javascript.jscomp.Compiler
+import com.google.javascript.jscomp.CompilerOptions
+import com.google.javascript.jscomp.CompilerOptions.LanguageMode
+import com.google.javascript.jscomp.SourceFile
+import com.google.javascript.jscomp.WarningLevel
+import com.yahoo.platform.yui.compressor.CssCompressor
+import java.nio.charset.Charset
+
+
+abstract class SourceDestTask extends SourceTask {
+  @Input String charset =  'UTF-8'
+  @Input String dest
+  @OutputFile File getDestFile() { project.file(dest) }
+}
+
+abstract class MinifyCssTask extends SourceDestTask {
+  @Input int lineBreakPos = -1
+  
+  @TaskAction
+  void minify() {
+    def compressor;
+    try (def reader = source.singleFile.newReader(charset)) {
+      compressor = new CssCompressor(reader)
+    }
+    
+    project.file(dest).parentFile.mkdirs()
+    try (def writer = destFile.newWriter(charset)) {
+      compressor.compress(writer, lineBreakPos)
+      writer.flush()
+    }
+  }
+}
+
+abstract class MinifyJsTask extends SourceDestTask {
+  @Input String compilationLevel = 'SIMPLE_OPTIMIZATIONS'
+  @Input String warningLevel = 'DEFAULT'
+  @Input String languageIn = 'STABLE'
+  @Input String languageOut = 'STABLE'
+  
+  @TaskAction
+  void minify() {
+    def options = new CompilerOptions()
+    CompilationLevel.fromString(compilationLevel).setOptionsForCompilationLevel(options)
+    WarningLevel.valueOf(warningLevel).setOptionsForWarningLevel(options)
+    options.setLanguageIn(LanguageMode.fromString(languageIn))
+    options.setLanguageOut(LanguageMode.fromString(languageOut))
+    
+    def compiler = new Compiler()
+    def result = compiler.compile([], source.files.collect { SourceFile.fromPath(it.toPath(), Charset.forName(charset)) }, options)
+    
+    result.warnings.each {
+      logger.warn("WARN: " + it.toString())
+    }
+    
+    if (result.success) {
+      project.file(dest).parentFile.mkdirs()
+      project.file(dest).write(compiler.toSource(), charset)
+    } else {
+      throw new RuntimeException(result.errors.join('\n'))
+    }
+  }
+}
+
+project.tasks.register('minifyCss', MinifyCssTask)
+project.tasks.register('minifyJs', MinifyJsTask)
+project.ext.MinifyCssTask = MinifyCssTask
+project.ext.MinifyJsTask = MinifyJsTask

@@ -1,15 +1,12 @@
 plugins {
-  id 'java'
   id 'war'
-  id 'com.eriwen.gradle.css'
-  id 'com.eriwen.gradle.js'
   id 'com.google.cloud.tools.appengine-appyaml' version '+'
 }
 
+apply from: 'build-minify-plugin.gradle'
+
 group = 'com.dencode'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = 17
-targetCompatibility = 17
 
 repositories {
   mavenCentral()
@@ -34,32 +31,31 @@ dependencies {
 }
 
 
-combineCss {
-  source "${webAppDirName}/static/css/main.css"
-  dest "${buildDir}/minify/css/all.css"
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+appengine {
+  deploy {
+    projectId 'GCLOUD_CONFIG'
+    version 'GCLOUD_CONFIG'
+    promote false
+    stopPreviousVersion false
+  }
 }
 
 minifyCss {
-  source combineCss
+  source 'src/main/webapp/static/css/main.css'
   dest "${buildDir}/minify/css/all.min.css"
 }
 
-combineJs {
-  encoding 'UTF-8'
-  source "${webAppDirName}/static/js/analytics.js"
-  source "${webAppDirName}/static/js/main.js"
-  source "${webAppDirName}/static/js/adsense.js"
-  dest "${buildDir}/minify/js/all.js"
-}
-
 minifyJs {
-  source combineJs
+  source 'src/main/webapp/static/js/analytics.js'
+  source 'src/main/webapp/static/js/main.js'
+  source 'src/main/webapp/static/js/adsense.js'
   dest "${buildDir}/minify/js/all.min.js"
-  sourceMap "${buildDir}/minify/js/all.sourcemap.json"
-  closure {
-    compilerOptions.languageIn = 'ECMASCRIPT6_STRICT'
-    compilerOptions.languageOut = 'ECMASCRIPT5'
-  }
+  languageOut 'ECMASCRIPT5_STRICT'
 }
 
 war {
@@ -72,15 +68,6 @@ war {
   webInf {
     from "${buildDir}/minify/js/"
     into "/static/js/"
-  }
-}
-
-appengine {
-  deploy {
-    projectId 'GCLOUD_CONFIG'
-    version 'GCLOUD_CONFIG'
-    promote false
-    stopPreviousVersion false
   }
 }
 
@@ -112,4 +99,6 @@ task appRunStage(type: JavaExec) {
   classpath "${appengine.stage.stagingDirectory}/*"
 }
 
-appengineDeploy.dependsOn bundleServer
+appengineDeploy {
+  dependsOn bundleServer
+}
