@@ -34,7 +34,6 @@ import org.mifmi.commons4j.util.DateUtilz;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.dencoder.annotation.Dencoder;
-import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
 @WebServlet("")
@@ -78,15 +77,12 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	@Override
 	protected void doGet() throws Exception {
 		String v = reqres().param("v", "");
-		String oe = CommonLogic.mapShortCharsetName(reqres().param("oe", reqres().cookie("oe", "UTF-8")));
-		String oex = (!oe.startsWith("UTF")) ? oe : reqres().cookie("oex", message("oe.ext.default"));
-		String nl = reqres().param("nl", reqres().cookie("nl", "crlf"));
-		String tz = reqres().param("tz", reqres().cookie("tz", null));
+		String oe = "UTF-8";
+		String oex = message("oe.ext.default");
+		String nl = "crlf";
+		String tz = DateUtilz.localeToTimeZoneID(request().getLocale());
 		if (tz == null) {
-			tz = DateUtilz.localeToTimeZoneID(request().getLocale());
-			if (tz == null) {
-				tz = "UTC";
-			}
+			tz = "UTC";
 		}
 		
 		String type = reqres().attribute("type");

@@ -27,7 +27,6 @@ import jakarta.servlet.annotation.WebServlet;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.model.DencodeCondition;
-import com.dencode.web.logic.CommonLogic;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,7 +52,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			type = reqmap.getOrDefault("type", "all").toString();
 			method = reqmap.getOrDefault("method", "all.all").toString();
 			val = reqmap.getOrDefault("value", "").toString();
-			oe = CommonLogic.mapShortCharsetName(reqmap.getOrDefault("oe", "UTF-8").toString());
+			oe = reqmap.getOrDefault("oe", "UTF-8").toString();
 			nl = reqmap.getOrDefault("nl", "crlf").toString();
 			tz = reqmap.getOrDefault("tz", "UTC").toString();
 			

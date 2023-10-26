@@ -250,7 +250,7 @@
 				</div>
 			</form>
 			<div id="expOptions">
-				<div id="oeGroup" class="btn-group btn-group-sm" data-enable="${(useOe) ? 'true' : 'false'}" data-initial-value="${mf:h(oe)}" style="display: none;">
+				<div id="oeGroup" class="btn-group btn-group-sm" data-enable="${(useOe) ? 'true' : 'false'}" data-default-value="${mf:h(oe)}" style="display: none;">
 					<button class="btn" data-oe="UTF-8">UTF-8</button>
 					<button class="btn" data-oe="UTF-16BE">UTF-16</button>
 					<button class="btn" data-oe="UTF-32BE">UTF-32</button>
@@ -258,7 +258,7 @@
 					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<span class="caret"></span>
 					</button>
-					<ul id="oexMenu" class="dropdown-menu" role="menu" data-initial-value="${mf:h(oex)}">
+					<ul id="oexMenu" class="dropdown-menu" role="menu" data-default-value="${mf:h(oex)}">
 						<li class="dropdown-item" data-oe="UTF-16LE" tabindex="0">UTF-16LE</li>
 						<li class="dropdown-item" data-oe="UTF-32LE" tabindex="0">UTF-32LE</li>
 						<li class="dropdown-divider"></li>
@@ -310,12 +310,12 @@
 						<li class="dropdown-item" data-oe="windows-1258" tabindex="0">Windows-1258</li>
 					</ul>
 				</div>
-				<div id="nlGroup" class="btn-group btn-group-sm" data-enable="${(useNl) ? 'true' : 'false'}" data-initial-value="${mf:h(nl)}" style="display: none;">
+				<div id="nlGroup" class="btn-group btn-group-sm" data-enable="${(useNl) ? 'true' : 'false'}" data-default-value="${mf:h(nl)}" style="display: none;">
 					<button class="btn" data-nl="crlf">CRLF (Win)</button>
 					<button class="btn" data-nl="lf">LF (UNIX/Mac)</button>
 					<button class="btn" data-nl="cr">CR (Old Mac)</button>
 				</div>
-				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" data-initial-value="${mf:h(tz)}" style="display: none;">
+				<div id="tzGroup" class="btn-group btn-group-sm" data-enable="${(useTz) ? 'true' : 'false'}" data-default-value="${mf:h(tz)}" style="display: none;">
 					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<span id="tz" data-tz=""></span>
 						<span class="caret"></span>

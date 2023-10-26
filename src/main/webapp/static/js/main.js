@@ -59,54 +59,90 @@ $(document).ready(function () {
 	
 	
 	try {
-		// Get settings from request parameter
 		const params = new URLSearchParams(window.location.search);
-		let ioe = params.get("oe");
-		let inl = params.get("nl");
-		let itz = params.get("tz");
-		let ioex = null;
 		
-		// Load previous settings from local storage
-		if (window.localStorage) {
-			ioex = ioex || window.localStorage.getItem("oex");
-			ioe = ioe || window.localStorage.getItem("oe");
-			inl = inl || window.localStorage.getItem("nl");
-			itz = itz || window.localStorage.getItem("tz");
+		const oex = selectItem($oexMenuItems, $oexMenu, "oe", "oex");
+		$oexBtn.attr("data-oe", oex);
+		const oe = selectItem($oeGroupBtns, $oeGroup, "oe", "oe");
+		const nl = selectItem($nlGroupBtns, $nlGroup, "nl", "nl");
+		const tz = selectItem($tzMenuItems, $tzGroup, "tz", "tz");
+		$tz.attr("data-tz", tz);
+		
+		$options.each(function () {
+			const name = this.name;
+			const value = selectOption(this, name);
 			
-			$options.each(function () {
-				const value = window.localStorage.getItem("options." + this.name);
-				if (value !== null) {
-					this.value = value;
-				} else if ("defaultValue" in this.dataset) {
-					this.value = this.dataset.defaultValue;
-				}
-				
-				const $target = $syncOptions.filter(`[data-sync-with="${this.name}"]`);
-				$target.val(this.value);
-			});
-			
-			// TODO: This is for a migration (Change option name). Will be removed after the migration.
-			for (const k of Object.keys(window.localStorage)) {
-				if (k.startsWith("options.enc") || k.startsWith("options.dec")) {
-					window.localStorage.removeItem(k);
-				}
+			const $target = $syncOptions.filter(`[data-sync-with="${name}"]`);
+			$target.val(value);
+		});
+		
+		// TODO: This is for a migration (Change option name). Will be removed after the migration.
+		for (const k of Object.keys(window.localStorage)) {
+			if (k.startsWith("options.enc") || k.startsWith("options.dec")) {
+				window.localStorage.removeItem(k);
 			}
 		}
 		
-		ioex = ioex || $oexMenu.attr("data-initial-value");
-		ioe = ioe || $oeGroup.attr("data-initial-value");
-		inl = inl || $nlGroup.attr("data-initial-value");
-		itz = itz || $tzGroup.attr("data-initial-value");
 		
-		ioex = (!ioe.startsWith("UTF")) ? ioe : ioex;
+		// Functions
+		function selectItem($items, $itemGroup, name, storageName) {
+			const getters = [
+				() => params.get(name),
+				() => getLocalStorage(storageName),
+				() => $itemGroup.attr("data-default-value")
+				];
+			
+			for (const getter of getters) {
+				const v = getter();
+				if (v !== null && v !== undefined) {
+					const $item = $items.filter(`[data-${name}="${v}"]`);
+					if ($item.length !== 0) {
+						$item.addClass("active");
+						return v;
+					}
+				}
+			}
+			
+			return null;
+		}
 		
-		$oexBtn.attr("data-oe", ioex);
-		$tz.attr("data-tz", itz);
+		function selectOption(option, name) {
+			const getters = [
+				() => params.get(name),
+				() => (name.startsWith(dencodeMethod)) ? params.get(name.substring(dencodeMethod.length + 1)) : null,
+				() => getLocalStorage("options." + name),
+				() => option.dataset.defaultValue
+				];
+			
+			for (const getter of getters) {
+				const v = getter();
+				if (v !== null && v !== undefined) {
+					option.value = v;
+					
+					if (option.selectedIndex === -1) {
+						continue;
+					}
+					
+					return v;
+				}
+			}
+			
+			if (option.selectedIndex === -1) {
+				option.selectedIndex = 0;
+				return option.value;
+			}
+			
+			return option.value;
+		}
 		
-		$oexMenuItems.filter(`[data-oe="${ioex}"]`).addClass("active");
-		$oeGroupBtns.filter(`[data-oe="${ioe}"]`).addClass("active");
-		$nlGroupBtns.filter(`[data-nl="${inl}"]`).addClass("active");
-		$tzMenuItems.filter(`[data-tz="${itz}"]`).addClass("active");
+		function getLocalStorage(key) {
+			try {
+				return window.localStorage.getItem(key);
+			} catch (ex) {
+				// NOP
+			}
+			return null;
+		}
 	} catch (ex) {
 		// NOP
 	}
@@ -570,41 +606,58 @@ $(document).ready(function () {
 	(function () {
 		// for cipher.enigma
 		
-		const $optMachines = $("select[name='cipher.enigma.machine'],select[name='_cipher.enigma.machine']");
+		const $optMachines = $(".dencode-option[name='cipher.enigma.machine'],.dencode-option[name='_cipher.enigma.machine']");
 		
 		if ($optMachines.length === 0) {
 			return;
 		}
 		
-		const $optReflectors = $("select[name='cipher.enigma.reflector'],select[name='_cipher.enigma.reflector']");
-		const $optPlugboards = $("input[name='cipher.enigma.plugboard'],input[name='_cipher.enigma.plugboard']");
-		const $optUkwds = $("input[name='cipher.enigma.ukwd'],input[name='_cipher.enigma.ukwd']");
+		const $optReflectors = $(".dencode-option[name='cipher.enigma.reflector'],.dencode-option[name='_cipher.enigma.reflector']");
+		const $optPlugboards = $(".dencode-option[name='cipher.enigma.plugboard'],.dencode-option[name='_cipher.enigma.plugboard']");
+		const $optUkwds = $(".dencode-option[name='cipher.enigma.ukwd'],.dencode-option[name='_cipher.enigma.ukwd']");
 		
 		$optMachines.on("change init.dencode", function () {
 			const $this = $(this);
 			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
 			const $selectedOption = $this.find("option:selected");
-			const reflectors = $selectedOption.attr("data-reflectors").split(",");
-			const rotors = $selectedOption.attr("data-rotors").split(",");
-			const has = $selectedOption.attr("data-has").split(",");
+			const reflectors = $selectedOption.attr("data-reflectors")?.split(",") || [];
+			const rotors = $selectedOption.attr("data-rotors")?.split(",") || [];
+			const has = $selectedOption.attr("data-has")?.split(",") || [];
 			
-			const $optReflector = $(`select[name="${prefix}.reflector"]`);
-			const $optRotor3 = $(`select[name="${prefix}.rotor3"]`);
-			const $optRotor2 = $(`select[name="${prefix}.rotor2"]`);
-			const $optRotor1 = $(`select[name="${prefix}.rotor1"]`);
+			const has4wheels = (has.indexOf("4wheels") !== -1);
+			const hasPlugboard = (has.indexOf("plugboard") !== -1);
+			const hasUhr = (has.indexOf("uhr") !== -1);
+			const hasSettableReflector = (has.indexOf("settable-reflector") !== -1);
+			const hasUkwd = (has.indexOf("ukwd") !== -1);
+			
+			const $optReflector = $(`.dencode-option[name="${prefix}.reflector"]`);
+			const $optReflectorOptSet = $(`.dencode-option[name^="${prefix}.reflector-"]`);
+			const $optRotor4Set = $(`.dencode-option[name^="${prefix}.rotor4"]`);
+			const $optRotor3 = $(`.dencode-option[name="${prefix}.rotor3"]`);
+			const $optRotor2 = $(`.dencode-option[name="${prefix}.rotor2"]`);
+			const $optRotor1 = $(`.dencode-option[name="${prefix}.rotor1"]`);
+			const $optPlugboard = $(".dencode-option[name='${prefix}.plugboard']");
+			const $optUhr = $(".dencode-option[name='${prefix}.uhr']");
+			const $optUkwd = $(".dencode-option[name='${prefix}.ukwd']");
 			
 			setupSelectOptions($optReflector, reflectors);
 			setupSelectOptions($optRotor3, rotors);
 			setupSelectOptions($optRotor2, rotors);
 			setupSelectOptions($optRotor1, rotors);
 			
+			$optReflectorOptSet.attr("data-disabled", !hasSettableReflector);
+			$optRotor4Set.attr("data-disabled", !has4wheels);
+			$optPlugboard.attr("data-disabled", !hasPlugboard);
+			$optUhr.attr("data-disabled", !hasUhr);
+			$optUkwd.attr("data-disabled", !hasUkwd);
+			
 			const $enigma = $this.closest(".cipher-enigma");
-			addOrRemoveClass($enigma, "cipher-enigma-has-4wheels", (has.indexOf("4wheels") !== -1));
-			addOrRemoveClass($enigma, "cipher-enigma-has-plugboard", (has.indexOf("plugboard") !== -1));
-			addOrRemoveClass($enigma, "cipher-enigma-has-uhr", (has.indexOf("uhr") !== -1));
-			addOrRemoveClass($enigma, "cipher-enigma-has-settable-reflector", (has.indexOf("settable-reflector") !== -1));
-			addOrRemoveClass($enigma, "cipher-enigma-has-ukwd", (has.indexOf("ukwd") !== -1));
+			addOrRemoveClass($enigma, "cipher-enigma-has-settable-reflector", hasSettableReflector);
+			addOrRemoveClass($enigma, "cipher-enigma-has-4wheels", has4wheels);
+			addOrRemoveClass($enigma, "cipher-enigma-has-plugboard", hasPlugboard);
+			addOrRemoveClass($enigma, "cipher-enigma-has-uhr", hasUhr);
+			addOrRemoveClass($enigma, "cipher-enigma-has-ukwd", hasUkwd);
 			
 			$optReflector.trigger("init.dencode");
 		});
@@ -613,16 +666,12 @@ $(document).ready(function () {
 			const $this = $(this);
 			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
-			const $optUkwd = $(`input[name="${prefix}.ukwd"]`);
-			const $optRotor4 = $(`select[name="${prefix}.rotor4"]`);
-			const $optRotor4Ring = $(`select[name="${prefix}.rotor4-ring"]`);
-			const $optRotor4Position = $(`select[name="${prefix}.rotor4-position"]`);
+			const $optUkwd = $(`.dencode-option[name="${prefix}.ukwd"]`);
+			const $optRotor4Set = $(`.dencode-option[name^="${prefix}.rotor4"]`);
 			const ukwd = ($this.val() === "UKW-D");
 			
 			$optUkwd.prop("disabled", !ukwd);
-			$optRotor4.prop("disabled", ukwd);
-			$optRotor4Ring.prop("disabled", ukwd);
-			$optRotor4Position.prop("disabled", ukwd);
+			$optRotor4Set.prop("disabled", ukwd);
 		});
 		
 		$optPlugboards.on("input paste change init.dencode", function () {
@@ -639,7 +688,9 @@ $(document).ready(function () {
 			const err = !validateWiring(pairs, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			
 			addOrRemoveClass($this, "dencode-option-error", err);
-			$(`select[name="${prefix}.uhr"]`).prop("disabled", err || (pairs.length !== 10));
+			
+			const $optUhr = $(".dencode-option[name='${prefix}.uhr']");
+			$optUhr.prop("disabled", err || (pairs.length !== 10));
 		});
 		
 		$optUkwds.on("input paste change init.dencode", function () {
@@ -932,6 +983,22 @@ $(document).ready(function () {
 		if (dencoder === null || dencoder.useTz) {
 			const tz = $tz.data("tz");
 			url += "&tz=" + encodeURIComponent(tz);
+		}
+		
+		if (!method.endsWith(".all")) {
+			$options.each(function () {
+				if (this.disabled || this.dataset.disabled === "true") {
+					return;
+				}
+				if (!this.name.startsWith(method + ".")) {
+					return;
+				}
+				
+				const pk = this.name.substring(method.length + 1);
+				const pv = this.value;
+				
+				url += "&" + encodeURIComponent(pk) + "=" + encodeURIComponent(pv);
+			});
 		}
 		
 		return url;
