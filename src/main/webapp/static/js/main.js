@@ -56,6 +56,7 @@ $(document).ready(function () {
 	const $options = $(".dencode-option:not([name^=_])");
 	const $syncOptions = $(".dencode-option[data-sync-with]");
 	const $otherDencodeLinks = $(".other-dencode-link");
+	const $policyDialog = $("#policyDialog");
 	
 	
 	try {
@@ -147,14 +148,15 @@ $(document).ready(function () {
 		// NOP
 	}
 	
-	// Load settings from location hash
 	const hash = window.location.hash;
-	if (hash !== null && hash.lastIndexOf("#v=", 0) === 0) {
-		$v.val(decodeURIComponent(hash.substring(3)));
-		if (window.history.replaceState) {
-			window.history.replaceState(null, null, window.location.pathname + window.location.search);
-		} else {
-			window.location.hash = "";
+	if (hash !== null) {
+		if (hash.startsWith("#v=")) {
+			// Load value from location hash
+			$v.val(decodeURIComponent(hash.substring(3)));
+			clearLocationHash();
+		} else if (hash === "#policy") {
+			const policyDialog = bootstrap.Modal.getOrCreateInstance($policyDialog[0]);
+			policyDialog.show();
 		}
 	}
 	
@@ -600,6 +602,14 @@ $(document).ready(function () {
 		}
 		
 		ev.preventDefault();
+	});
+	
+	$policyDialog.on("show.bs.modal", function () {
+		window.location.hash = "#policy";
+	});
+	
+	$policyDialog.on("hide.bs.modal", function () {
+		clearLocationHash();
 	});
 	
 	
@@ -1393,6 +1403,14 @@ function toMessageType(level) {
 	case "fatal": //FALLTHRU
 	default:
 		return "danger";
+	}
+}
+
+function clearLocationHash() {
+	if (window.history.replaceState) {
+		window.history.replaceState(null, null, window.location.pathname + window.location.search);
+	} else {
+		window.location.hash = "";
 	}
 }
 
