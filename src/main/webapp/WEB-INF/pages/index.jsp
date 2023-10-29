@@ -2216,7 +2216,7 @@
 </div>
 
 <div id="policyDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<span id="policyDialogLabel" class="modal-title">${mf:h(msg['label.policy'])}</span>
