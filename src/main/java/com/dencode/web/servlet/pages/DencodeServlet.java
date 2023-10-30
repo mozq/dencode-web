@@ -23,54 +23,47 @@ import java.time.DateTimeException;
 import java.time.ZoneId;
 import java.util.Map;
 
-import jakarta.servlet.annotation.WebServlet;
-
 import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.model.DencodeCondition;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet("/dencode")
 public class DencodeServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private static class DencodeRequest {
+		public String type;
+		public String method;
+		public String value;
+		public String oe;
+		public String nl;
+		public String tz;
+		public Map<String, String> options;
+	}
+	
 	@Override
 	protected void doPost() throws Exception {
-		String type;
-		String method;
-		String val;
-		String oe;
-		String nl;
-		String tz;
-		Map<String, String> options;
-
+		DencodeRequest req;
 		try (InputStream is = reqres().request().getInputStream()) {
 			ObjectMapper mapper = new ObjectMapper();
-			Map<String, Object> reqmap = mapper.readValue(is, new TypeReference<Map<String, Object>>() {});
-			
-			type = reqmap.getOrDefault("type", "all").toString();
-			method = reqmap.getOrDefault("method", "all.all").toString();
-			val = reqmap.getOrDefault("value", "").toString();
-			oe = reqmap.getOrDefault("oe", "UTF-8").toString();
-			nl = reqmap.getOrDefault("nl", "crlf").toString();
-			tz = reqmap.getOrDefault("tz", "UTC").toString();
-			
-			options = (Map<String, String>)reqmap.get("options");
+			req = mapper.readValue(is, DencodeRequest.class);
 		}
 		
-		Charset charset = toCharset(oe, StandardCharsets.UTF_8);
-		String lineBreak = toLineBreakString(nl);
-		ZoneId zone = toZoneId(tz, "UTC");
+		Charset charset = toCharset(req.oe, StandardCharsets.UTF_8);
+		String lineBreak = toLineBreakString(req.nl);
+		ZoneId zone = toZoneId(req.tz, "UTC");
 		
-		DencodeCondition cond = new DencodeCondition(val, charset, lineBreak, zone, options);
+		DencodeCondition cond = new DencodeCondition(req.value, charset, lineBreak, zone, req.options);
 		
 		try {
-			Map<String, Object> dencodeResult = DencodeMapper.dencode(type, method, cond);
+			Map<String, Object> dencodeResult = DencodeMapper.dencode(req.type, req.method, cond);
 			
 			responseAsJson(dencodeResult);
 		} catch (OutOfMemoryError e) {
-			throw new IllegalArgumentException("Method: " + method + ", Value length: " + cond.value().length(), e);
+			throw new IllegalArgumentException("Method: " + req.method + ", Value length: " + cond.value().length(), e);
 		}
 	}
 
