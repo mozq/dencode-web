@@ -78,8 +78,8 @@
 		<div class="container-fluid">
 			<div id="typeMenuCollapse" class="collapse navbar-collapse">
 				<ul id="typeMenu" class="navbar-nav">
-					<li class="nav-item ${(type eq 'all') ? 'active' : ''}" data-dencode-type="all" data-dencode-method="all.all">
-						<a class="nav-link" href="${mf:h(basePath)}/">${mf:h(msg['all.type'])}</a>
+					<li class="nav-item ${(type eq 'all') ? 'active' : ''}" data-dencode-type="all">
+						<a class="nav-link" href="${mf:h(basePath)}/" data-dencode-method="all.all">${mf:h(msg['all.type'])}</a>
 					</li>
 					<li class="nav-item dropdown ${(type eq 'string') ? 'active' : ''}" role="presentation" data-dencode-type="string">
 						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
@@ -2182,7 +2182,7 @@
 			</c:if>
 			
 			<c:if test="${type ne 'all'}">
-				<div><a class="other-dencode-link" href="#" data-other-dencode-method="${mf:h((fn:endsWith(method, '.all')) ? 'all' : mf:strcat(type, '.all'))}">${mf:h(msg[mf:strcat('label.otherDencodeLink.', (fn:endsWith(method, '.all')) ? 'all' : mf:strcat(type, '.all'))])}</a></div>
+				<div><a class="other-dencode-link" href="#" data-other-dencode-method="${mf:h((fn:endsWith(method, '.all')) ? 'all.all' : mf:strcat(type, '.all'))}">${mf:h(msg[mf:strcat('label.otherDencodeLink.', (fn:endsWith(method, '.all')) ? 'all.all' : mf:strcat(type, '.all'))])}</a></div>
 			</c:if>
 		</div>
 		
