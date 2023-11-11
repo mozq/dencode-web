@@ -2,9 +2,11 @@
 (function (window, document) {
 	"use strict";
 	
+	const $ = new Commons(window, document);
+	
 	// Lazy load adsbygoogle.js
-	$(window).on("keydown.lzads click.lzads mousedown.lzads mousemove.lzads scroll.lzads", function() {
-		$(window).off(".lzads");
+	const lazyLoadAdFn = $.on(window, "keydown click mousedown mousemove scroll", function () {
+		$.off(window, "keydown click mousedown mousemove scroll", lazyLoadAdFn);
 		
 		const s = document.createElement("script");
 		s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
@@ -12,43 +14,52 @@
 		document.body.appendChild(s);
 	});
 	
-	$(document).ready(function () {
-		const $listRows = $(".dencoded-list").find("tr");
+	$.onReady(function () {
+		const elListRows = $.all(".dencoded-list tr");
 		
 		// Init Ads
-		$(".adsbygoogle").each(function () {
+		$.all(".adsbygoogle").forEach(() => {
 			(window.adsbygoogle = window.adsbygoogle || []).push({});
 		});
 		
 		// Show AdMiddle
-		$listRows.on("selectrow.dencode", function () {
-			const $row = $(this);
+		$.on(elListRows, "dencode:select-row", function () {
+			const elAdBottom = $.id("adBottom");
 			
-			const $window = $(window);
-			const $adBottom = $("#adBottom");
-			if ($adBottom.offset().top > $window.scrollTop() + $window.height()) {
-				// AdBottom is out of display
+			if (!elAdBottom.hasChildNodes()) {
+				// Cannot load Ad
+				return;
+			}
+			
+			const adBottomRect = elAdBottom.getBoundingClientRect();
+			if (adBottomRect.top < window.innerHeight && 0 < adBottomRect.bottom) {
+				// AdBottom is in viewport
+				return;
+			}
+			
+			// Show AdMiddle
+			const elAdMiddle = $.id("adMiddle");
+			if (elAdMiddle) {
+				this.parentNode.insertBefore(elAdMiddle, this.nextElementSibling);
+				elAdMiddle.style.display = "";
+			} else {
+				const adMiddleHtml = $.id("adMiddleTmpl").innerHTML;
 				
-				if ($adBottom.children().length) {
-					// Can load Ad
-					
-					// Show AdMiddle
-					const $adMiddle = $("#adMiddle");
-					if ($adMiddle.length) {
-						$adMiddle.detach().insertAfter($row).show();
-					} else {
-						const adMiddleHtml = $("#adMiddleTmpl").html();
-						$row.after(adMiddleHtml);
-						(window.adsbygoogle = window.adsbygoogle || []).push({});
-					}
-				}
+				const elTmpl = document.createElement("template");
+				elTmpl.innerHTML = adMiddleHtml;
+				const elAdMiddleNew = elTmpl.content;
+				
+				this.parentNode.insertBefore(elAdMiddleNew, this.nextElementSibling);
+				(window.adsbygoogle = window.adsbygoogle || []).push({});
 			}
 		});
-
+		
 		// Hide AdMiddle
-		$listRows.on("deselectrow.dencode", function () {
-			const $adMiddle = $("#adMiddle");
-			$adMiddle.hide();
+		$.on(elListRows, "dencode:deselect-row", function () {
+			const elAdMiddle = $.id("adMiddle");
+			if (elAdMiddle) {
+				elAdMiddle.style.display = "none";
+			}
 		});
 	});
 })(window, document);

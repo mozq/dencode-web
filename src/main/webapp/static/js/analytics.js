@@ -2,6 +2,8 @@
 (function (window, document) {
 	"use strict";
 	
+	const $ = new Commons(window, document);
+	
 	const s = document.createElement('script');
 	s.async = true;
 	s.src = "https://www.googletagmanager.com/gtag/js?id=G-LXQ6W8SL7X";
@@ -13,19 +15,18 @@
 	gtag('config', 'G-LXQ6W8SL7X');
 	
 	
-	$(document).ready(function () {
-		$(document).on("click", "#loadFromFile", function () {
+	$.onReady(function () {
+		$.on("#loadFromFile", "click", function () {
 			gtag("event", "load_file");
 		});
 		
-		$(document).on("click", "#loadFromQrcode", function () {
+		$.on("#loadFromQrcode", "click", function () {
 			gtag("event", "load_qrcode");
 		});
 		
-		$(document).on("click", ".popover-toggle.permanent-link", function () {
-			const $this = $(this);
-			if ($this.hasClass("active")) {
-				const method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+		$.on(".popover-toggle.permanent-link", "click", function () {
+			if (this.classList.contains("active")) {
+				const method = this.closest("[data-dencode-method]").getAttribute("data-dencode-method");
 				gtag("event", "share", {
 					method: "show",
 					content_type: "link",
@@ -34,9 +35,8 @@
 			}
 		});
 		
-		$(document).on("click", ".copy-to-clipboard", function () {
-			const $this = $(this);
-			const id = $this.attr("data-copy-id");
+		$.on(".copy-to-clipboard", "click", function () {
+			const id = this.getAttribute("data-copy-id");
 			gtag("event", "share", {
 				method: "copy",
 				content_type: "value",
@@ -44,7 +44,9 @@
 			});
 		});
 		
-		$(document).on("dencoded.dencode", function (ev, data, response) {
+		$.on(document, "dencode:dencoded", function (ev) {
+			const data = ev.requestData;
+			
 			if (data.value.length === 0) {
 				return;
 			}
@@ -63,34 +65,30 @@
 			});
 		});
 		
-		$("#vLen").on("click", function () {
-			const $this = $(this);
-			if ($this.hasClass("active")) {
+		$.on($.id("vLen"), "click", function () {
+			if (this.classList.contains("active")) {
 				gtag("event", "view_value_length");
 			}
 		});
 		
-		$("#follow").on("click", function () {
-			const $this = $(this);
-			if ($this.hasClass("active")) {
+		$.on($.id("follow"), "click", function () {
+			if (this.classList.contains("active")) {
 				gtag("event", "follow_on");
 			} else {
 				gtag("event", "follow_off");
 			}
 		});
 		
-		$("#decodedList").find("tr").on("selectrow.dencode", function () {
-			const $row = $(this);
-			const method = $row.attr("data-dencode-method");
+		$.on($.all("#decodedList tr"), "dencode:select-row", function () {
+			const method = this.getAttribute("data-dencode-method");
 			gtag("event", "select_item", {
 				item_list_id: "decoded-list",
 				items: [{item_id: method}]
 			});
 		});
 		
-		$("#encodedList").find("tr").on("selectrow.dencode", function () {
-			const $row = $(this);
-			const method = $row.attr("data-dencode-method");
+		$.on($.all("#encodedList tr"), "dencode:select-row", function () {
+			const method = this.getAttribute("data-dencode-method");
 			gtag("event", "select_item", {
 				item_list_id: "encoded-list",
 				items: [{item_id: method}]
@@ -99,17 +97,17 @@
 	});
 	
 	function getLatestMessage() {
-		const messageElm = document.querySelector("#messages div.alert:last-of-type");
-		if (!messageElm) {
+		const elMessage = $.one("#messages div.alert:last-of-type");
+		if (!elMessage) {
 			return null;
 		}
 		
-		const mElm = messageElm.querySelector("strong");
-		const dElm = messageElm.querySelector("p");
+		const mElm = elMessage.querySelector("strong");
+		const dElm = elMessage.querySelector("p");
 		
 		return {
-			messageId: messageElm.dataset.messageId,
-			level: messageElm.dataset.level,
+			messageId: elMessage.dataset.messageId,
+			level: elMessage.dataset.level,
 			message: mElm.innerText,
 			detail: (dElm) ? dElm.innerText : ""
 		};

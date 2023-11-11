@@ -1,7 +1,9 @@
 (function (window, document) {
 "use strict";
 
-$(document).ready(function () {
+const $ = new Commons(window, document);
+
+$.onReady(function () {
 	let _inProc = false;
 	let _v = null;
 	let _oe = null;
@@ -20,61 +22,59 @@ $(document).ready(function () {
 	const dencodeType = document.body.getAttribute("data-dencode-type");
 	const dencodeMethod = document.body.getAttribute("data-dencode-method");
 	
-	const $window = $(window);
-	const $document = $(document);
-	const $localeMenuLinks = $("#localeMenu .dropdown-menu a");
-	const $typeMenu = $("#typeMenu");
-	const $typeMenuLinks = $typeMenu.find("a");
-	const $typeMenuLabels = $typeMenu.find(".dropdown-menu-label");
-	const $methodMenuLinks = $typeMenu.find("a[data-dencode-method]");
-	const $top = $("#top");
-	const $exp = $("#exp");
-	const $follow = $("#follow");
-	const $vLen = $("#vLen");
-	const $v = $("#v");
-	const $loadBtn = $("#load");
-	const $loadFile = $("#loadFile");
-	const $loadFileInput = $("#loadFileInput");
-	const $loadQrcode = $("#loadQrcode");
-	const $loadQrcodeInput = $("#loadQrcodeInput");
-	const $oeGroup = $("#oeGroup");
-	const $oeGroupBtns = $oeGroup.find(".btn:not(.dropdown-toggle)");
-	const $oexBtn = $("#oex");
-	const $oexMenu = $("#oexMenu");
-	const $oexMenuItems = $oexMenu.find(".dropdown-item");
-	const $nlGroup = $("#nlGroup");
-	const $nlGroupBtns = $nlGroup.find(".btn");
-	const $tz = $("#tz");
-	const $tzGroup = $("#tzGroup");
-	const $tzMenuItems = $("#tzMenuItems [data-tz]");
-	const $tzMenuFilter = $("#tzMenuFilter");
-	const $subHeaders = $("h2");
-	const $decIndicator = $("#decodingIndicator");
-	const $encIndicator = $("#encodingIndicator");
-	const $listRows = $(".dencoded-list > tbody > tr");
-	const $optionGroups = $(".dencode-option-group");
-	const $options = $(".dencode-option:not([name^=_])");
-	const $syncOptions = $(".dencode-option[data-sync-with]");
-	const $otherDencodeLinks = $(".other-dencode-link");
-	const $policyDialog = $("#policyDialog");
+	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
+	const elTypeMenuLinks = $.all("#typeMenu a");
+	const elTypeMenuLabels = $.all("#typeMenu .dropdown-menu-label");
+	const elExp = $.id("exp");
+	const elFollow = $.id("follow");
+	const elVLen = $.id("vLen");
+	const elV = $.id("v");
+	const elLoadBtn = $.id("load");
+	const elLoadFile = $.id("loadFile");
+	const elLoadFileInput = $.id("loadFileInput");
+	const elLoadQrcode = $.id("loadQrcode");
+	const elLoadQrcodeInput = $.id("loadQrcodeInput");
+	const elOeGroup = $.id("oeGroup");
+	const elOeGroupBtns = $.all("#oeGroup .btn:not(.dropdown-toggle)");
+	const elOexBtn = $.id("oex");
+	const elOexMenu = $.id("oexMenu");
+	const elOexMenuItems = $.all("#oexMenu .dropdown-item");
+	const elNlGroup = $.id("nlGroup");
+	const elNlGroupBtns = $.all("#nlGroup .btn");
+	const elTz = $.id("tz");
+	const elTzGroup = $.id("tzGroup");
+	const elTzMenuItems = $.all("#tzMenuItems [data-tz]");
+	const elTzMenuFilter = $.id("tzMenuFilter");
+	const elSubHeaders = $.all("h2");
+	const elDecIndicator = $.id("decodingIndicator");
+	const elEncIndicator = $.id("encodingIndicator");
+	const elListRows = $.all(".dencoded-list > tbody > tr");
+	const elOptionGroups = $.all(".dencode-option-group");
+	const elOptions = $.all(".dencode-option:not([name^=_])");
+	const elSyncOptions = $.all(".dencode-option[data-sync-with]");
+	const elOtherDencodeLinks = $.all(".other-dencode-link");
+	const elPolicyDialog = $.id("policyDialog");
 	
 	
 	try {
 		const params = new URLSearchParams(window.location.search);
 		
-		const oex = selectItem($oexMenuItems, $oexMenu, "oe", "oex");
-		$oexBtn.attr("data-oe", oex);
-		const oe = selectItem($oeGroupBtns, $oeGroup, "oe", "oe");
-		const nl = selectItem($nlGroupBtns, $nlGroup, "nl", "nl");
-		const tz = selectItem($tzMenuItems, $tzGroup, "tz", "tz");
-		$tz.attr("data-tz", tz);
+		const oex = selectItem(elOexMenuItems, elOexMenu, "oe", "oex");
+		elOexBtn.setAttribute("data-oe", oex);
+		const oe = selectItem(elOeGroupBtns, elOeGroup, "oe", "oe");
+		const nl = selectItem(elNlGroupBtns, elNlGroup, "nl", "nl");
+		const tz = selectItem(elTzMenuItems, elTzGroup, "tz", "tz");
+		elTz.setAttribute("data-tz", tz);
 		
-		$options.each(function () {
-			const name = this.name;
-			const value = selectOption(this, name);
+		elOptions.forEach((el) => {
+			const name = el.name;
+			const value = selectOption(el, name);
 			
-			const $target = $syncOptions.filter(`[data-sync-with="${name}"]`);
-			$target.val(value);
+			elSyncOptions.forEach((elSyncOpt) => {
+				if (elSyncOpt.getAttribute("data-sync-with") === name) {
+					elSyncOpt.value = value;
+				}
+			});
 		});
 		
 		// TODO: This is for a migration (Change option name). Will be removed after the migration.
@@ -86,19 +86,20 @@ $(document).ready(function () {
 		
 		
 		// Functions
-		function selectItem($items, $itemGroup, name, storageName) {
+		function selectItem(elItems, elItemGroup, name, storageName) {
 			const getters = [
 				() => params.get(name),
 				() => getLocalStorage(storageName),
-				() => $itemGroup.attr("data-default-value")
+				() => elItemGroup.getAttribute("data-default-value")
 				];
 			
 			for (const getter of getters) {
 				const v = getter();
 				if (v !== null && v !== undefined) {
-					const $item = $items.filter(`[data-${name}="${v}"]`);
-					if ($item.length !== 0) {
-						$item.addClass("active");
+					const attrName = `data-${name}`;
+					const elItem = elItems.find((el) => el.getAttribute(attrName) === v);
+					if (elItem) {
+						elItem.classList.add("active");
 						return v;
 					}
 				}
@@ -152,92 +153,85 @@ $(document).ready(function () {
 	if (hash !== null) {
 		if (hash.startsWith("#v=")) {
 			// Load value from location hash
-			$v.val(decodeURIComponent(hash.substring(3)));
+			elV.value = decodeURIComponent(hash.substring(3));
 			clearLocationHash();
 		} else if (hash === "#policy") {
-			const policyDialog = bootstrap.Modal.getOrCreateInstance($policyDialog[0]);
+			const policyDialog = bootstrap.Modal.getOrCreateInstance(elPolicyDialog);
 			policyDialog.show();
 		}
 	}
 	
 	// Initialize menu
-	$methodMenuLinks.filter(`[data-dencode-method="${dencodeMethod}"]`).addClass("active");
+	$.one(`#typeMenu a[data-dencode-method="${dencodeMethod}"]`).classList.add("active");
 	
 	// Initialize buttons
-	if ($oeGroup.data("enable")) {
-		let $oexMenuItem = $oexMenuItems.filter(".active");
-		if ($oexMenuItem.length === 0) {
-			$oexMenuItem = $oexMenuItems.eq(0);
+	if (elOeGroup.getAttribute("data-enable") === "true") {
+		let elOexMenuItem = elOexMenuItems.find((el) => el.classList.contains("active"));
+		if (!elOexMenuItem) {
+			elOexMenuItem = elOexMenuItems[0];
 		}
-		$oexBtn.text($oexMenuItem.text());
-		$oexBtn.data("oe", $oexMenuItem.data("oe"));
+		elOexBtn.textContent = elOexMenuItem.textContent;
+		elOexBtn.setAttribute("data-oe", elOexMenuItem.getAttribute("data-oe"));
 		
-		$oeGroup.show();
+		elOeGroup.style.display = "";
 		
-		$oeGroupBtns.on("click", function () {
-			const $this = $(this);
-			
-			if ($this.hasClass("active")) {
+		$.on(elOeGroupBtns, "click", function () {
+			if (this.classList.contains("active")) {
 				return;
 			}
 			
-			$oeGroupBtns.removeClass("active");
-			$this.addClass("active");
+			elOeGroupBtns.forEach((el) => el.classList.remove("active"));
+			this.classList.add("active");
 			
 			dencode();
 		});
 
-		$oexMenuItems.on("click", function () {
-			const $this = $(this);
+		$.on(elOexMenuItems, "click", function () {
+			elOeGroupBtns.forEach((el) => el.classList.remove("active"));
+			elOexMenuItems.forEach((el) => el.classList.remove("active"));
+			this.classList.add("active");
+			elOexBtn.classList.add("active");
 			
-			$oeGroupBtns.removeClass("active");
-			$oexMenuItems.removeClass("active");
-			$this.addClass("active");
-			$oexBtn.addClass("active");
-
-			$oexBtn.text($this.text());
-			$oexBtn.data("oe", $this.data("oe"));
+			elOexBtn.textContent = this.textContent;
+			elOexBtn.setAttribute("data-oe", this.getAttribute("data-oe"));
 			
 			dencode();
 		});
 	}
 
-	if ($nlGroup.data("enable")) {
-		$nlGroup.show();
+	if (elNlGroup.getAttribute("data-enable") === "true") {
+		elNlGroup.style.display = "";
 		
-		$nlGroupBtns.on("click", function () {
-			const $this = $(this);
-
-			if ($this.hasClass("active")) {
+		$.on(elNlGroupBtns, "click", function () {
+			if (this.classList.contains("active")) {
 				return;
 			}
 			
-			$nlGroupBtns.removeClass("active");
-			$this.addClass("active");
+			elNlGroupBtns.forEach((el) => el.classList.remove("active"));
+			this.classList.add("active");
 			
 			dencode();
 		});
 	}
 
-	if ($tzGroup.data("enable")) {
-		let $tzMenuItem = $tzMenuItems.filter(".active");
-		if ($tzMenuItem.length === 0) {
-			$tzMenuItem = $tzMenuItems.eq(0);
+	if (elTzGroup.getAttribute("data-enable") === "true") {
+		let elTzMenuItem = elTzMenuItems.find((el) => el.classList.contains("active"));
+		if (!elTzMenuItem) {
+			elTzMenuItem = elTzMenuItems[0];
 		}
-		$tz.text($tzMenuItem.text());
-		$tz.data("tz", $tzMenuItem.data("tz"));
+		elTz.textContent = elTzMenuItem.textContent;
+		elTz.setAttribute("data-tz", elTzMenuItem.getAttribute("data-tz"));
 		
-		$tzGroup.show();
+		elTzGroup.style.display = "";
 		
-		$tzMenuFilter.on("input paste", function () {
-			const svals = $(this).val().toLowerCase().split(/\s+/g);
+		$.on(elTzMenuFilter, "input paste", function () {
+			const svals = this.value.toLowerCase().split(/\s+/g);
 			
-			$tzMenuItems.each(function () {
-				const $this = $(this);
-				let val = $this.attr("data-tz-lc");
+			elTzMenuItems.forEach((elItem) => {
+				let val = elItem.getAttribute("data-tz-lc");
 				if (!val) {
-					val = $this.text().toLowerCase();
-					$this.attr("data-tz-lc", val);
+					val = elItem.textContent.toLowerCase();
+					elItem.setAttribute("data-tz-lc", val);
 				}
 				
 				let matched = true;
@@ -247,23 +241,16 @@ $(document).ready(function () {
 						break;
 					}
 				}
-				
-				if (matched) {
-					$this.show();
-				} else {
-					$this.hide();
-				}
+				elItem.style.display = (matched) ? "" :"none";
 			});
 		});
 		
-		$tzMenuItems.on("click", function () {
-			const $this = $(this);
+		$.on(elTzMenuItems, "click", function () {
+			elTzMenuItems.forEach((el) => el.classList.remove("active"));
+			this.classList.add("active");
 			
-			$tzMenuItems.removeClass("active");
-			$this.addClass("active");
-			
-			$tz.text($this.text());
-			$tz.data("tz", $this.data("tz"));
+			elTz.textContent = this.textContent;
+			elTz.setAttribute("data-tz", this.getAttribute("data-tz"));
 			
 			dencode();
 		});
@@ -271,56 +258,56 @@ $(document).ready(function () {
 	
 	
 	if (window.File) {
-		$document.on("drop", function (ev) {
+		$.on(document, "drop", function (ev) {
 			const file = ev.originalEvent.dataTransfer.files[0];
 			loadValueFromFile(file);
 			
-			return false;
+			ev.preventDefault();
 		});
 		
-		$document.on("dragenter dragover dragleave dragend", false);
+		$.on(document, "dragenter dragover dragleave dragend", function (ev) {
+			ev.preventDefault();
+		});
 	}
 	
-	$window.on("resize", function () {
-		hidePopover($(".popover-toggle.active"));
+	$.on(window, "resize", function () {
+		hidePopover($.all(".popover-toggle.active"));
 	});
 	
-	$document.on("click", function (ev) {
-		const $target = $(ev.target);
-
+	$.on(document, "click", function (ev) {
 		// hide popover when other area clicked
-		if ($target.closest(".popover-toggle, .popover").length === 0) {
-			hidePopover($(".popover-toggle.active"));
+		if (!ev.target.closest(".popover-toggle, .popover")) {
+		hidePopover($.all(".popover-toggle.active"));
 		}
 	});
 	
-	$document.on("focus", ".select-on-focus", function () {
-		setTimeout(function() {
+	$.on(".select-on-focus", "focus", function () {
+		setTimeout(function () {
 			selectAllTextValue(this);
 		}.bind(this), 1);
+	}, true);
+	
+	$.on(".copy-to-clipboard", "click", function (ev) {
+		copyToClipboard(this);
+		this.focus();
+		
+		ev.preventDefault();
 	});
 	
-	$document.on("click", ".copy-to-clipboard", function () {
-		const $this = $(this);
-		
-		copyToClipboard($this);
-		$this.focus();
-		
-		return false;
-	});
-	
-	$document.on("click", ".popover-toggle.permanent-link", function () {
-		const $this = $(this);
-		
-		if ($this.hasClass("active")) {
-			hidePopover($this);
+	$.on(".popover-toggle.permanent-link", "click", function () {
+		if (this.classList.contains("active")) {
+			hidePopover([this]);
 		} else {
-			const method = $this.closest("[data-dencode-method]").attr("data-dencode-method");
+			const method = this.closest("[data-dencode-method]").getAttribute("data-dencode-method");
 			const type = method.substring(0, method.indexOf("."));
 			
-			if (!$this.data("bs.popover")) {
+			let popover = bootstrap.Popover.getInstance(this);
+			if (popover) {
+				popover.show();
+			} else {
+				const elParent = this;
 				loadDencoder(type, method, function (dencoder) {
-					$this.popover({
+					const newPopover = new bootstrap.Popover(elParent, {
 						trigger: "manual",
 						container: "body",
 						placement: "left",
@@ -336,91 +323,81 @@ $(document).ready(function () {
 							});
 						}
 					});
-					$this.popover("show");
+					newPopover.show();
 				});
-			} else {
-				$this.popover("show");
 			}
 		}
 	});
 	
-	$document.on("show.bs.popover", ".popover-toggle", function () {
-		const $this = $(this);
+	$.on(".popover-toggle", "show.bs.popover", function () {
+		hidePopover($.all(".popover-toggle.active"), [this]);
 		
-		hidePopover($(".popover-toggle.active").not($this));
-		
-		$this.addClass("active");
+		this.classList.add("active");
 	});
 	
-	$document.on("hidden.bs.popover", ".popover-toggle", function () {
-		const $this = $(this);
-		
-		$this.removeClass("active");
+	$.on(".popover-toggle", "hidden.bs.popover", function () {
+		this.classList.remove("active");
 	});
 	
-	$(".dropdown-item").on("keyup", function (ev) {
+	$.on($.all(".dropdown-item"), "keyup", function (ev) {
 		if (ev.key === "Enter") {
 			ev.target.click();
 		}
 	});
 	
-	$localeMenuLinks.on("click", function (ev) {
-		const $this = $(this);
-		
-		if ($this.closest("li").hasClass("active")) {
+	$.on(elLocaleMenuLinks, "click", function (ev) {
+		if (this.closest("li").classList.contains("active")) {
 			ev.preventDefault();
 			return;
 		}
 		
-		const v = $v.val();
+		const v = elV.value;
 		if (0 < v.length) {
 			this.href += "#v=" + encodeURIComponent(v);
 		}
 	});
 	
-	$typeMenuLinks.on("click", function (ev) {
-		const $this = $(this);
-
-		if ($this.hasClass("dropdown-toggle") || $this.closest("li").hasClass("active")) {
+	$.on(elTypeMenuLinks, "click", function (ev) {
+		if (this.classList.contains("dropdown-toggle") || this.closest("li").classList.contains("active")) {
 			ev.preventDefault();
 			return;
 		}
 		
-		const v = $v.val();
+		const v = elV.value;
 		if (0 < v.length) {
 			this.href += "#v=" + encodeURIComponent(v);
 		}
 	});
 	
-	$typeMenuLabels.on("click", function () {
-		const $this = $(this);
+	$.on(elTypeMenuLabels, "click", function (ev) {
+		const elDropdownMenuLink = this.closest("li").querySelector("ul.dropdown-menu li a");
+		elDropdownMenuLink.click();
 		
-		const $dropdownMenuLink = $this.closest("li").find("ul.dropdown-menu li:first a");
-		$dropdownMenuLink[0].click();
-		
-		return false;
+		ev.preventDefault();
 	});
 
-	$v.on("input paste", function () {
+	$.on(elV, "input paste", function () {
 		dencode();
 	});
 
-	$v.on("keyup click", function () {
-		setBgColor($v, _colors);
+	$.on(elV, "keyup click", function () {
+		setBgColor(elV, _colors);
 	});
 	
-	$loadFile.on("click", function () {
+	$.on(elLoadFile, "click", function (ev) {
 		if (!window.File) {
-			showMessageDialog($loadFile.attr("data-load-unsupported-message"));
-			return false;
+			showMessageDialog(elLoadFile.getAttribute("data-load-unsupported-message"));
+			
+			ev.preventDefault();
+			return;
 		}
 		
-		$loadFileInput.click();
+		elLoadFileInput.click();
 	});
 	
-	$loadFileInput.on("change",  function () {
+	$.on(elLoadFileInput, "change", function () {
 		if (this.files.length === 0) {
-			showMessageDialog($loadFile.attr("data-load-error-message"));
+			showMessageDialog(elLoadFile.getAttribute("data-load-error-message"));
 			return;
 		}
 		
@@ -428,21 +405,23 @@ $(document).ready(function () {
 		this.value = "";
 		
 		loadValueFromFile(file);
-		showTooltip($loadBtn, $loadFile.attr("data-load-message"), 2000);
+		showTooltip(elLoadBtn, elLoadFile.getAttribute("data-load-message"), 2000);
 	});
 	
-	$loadQrcode.on("click", function () {
+	$.on(elLoadQrcode, "click", function (ev) {
 		if (!window.File) {
-			showMessageDialog($loadQrcode.attr("data-load-unsupported-message"));
-			return false;
+			showMessageDialog(elLoadQrcode.getAttribute("data-load-unsupported-message"));
+			
+			ev.preventDefault();
+			return;
 		}
 		
-		$loadQrcodeInput.click();
+		elLoadQrcodeInput.click();
 	});
 	
-	$loadQrcodeInput.on("change",  function () {
+	$.on(elLoadQrcodeInput, "change", function () {
 		if (this.files.length === 0) {
-			showMessageDialog($loadQrcode.attr("data-load-error-message"));
+			showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
 			return;
 		}
 		
@@ -456,12 +435,12 @@ $(document).ready(function () {
 				img.onload = function () {
 					const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
 					if (code === null) {
-						showMessageDialog($loadQrcode.attr("data-load-error-message"));
+						showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
 						return;
 					}
 					
 					updateValue(code.data);
-					showTooltip($loadBtn, $loadQrcode.attr("data-load-message"), 2000);
+					showTooltip(elLoadBtn, elLoadQrcode.getAttribute("data-load-message"), 2000);
 				};
 				img.src = this.result;
 			}
@@ -469,90 +448,93 @@ $(document).ready(function () {
 		}.bind(this));
 	});
 	
-	$subHeaders.on("click", function () {
-		const $this = $(this);
-		const $toggleIcon = $this.children(".toggle-icon");
+	$.on(elSubHeaders, "click", function () {
+		const elToggleIcon = this.querySelector(".toggle-icon");
 		
-		if ($toggleIcon.hasClass("bi-caret-down-square")) {
-			$toggleIcon.removeClass("bi-caret-down-square").addClass("bi-caret-right-square");
+		if (elToggleIcon.classList.contains("bi-caret-down-square")) {
+			elToggleIcon.classList.remove("bi-caret-down-square");
+			elToggleIcon.classList.add("bi-caret-right-square");
 		} else {
-			$toggleIcon.removeClass("bi-caret-right-square").addClass("bi-caret-down-square");
+			elToggleIcon.classList.remove("bi-caret-right-square");
+			elToggleIcon.classList.add("bi-caret-down-square");
 		}
 	});
 	
-	$listRows.on("click", function (ev) {
-		hidePopover($(".popover-toggle.active"));
+	$.on(elListRows, "click", function (ev) {
+		hidePopover($.all(".popover-toggle.active"));
 		
-		if ($(ev.target).closest(".for-copy").length !== 0) {
+		if (ev.target.closest(".for-copy")) {
+			return;
+		}
+		if (this.classList.contains("invalid-value")) {
 			return;
 		}
 		
-		const $row = $(this);
-		
-		if ($row.hasClass("invalid-value")) {
-			return;
-		}
-		
-		if ($row.hasClass("active")) {
-			$row.trigger("deselectrow.dencode");
+		if (this.classList.contains("active")) {
+			this.dispatchEvent(new Event("dencode:deselect-row"));
 		} else {
-			$listRows.filter(".active").each(function () {
-				$(this).trigger("deselectrow.dencode");
+			elListRows.forEach((el) => {
+				if (el.classList.contains("active")) {
+					el.dispatchEvent(new Event("dencode:deselect-row"));
+				}
 			});
 			
-			$row.trigger("selectrow.dencode");
+			this.dispatchEvent(new Event("dencode:select-row"));
 		}
 	});
 	
-	$optionGroups.on("click", false);
+	$.on(elOptionGroups, "click", function (ev) {
+		ev.stopPropagation();
+	}, { capture: true });
 	
-	$options.on("input paste change", function () {
-		const $this = $(this);
+	$.on(elOptions, "input paste change", function () {
+		const name = this.name;
+		const value = this.value;
 		
-		const $syncOpts = $syncOptions.filter(`[data-sync-with="${this.name}"]`);
-		$syncOpts.val($this.val());
-		$syncOpts.trigger("init.dencode");
+		elSyncOptions.forEach((elSyncOpt) => {
+			if (elSyncOpt.getAttribute("data-sync-with") === name) {
+				elSyncOpt.value = value;
+				elSyncOpt.dispatchEvent(new Event("dencode:init"));
+			}
+		});
 		
 		dencode();
 	});
 	
-	$syncOptions.on("input paste change", function () {
-		const $this = $(this);
-		
-		const optName = $this.attr("data-sync-with");
-		const $opt = $options.filter(`[name="${optName}"]`);
-		$opt.val($this.val());
-		$opt.trigger("change");
+	$.on(elSyncOptions, "input paste change", function () {
+		const optName = this.getAttribute("data-sync-with");
+		const elOpt = elOptions.find((el) => el.name === optName);
+		elOpt.value = this.value;
+		elOpt.dispatchEvent(new Event("change"));
 	});
 	
-	$listRows.on("selectrow.dencode", function () {
-		const $row = $(this);
+	$.on(elListRows, "dencode:select-row", function () {
+		this.classList.add("active");
 		
-		$row.addClass("active");
-		
-		const $forDisp = $row.find(".for-disp");
-		const id = $forDisp.attr("id");
-		const val = $forDisp.text();
+		const elForDisp = this.querySelector(".for-disp");
+		const id = elForDisp.getAttribute("id");
+		const val = elForDisp.textContent;
 		
 		const forCopyHtml = renderTemplate(getForCopyTmpl(), {
 			id: id,
 			value: val
 		});
 		
-		const $forCopy = $(forCopyHtml);
-		$forDisp.after($forCopy);
+		const elTmpl = document.createElement("template");
+		elTmpl.innerHTML = forCopyHtml;
+		const elForCopy = elTmpl.content;
+		
+		elForDisp.parentNode.insertBefore(elForCopy, elForDisp);
 	});
 	
-	$listRows.on("deselectrow.dencode", function () {
-		const $row = $(this);
+	$.on(elListRows, "dencode:deselect-row", function () {
+		this.classList.remove("active");
 		
-		$row.removeClass("active");
-		
-		const $forCopy = $row.find(".for-copy");
-		$forCopy.remove();
+		const elForCopy = this.querySelector(".for-copy");
+		elForCopy.parentNode.removeChild(elForCopy);
 	});
 	
-	$follow.on("click", function () {
+	$.on(elFollow, "click", function () {
 		toggleFollow();
 	});
 	try {
@@ -563,52 +545,49 @@ $(document).ready(function () {
 		// NOP
 	}
 	
-	$vLen.on("click", function () {
-		const $this = $(this);
-		
-		if ($this.hasClass("active")) {
-			$this.popover("hide");
-		} else {
-			$this.popover("show");
-		}
-	});
-	
-	$vLen.popover({
-		trigger: "manual",
-		placement: "left",
-		html: false,
-		sanitizeFn: function (content) {
-			return content;
-		},
-		content: function () {
-			const chars = Number($vLen.data("len-chars"));
-			const bytes = Number($vLen.data("len-bytes"));
-			return renderTemplate(getLengthTmpl(), {
-				chars: chars,
-				oneChar: (chars == 1),
-				bytes: bytes,
-				oneByte: (bytes == 1)
+	$.on(elVLen, "click", function () {
+		let popover = bootstrap.Popover.getInstance(this);
+		if (!popover) {
+			popover = new bootstrap.Popover(this, {
+				trigger: "manual",
+				placement: "left",
+				html: false,
+				sanitizeFn: function (content) {
+					return content;
+				},
+				content: function () {
+					const chars = Number(elVLen.getAttribute("data-len-chars"));
+					const bytes = Number(elVLen.getAttribute("data-len-bytes"));
+					return renderTemplate(getLengthTmpl(), {
+						chars: chars,
+						oneChar: (chars == 1),
+						bytes: bytes,
+						oneByte: (bytes == 1)
+					});
+				}
 			});
 		}
+		
+		if (this.classList.contains("active")) {
+			popover.hide();
+		} else {
+			popover.show();
+		}
 	});
 	
-	$otherDencodeLinks.on("click", function (ev) {
-		const $this = $(this);
-		const method = $this.data("other-dencode-method");
+	$.on(elOtherDencodeLinks, "click", function (ev) {
+		const method = this.getAttribute("data-other-dencode-method");
 		
-		const $menuLinks = $methodMenuLinks.filter(`[data-dencode-method="${method}"]`);
-		if (0 < $menuLinks.length) {
-			$menuLinks[0].click();
-		}
+		$.one(`#typeMenu a[data-dencode-method="${method}"]`).click();
 		
 		ev.preventDefault();
 	});
 	
-	$policyDialog.on("show.bs.modal", function () {
+	$.on(elPolicyDialog, "show.bs.modal", function () {
 		window.location.hash = "#policy";
 	});
 	
-	$policyDialog.on("hide.bs.modal", function () {
+	$.on(elPolicyDialog, "hide.bs.modal", function () {
 		clearLocationHash();
 	});
 	
@@ -616,24 +595,23 @@ $(document).ready(function () {
 	(function () {
 		// for cipher.enigma
 		
-		const $optMachines = $(".dencode-option[name='cipher.enigma.machine'],.dencode-option[name='_cipher.enigma.machine']");
+		const elOptMachines = $.all(".dencode-option[name='cipher.enigma.machine'],.dencode-option[name='_cipher.enigma.machine']");
 		
-		if ($optMachines.length === 0) {
+		if (elOptMachines.length === 0) {
 			return;
 		}
 		
-		const $optReflectors = $(".dencode-option[name='cipher.enigma.reflector'],.dencode-option[name='_cipher.enigma.reflector']");
-		const $optPlugboards = $(".dencode-option[name='cipher.enigma.plugboard'],.dencode-option[name='_cipher.enigma.plugboard']");
-		const $optUkwds = $(".dencode-option[name='cipher.enigma.ukwd'],.dencode-option[name='_cipher.enigma.ukwd']");
+		const elOptReflectors = $.all(".dencode-option[name='cipher.enigma.reflector'],.dencode-option[name='_cipher.enigma.reflector']");
+		const elOptPlugboards = $.all(".dencode-option[name='cipher.enigma.plugboard'],.dencode-option[name='_cipher.enigma.plugboard']");
+		const elOptUkwds = $.all(".dencode-option[name='cipher.enigma.ukwd'],.dencode-option[name='_cipher.enigma.ukwd']");
 		
-		$optMachines.on("change init.dencode", function () {
-			const $this = $(this);
+		$.on(elOptMachines, "change dencode:init", function () {
 			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
-			const $selectedOption = $this.find("option:selected");
-			const reflectors = $selectedOption.attr("data-reflectors")?.split(",") || [];
-			const rotors = $selectedOption.attr("data-rotors")?.split(",") || [];
-			const has = $selectedOption.attr("data-has")?.split(",") || [];
+			const elOptMachineOption = this.options[this.selectedIndex];
+			const reflectors = elOptMachineOption.getAttribute("data-reflectors")?.split(",") || [];
+			const rotors = elOptMachineOption.getAttribute("data-rotors")?.split(",") || [];
+			const has = elOptMachineOption.getAttribute("data-has")?.split(",") || [];
 			
 			const has4wheels = (has.indexOf("4wheels") !== -1);
 			const hasPlugboard = (has.indexOf("plugboard") !== -1);
@@ -641,51 +619,49 @@ $(document).ready(function () {
 			const hasSettableReflector = (has.indexOf("settable-reflector") !== -1);
 			const hasUkwd = (has.indexOf("ukwd") !== -1);
 			
-			const $optReflector = $(`.dencode-option[name="${prefix}.reflector"]`);
-			const $optReflectorOptSet = $(`.dencode-option[name^="${prefix}.reflector-"]`);
-			const $optRotor4Set = $(`.dencode-option[name^="${prefix}.rotor4"]`);
-			const $optRotor3 = $(`.dencode-option[name="${prefix}.rotor3"]`);
-			const $optRotor2 = $(`.dencode-option[name="${prefix}.rotor2"]`);
-			const $optRotor1 = $(`.dencode-option[name="${prefix}.rotor1"]`);
-			const $optPlugboard = $(".dencode-option[name='${prefix}.plugboard']");
-			const $optUhr = $(".dencode-option[name='${prefix}.uhr']");
-			const $optUkwd = $(".dencode-option[name='${prefix}.ukwd']");
+			const elOptReflector = $.one(`.dencode-option[name="${prefix}.reflector"]`);
+			const elOptReflectorOptSet = $.all(`.dencode-option[name^="${prefix}.reflector-"]`);
+			const elOptRotor4Set = $.all(`.dencode-option[name^="${prefix}.rotor4"]`);
+			const elOptRotor3 = $.one(`.dencode-option[name="${prefix}.rotor3"]`);
+			const elOptRotor2 = $.one(`.dencode-option[name="${prefix}.rotor2"]`);
+			const elOptRotor1 = $.one(`.dencode-option[name="${prefix}.rotor1"]`);
+			const elOptPlugboard = $.one(`.dencode-option[name='${prefix}.plugboard']`);
+			const elOptUhr = $.one(`.dencode-option[name='${prefix}.uhr']`);
+			const elOptUkwd = $.one(`.dencode-option[name='${prefix}.ukwd']`);
 			
-			setupSelectOptions($optReflector, reflectors);
-			setupSelectOptions($optRotor3, rotors);
-			setupSelectOptions($optRotor2, rotors);
-			setupSelectOptions($optRotor1, rotors);
+			setupSelectOptions(elOptReflector, reflectors);
+			setupSelectOptions(elOptRotor3, rotors);
+			setupSelectOptions(elOptRotor2, rotors);
+			setupSelectOptions(elOptRotor1, rotors);
 			
-			$optReflectorOptSet.attr("data-disabled", !hasSettableReflector);
-			$optRotor4Set.attr("data-disabled", !has4wheels);
-			$optPlugboard.attr("data-disabled", !hasPlugboard);
-			$optUhr.attr("data-disabled", !hasUhr);
-			$optUkwd.attr("data-disabled", !hasUkwd);
+			elOptReflectorOptSet.forEach((el) => el.setAttribute("data-disabled", !hasSettableReflector));
+			elOptRotor4Set.forEach((el) => el.setAttribute("data-disabled", !has4wheels));
+			elOptPlugboard.setAttribute("data-disabled", !hasPlugboard);
+			elOptUhr.setAttribute("data-disabled", !hasUhr);
+			elOptUkwd.setAttribute("data-disabled", !hasUkwd);
 			
-			const $enigma = $this.closest(".cipher-enigma");
-			addOrRemoveClass($enigma, "cipher-enigma-has-settable-reflector", hasSettableReflector);
-			addOrRemoveClass($enigma, "cipher-enigma-has-4wheels", has4wheels);
-			addOrRemoveClass($enigma, "cipher-enigma-has-plugboard", hasPlugboard);
-			addOrRemoveClass($enigma, "cipher-enigma-has-uhr", hasUhr);
-			addOrRemoveClass($enigma, "cipher-enigma-has-ukwd", hasUkwd);
+			const elEnigma = this.closest(".cipher-enigma");
+			addOrRemoveClass(elEnigma, "cipher-enigma-has-settable-reflector", hasSettableReflector);
+			addOrRemoveClass(elEnigma, "cipher-enigma-has-4wheels", has4wheels);
+			addOrRemoveClass(elEnigma, "cipher-enigma-has-plugboard", hasPlugboard);
+			addOrRemoveClass(elEnigma, "cipher-enigma-has-uhr", hasUhr);
+			addOrRemoveClass(elEnigma, "cipher-enigma-has-ukwd", hasUkwd);
 			
-			$optReflector.trigger("init.dencode");
+			elOptReflector.dispatchEvent(new Event("dencode:init"));
 		});
 		
-		$optReflectors.on("change init.dencode", function () {
-			const $this = $(this);
+		$.on(elOptReflectors, "change dencode:init", function () {
 			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
-			const $optUkwd = $(`.dencode-option[name="${prefix}.ukwd"]`);
-			const $optRotor4Set = $(`.dencode-option[name^="${prefix}.rotor4"]`);
-			const ukwd = ($this.val() === "UKW-D");
+			const elOptUkwd = $.one(`.dencode-option[name="${prefix}.ukwd"]`);
+			const elOptRotor4Set = $.all(`.dencode-option[name^="${prefix}.rotor4"]`);
+			const ukwd = (this.value === "UKW-D");
 			
-			$optUkwd.prop("disabled", !ukwd);
-			$optRotor4Set.prop("disabled", ukwd);
+			elOptUkwd.disabled = !ukwd;
+			elOptRotor4Set.forEach((el) => el.disabled = ukwd);
 		});
 		
-		$optPlugboards.on("input paste change init.dencode", function () {
-			const $this = $(this);
+		$.on(elOptPlugboards, "input paste change dencode:init", function () {
 			const prefix = this.name.substring(0, this.name.lastIndexOf("."));
 			
 			const val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
@@ -697,15 +673,13 @@ $(document).ready(function () {
 			const pairs = val.trim().split(/\s+/);
 			const err = !validateWiring(pairs, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			
-			addOrRemoveClass($this, "dencode-option-error", err);
+			addOrRemoveClass(this, "dencode-option-error", err);
 			
-			const $optUhr = $(".dencode-option[name='${prefix}.uhr']");
-			$optUhr.prop("disabled", err || (pairs.length !== 10));
+			const elOptUhr = $.one(`.dencode-option[name='${prefix}.uhr']`);
+			elOptUhr.disabled = (err || (pairs.length !== 10));
 		});
 		
-		$optUkwds.on("input paste change init.dencode", function () {
-			const $this = $(this);
-			
+		$.on(elOptUkwds, "input paste change dencode:init", function () {
 			const val = this.value.toUpperCase().replace(/[^A-Z\s]/g, "");
 			
 			const sidx = this.selectionStart;
@@ -715,37 +689,37 @@ $(document).ready(function () {
 			const pairs = val.trim().split(/\s+/);
 			const err = !validateWiring(pairs, "AZXWVUTSRQPONMLKIHGFEDCB");
 			
-			addOrRemoveClass($this, "dencode-option-error", err);
+			addOrRemoveClass(this, "dencode-option-error", err);
 		});
 		
-		$optMachines.trigger("init.dencode");
-		$optPlugboards.trigger("init.dencode");
-		$optUkwds.trigger("init.dencode");
+		elOptMachines.forEach((el) => el.dispatchEvent(new Event("dencode:init")));
+		elOptPlugboards.forEach((el) => el.dispatchEvent(new Event("dencode:init")));
+		elOptUkwds.forEach((el) => el.dispatchEvent(new Event("dencode:init")));
 		
-		function setupSelectOptions($select, optionValues) {
-			const currentIdx = $select.prop("selectedIndex");
+		function setupSelectOptions(elSelect, optionValues) {
+			const elSelOpts = elSelect.options;
+			const currentIdx = elSelect.selectedIndex;
 			
-			const $options = $select.find("option");
 			let newIdx = -1;
-			$options.each(function(index) {
-				const $option = $(this);
+			for (let i = 0; i < elSelOpts.length; i++) {
+				const elSelOpt = elSelOpts[i];
+				const enable = (optionValues.indexOf(elSelOpt.value) !== -1);
 				
-				const enable = (optionValues.indexOf($option.val()) !== -1);
-				$option.prop("disabled", !enable);
-				$option.prop("hidden", !enable);
-				if (enable && (index <= currentIdx || newIdx === -1)) {
-					newIdx = index;
+				elSelOpt.disabled = !enable;
+				elSelOpt.hidden = !enable;
+				if (enable && (i <= currentIdx || newIdx === -1)) {
+					newIdx = i;
 				}
-			});
+			}
 			
-			$select.prop("selectedIndex", newIdx);
+			elSelect.selectedIndex = newIdx;
 		}
 		
-		function addOrRemoveClass($elm, className, add) {
+		function addOrRemoveClass(el, className, add) {
 			if (add) {
-				$elm.addClass(className);
+				el.classList.add(className);
 			} else {
-				$elm.removeClass(className);
+				el.classList.remove(className);
 			}
 		}
 		
@@ -790,14 +764,14 @@ $(document).ready(function () {
 	function dencode() {
 		const type = dencodeType;
 		const method = dencodeMethod;
-		const v = $v.val();
-		const oe = $oeGroupBtns.filter(".active").data("oe");
-		const oex = $oexMenuItems.filter(".active").data("oe");
-		const nl = $nlGroupBtns.filter(".active").data("nl");
-		const tz = $tz.data("tz");
+		const v = elV.value;
+		const oe = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
+		const oex = elOexMenuItems.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
+		const nl = elNlGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-nl");
+		const tz = elTz.getAttribute("data-tz");
 		let options = {};
-		$options.each(function () {
-			options[this.name] = this.value;
+		elOptions.forEach((el) => {
+			options[el.name] = el.value;
 		});
 		
 		if (v === _v && oe === _oe && nl === _nl && tz === _tz) {
@@ -816,7 +790,7 @@ $(document).ready(function () {
 		}
 		
 		const len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
-		$vLen.text(separateThousand(len));
+		elVLen.textContent = separateThousand(len);
 		
 		// Store settings to local storage
 		try {
@@ -826,9 +800,9 @@ $(document).ready(function () {
 				window.localStorage.setItem("nl", nl);
 				window.localStorage.setItem("tz", tz);
 				
-				$options.each(function () {
-					window.localStorage.setItem("options." + this.name, this.value);
-				});
+				for (let key in options) {
+					window.localStorage.setItem("options." + key, options[key]);
+				};
 			}
 		} catch (ex) {
 			// NOP
@@ -845,8 +819,8 @@ $(document).ready(function () {
 		_options = options;
 		
 		
-		$decIndicator.show();
-		$encIndicator.show();
+		elDecIndicator.style.display = "";
+		elEncIndicator.style.display = "";
 		
 		const requestData = {
 				type: type,
@@ -893,7 +867,10 @@ $(document).ready(function () {
 			
 			render(responseJson.response);
 			
-			$document.trigger("dencoded.dencode", [requestData, responseJson]);
+			const ev = new Event("dencode:dencoded");
+			ev.requestData = requestData;
+			ev.responseJson = responseJson;
+			document.dispatchEvent(ev);
 		}).catch(function (error) {
 			if (error.messageObject) {
 				// Handled error
@@ -907,25 +884,28 @@ $(document).ready(function () {
 			}
 			focusMessages();
 			
-			$document.trigger("dencoded.dencode", [requestData, null]);
+			const ev = new Event("dencode:dencoded");
+			ev.requestData = requestData;
+			ev.responseJson = null;
+			document.dispatchEvent(ev);
 		}).finally(function () {
 			_inProc = false;
 			
-			$decIndicator.hide();
-			$encIndicator.hide();
+			elDecIndicator.style.display = "none";
+			elEncIndicator.style.display = "none";
 			
 			dencode();
 		});
 	}
 	
 	function render(res) {
-		$vLen.text(separateThousand(res.textLength));
-		$vLen.data("len-chars", res.textLength);
-		$vLen.data("len-bytes", res.textByteLength);
+		elVLen.textContent = separateThousand(res.textLength);
+		elVLen.setAttribute("data-len-chars", res.textLength);
+		elVLen.setAttribute("data-len-bytes", res.textByteLength);
 		
 		_colors = (res.encColorRGBHex) ? res.encColorRGBHex.split("\n") : null;
 		if (_colors) {
-			setBgColor($v, _colors);
+			setBgColor(elV, _colors);
 		}
 		
 		for (const k in res) {
@@ -934,31 +914,13 @@ $(document).ready(function () {
 	}
 	
 	function toggleFollow() {
-		const isFollowActive = $follow.hasClass("active");
+		const isFollowActive = elFollow.classList.contains("active");
 		if (isFollowActive) {
-			$follow.removeClass("active");
-
-			if ($exp.hasClass("follow")) {
-				$exp.removeClass("follow");
-			} else {
-				$window.off("scroll.follow");
-				$exp.offset({top: $top.offset().top});
-			}
+			elFollow.classList.remove("active");
+			elExp.classList.remove("follow");
 		} else {
-			$follow.addClass("active");
-
-			if (CSS && CSS.supports && CSS.supports("position", "sticky")) {
-				$exp.addClass("follow");
-			} else {
-				$window.on("scroll.follow", function () {
-					let scrollTop = $window.scrollTop();
-					const offsetTop = $top.offset().top;
-					if (scrollTop < offsetTop) {
-						scrollTop = offsetTop;
-					}
-					$exp.offset({top: scrollTop});
-				});
-			}
+			elFollow.classList.add("active");
+			elExp.classList.add("follow");
 		}
 		
 		try {
@@ -969,43 +931,37 @@ $(document).ready(function () {
 	}
 	
 	function getPermanentLink(method, dencoder) {
-		const v = $v.val();
-		
-		const $methodMenuItem = $methodMenuLinks.filter(`[data-dencode-method="${method}"]`);
-		
-		let path = $methodMenuItem.attr("href");
-		if (!path) {
-			path = window.location.pathname;
-		}
+		const v = elV.value;
+		const path = $.one(`#typeMenu a[data-dencode-method="${method}"]`).getAttribute("href");
 		
 		let url = window.location.protocol + "//" + window.location.host + path;
 		
 		url += "?v=" + encodeURIComponent(v);
 		
 		if (dencoder === null || dencoder.useOe) {
-			const oe = $oeGroupBtns.filter(".active").data("oe");
+			const oe = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
 			url += "&oe=" + encodeURIComponent(oe);
 		}
 		if (dencoder === null || dencoder.useNl) {
-			const nl = $nlGroupBtns.filter(".active").data("nl");
+			const nl = elNlGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-nl");
 			url += "&nl=" + encodeURIComponent(nl);
 		}
 		if (dencoder === null || dencoder.useTz) {
-			const tz = $tz.data("tz");
+			const tz = elTz.getAttribute("data-tz");
 			url += "&tz=" + encodeURIComponent(tz);
 		}
 		
 		if (!method.endsWith(".all")) {
-			$options.each(function () {
-				if (this.disabled || this.dataset.disabled === "true") {
+			elOptions.forEach((el) => {
+				if (el.disabled || el.dataset.disabled === "true") {
 					return;
 				}
-				if (!this.name.startsWith(method + ".")) {
+				if (!el.name.startsWith(method + ".")) {
 					return;
 				}
 				
-				const pk = this.name.substring(method.length + 1);
-				const pv = this.value;
+				const pk = el.name.substring(method.length + 1);
+				const pv = el.value;
 				
 				url += "&" + encodeURIComponent(pk) + "=" + encodeURIComponent(pv);
 			});
@@ -1016,28 +972,28 @@ $(document).ready(function () {
 	
 	function getMessageTmpl() {
 		if (_messageTmpl === null) {
-			_messageTmpl = $("#messageTmpl").html();
+			_messageTmpl = $.id("messageTmpl").innerHTML;
 		}
 		return _messageTmpl;
 	}
 	
 	function getLengthTmpl() {
 		if (_lengthTmpl === null) {
-			_lengthTmpl = $("#lengthTmpl").html();
+			_lengthTmpl = $.id("lengthTmpl").innerHTML;
 		}
 		return _lengthTmpl;
 	}
 	
 	function getPermanentLinkTmpl() {
 		if (_permanentLinkTmpl === null) {
-			_permanentLinkTmpl = $("#permanentLinkTmpl").html();
+			_permanentLinkTmpl = $.id("permanentLinkTmpl").innerHTML;
 		}
 		return _permanentLinkTmpl;
 	}
 	
 	function getForCopyTmpl() {
 		if (_forCopyTmpl === null) {
-			_forCopyTmpl = $("#forCopyTmpl").html();
+			_forCopyTmpl = $.id("forCopyTmpl").innerHTML;
 		}
 		return _forCopyTmpl;
 	}
@@ -1054,7 +1010,7 @@ $(document).ready(function () {
 	}
 	
 	function loadValueFromFile(file) {
-		const encoding = $oeGroupBtns.filter(".active").data("oe");
+		const encoding = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
 		
 		const reader = new FileReader();
 		reader.onload = function (ev) {
@@ -1064,18 +1020,18 @@ $(document).ready(function () {
 	}
 	
 	function updateValue(val) {
-		$v.text(val);
-		$v.trigger("input");
+		elV.value = val;
+		elV.dispatchEvent(new Event("input"));
 		
-		$v.removeClass("updating");
-		$v.removeClass("updated");
-		$v.addClass("updating");
+		elV.classList.remove("updating");
+		elV.classList.remove("updated");
+		elV.classList.add("updating");
 		setTimeout(function () {
-			$v.addClass("updated");
+			elV.classList.add("updated");
 			
 			setTimeout(function () {
-				$v.removeClass("updating");
-				$v.removeClass("updated");
+				elV.classList.remove("updating");
+				elV.classList.remove("updated");
 			}, 2000);
 		}, 1);
 	}
@@ -1093,54 +1049,53 @@ $(document).ready(function () {
 			}
 		}
 		
-		$("#messages").html(messagesHtml);
+		$.id("messages").innerHTML = messagesHtml;
 	}
 	
 	function clearMessages() {
-		$("#messages").empty();
+		$.id("messages").textContent = "";
 	}
 
 	function focusMessages() {
 		window.scroll({
-			top: document.getElementById("messages").offsetTop - 10,
+			top: $.id("messages").offsetTop - 10,
 			behavior: "smooth"
 		});
 	}
 	
 	function showMessageDialog(messageText) {
-		$("#messageDialogBody").text(messageText);
-		$("#messageDialog").modal("show");
+		$.id("messageDialogBody").textContent = messageText;
+		const modal = bootstrap.Modal.getOrCreateInstance($.id("messageDialog"));
+		modal.show();
 	}
 });
 
 
 function setResponseValue(id, value) {
-	const forDispElm = document.getElementById(id);
-	if (forDispElm === null) {
+	const elForDisp = $.id(id);
+	if (elForDisp === null) {
 		return;
 	}
 	
-	const $forDisp = $(forDispElm);
-	
-	const $row = $forDisp.closest("tr");
+	const elRow = elForDisp.closest("tr");
 	if (value === null) {
-		$row.addClass("invalid-value");
-		$forDisp.text("");
+		elRow.classList.add("invalid-value");
+		elForDisp.textContent = "";
 	} else {
-		$row.removeClass("invalid-value");
-		$forDisp.text(value);
+		elRow.classList.remove("invalid-value");
+		elForDisp.textContent = value;
 	}
 	
-	const forCopyTextareaElm = document.getElementById(id + "ForCopy");
-	if (forCopyTextareaElm) {
-		$(forCopyTextareaElm).val(value);
+	const elForCopyTextarea = $.id(id + "ForCopy");
+	if (elForCopyTextarea) {
+		elForCopyTextarea.value = value;
 	}
 }
 
-function setBgColor($elm, colors) {
+function setBgColor(el, colors) {
 	let bgColor = null;
 	if (colors) {
-		bgColor = getNonBlankValue(colors, getCurrentLineIndex($elm[0]));
+		bgColor = getNonBlankValue(colors, getCurrentLineIndex(el));
 	}
 	
 	let color;
@@ -1163,59 +1118,63 @@ function setBgColor($elm, colors) {
 		bgColor = "transparent";
 	}
 	
-	$elm.css("color", color);
-	$elm.css("background-color", bgColor);
+	el.style.color = color;
+	el.style.backgroundColor = bgColor;
 }
 
-function selectAllTextValue(elm) {
-	if (elm.select) {
-		elm.select();
+function selectAllTextValue(el) {
+	if (el.select) {
+		el.select();
 	}
 	
 	if (document.createRange && window.getSelection) {
 		const range = document.createRange();
-		range.selectNode(elm);
+		range.selectNode(el);
 		const selection = window.getSelection();
 		selection.removeAllRanges();
 		selection.addRange(range);
 	}
 	
-	if (elm.setSelectionRange) {
-		elm.setSelectionRange(0, 2147483647);
+	if (el.setSelectionRange) {
+		el.setSelectionRange(0, 2147483647);
 	}
 }
 
-function clearSelection(elm) {
+function clearSelection(el) {
 	if (window.getSelection) {
 		const selection = window.getSelection();
 		selection.removeAllRanges();
 	}
 	
-	if (elm.setSelectionRange) {
-		elm.setSelectionRange(0, 0);
+	if (el.setSelectionRange) {
+		el.setSelectionRange(0, 0);
 	}
 }
 
-function getCurrentLineIndex(elm) {
-	const cursorPos = elm.selectionStart;
-	const val = elm.value;
+function getCurrentLineIndex(el) {
+	const cursorPos = el.selectionStart;
+	const val = el.value;
 	
 	const n = (val.substring(0, cursorPos).match(/\n/g) || []).length;
 	
 	return n;
 }
 
-function hidePopover($popovers) {
-	$popovers.each(function(i, elm) {
-		const popover = bootstrap.Popover.getInstance(elm);
+function hidePopover(elPopovers, elExcludes) {
+	elPopovers.forEach((el) => {
+		if (elExcludes && elExcludes.includes(el)) {
+			return;
+		}
+		
+		const popover = bootstrap.Popover.getInstance(el);
 		if (popover) {
 			popover.hide();
 		}
 	});
 }
 
-function showTooltip($elm, message, time) {
-	const tooltip = new bootstrap.Tooltip($elm[0], {
+function showTooltip(el, message, time) {
+	const tooltip = new bootstrap.Tooltip(el, {
 		trigger: "manual",
 		container: "body",
 		title: message
@@ -1228,53 +1187,51 @@ function showTooltip($elm, message, time) {
 	}, time);
 }
 
-function copyToClipboard($elm) {
-
-	const copyElm = document.getElementById($elm.attr("data-copy-id"));
-	const $copy = $(copyElm);
-	const msg = $elm.attr("data-copy-message");
-	const errMsg = $elm.attr("data-copy-error-message");
+function copyToClipboard(el) {
+	const elCopy = $.id(el.getAttribute("data-copy-id"));
+	const msg = el.getAttribute("data-copy-message");
+	const errMsg = el.getAttribute("data-copy-error-message");
 	
-	$copy.removeClass("copying");
-	$copy.removeClass("copied");
-	$copy.addClass("copying");
+	elCopy.classList.remove("copying");
+	elCopy.classList.remove("copied");
+	elCopy.classList.add("copying");
 	setTimeout(function () {
-		$copy.addClass("copied");
+		elCopy.classList.add("copied");
 		
 		setTimeout(function () {
-			$copy.removeClass("copying");
-			$copy.removeClass("copied");
+			elCopy.classList.remove("copying");
+			elCopy.classList.remove("copied");
 		}, 2000);
 	}, 1);
 	
 	if (window.navigator.clipboard) {
-		window.navigator.clipboard.writeText(copyElm.value).then(function() {
-			showTooltip($elm, msg, 2000);
+		window.navigator.clipboard.writeText(elCopy.value).then(function () {
+			showTooltip(el, msg, 2000);
 		}).catch(function (err) {
-			showTooltip($elm, errMsg, 2000);
+			showTooltip(el, errMsg, 2000);
 		});
 	} else {
-		const readOnly = copyElm.readOnly;
-		const contentEditable = copyElm.contentEditable;
+		const readOnly = elCopy.readOnly;
+		const contentEditable = elCopy.contentEditable;
 		
-		copyElm.readOnly = true;
-		copyElm.contentEditable = true;
+		elCopy.readOnly = true;
+		elCopy.contentEditable = true;
 		
-		copyElm.focus();
-		selectAllTextValue(copyElm);
+		elCopy.focus();
+		selectAllTextValue(elCopy);
 		
 		try {
 			document.execCommand("copy");
 			
-			showTooltip($elm, msg, 2000);
+			showTooltip(el, msg, 2000);
 		} catch (ex) {
-			showTooltip($elm, errMsg, 2000);
+			showTooltip(el, errMsg, 2000);
 		} finally {
-			copyElm.readOnly = readOnly;
-			copyElm.contentEditable = contentEditable;
+			elCopy.readOnly = readOnly;
+			elCopy.contentEditable = contentEditable;
 			
-			clearSelection(copyElm);
-			$copy.blur();
+			clearSelection(elCopy);
+			elCopy.blur();
 		}
 	}
 }
@@ -1359,7 +1316,7 @@ function separateThousand(num) {
 }
 
 function getMessage(messageId) {
-	const m = document.querySelector("script[type='text/message'][data-id='" + messageId + "']");
+	const m = $.one(`script[type='text/message'][data-id='${messageId}']`);
 	return newMessage(
 			m.dataset.id,
 			m.dataset.level,
@@ -1415,7 +1372,7 @@ function clearLocationHash() {
 }
 
 function loadScript(scriptTagQuery, callback) {
-	const s = document.querySelector(scriptTagQuery);
+	const s = $.one(scriptTagQuery);
 	if (s.dataset.loaded === "true") {
 		callback();
 		return;

@@ -54,6 +54,7 @@ minifyCss {
 }
 
 minifyJs {
+  source 'src/main/webapp/static/js/commons.js'
   source 'src/main/webapp/static/js/analytics.js'
   source 'src/main/webapp/static/js/main.js'
   source 'src/main/webapp/static/js/adsense.js'
