@@ -2310,6 +2310,8 @@
 	</tr>
 </script>
 
+<script id="dencoderDefs" type="application/json">${dencoderDefsJson}</script>
+
 <script type="text/message" data-id="default.error" data-level="${mf:h(msg['default.error.level'])}" data-message="${mf:h(msg['default.error'])}" data-detail="${mf:h(msg['default.error.detail'])}"></script>
 <script type="text/message" data-id="network.error" data-level="${mf:h(msg['network.error.level'])}" data-message="${mf:h(msg['network.error'])}" data-detail="${mf:h(msg['network.error.detail'])}"></script>
 </body>

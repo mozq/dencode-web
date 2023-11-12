@@ -19,6 +19,7 @@ package com.dencode.web.servlet.pages;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -74,6 +75,34 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		SUPPORTED_LOCALE_MAP = Collections.unmodifiableMap(supportedLocaleMap);
 	}
 	
+	private static final String DENCODER_DEFS_JSON;
+	static {
+		Collection<Dencoder> dencoderDefinitions = DencodeMapper.getAllDencoderDefinitions();
+		
+		StringBuilder sb = new StringBuilder();
+		boolean notFirst = false;
+		sb.append('{');
+		for (Dencoder dencoder : dencoderDefinitions) {
+			if (notFirst) {
+				sb.append(',');
+			}
+			notFirst = true;
+			
+			sb.append('"').append(dencoder.method()).append('"');
+			sb.append(':');
+			sb.append('{');
+			sb.append('"').append("hasEncoder").append('"').append(':').append(dencoder.hasEncoder()).append(',');
+			sb.append('"').append("hasDecoder").append('"').append(':').append(dencoder.hasDecoder()).append(',');
+			sb.append('"').append("useOe").append('"').append(':').append(dencoder.useOe()).append(',');
+			sb.append('"').append("useNl").append('"').append(':').append(dencoder.useNl()).append(',');
+			sb.append('"').append("useTz").append('"').append(':').append(dencoder.useTz());
+			sb.append('}');
+		}
+		sb.append('}');
+		
+		DENCODER_DEFS_JSON = sb.toString();
+	}
+	
 	@Override
 	protected void doGet() throws Exception {
 		String v = reqres().param("v", "");
@@ -102,6 +131,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		}
 		
 		// TODO: This is for a migration (Decommission Cookies). Will be removed after the migration.
+		reqres().removeCookie("JSESSIONID");
 		reqres().removeCookie("oe");
 		reqres().removeCookie("oex");
 		reqres().removeCookie("nl");
@@ -141,6 +171,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		
 		reqres().setAttribute("types", DencodeMapper.getAvailableTypesOf(type));
 		reqres().setAttribute("methods", DencodeMapper.getAvailableMethodsOf(type, method));
+		reqres().setAttribute("dencoderDefsJson", DENCODER_DEFS_JSON);
 		
 		reqres().setAttribute("supportedLocaleMap", SUPPORTED_LOCALE_MAP);
 		

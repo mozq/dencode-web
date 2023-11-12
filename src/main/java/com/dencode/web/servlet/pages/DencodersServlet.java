@@ -30,6 +30,7 @@ import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
 
+@Deprecated
 @WebServlet("/dencoders/*")
 public class DencodersServlet extends AbstractDencodeHttpServlet {
 	private static final long serialVersionUID = 1L;

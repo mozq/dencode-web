@@ -22,6 +22,8 @@ $.onReady(function () {
 	const dencodeType = document.body.getAttribute("data-dencode-type");
 	const dencodeMethod = document.body.getAttribute("data-dencode-method");
 	
+	const dencoderDefs = JSON.parse($.id("dencoderDefs").textContent);
+	
 	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
 	const elTypeMenuLinks = $.all("#typeMenu a");
 	const elTypeMenuLabels = $.all("#typeMenu .dropdown-menu-label");
@@ -298,33 +300,30 @@ $.onReady(function () {
 		if (this.classList.contains("active")) {
 			hidePopover([this]);
 		} else {
-			const method = this.closest("[data-dencode-method]").getAttribute("data-dencode-method");
-			const type = method.substring(0, method.indexOf("."));
-			
 			let popover = bootstrap.Popover.getInstance(this);
 			if (popover) {
 				popover.show();
 			} else {
 				const elParent = this;
-				loadDencoder(type, method, function (dencoder) {
-					const newPopover = new bootstrap.Popover(elParent, {
-						trigger: "manual",
-						container: "body",
-						placement: "left",
-						html: true,
-						sanitizeFn: function (content) {
-							return content;
-						},
-						content: function () {
-							const permanentLink = getPermanentLink(method, dencoder);
-							return renderTemplate(getPermanentLinkTmpl(), {
-								permanentLink: permanentLink,
-								permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
-							});
-						}
-					});
-					newPopover.show();
+				const newPopover = new bootstrap.Popover(this, {
+					trigger: "manual",
+					container: "body",
+					placement: "left",
+					html: true,
+					sanitizeFn: function (content) {
+						return content;
+					},
+					content: function () {
+						const method = elParent.closest("[data-dencode-method]").getAttribute("data-dencode-method");
+						const dcDef = dencoderDefs[method];
+						const permanentLink = getPermanentLink(method, dcDef);
+						return renderTemplate(getPermanentLinkTmpl(), {
+							permanentLink: permanentLink,
+							permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
+						});
+					}
 				});
+				newPopover.show();
 			}
 		}
 	});
@@ -930,7 +929,7 @@ $.onReady(function () {
 		}
 	}
 	
-	function getPermanentLink(method, dencoder) {
+	function getPermanentLink(method, dcDef) {
 		const v = elV.value;
 		const path = $.one(`#typeMenu a[data-dencode-method="${method}"]`).getAttribute("href");
 		
@@ -938,15 +937,15 @@ $.onReady(function () {
 		
 		url += "?v=" + encodeURIComponent(v);
 		
-		if (dencoder === null || dencoder.useOe) {
+		if (dcDef === null || dcDef.useOe) {
 			const oe = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
 			url += "&oe=" + encodeURIComponent(oe);
 		}
-		if (dencoder === null || dencoder.useNl) {
+		if (dcDef === null || dcDef.useNl) {
 			const nl = elNlGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-nl");
 			url += "&nl=" + encodeURIComponent(nl);
 		}
-		if (dencoder === null || dencoder.useTz) {
+		if (dcDef === null || dcDef.useTz) {
 			const tz = elTz.getAttribute("data-tz");
 			url += "&tz=" + encodeURIComponent(tz);
 		}
@@ -996,17 +995,6 @@ $.onReady(function () {
 			_forCopyTmpl = $.id("forCopyTmpl").innerHTML;
 		}
 		return _forCopyTmpl;
-	}
-	
-	function loadDencoder(type, method, callback) {
-		fetch(contextPath + "/dencoders/" + type + "/" + method)
-		.then(function (response) {
-			return response.json();
-		}).then(function (dencoder) {
-			callback(dencoder);
-		}).catch(function () {
-			callback(null);
-		});
 	}
 	
 	function loadValueFromFile(file) {
