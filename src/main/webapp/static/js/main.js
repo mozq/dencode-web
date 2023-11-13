@@ -258,6 +258,49 @@ $.onReady(function () {
 		});
 	}
 	
+	// Initialize popovers
+	new bootstrap.Popover(elVLen, {
+		trigger: "click",
+		content: function (el) {
+			const chars = Number(el.getAttribute("data-len-chars"));
+			const bytes = Number(el.getAttribute("data-len-bytes"));
+			return renderTemplate(getLengthTmpl(), {
+				chars: chars,
+				oneChar: (chars == 1),
+				bytes: bytes,
+				oneByte: (bytes == 1)
+			});
+		}
+	});
+	
+	new bootstrap.Popover(document.body, {
+		selector: ".popover-toggle.permanent-link",
+		trigger: "click",
+		html: true,
+		sanitize: false,
+		content: function (el) {
+			const method = el.closest("[data-dencode-method]").getAttribute("data-dencode-method");
+			const dcDef = dencoderDefs[method];
+			const permanentLink = getPermanentLink(method, dcDef);
+			return renderTemplate(getPermanentLinkTmpl(), {
+				permanentLink: permanentLink,
+				permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
+			});
+		}
+	});
+	
+	
+	// Add event listeners
+	$.on(window, "resize", function () {
+		hidePopovers($.all(".popover-toggle.active"));
+	});
+	
+	$.on(document, "click", function (ev) {
+		// hide popover when other area clicked
+		if (!ev.target.closest(".popover-toggle, .popover")) {
+			hidePopovers($.all(".popover-toggle.active"));
+		}
+	});
 	
 	if (window.File) {
 		$.on(document, "drop", function (ev) {
@@ -272,17 +315,6 @@ $.onReady(function () {
 		});
 	}
 	
-	$.on(window, "resize", function () {
-		hidePopover($.all(".popover-toggle.active"));
-	});
-	
-	$.on(document, "click", function (ev) {
-		// hide popover when other area clicked
-		if (!ev.target.closest(".popover-toggle, .popover")) {
-		hidePopover($.all(".popover-toggle.active"));
-		}
-	});
-	
 	$.on(".select-on-focus", "focus", function () {
 		setTimeout(function () {
 			selectAllTextValue(this);
@@ -296,40 +328,8 @@ $.onReady(function () {
 		ev.preventDefault();
 	});
 	
-	$.on(".popover-toggle.permanent-link", "click", function () {
-		if (this.classList.contains("active")) {
-			hidePopover([this]);
-		} else {
-			let popover = bootstrap.Popover.getInstance(this);
-			if (popover) {
-				popover.show();
-			} else {
-				const elParent = this;
-				const newPopover = new bootstrap.Popover(this, {
-					trigger: "manual",
-					container: "body",
-					placement: "left",
-					html: true,
-					sanitizeFn: function (content) {
-						return content;
-					},
-					content: function () {
-						const method = elParent.closest("[data-dencode-method]").getAttribute("data-dencode-method");
-						const dcDef = dencoderDefs[method];
-						const permanentLink = getPermanentLink(method, dcDef);
-						return renderTemplate(getPermanentLinkTmpl(), {
-							permanentLink: permanentLink,
-							permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
-						});
-					}
-				});
-				newPopover.show();
-			}
-		}
-	});
-	
 	$.on(".popover-toggle", "show.bs.popover", function () {
-		hidePopover($.all(".popover-toggle.active"), [this]);
+		hidePopovers($.all(".popover-toggle.active"));
 		
 		this.classList.add("active");
 	});
@@ -460,7 +460,7 @@ $.onReady(function () {
 	});
 	
 	$.on(elListRows, "click", function (ev) {
-		hidePopover($.all(".popover-toggle.active"));
+		hidePopovers($.all(".popover-toggle.active"));
 		
 		if (ev.target.closest(".for-copy")) {
 			return;
@@ -543,36 +543,6 @@ $.onReady(function () {
 	} catch (ex) {
 		// NOP
 	}
-	
-	$.on(elVLen, "click", function () {
-		let popover = bootstrap.Popover.getInstance(this);
-		if (!popover) {
-			popover = new bootstrap.Popover(this, {
-				trigger: "manual",
-				placement: "left",
-				html: false,
-				sanitizeFn: function (content) {
-					return content;
-				},
-				content: function () {
-					const chars = Number(elVLen.getAttribute("data-len-chars"));
-					const bytes = Number(elVLen.getAttribute("data-len-bytes"));
-					return renderTemplate(getLengthTmpl(), {
-						chars: chars,
-						oneChar: (chars == 1),
-						bytes: bytes,
-						oneByte: (bytes == 1)
-					});
-				}
-			});
-		}
-		
-		if (this.classList.contains("active")) {
-			popover.hide();
-		} else {
-			popover.show();
-		}
-	});
 	
 	$.on(elOtherDencodeLinks, "click", function (ev) {
 		const method = this.getAttribute("data-other-dencode-method");
@@ -1148,12 +1118,8 @@ function getCurrentLineIndex(el) {
 	return n;
 }
 
-function hidePopover(elPopovers, elExcludes) {
+function hidePopovers(elPopovers) {
 	elPopovers.forEach((el) => {
-		if (elExcludes && elExcludes.includes(el)) {
-			return;
-		}
-		
 		const popover = bootstrap.Popover.getInstance(el);
 		if (popover) {
 			popover.hide();

@@ -226,7 +226,7 @@
 		<div id="exp">
 			<div id="expHeader">
 				<span id="follow" title="${mf:h(msg['label.follow'])}"><i class="bi bi-pin-angle-fill"></i></span>
-				<span id="vLen" class="badge bg-secondary popover-toggle" title="${mf:h(msg['label.val.length'])}" data-len-chars="0" data-len-bytes="0">0</span>
+				<span id="vLen" class="badge bg-secondary popover-toggle" title="${mf:h(msg['label.val.length'])}" data-bs-toggle="popover" data-bs-placement="left" data-len-chars="0" data-len-bytes="0">0</span>
 			</div>
 			<form id="expValue" method="post">
 				<div class="input-group">
@@ -241,7 +241,7 @@
 							<%-- <li id="loadFile" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-file-earmark-arrow-up"></i> ${mf:h(msg['label.load.file'])}</li> --%>
 							<li id="loadQrcode" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${mf:h(msg['label.load.qrcode'])}</li>
 						</ul>
-						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}">
+						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
 							<i class="bi bi-link-45deg"></i>
 							<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
 						</button>
@@ -2262,7 +2262,7 @@
 						<i class="bi bi-clipboard"></i>
 						<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
 					</button>
-					<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}">
+					<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
 						<i class="bi bi-link-45deg"></i>
 						<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
 					</button>
