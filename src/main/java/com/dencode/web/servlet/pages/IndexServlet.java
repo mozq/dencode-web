@@ -162,10 +162,6 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			reqres().setAttribute("currentPath", "");
 		}
 		
-		reqres().setAttribute("useOe", dencoder.useOe());
-		reqres().setAttribute("useNl", dencoder.useNl());
-		reqres().setAttribute("useTz", dencoder.useTz());
-		
 		reqres().setAttribute("hasEncoder", dencoder.hasEncoder());
 		reqres().setAttribute("hasDecoder", dencoder.hasDecoder());
 		

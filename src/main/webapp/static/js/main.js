@@ -167,7 +167,7 @@ $.onReady(function () {
 	$.one(`#typeMenu a[data-dencode-method="${dencodeMethod}"]`).classList.add("active");
 	
 	// Initialize buttons
-	if (elOeGroup.getAttribute("data-enable") === "true") {
+	if (dencoderDefs[dencodeMethod].useOe) {
 		let elOexMenuItem = elOexMenuItems.find((el) => el.classList.contains("active"));
 		if (!elOexMenuItem) {
 			elOexMenuItem = elOexMenuItems[0];
@@ -187,7 +187,7 @@ $.onReady(function () {
 			
 			dencode();
 		});
-
+		
 		$.on(elOexMenuItems, "click", function () {
 			elOeGroupBtns.forEach((el) => el.classList.remove("active"));
 			elOexMenuItems.forEach((el) => el.classList.remove("active"));
@@ -200,8 +200,8 @@ $.onReady(function () {
 			dencode();
 		});
 	}
-
-	if (elNlGroup.getAttribute("data-enable") === "true") {
+	
+	if (dencoderDefs[dencodeMethod].useNl) {
 		elNlGroup.style.display = "";
 		
 		$.on(elNlGroupBtns, "click", function () {
@@ -215,8 +215,8 @@ $.onReady(function () {
 			dencode();
 		});
 	}
-
-	if (elTzGroup.getAttribute("data-enable") === "true") {
+	
+	if (dencoderDefs[dencodeMethod].useTz) {
 		let elTzMenuItem = elTzMenuItems.find((el) => el.classList.contains("active"));
 		if (!elTzMenuItem) {
 			elTzMenuItem = elTzMenuItems[0];
