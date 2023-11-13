@@ -292,7 +292,7 @@ $.onReady(function () {
 	
 	// Add event listeners
 	$.on(window, "resize", function () {
-		hidePopovers($.all(".popover-toggle.active"));
+		adjustPopovers($.all(".popover-toggle.active"));
 	});
 	
 	$.on(document, "click", function (ev) {
@@ -1116,6 +1116,15 @@ function getCurrentLineIndex(el) {
 	const n = (val.substring(0, cursorPos).match(/\n/g) || []).length;
 	
 	return n;
+}
+
+function adjustPopovers(elPopovers) {
+	elPopovers.forEach((el) => {
+		const popover = bootstrap.Popover.getInstance(el);
+		if (popover) {
+			popover.update();
+		}
+	});
 }
 
 function hidePopovers(elPopovers) {
