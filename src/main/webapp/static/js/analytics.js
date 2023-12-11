@@ -45,7 +45,7 @@
 		});
 		
 		$.on(document, "dencode:dencoded", function (ev) {
-			const data = ev.requestData;
+			const data = ev.detail.requestData;
 			
 			if (data.value.length === 0) {
 				return;

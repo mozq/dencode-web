@@ -836,10 +836,12 @@ $.onReady(function () {
 			
 			render(responseJson.response);
 			
-			const ev = new Event("dencode:dencoded");
-			ev.requestData = requestData;
-			ev.responseJson = responseJson;
-			document.dispatchEvent(ev);
+			document.dispatchEvent(new CustomEvent("dencode:dencoded", {
+				detail: {
+					requestData: requestData,
+					responseJson: responseJson
+				}
+			}));
 		}).catch(function (error) {
 			if (error.messageObject) {
 				// Handled error
@@ -853,10 +855,12 @@ $.onReady(function () {
 			}
 			focusMessages();
 			
-			const ev = new Event("dencode:dencoded");
-			ev.requestData = requestData;
-			ev.responseJson = null;
-			document.dispatchEvent(ev);
+			document.dispatchEvent(new CustomEvent("dencode:dencoded", {
+				detail: {
+					requestData: requestData,
+					responseJson: null
+				}
+			}));
 		}).finally(function () {
 			_inProc = false;
 			
