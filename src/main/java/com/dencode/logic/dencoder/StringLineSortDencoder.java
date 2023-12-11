@@ -37,7 +37,7 @@ public class StringLineSortDencoder {
 	public static String encStrLineSort(DencodeCondition cond) {
 		return encStrLineSort(
 				cond.valueAsLines(),
-				DencodeUtils.getOption(cond.options(), "string.line-sort.order", DencodeUtils.getOption(cond.options(), "encStrLineSortOrder", "asc"))
+				DencodeUtils.getOption(cond.options(), "string.line-sort.order", "asc")
 				);
 	}
 	

@@ -65,9 +65,11 @@ public class StringUnicodeEscapeDencoder {
 	
 	@DencoderFunction
 	public static String encStrUnicodeEscape(DencodeCondition cond) {
-		return encStrUnicodeEscape(cond.value(),
-				DencodeUtils.getOption(cond.options(), "string.unicode-escape.notation", DencodeUtils.getOption(cond.options(), "encStrUnicodeEscapeNotation", DEFAULT_NOTATION)),
-				!DencodeUtils.getOption(cond.options(), "string.unicode-escape.case", DencodeUtils.getOption(cond.options(), "encStrUnicodeEscapeCase", "upper")).equals("lower"));
+		return encStrUnicodeEscape(
+				cond.value(),
+				DencodeUtils.getOption(cond.options(), "string.unicode-escape.notation", DEFAULT_NOTATION),
+				!DencodeUtils.getOption(cond.options(), "string.unicode-escape.case", "upper").equals("lower")
+				);
 	}
 	
 	@DencoderFunction

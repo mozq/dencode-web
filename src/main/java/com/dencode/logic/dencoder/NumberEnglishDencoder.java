@@ -36,9 +36,11 @@ public class NumberEnglishDencoder {
 	
 	@DencoderFunction
 	public static String encNumEnShortScale(DencodeCondition cond) {
-		return encNumEnShortScale(cond.valueAsNumbers(),
-				DencodeUtils.getOption(cond.options(), "number.english.decimal-notation", DencodeUtils.getOption(cond.options(), "encNumEnShortScaleFractionalPartNotation", "")),
-				DencodeUtils.getOption(cond.options(), "number.english.system", DencodeUtils.getOption(cond.options(), "encNumEnShortScaleSystem", "")));
+		return encNumEnShortScale(
+				cond.valueAsNumbers(),
+				DencodeUtils.getOption(cond.options(), "number.english.decimal-notation", ""),
+				DencodeUtils.getOption(cond.options(), "number.english.system", "")
+				);
 	}
 	
 	@DencoderFunction

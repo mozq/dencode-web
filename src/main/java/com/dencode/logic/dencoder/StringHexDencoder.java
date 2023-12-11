@@ -32,9 +32,11 @@ public class StringHexDencoder {
 	
 	@DencoderFunction
 	public static String encStrHex(DencodeCondition cond) {
-		return encStrHex(cond.valueAsBinary(),
-				DencodeUtils.getOption(cond.options(), "string.hex.separator-each", DencodeUtils.getOption(cond.options(), "encStrHexSeparatorEach", "")),
-				DencodeUtils.getOption(cond.options(), "string.hex.case", DencodeUtils.getOption(cond.options(), "encStrHexCase", "lower")));
+		return encStrHex(
+				cond.valueAsBinary(),
+				DencodeUtils.getOption(cond.options(), "string.hex.separator-each", ""),
+				DencodeUtils.getOption(cond.options(), "string.hex.case", "lower")
+				);
 	}
 	
 	@DencoderFunction

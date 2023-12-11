@@ -37,8 +37,10 @@ public class StringURLEncodingDencoder {
 	
 	@DencoderFunction
 	public static String encStrURLEncoding(DencodeCondition cond) {
-		return encStrURLEncoding(cond.valueAsBinary(),
-				DencodeUtils.getOption(cond.options(), "string.url-encoding.space", DencodeUtils.getOption(cond.options(), "encStrURLEncodingSpace", "")).equals("form"));
+		return encStrURLEncoding(
+				cond.valueAsBinary(),
+				DencodeUtils.getOption(cond.options(), "string.url-encoding.space", "").equals("form")
+				);
 	}
 	
 	@DencoderFunction

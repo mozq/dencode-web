@@ -30,9 +30,11 @@ public class CipherJisKeyboardDencoder {
 	
 	@DencoderFunction
 	public static String encCipherJisKeyboard(DencodeCondition cond) {
-		return encCipherJisKeyboard(cond.value(),
-				DencodeUtils.getOption(cond.options(), "cipher.jis-keyboard.mode", DencodeUtils.getOption(cond.options(), "encCipherJisKeyboardMode", "lenient")).equals("lenient"),
-				true);
+		return encCipherJisKeyboard(
+				cond.value(),
+				DencodeUtils.getOption(cond.options(), "cipher.jis-keyboard.mode", "lenient").equals("lenient"),
+				true
+				);
 	}
 	
 	

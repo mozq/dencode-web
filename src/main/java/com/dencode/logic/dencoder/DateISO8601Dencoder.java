@@ -79,26 +79,34 @@ public class DateISO8601Dencoder {
 	
 	@DencoderFunction
 	public static String encDateISO8601(DencodeCondition cond) {
-		return encDateISO8601Basic(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601DecimalMark", ".")));
+		return encDateISO8601Basic(
+				cond.valueAsDates(),
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", ".")
+				);
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ext(DencodeCondition cond) {
-		return encDateISO8601Ext(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601ExtDecimalMark", ".")));
+		return encDateISO8601Ext(
+				cond.valueAsDates(),
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", ".")
+				);
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Week(DencodeCondition cond) {
-		return encDateISO8601Week(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601WeekDecimalMark", ".")));
+		return encDateISO8601Week(
+				cond.valueAsDates(),
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", ".")
+				);
 	}
 	
 	@DencoderFunction
 	public static String encDateISO8601Ordinal(DencodeCondition cond) {
-		return encDateISO8601Ordinal(cond.valueAsDates(),
-				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", DencodeUtils.getOption(cond.options(), "encDateISO8601OrdinalDecimalMark", ".")));
+		return encDateISO8601Ordinal(
+				cond.valueAsDates(),
+				DencodeUtils.getOption(cond.options(), "date.iso8601.decimal-separator", ".")
+				);
 	}
 	
 	

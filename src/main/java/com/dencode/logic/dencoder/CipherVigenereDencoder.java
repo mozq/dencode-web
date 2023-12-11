@@ -34,14 +34,18 @@ public class CipherVigenereDencoder {
 	
 	@DencoderFunction
 	public static String encCipherVigenere(DencodeCondition cond) {
-		return encCipherVigenere(cond.value(),
-				DencodeUtils.getOption(cond.options(), "cipher.vigenere.key", DencodeUtils.getOption(cond.options(), "encCipherVigenereKey", "")));
+		return encCipherVigenere(
+				cond.value(),
+				DencodeUtils.getOption(cond.options(), "cipher.vigenere.key", "")
+				);
 	}
 	
 	@DencoderFunction
 	public static String decCipherVigenere(DencodeCondition cond) {
-		return decCipherVigenere(cond.value(),
-				DencodeUtils.getOption(cond.options(), "cipher.vigenere.key", DencodeUtils.getOption(cond.options(), "decCipherVigenereKey", "")));
+		return decCipherVigenere(
+				cond.value(),
+				DencodeUtils.getOption(cond.options(), "cipher.vigenere.key", "")
+				);
 	}
 	
 	private static String encCipherVigenere(String val, String key) {
