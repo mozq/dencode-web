@@ -6,7 +6,7 @@
 <html lang="${mf:h(msg['lang'])}" prefix="og: http://ogp.me/ns#">
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="${mf:h(msg[mf:strcat(method, '.desc')])}" />
 	<meta name="robots" content="index,follow,noarchive" />
 	<meta name="application-name" content="${mf:h(msg['site.name'])}" />
