@@ -7,17 +7,26 @@ e.g. HTML Escape / URL Encoding / Base64 / MD5 / SHA-1 / CRC32 / and many other 
 [https://dencode.com/](https://dencode.com/)
 
 ## Usage
-Install [Java SE Development Kit (JDK)](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and [Google Cloud SDK](https://cloud.google.com/sdk/).
+Install [Java SE Development Kit (JDK)](https://www.oracle.com/java/technologies/downloads/).
 
 Open a shell or command line and execute the following commands on the project root directory.
 
-Run on local machine:
+### Run on local machine
 
 ```console
 ./gradlew appRunStage
 ```
 
-Deploy to Google App Engine:
+After startup, DenCode can be accessed at http://localhost:8080/ .
+
+### Deploy to Google App Engine
+
+```console
+export CLOUDSDK_CORE_PROJECT={PROJECT_ID}
+./gradlew appengineDeploy
+```
+
+or
 
 ```console
 gcloud config set project {PROJECT_ID}
@@ -25,6 +34,9 @@ gcloud config set project {PROJECT_ID}
 ```
 
 (Please replace {PROJECT_ID} to your own project id.)
+
+For Windows, use the `set` command instead of `export`.
+The `gcloud` command can be used, if [Google Cloud SDK](https://cloud.google.com/sdk/) is installed.
 
 ## Supported encoding
 - [String](https://dencode.com/string)
