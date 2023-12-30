@@ -17,6 +17,7 @@
 package com.dencode.logic.dencoder;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.mifmi.commons4j.util.StringUtilz;
@@ -103,7 +104,11 @@ public class StringURLEncodingDencoder {
 					return null;
 				}
 			} else if (ch == '+') {
-				binBuf.write((byte)' ');
+				try {
+					binBuf.write(" ".getBytes(charset));
+				} catch (IOException e) {
+					return null;
+				}
 			} else {
 				binBuf.write((byte)ch);
 			}
