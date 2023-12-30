@@ -183,7 +183,7 @@ public class StringQuotedPrintableDencoder {
 					continue;
 				} else if (leftChNum == 1) {
 					char ch1 = val.charAt(++i);
-					if (ch1 == '\r' && ch1 == '\n') {
+					if (ch1 == '\r' || ch1 == '\n') {
 						continue;
 					}
 					
@@ -211,8 +211,6 @@ public class StringQuotedPrintableDencoder {
 						return null;
 					}
 				}
-			} else if (ch == '+') {
-				binBuf.write((byte)' ');
 			} else {
 				binBuf.write((byte)ch);
 			}
