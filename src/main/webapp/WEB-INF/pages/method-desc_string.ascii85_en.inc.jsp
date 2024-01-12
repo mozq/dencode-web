@@ -56,7 +56,7 @@
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Conversion result</th></tr>
-		<tr><th>Z85</td><th>nm=QNzV</td></tr>
+		<tr><th>Z85</td><td>nm=QNzV</td></tr>
 		<tr><th>Adobe</th><td><~87cURDZ~></td></tr>
 		<tr><th>btoa</th><td>xbtoa Begin<br />
 87cURDZBb;<br />
