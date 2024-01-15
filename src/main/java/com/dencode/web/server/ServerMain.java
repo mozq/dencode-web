@@ -18,21 +18,21 @@ package com.dencode.web.server;
 
 import java.io.File;
 
+import org.eclipse.jetty.ee10.servlet.ErrorPageErrorHandler;
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
-import org.eclipse.jetty.webapp.WebAppContext;
 
 public class ServerMain {
 
 	public static void main(String[] args) throws Exception {
 		int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
-		String war = new File(".").list((dir, name) -> name.endsWith(".war"))[0];
+		File warFile = new File(".").getCanonicalFile().listFiles((dir, name) -> name.endsWith(".war"))[0];
 		
 		Server server = new Server(port);
 		
 		WebAppContext webAppContext = new WebAppContext();
 		webAppContext.setContextPath("/");
-		webAppContext.setWar(war);
+		webAppContext.setWar(warFile.getPath());
 		webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
 		webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.welcomeServlets", "true");
 		webAppContext.getSessionHandler().setUsingCookies(false);
