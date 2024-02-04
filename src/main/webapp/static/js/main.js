@@ -58,6 +58,17 @@ $.onReady(function () {
 	const elPolicyDialog = $.id("policyDialog");
 	
 	
+	// Initialize default time-zone
+	try {
+		const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		if (tz) {
+			elTzGroup.setAttribute("data-default-value", tz);
+		}
+	} catch (ex) {
+		// NOP
+	}
+	
+	// Initialize options
 	try {
 		const params = new URLSearchParams(window.location.search);
 		
