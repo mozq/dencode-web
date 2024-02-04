@@ -11,7 +11,7 @@ Install [Java SE Development Kit (JDK)](https://www.oracle.com/java/technologies
 
 Open a shell or command line and execute the following commands on the project root directory.
 
-### Run on local machine
+### Run on local machine:
 
 ```console
 ./gradlew appRunStage
@@ -19,24 +19,17 @@ Open a shell or command line and execute the following commands on the project r
 
 After startup, DenCode can be accessed at http://localhost:8080/ .
 
-### Deploy to Google App Engine
+### Deploy to Google App Engine:
+
+Install [Google Cloud SDK](https://cloud.google.com/sdk/) and execute the following commands. `gcloud` commands only needs to be executed for the first time.
 
 ```console
-export CLOUDSDK_CORE_PROJECT={PROJECT_ID}
-./gradlew appengineDeploy
-```
-
-or
-
-```console
+gcloud auth login
 gcloud config set project {PROJECT_ID}
 ./gradlew appengineDeploy
 ```
 
 (Please replace {PROJECT_ID} to your own project id.)
-
-For Windows, use the `set` command instead of `export`.
-The `gcloud` command can be used, if [Google Cloud SDK](https://cloud.google.com/sdk/) is installed.
 
 ## Supported encoding
 - [String](https://dencode.com/string)
