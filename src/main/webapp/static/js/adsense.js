@@ -26,7 +26,7 @@
 		$.on(elListRows, "dencode:select-row", function () {
 			const elAdBottom = $.id("adBottom");
 			
-			if (!elAdBottom.hasChildNodes()) {
+			if (!elAdBottom.getElementsByClassName("adsbygoogle")[0]?.hasChildNodes()) {
 				// Cannot load Ad
 				return;
 			}
