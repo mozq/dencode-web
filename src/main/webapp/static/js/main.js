@@ -391,7 +391,7 @@ $.onReady(function () {
 	});
 
 	$.on(elV, "keyup click", function () {
-		setBgColor(elV, _colors);
+		setBgColor(elV, _colors, isDarkMode());
 	});
 	
 	$.on(elLoadFile, "click", function (ev) {
@@ -889,7 +889,7 @@ $.onReady(function () {
 		
 		_colors = (res.encColorRGBHex) ? res.encColorRGBHex.split("\n") : null;
 		if (_colors) {
-			setBgColor(elV, _colors);
+			setBgColor(elV, _colors, isDarkMode());
 		}
 		
 		for (const k in res) {
@@ -1044,6 +1044,10 @@ $.onReady(function () {
 });
 
 
+function isDarkMode() {
+	return (document.documentElement.getAttribute("data-bs-theme") === "dark");
+}
+
 function setResponseValue(id, value) {
 	const elForDisp = $.id(id);
 	if (elForDisp === null) {
@@ -1065,7 +1069,7 @@ function setResponseValue(id, value) {
 	}
 }
 
-function setBgColor(el, colors) {
+function setBgColor(el, colors, darkMode) {
 	let bgColor = null;
 	if (colors) {
 		bgColor = getNonBlankValue(colors, getCurrentLineIndex(el));
@@ -1078,16 +1082,16 @@ function setBgColor(el, colors) {
 		const b = parseInt(bgColor.substring(5, 7), 16);
 		const a = (7 < bgColor.length) ? parseInt(bgColor.substring(7), 16) / 255.0 : 1.0;
 		
-		if (382 < (r + g + b) || a < 0.5) {
-			color = "black";
+		if (a < 0.5) {
+			color = (darkMode) ? "white" : "black";
 		} else {
-			color = "white";
+			color = ((r + g + b) < 384) ? "white" : "black"; // 384 = 256 * 3 / 2
 		}
 		
 		// Temporary code: convert the color format #RRGGBBAA (CSS4) to rgba(R,G,B,A) (CSS3)
 		bgColor = "rgba(" + r + "," + g + "," + b + "," + (Math.round(a * 100) / 100) + ")";
 	} else {
-		color = "black";
+		color = "var(--bs-body-color)";
 		bgColor = "transparent";
 	}
 	

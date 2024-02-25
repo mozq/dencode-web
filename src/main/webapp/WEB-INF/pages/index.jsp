@@ -3,7 +3,7 @@
 %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
 %><%@ taglib prefix="mf" uri="http://mifmi.org/jsp/taglib/functions"
 %><!DOCTYPE html>
-<html lang="${mf:h(msg['lang'])}" prefix="og: http://ogp.me/ns#">
+<html lang="${mf:h(msg['lang'])}" prefix="og: http://ogp.me/ns#" data-bs-theme="">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,10 +45,13 @@
 		<c:when test="${method eq 'all.all'}"><title>${mf:h(msg['site.name'])} | ${mf:h(msg[mf:strcat(method, '.title')])}</title></c:when>
 		<c:otherwise><title>${mf:h(msg[mf:strcat(method, '.title')])} - ${mf:h(msg['site.name'])}</title></c:otherwise>
 	</c:choose>
+	<script>
+		document.documentElement.setAttribute("data-bs-theme", (window.matchMedia?.("(prefers-color-scheme:dark)").matches) ? "dark" : "light");
+	</script>
 </head>
 <body data-context-path="${pageContext.request.contextPath}" data-dencode-type="${type}" data-dencode-method="${method}">
 <header>
-	<nav class="navbar navbar-expand-sm navbar-light bg-light">
+	<nav class="navbar navbar-expand-sm">
 		<div class="container-fluid">
 			<a id="brand" class="navbar-brand" href="${mf:h(basePath)}/">${mf:h(msg['site.name'])}</a>
 			<span class="navbar-text">Enjoy Encoding &amp; Decoding!</span>
@@ -73,7 +76,7 @@
 			</button>
 		</div>
 	</nav>
-	<nav class="navbar navbar-expand-sm navbar-light bg-light">
+	<nav class="navbar navbar-expand-sm">
 		<div class="container-fluid">
 			<div id="typeMenuCollapse" class="collapse navbar-collapse">
 				<ul id="typeMenu" class="navbar-nav">
@@ -600,7 +603,7 @@
 											${mf:h(msg['cipher.enigma.machine'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all">
-											<select name="_cipher.enigma.machine" class="dencode-option" data-sync-with="cipher.enigma.machine">
+											<select name="_cipher.enigma.machine" class="dencode-option form-select" data-sync-with="cipher.enigma.machine">
 												<option value="I" data-reflectors="UKW-A,UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V" data-has="plugboard,uhr,ukwd">Enigma I</option>
 												<option value="M3" data-reflectors="UKW-B,UKW-C" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="plugboard">Enigma M3</option>
 												<option value="M4" data-reflectors="UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="4wheels,plugboard,ukwd">Enigma M4 (U-boat Enigma)</option>
@@ -626,7 +629,7 @@
 											${mf:h(msg['cipher.enigma.wheels'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector">
-											<select name="_cipher.enigma.reflector" class="dencode-option" data-sync-with="cipher.enigma.reflector">
+											<select name="_cipher.enigma.reflector" class="dencode-option form-select" data-sync-with="cipher.enigma.reflector">
 												<option value="UKW">UKW</option>
 												<option value="UKW-A">UKW-A</option>
 												<option value="UKW-B">UKW-B</option>
@@ -635,13 +638,13 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="_cipher.enigma.rotor4" class="dencode-option" data-sync-with="cipher.enigma.rotor4">
+											<select name="_cipher.enigma.rotor4" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor4">
 												<option value="Beta">Beta</option>
 												<option value="Gamma">Gamma</option>
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="_cipher.enigma.rotor3" class="dencode-option" data-sync-with="cipher.enigma.rotor3">
+											<select name="_cipher.enigma.rotor3" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor3">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -653,7 +656,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="_cipher.enigma.rotor2" class="dencode-option" data-sync-with="cipher.enigma.rotor2">
+											<select name="_cipher.enigma.rotor2" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor2">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -665,7 +668,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="_cipher.enigma.rotor1" class="dencode-option" data-sync-with="cipher.enigma.rotor1">
+											<select name="_cipher.enigma.rotor1" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor1">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -681,7 +684,7 @@
 											${mf:h(msg['cipher.enigma.rings'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-ring">
-											<select name="_cipher.enigma.reflector-ring" class="dencode-option" data-sync-with="cipher.enigma.reflector-ring">
+											<select name="_cipher.enigma.reflector-ring" class="dencode-option form-select" data-sync-with="cipher.enigma.reflector-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -711,7 +714,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="_cipher.enigma.rotor4-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor4-ring">
+											<select name="_cipher.enigma.rotor4-ring" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor4-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -741,7 +744,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="_cipher.enigma.rotor3-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor3-ring">
+											<select name="_cipher.enigma.rotor3-ring" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor3-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -771,7 +774,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="_cipher.enigma.rotor2-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor2-ring">
+											<select name="_cipher.enigma.rotor2-ring" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor2-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -801,7 +804,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="_cipher.enigma.rotor1-ring" class="dencode-option" data-sync-with="cipher.enigma.rotor1-ring">
+											<select name="_cipher.enigma.rotor1-ring" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor1-ring">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -835,7 +838,7 @@
 											${mf:h(msg['cipher.enigma.positions'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-position">
-											<select name="_cipher.enigma.reflector-position" class="dencode-option" data-sync-with="cipher.enigma.reflector-position">
+											<select name="_cipher.enigma.reflector-position" class="dencode-option form-select" data-sync-with="cipher.enigma.reflector-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -865,7 +868,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="_cipher.enigma.rotor4-position" class="dencode-option" data-sync-with="cipher.enigma.rotor4-position">
+											<select name="_cipher.enigma.rotor4-position" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor4-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -895,7 +898,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="_cipher.enigma.rotor3-position" class="dencode-option" data-sync-with="cipher.enigma.rotor3-position">
+											<select name="_cipher.enigma.rotor3-position" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor3-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -925,7 +928,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="_cipher.enigma.rotor2-position" class="dencode-option" data-sync-with="cipher.enigma.rotor2-position">
+											<select name="_cipher.enigma.rotor2-position" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor2-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -955,7 +958,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="_cipher.enigma.rotor1-position" class="dencode-option" data-sync-with="cipher.enigma.rotor1-position">
+											<select name="_cipher.enigma.rotor1-position" class="dencode-option form-select" data-sync-with="cipher.enigma.rotor1-position">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -992,10 +995,10 @@
 											${mf:h(msg['cipher.enigma.uhr'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-plugboard">
-											<input type="text" name="_cipher.enigma.plugboard" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.plugboard.tooltip'])}" data-sync-with="cipher.enigma.plugboard" />
+											<input type="text" name="_cipher.enigma.plugboard" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.enigma.plugboard.tooltip'])}" data-sync-with="cipher.enigma.plugboard" />
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-uhr">
-											<select name="_cipher.enigma.uhr" class="dencode-option" data-sync-with="cipher.enigma.uhr">
+											<select name="_cipher.enigma.uhr" class="dencode-option form-select" data-sync-with="cipher.enigma.uhr">
 												<option value="0">00</option>
 												<option value="1">01</option>
 												<option value="2">02</option>
@@ -1043,7 +1046,7 @@
 											${mf:h(msg['cipher.enigma.ukwd'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
-											<input type="text" name="_cipher.enigma.ukwd" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" data-sync-with="cipher.enigma.ukwd" />
+											<input type="text" name="_cipher.enigma.ukwd" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" data-sync-with="cipher.enigma.ukwd" />
 										</div>
 									</div>
 								</form>
@@ -1619,7 +1622,7 @@
 											${mf:h(msg['cipher.enigma.machine'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all">
-											<select name="cipher.enigma.machine" class="dencode-option">
+											<select name="cipher.enigma.machine" class="dencode-option form-select">
 												<option value="I" data-reflectors="UKW-A,UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V" data-has="plugboard,uhr,ukwd">Enigma I</option>
 												<option value="M3" data-reflectors="UKW-B,UKW-C" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="plugboard">Enigma M3</option>
 												<option value="M4" data-reflectors="UKW-B,UKW-C,UKW-D" data-rotors="I,II,III,IV,V,VI,VII,VIII" data-has="4wheels,plugboard,ukwd">Enigma M4 (U-boat Enigma)</option>
@@ -1645,7 +1648,7 @@
 											${mf:h(msg['cipher.enigma.wheels'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector">
-											<select name="cipher.enigma.reflector" class="dencode-option">
+											<select name="cipher.enigma.reflector" class="dencode-option form-select">
 												<option value="UKW">UKW</option>
 												<option value="UKW-A">UKW-A</option>
 												<option value="UKW-B">UKW-B</option>
@@ -1654,13 +1657,13 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="cipher.enigma.rotor4" class="dencode-option">
+											<select name="cipher.enigma.rotor4" class="dencode-option form-select">
 												<option value="Beta">Beta</option>
 												<option value="Gamma">Gamma</option>
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="cipher.enigma.rotor3" class="dencode-option" data-default-value="III">
+											<select name="cipher.enigma.rotor3" class="dencode-option form-select" data-default-value="III">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1672,7 +1675,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="cipher.enigma.rotor2" class="dencode-option" data-default-value="II">
+											<select name="cipher.enigma.rotor2" class="dencode-option form-select" data-default-value="II">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1684,7 +1687,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="cipher.enigma.rotor1" class="dencode-option" data-default-value="I">
+											<select name="cipher.enigma.rotor1" class="dencode-option form-select" data-default-value="I">
 												<option value="I">I</option>
 												<option value="II">II</option>
 												<option value="III">III</option>
@@ -1700,7 +1703,7 @@
 											${mf:h(msg['cipher.enigma.rings'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-ring">
-											<select name="cipher.enigma.reflector-ring" class="dencode-option">
+											<select name="cipher.enigma.reflector-ring" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1730,7 +1733,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="cipher.enigma.rotor4-ring" class="dencode-option">
+											<select name="cipher.enigma.rotor4-ring" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1760,7 +1763,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="cipher.enigma.rotor3-ring" class="dencode-option">
+											<select name="cipher.enigma.rotor3-ring" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1790,7 +1793,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="cipher.enigma.rotor2-ring" class="dencode-option">
+											<select name="cipher.enigma.rotor2-ring" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1820,7 +1823,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="cipher.enigma.rotor1-ring" class="dencode-option">
+											<select name="cipher.enigma.rotor1-ring" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1854,7 +1857,7 @@
 											${mf:h(msg['cipher.enigma.positions'])}
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-reflector cipher-enigma-option-reflector-position">
-											<select name="cipher.enigma.reflector-position" class="dencode-option">
+											<select name="cipher.enigma.reflector-position" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1884,7 +1887,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor4">
-											<select name="cipher.enigma.rotor4-position" class="dencode-option">
+											<select name="cipher.enigma.rotor4-position" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1914,7 +1917,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor3">
-											<select name="cipher.enigma.rotor3-position" class="dencode-option">
+											<select name="cipher.enigma.rotor3-position" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1944,7 +1947,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor2">
-											<select name="cipher.enigma.rotor2-position" class="dencode-option">
+											<select name="cipher.enigma.rotor2-position" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -1974,7 +1977,7 @@
 											</select>
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-rotor1">
-											<select name="cipher.enigma.rotor1-position" class="dencode-option">
+											<select name="cipher.enigma.rotor1-position" class="dencode-option form-select">
 												<option value="1">A (01)</option>
 												<option value="2">B (02)</option>
 												<option value="3">C (03)</option>
@@ -2011,10 +2014,10 @@
 											${mf:h(msg['cipher.enigma.uhr'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-plugboard">
-											<input type="text" name="cipher.enigma.plugboard" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.plugboard.tooltip'])}" />
+											<input type="text" name="cipher.enigma.plugboard" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.enigma.plugboard.tooltip'])}" />
 										</div>
 										<div class="dencode-option-grid-value cipher-enigma-option-uhr">
-											<select name="cipher.enigma.uhr" class="dencode-option">
+											<select name="cipher.enigma.uhr" class="dencode-option form-select">
 												<option value="0">00</option>
 												<option value="1">01</option>
 												<option value="2">02</option>
@@ -2062,7 +2065,7 @@
 											${mf:h(msg['cipher.enigma.ukwd'])}
 										</div>
 										<div class="dencode-option-grid-value grid-col-all cipher-enigma-option-ukwd">
-											<input type="text" name="cipher.enigma.ukwd" class="dencode-option" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" />
+											<input type="text" name="cipher.enigma.ukwd" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" />
 										</div>
 									</div>
 								</form>
@@ -2208,7 +2211,7 @@
 			<div id="messageDialogBody" class="modal-body">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${mf:h(msg['label.ok'])}</button>
+				<button type="button" class="btn" data-bs-dismiss="modal">${mf:h(msg['label.ok'])}</button>
 			</div>
 		</div>
 	</div>
@@ -2232,7 +2235,7 @@
 				</c:choose>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${mf:h(msg['label.close'])}</button>
+				<button type="button" class="btn" data-bs-dismiss="modal">${mf:h(msg['label.close'])}</button>
 			</div>
 		</div>
 	</div>
