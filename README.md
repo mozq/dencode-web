@@ -54,6 +54,7 @@ gcloud config set project {PROJECT_ID}
     - [Letter Case (Upper, Lower, Swap, Capital)](https://dencode.com/string/letter-case)
     - [Text Initials](https://dencode.com/string/text-initials)
     - [Text Reverse](https://dencode.com/string/text-reverse)
+    - [Font Style](https://dencode.com/string/font-style)
     - [Unicode Normalization](https://dencode.com/string/unicode-normalization)
     - [Line Sort](https://dencode.com/string/line-sort)
     - [Line Unique](https://dencode.com/string/line-unique)

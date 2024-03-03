@@ -116,6 +116,8 @@
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/text-initials" data-dencode-method="string.text-initials">${mf:h(msg['string.text-initials.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/text-reverse" data-dencode-method="string.text-reverse">${mf:h(msg['string.text-reverse.method'])}</a></li>
 							<li class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/font-style" data-dencode-method="string.font-style">${mf:h(msg['string.font-style.method'])}</a></li>
+							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/unicode-normalization" data-dencode-method="string.unicode-normalization">${mf:h(msg['string.unicode-normalization.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/line-sort" data-dencode-method="string.line-sort">${mf:h(msg['string.line-sort.method'])}</a></li>
@@ -1288,7 +1290,33 @@
 							<c:if test="${methods.contains('string.letter-case')}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['label.encStrCapitalize'])}</th><td><span id="encStrCapitalize" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.text-initials')}"><tr data-dencode-method="string.text-initials"><th>${mf:h(msg['label.encStrInitials'])}</th><td><span id="encStrInitials" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.text-reverse')}"><tr data-dencode-method="string.text-reverse"><th>${mf:h(msg['label.encStrReverse'])}</th><td><span id="encStrReverse" class="for-disp"></span></td></tr></c:if>
+						</tbody>
 						<tbody>
+							<c:if test="${methods.contains('string.font-style')}"><tr data-dencode-method="string.font-style"><th>${mf:h(msg['label.encStrFontStyle'])}</th><td><span id="encStrFontStyle" class="for-disp"></span>
+								<form class="dencode-option-group" method="post">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['string.font-style.style'])}</span>
+										<select name="string.font-style.style" class="dencode-option form-select">
+											<option value="">${mf:h(msg['string.font-style.style.none'])}</option>
+											<option value="sansserif">𝖲𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
+											<option value="sansserif-bold">𝗦𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳 (${mf:h(msg['string.font-style.style.bold'])})</option>
+											<option value="sansserif-italic">𝘚𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧 (${mf:h(msg['string.font-style.style.italic'])})</option>
+											<option value="sansserif-bold-italic">𝙎𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛 (${mf:h(msg['string.font-style.style.bold-italic'])})</option>
+											<option value="serif-bold">𝐒𝐞𝐫𝐢𝐟 (${mf:h(msg['string.font-style.style.bold'])})</option>
+											<option value="serif-italic">𝑆𝑒𝑟𝑖𝑓 (${mf:h(msg['string.font-style.style.italic'])})</option>
+											<option value="serif-bold-italic">𝑺𝒆𝒓𝒊𝒇 (${mf:h(msg['string.font-style.style.bold-italic'])})</option>
+											<option value="script">𝒮𝒸𝓇𝒾𝓅𝓉</option>
+											<option value="script-bold">𝓢𝓬𝓻𝓲𝓹𝓽 (${mf:h(msg['string.font-style.style.bold'])})</option>
+											<option value="fraktur">𝔉𝔯𝔞𝔨𝔱𝔲𝔯</option>
+											<option value="fraktur-bold">𝕱𝖗𝖆𝖐𝖙𝖚𝖗 (${mf:h(msg['string.font-style.style.bold'])})</option>
+											<option value="doublestruck">𝔻𝕠𝕦𝕓𝕝𝕖 𝕊𝕥𝕣𝕦𝕔𝕜</option>
+											<option value="monospace">𝙼𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+											<option value="smallcapital">Sᴍᴀʟʟ Cᴀᴘɪᴛᴀʟ</option>
+										</select>
+									</div>
+								</form>
+							</td></tr></c:if>
+						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.unicode-normalization')}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encStrUnicodeNFC'])}</th><td><span id="encStrUnicodeNFC" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.unicode-normalization')}"><tr data-dencode-method="string.unicode-normalization"><th>${mf:h(msg['label.encStrUnicodeNFKC'])}</th><td><span id="encStrUnicodeNFKC" class="for-disp"></span></td></tr></c:if>
