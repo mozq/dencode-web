@@ -121,3 +121,6 @@ If you want to add another encoder and decoder, please add or modify the followi
     - /src/main/resources/messages_*.properties [Required]
 - Add description files
     - /src/main/webapp/WEB-INF/pages/method-desc_\*.\*_*.inc.jsp [Optional]
+
+## Client applications
+- Windows: [DenCode plugin for PowerToys Run](https://github.com/hlaueriksson/Community.PowerToys.Run.Plugins#dencode) by [Henrik Lau Eriksson](https://github.com/hlaueriksson)
