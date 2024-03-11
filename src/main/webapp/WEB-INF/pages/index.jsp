@@ -258,7 +258,7 @@
 					<button class="btn" data-oe="UTF-16BE">UTF-16</button>
 					<button class="btn" data-oe="UTF-32BE">UTF-32</button>
 					<button id="oex" class="btn" data-oe=""></button>
-					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${mf:h(msg['label.etc'])}" aria-expanded="false">
 						<span class="caret"></span>
 					</button>
 					<ul id="oexMenu" class="dropdown-menu" role="menu" data-default-value="${mf:h(oex)}">
@@ -319,7 +319,7 @@
 					<button class="btn" data-nl="cr">CR (Old Mac)</button>
 				</div>
 				<div id="tzGroup" class="btn-group btn-group-sm" data-default-value="${mf:h(tz)}" style="display: none;">
-					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${mf:h(msg['label.timeZone'])}" aria-expanded="false">
 						<span id="tz" data-tz=""></span>
 						<span class="caret"></span>
 					</button>
