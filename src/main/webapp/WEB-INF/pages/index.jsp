@@ -339,11 +339,7 @@
 			<h2 data-bs-toggle="collapse" data-bs-target="#decodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.decoded'])}
-				<svg id="decodingIndicator" viewBox="0 0 100 100" style="display: none;">
-					<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
-						<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
-					</circle>
-				</svg>
+				<svg id="decodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
 			<div id="decodedListContainer" class="collapse show">
 				<table id="decodedList" class="dencoded-list">
@@ -1126,11 +1122,7 @@
 			<h2 data-bs-toggle="collapse" data-bs-target="#encodedListContainer" aria-expanded="true">
 				<i class="toggle-icon bi bi-caret-down-square"></i>
 				${mf:h(msg['label.encoded'])}
-				<svg id="encodingIndicator" viewBox="0 0 100 100" style="display: none;">
-					<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
-						<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
-					</circle>
-				</svg>
+				<svg id="encodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
 			<div id="encodedListContainer" class="collapse show">
 				<table id="encodedList" class="dencoded-list">
@@ -2344,5 +2336,16 @@
 
 <script type="text/message" data-id="default.error" data-level="${mf:h(msg['default.error.level'])}" data-message="${mf:h(msg['default.error'])}" data-detail="${mf:h(msg['default.error.detail'])}"></script>
 <script type="text/message" data-id="network.error" data-level="${mf:h(msg['network.error.level'])}" data-message="${mf:h(msg['network.error'])}" data-detail="${mf:h(msg['network.error.detail'])}"></script>
+
+<svg style="display: none;" aria-hidden="true">
+	<defs>
+		<symbol id="loading-indicator" fill="none" stroke="currentColor" viewBox="0 0 100 100">
+			<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
+				<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
+			</circle>
+		</symbol>
+	</defs>
+</svg>
+
 </body>
 </html>

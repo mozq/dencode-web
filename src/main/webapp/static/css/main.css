@@ -324,8 +324,7 @@ pre {
 	display: inline-block;
 	width: 0.8em;
 	height: 0.8em;
-	stroke: var(--dc-indicator-color);
-	fill: none;
+	color: var(--dc-indicator-color);
 }
 
 table.dencoded-list {
