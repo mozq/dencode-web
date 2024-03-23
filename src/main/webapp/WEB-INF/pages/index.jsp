@@ -232,7 +232,7 @@
 				<span id="follow" title="${mf:h(msg['label.follow'])}"><i class="bi bi-pin-angle-fill"></i></span>
 				<span id="vLen" class="badge bg-secondary popover-toggle" title="${mf:h(msg['label.val.length'])}" data-bs-toggle="popover" data-bs-placement="left" data-len-chars="0" data-len-bytes="0">0</span>
 			</div>
-			<form id="expValue" method="post">
+			<div id="expValue">
 				<div class="input-group">
 					<textarea id="v" class="form-control" placeholder="${mf:h(msg[mf:strcat(method, '.tooltip')])}">${mf:h(v)}</textarea>
 					<div class="btn-group-vertical">
@@ -251,7 +251,7 @@
 						</button>
 					</div>
 				</div>
-			</form>
+			</div>
 			<div id="expOptions">
 				<div id="oeGroup" class="btn-group btn-group-sm" data-default-value="${mf:h(oe)}" style="display: none;">
 					<button class="btn" data-oe="UTF-8">UTF-8</button>
@@ -363,7 +363,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['string.morse-code.func.decStrMorseCode'])}</th><td><span id="decStrMorseCode" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.morse-code.variant'])}</span>
 										<select name="_string.morse-code.variant" class="dencode-option form-select" data-sync-with="string.morse-code.variant">
@@ -372,7 +372,7 @@
 											<option value="russian">${mf:h(msg['string.morse-code.variant.russian'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
@@ -397,7 +397,7 @@
 					<c:if test="${types.contains('cipher')}">
 						<tbody>
 							<c:if test="${methods.contains('cipher.caesar')}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['cipher.caesar.func.decCipherCaesar'])}</th><td><span id="decCipherCaesar" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['_cipher.caesar.shift'])}</span>
 										<select name="_cipher.caesar.shift" class="dencode-option form-select" data-sync-with="cipher.caesar.shift">
@@ -487,13 +487,13 @@
 											<option value="42">${mf:h(msg['_cipher.caesar.shift.42'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot13')}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['cipher.rot13.func.decCipherROT13'])}</th><td><span id="decCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['cipher.rot18.func.decCipherROT18'])}</th><td><span id="decCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['cipher.rot47.func.decCipherROT47'])}</th><td><span id="decCipherROT47" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.affine')}"><tr data-dencode-method="cipher.affine"><th>${mf:h(msg['cipher.affine.func.decCipherAffine'])}</th><td><span id="decCipherAffine" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.affine.a'])}</span>
 										<select name="_cipher.affine.a" class="dencode-option form-select" data-sync-with="cipher.affine.a">
@@ -581,20 +581,20 @@
 											<option value="25">25</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.vigenere')}"><tr data-dencode-method="cipher.vigenere"><th>${mf:h(msg['cipher.vigenere.func.decCipherVigenere'])}</th><td><span id="decCipherVigenere" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.vigenere.key'])}</span>
 										<input name="_cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.vigenere.key.tooltip'])}" data-sync-with="cipher.vigenere.key" />
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['cipher.enigma.func.decCipherEnigma'])}</th><td><span id="decCipherEnigma" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="dencode-option-grid cipher-enigma">
 										<div class="dencode-option-grid-label grid-col-all">
 											${mf:h(msg['cipher.enigma.machine'])}
@@ -1046,12 +1046,12 @@
 											<input type="text" name="_cipher.enigma.ukwd" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" data-sync-with="cipher.enigma.ukwd" />
 										</div>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.scytale')}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['cipher.scytale.func.decCipherScytale'])}</th><td><span id="decCipherScytale" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.scytale.key'])}</span>
 										<select name="_cipher.scytale.key" class="dencode-option form-select" data-sync-with="cipher.scytale.key">
@@ -1082,10 +1082,10 @@
 											<option value="x">${mf:h(msg['cipher.scytale.key-per.x'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rail-fence')}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['cipher.rail-fence.func.decCipherRailFence'])}</th><td><span id="decCipherRailFence" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.rail-fence.key'])}</span>
 										<select name="_cipher.rail-fence.key" class="dencode-option form-select" data-sync-with="cipher.rail-fence.key">
@@ -1110,7 +1110,7 @@
 											<option value="20">20</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 					</c:if>
@@ -1129,7 +1129,7 @@
 					<c:if test="${types.contains('string')}">
 						<tbody>
 							<c:if test="${methods.contains('string.bin')}"><tr data-dencode-method="string.bin"><th>${mf:h(msg['string.bin.func.encStrBin'])}</th><td><span id="encStrBin" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.bin.separator-each'])}</span>
 										<select name="string.bin.separator-each" class="dencode-option form-select">
@@ -1143,10 +1143,10 @@
 											<option value="128b">${mf:h(msg['string.bin.separator-each.128bits'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.hex')}"><tr data-dencode-method="string.hex"><th>${mf:h(msg['string.hex.func.encStrHex'])}</th><td><span id="encStrHex" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.hex.separator-each'])}</span>
 										<select name="string.hex.separator-each" class="dencode-option form-select">
@@ -1166,14 +1166,14 @@
 											<option value="upper">${mf:h(msg['string.hex.case.upper'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.html-escape')}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['string.html-escape.func.encStrHTMLEscape'])}</th><td><span id="encStrHTMLEscape" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.html-escape')}"><tr data-dencode-method="string.html-escape"><th>${mf:h(msg['string.html-escape.func.encStrHTMLEscapeFully'])}</th><td><span id="encStrHTMLEscapeFully" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.url-encoding')}"><tr data-dencode-method="string.url-encoding"><th>${mf:h(msg['string.url-encoding.func.encStrURLEncoding'])}</th><td><span id="encStrURLEncoding" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.url-encoding.space'])}</span>
 										<select name="string.url-encoding.space" class="dencode-option form-select">
@@ -1181,13 +1181,13 @@
 											<option value="form">${mf:h(msg['string.url-encoding.space.form'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.punycode')}"><tr data-dencode-method="string.punycode"><th>${mf:h(msg['string.punycode.func.encStrPunycode'])}</th><td><span id="encStrPunycode" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base32')}"><tr data-dencode-method="string.base32"><th>${mf:h(msg['string.base32.func.encStrBase32'])}</th><td><span id="encStrBase32" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base45')}"><tr data-dencode-method="string.base45"><th>${mf:h(msg['string.base45.func.encStrBase45'])}</th><td><span id="encStrBase45" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.base64')}"><tr data-dencode-method="string.base64"><th>${mf:h(msg['string.base64.func.encStrBase64'])}</th><td><span id="encStrBase64" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.base64.line-break-each'])}</span>
 										<select name="string.base64.line-break-each" class="dencode-option form-select">
@@ -1196,10 +1196,10 @@
 											<option value="76">${mf:h(msg['string.base64.line-break-each.76'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.ascii85')}"><tr data-dencode-method="string.ascii85"><th>${mf:h(msg['string.ascii85.func.encStrAscii85'])}</th><td><span id="encStrAscii85" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.ascii85.variant'])}</span>
 										<select name="string.ascii85.variant" class="dencode-option form-select">
@@ -1208,11 +1208,11 @@
 											<option value="btoa">${mf:h(msg['string.ascii85.variant.btoa'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.quoted-printable')}"><tr data-dencode-method="string.quoted-printable"><th>${mf:h(msg['string.quoted-printable.func.encStrQuotedPrintable'])}</th><td><span id="encStrQuotedPrintable" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.unicode-escape')}"><tr data-dencode-method="string.unicode-escape"><th>${mf:h(msg['string.unicode-escape.func.encStrUnicodeEscape'])}</th><td><span id="encStrUnicodeEscape" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.unicode-escape.notation'])}</span>
 										<select name="string.unicode-escape.notation" class="dencode-option form-select">
@@ -1236,10 +1236,10 @@
 											<option value="lower">${mf:h(msg['string.unicode-escape.case.lower'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.program-string')}"><tr data-dencode-method="string.program-string"><th>${mf:h(msg['string.program-string.func.encStrProgramString'])}</th><td><span id="encStrProgramString" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.program-string.quotes'])}</span>
 										<select name="string.program-string.quotes" class="dencode-option form-select">
@@ -1248,12 +1248,12 @@
 											<option value="none">${mf:h(msg['string.program-string.quotes.none'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.morse-code')}"><tr data-dencode-method="string.morse-code"><th>${mf:h(msg['string.morse-code.func.encStrMorseCode'])}</th><td><span id="encStrMorseCode" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.morse-code.variant'])}</span>
 										<select name="string.morse-code.variant" class="dencode-option form-select">
@@ -1262,7 +1262,7 @@
 											<option value="russian">${mf:h(msg['string.morse-code.variant.russian'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
@@ -1285,7 +1285,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.font-style')}"><tr data-dencode-method="string.font-style"><th>${mf:h(msg['string.font-style.func.encStrFontStyle'])}</th><td><span id="encStrFontStyle" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.font-style.style'])}</span>
 										<select name="string.font-style.style" class="dencode-option form-select">
@@ -1306,7 +1306,7 @@
 											<option value="smallcapital">Sᴍᴀʟʟ Cᴀᴘɪᴛᴀʟ</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
@@ -1315,7 +1315,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('string.line-sort')}"><tr data-dencode-method="string.line-sort"><th>${mf:h(msg['string.line-sort.func.encStrLineSort'])}</th><td><span id="encStrLineSort" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['string.line-sort.order'])}</span>
 										<select name="string.line-sort.order" class="dencode-option form-select">
@@ -1324,7 +1324,7 @@
 											<option value="reverse">${mf:h(msg['string.line-sort.order.reverse'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('string.line-unique')}"><tr data-dencode-method="string.line-unique"><th>${mf:h(msg['string.line-unique.func.encStrLineUnique'])}</th><td><span id="encStrLineUnique" class="for-disp"></span></td></tr></c:if>
 						</tbody>
@@ -1340,7 +1340,7 @@
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['number.english.func.encNumEnShortScale'])}</th><td><span id="encNumEnShortScale" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['number.english.decimal-notation'])}</span>
 										<select name="number.english.decimal-notation" class="dencode-option form-select">
@@ -1355,7 +1355,7 @@
 											<option value="cw">${mf:h(msg['number.english.system.cw'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('number.japanese')}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['number.japanese.func.encNumJP'])}</th><td><span id="encNumJP" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('number.japanese')}"><tr data-dencode-method="number.japanese"><th>${mf:h(msg['number.japanese.func.encNumJPDaiji'])}</th><td><span id="encNumJPDaiji" class="for-disp"></span></td></tr></c:if>
@@ -1366,7 +1366,7 @@
 							<c:if test="${methods.contains('date.unix-time')}"><tr data-dencode-method="date.unix-time"><th>${mf:h(msg['date.unix-time.func.encDateUnixTime'])}</th><td><span id="encDateUnixTime" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('date.w3cdtf')}"><tr data-dencode-method="date.w3cdtf"><th>${mf:h(msg['date.w3cdtf.func.encDateW3CDTF'])}</th><td><span id="encDateW3CDTF" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['date.iso8601.func.encDateISO8601'])}</th><td><span id="encDateISO8601" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
 										<select name="date.iso8601.decimal-separator" class="dencode-option form-select">
@@ -1374,10 +1374,10 @@
 											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['date.iso8601.func.encDateISO8601Ext'])}</th><td><span id="encDateISO8601Ext" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
 										<select name="_date.iso8601.decimal-separator_ext" class="dencode-option form-select" data-sync-with="date.iso8601.decimal-separator">
@@ -1385,10 +1385,10 @@
 											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['date.iso8601.func.encDateISO8601Week'])}</th><td><span id="encDateISO8601Week" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
 										<select name="_date.iso8601.decimal-separator_week" class="dencode-option form-select" data-sync-with="date.iso8601.decimal-separator">
@@ -1396,10 +1396,10 @@
 											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('date.iso8601')}"><tr data-dencode-method="date.iso8601"><th>${mf:h(msg['date.iso8601.func.encDateISO8601Ordinal'])}</th><td><span id="encDateISO8601Ordinal" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['date.iso8601.decimal-separator'])}</span>
 										<select name="_date.iso8601.decimal-separator_ordinal" class="dencode-option form-select" data-sync-with="date.iso8601.decimal-separator">
@@ -1407,7 +1407,7 @@
 											<option value=",">${mf:h(msg['date.iso8601.decimal-separator.comma'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('date.rfc2822')}"><tr data-dencode-method="date.rfc2822"><th>${mf:h(msg['date.rfc2822.func.encDateRFC2822'])}</th><td><span id="encDateRFC2822" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('date.ctime')}"><tr data-dencode-method="date.ctime"><th>${mf:h(msg['date.ctime.func.encDateCTime'])}</th><td><span id="encDateCTime" class="for-disp"></span></td></tr></c:if>
@@ -1419,7 +1419,7 @@
 							<c:if test="${methods.contains('color.name')}"><tr data-dencode-method="color.name"><th>${mf:h(msg['color.name.func.encColorName'])}</th><td><span id="encColorName" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['color.rgb.func.encColorRGBHex'])}</th><td><span id="encColorRGBHex" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.rgb')}"><tr data-dencode-method="color.rgb"><th>${mf:h(msg['color.rgb.func.encColorRGBFn'])}</th><td><span id="encColorRGBFn" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['color.rgb.notation'])}</span>
 										<select name="color.rgb.notation" class="dencode-option form-select">
@@ -1427,7 +1427,7 @@
 											<option value="number">${mf:h(msg['color.rgb.notation.number'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('color.hsl')}"><tr data-dencode-method="color.hsl"><th>${mf:h(msg['color.hsl.func.encColorHSLFn'])}</th><td><span id="encColorHSLFn" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('color.hsv')}"><tr data-dencode-method="color.hsv"><th>${mf:h(msg['color.hsv.func.encColorHSVFn'])}</th><td><span id="encColorHSVFn" class="for-disp"></span></td></tr></c:if>
@@ -1437,7 +1437,7 @@
 					<c:if test="${types.contains('cipher')}">
 						<tbody>
 							<c:if test="${methods.contains('cipher.caesar')}"><tr data-dencode-method="cipher.caesar"><th>${mf:h(msg['cipher.caesar.func.encCipherCaesar'])}</th><td><span id="encCipherCaesar" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.caesar.shift'])}</span>
 										<select name="cipher.caesar.shift" class="dencode-option form-select" data-default-value="-3">
@@ -1527,14 +1527,14 @@
 											<option value="42">${mf:h(msg['cipher.caesar.shift.42'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot13')}"><tr data-dencode-method="cipher.rot13"><th>${mf:h(msg['cipher.rot13.func.encCipherROT13'])}</th><td><span id="encCipherROT13" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot18')}"><tr data-dencode-method="cipher.rot18"><th>${mf:h(msg['cipher.rot18.func.encCipherROT18'])}</th><td><span id="encCipherROT18" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rot47')}"><tr data-dencode-method="cipher.rot47"><th>${mf:h(msg['cipher.rot47.func.encCipherROT47'])}</th><td><span id="encCipherROT47" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.atbash')}"><tr data-dencode-method="cipher.atbash"><th>${mf:h(msg['cipher.atbash.func.encCipherAtbash'])}</th><td><span id="encCipherAtbash" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('cipher.affine')}"><tr data-dencode-method="cipher.affine"><th>${mf:h(msg['cipher.affine.func.encCipherAffine'])}</th><td><span id="encCipherAffine" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.affine.a'])}</span>
 										<select name="cipher.affine.a" class="dencode-option form-select" data-default-value="1">
@@ -1622,20 +1622,20 @@
 											<option value="25">25</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.vigenere')}"><tr data-dencode-method="cipher.vigenere"><th>${mf:h(msg['cipher.vigenere.func.encCipherVigenere'])}</th><td><span id="encCipherVigenere" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.vigenere.key'])}</span>
 										<input name="cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.vigenere.key.tooltip'])}" />
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.enigma')}"><tr data-dencode-method="cipher.enigma"><th>${mf:h(msg['cipher.enigma.func.encCipherEnigma'])}</th><td><span id="encCipherEnigma" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="dencode-option-grid cipher-enigma">
 										<div class="dencode-option-grid-label grid-col-all">
 											${mf:h(msg['cipher.enigma.machine'])}
@@ -2087,12 +2087,12 @@
 											<input type="text" name="cipher.enigma.ukwd" class="dencode-option form-control" value="" placeholder="${mf:h(msg['cipher.enigma.ukwd.tooltip'])}" />
 										</div>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.jis-keyboard')}"><tr data-dencode-method="cipher.jis-keyboard"><th>${mf:h(msg['cipher.jis-keyboard.func.encCipherJisKeyboard'])}</th><td><span id="encCipherJisKeyboard" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.jis-keyboard.mode'])}</span>
 										<select name="cipher.jis-keyboard.mode" class="dencode-option form-select">
@@ -2100,12 +2100,12 @@
 											<option value="strict">${mf:h(msg['cipher.jis-keyboard.mode.strict'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('cipher.scytale')}"><tr data-dencode-method="cipher.scytale"><th>${mf:h(msg['cipher.scytale.func.encCipherScytale'])}</th><td><span id="encCipherScytale" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.scytale.key'])}</span>
 										<select name="cipher.scytale.key" class="dencode-option form-select">
@@ -2136,10 +2136,10 @@
 											<option value="x">${mf:h(msg['cipher.scytale.key-per.x'])}</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 							<c:if test="${methods.contains('cipher.rail-fence')}"><tr data-dencode-method="cipher.rail-fence"><th>${mf:h(msg['cipher.rail-fence.func.encCipherRailFence'])}</th><td><span id="encCipherRailFence" class="for-disp"></span>
-								<form class="dencode-option-group" method="post">
+								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${mf:h(msg['cipher.rail-fence.key'])}</span>
 										<select name="cipher.rail-fence.key" class="dencode-option form-select">
@@ -2164,7 +2164,7 @@
 											<option value="20">20</option>
 										</select>
 									</div>
-								</form>
+								</div>
 							</td></tr></c:if>
 						</tbody>
 					</c:if>
@@ -2261,10 +2261,8 @@
 </div>
 
 <div style="display: none;">
-	<form action="#" method="POST">
-		<input id="loadFileInput" type="file" accept="text/*" />
-		<input id="loadQrcodeInput" type="file" accept="image/*" />
-	</form>
+	<input id="loadFileInput" type="file" accept="text/*" />
+	<input id="loadQrcodeInput" type="file" accept="image/*" />
 </div>
 
 <script id="messageTmpl" type="text/template">
@@ -2276,21 +2274,19 @@
 </script>
 <script id="forCopyTmpl" type="text/template">
 	<div class="for-copy">
-		<form method="post">
-			<div class="input-group">
-				<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
-				<span class="btn-group-vertical">
-					<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
-						<i class="bi bi-clipboard"></i>
-						<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
-					</button>
-					<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
-						<i class="bi bi-link-45deg"></i>
-						<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
-					</button>
-				</span>
-			</div>
-		</form>
+		<div class="input-group">
+			<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
+			<span class="btn-group-vertical">
+				<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
+					<i class="bi bi-clipboard"></i>
+					<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+				</button>
+				<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
+					<i class="bi bi-link-45deg"></i>
+					<span class="btn-label">${mf:h(msg['label.permanentLink.buttonLabel'])}</span>
+				</button>
+			</span>
+		</div>
 	</div>
 </script>
 <script id="lengthTmpl" type="text/template">
@@ -2303,26 +2299,24 @@
 	{{^oneByte}}${mf:h(msg['label.val.length.bytes'])}{{/oneByte}}
 </script>
 <script id="permanentLinkTmpl" type="text/template">
-	<form method="post">
-		<div id="permanentLink" class="input-group">
-			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
-			<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
-				<i class="bi bi-clipboard"></i>
-				<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
-			</button>
-			<button type="button" class="btn btn-v-icon-label dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				<i class="bi bi-share-fill"></i>
-				<span class="btn-label">${mf:h(msg['label.share.buttonLabel'])}</span>
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a class="dropdown-item share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage"><i class="bi bi-box-arrow-up-right"></i> ${mf:h(msg['label.openNewPage'])}</a></li>
-				<li><a class="dropdown-item share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail"><i class="bi bi-envelope"></i> ${mf:h(msg['label.sendByEmail'])}</a></li>
-				<li><a class="dropdown-item share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter"><i class="bi bi-twitter"></i> ${mf:h(msg['label.shareOnTwitter'])}</a></li>
-				<li><a class="dropdown-item share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook"><i class="bi bi-facebook"></i> ${mf:h(msg['label.shareOnFacebook'])}</a></li>
-			</ul>
-		</div>
-	</form>
+	<div id="permanentLink" class="input-group">
+		<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
+		<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${mf:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${mf:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${mf:h(msg['label.copyToClipboard.errorMessage'])}">
+			<i class="bi bi-clipboard"></i>
+			<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+		</button>
+		<button type="button" class="btn btn-v-icon-label dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			<i class="bi bi-share-fill"></i>
+			<span class="btn-label">${mf:h(msg['label.share.buttonLabel'])}</span>
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a class="dropdown-item share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage"><i class="bi bi-box-arrow-up-right"></i> ${mf:h(msg['label.openNewPage'])}</a></li>
+			<li><a class="dropdown-item share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail"><i class="bi bi-envelope"></i> ${mf:h(msg['label.sendByEmail'])}</a></li>
+			<li><a class="dropdown-item share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter"><i class="bi bi-twitter"></i> ${mf:h(msg['label.shareOnTwitter'])}</a></li>
+			<li><a class="dropdown-item share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook"><i class="bi bi-facebook"></i> ${mf:h(msg['label.shareOnFacebook'])}</a></li>
+		</ul>
+	</div>
 </script>
 <script id="adMiddleTmpl" type="text/template">
 	<tr id="adMiddle">
