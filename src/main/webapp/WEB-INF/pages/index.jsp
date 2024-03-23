@@ -11,10 +11,6 @@
 	<meta name="robots" content="index,follow,noarchive" />
 	<meta name="application-name" content="${mf:h(msg['site.name'])}" />
 	<meta name="apple-mobile-web-app-title" content="${mf:h(msg['site.name'])}" />
-	<meta name="msapplication-TileColor" content="#ffffff" />
-	<meta name="msapplication-square70x70logo" content="${pageContext.request.contextPath}/static/img/icons/favicon70px.png" />
-	<meta name="msapplication-square150x150logo" content="${pageContext.request.contextPath}/static/img/icons/favicon150px.png" />
-	<meta name="msapplication-square310x310logo" content="${pageContext.request.contextPath}/static/img/icons/favicon310px.png" />
 	<meta name="format-detection" content="address=no,date=no,email=no,telephone=no,url=no" />
 	<meta property="og:site_name" content="${mf:h(msg['site.name'])}" />
 	<meta property="og:url" content="${baseURL}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
@@ -31,7 +27,6 @@
 	</c:forEach>
 	<link rel="alternate" hreflang="x-default" href="${baseURL}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
 	<link rel="icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
-	<link rel="shortcut icon" type="x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="icon" type="image/png" sizes="192x192"  href="${pageContext.request.contextPath}/static/img/icons/favicon192px.png" />
 	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/favicon180px.png" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha256-PI8n5gCcz9cQqQXm3PEtDuPG8qx9oFsFctPg0S5zb8g=" crossorigin="anonymous" />
