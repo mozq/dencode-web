@@ -130,14 +130,6 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 			return;
 		}
 		
-		// TODO: This is for a migration (Decommission Cookies). Will be removed after the migration.
-		reqres().removeCookie("JSESSIONID");
-		reqres().removeCookie("oe");
-		reqres().removeCookie("oex");
-		reqres().removeCookie("nl");
-		reqres().removeCookie("tz");
-		reqres().removeCookie("follow");
-		
 		reqres().setAttribute("type", type);
 		reqres().setAttribute("method", method);
 		reqres().setAttribute("v", v);

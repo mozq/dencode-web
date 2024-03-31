@@ -90,13 +90,6 @@ $.onReady(function () {
 			});
 		});
 		
-		// TODO: This is for a migration (Change option name). Will be removed after the migration.
-		for (const k of Object.keys(window.localStorage)) {
-			if (k.startsWith("options.enc") || k.startsWith("options.dec")) {
-				window.localStorage.removeItem(k);
-			}
-		}
-		
 		
 		// Functions
 		function selectItem(elItems, elItemGroup, name, storageName) {
