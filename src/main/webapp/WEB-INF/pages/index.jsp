@@ -26,11 +26,9 @@
 		<link rel="alternate" hreflang="${mf:h(loc.key)}" href="${baseURL}${pageContext.request.contextPath}/${mf:h(loc.key)}/${mf:h(currentPath)}" />
 	</c:forEach>
 	<link rel="alternate" hreflang="x-default" href="${baseURL}${pageContext.request.contextPath}/${mf:h(currentPath)}" />
-	<link rel="icon" type="image/x-icon" sizes="32x32" href="${pageContext.request.contextPath}/favicon.ico" />
 	<link rel="icon" type="image/png" sizes="192x192" href="${pageContext.request.contextPath}/static/img/icons/icon-192.png" />
 	<link rel="icon" type="image/svg+xml" sizes="any" href="${pageContext.request.contextPath}/static/img/icons/icon.svg" />
-	<link rel="icon" type="image/svg+xml" sizes="16x16 32x32" href="${pageContext.request.contextPath}/static/img/icons/favicon.svg" />
-	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/icon-180.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/apple-touch-icon.png" />
 	<link rel="manifest" href="${pageContext.request.contextPath}/manifest.json" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha256-PI8n5gCcz9cQqQXm3PEtDuPG8qx9oFsFctPg0S5zb8g=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
