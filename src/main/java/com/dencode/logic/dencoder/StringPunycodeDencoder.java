@@ -47,6 +47,9 @@ public class StringPunycodeDencoder {
 			return DencodeUtils.dencodeLines(vals, (val) -> IDN.toASCII(val, IDN.ALLOW_UNASSIGNED));
 		} catch (IllegalArgumentException e) {
 			return null;
+		} catch (RuntimeException e) {
+			// Handle "input too long: XXXX UTF-16 code units at java.base/jdk.internal.icu" exception for Java21
+			return null;
 		}
 	}
 	
