@@ -442,7 +442,21 @@ $.onReady(function () {
 						return;
 					}
 					
-					updateValue(code.data);
+					let data;
+					if (code.data.length === 0 && 0 < code.binaryData.length) {
+						// If the QR code cannot be parsed as UTF-8 text
+						try {
+							// Parse the binary data as JIS X 0208 (Shift_JIS) text
+							data = new TextDecoder("shift-jis", {fatal: true}).decode(Uint8Array.from(code.binaryData));
+						} catch (ex) {
+							// Convert the binary data to hex string
+							data = code.binaryData.map((b) => ("0" + (b & 0xFF).toString(16)).slice(-2)).join("");
+						}
+					} else {
+						data = code.data;
+					}
+					
+					updateValue(data);
 					showTooltip(elLoadBtn, elLoadQrcode.getAttribute("data-load-message"), 2000);
 				};
 				img.src = this.result;
