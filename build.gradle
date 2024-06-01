@@ -21,9 +21,9 @@ dependencies {
   providedCompile 'org.eclipse.jetty.ee10:jetty-ee10-apache-jsp:12.0.+'
   
   implementation 'org.eclipse.jetty.ee10:jetty-ee10-glassfish-jstl:12.0.+'
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.+'
-  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.16.+'
-  implementation 'com.ezylang:EvalEx:3.0.+'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.+'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.17.+'
+  implementation 'com.ezylang:EvalEx:3.2.+'
   
   implementation 'com.github.mifmi:mifmi-commons4j:v0.3.+'
   implementation 'com.github.mozq:enigma4j:v1.+'

@@ -4,7 +4,7 @@ buildscript {
   }
   
   dependencies {
-    classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20231112'
+    classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20240317'
     classpath group: 'com.yahoo.platform.yui', name: 'yuicompressor', version: '2.4.8'
   }
 }
