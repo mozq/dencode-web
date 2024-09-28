@@ -5,7 +5,6 @@ buildscript {
   
   dependencies {
     classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20240317'
-    classpath group: 'com.yahoo.platform.yui', name: 'yuicompressor', version: '2.4.8'
   }
 }
 
@@ -15,32 +14,13 @@ import com.google.javascript.jscomp.CompilerOptions
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode
 import com.google.javascript.jscomp.SourceFile
 import com.google.javascript.jscomp.WarningLevel
-import com.yahoo.platform.yui.compressor.CssCompressor
 import java.nio.charset.Charset
 
 
 abstract class SourceDestTask extends SourceTask {
-  @Input String charset =  'UTF-8'
+  @Input String charset = 'UTF-8'
   @Input String dest
   @OutputFile File getDestFile() { project.file(dest) }
-}
-
-abstract class MinifyCssTask extends SourceDestTask {
-  @Input int lineBreakPos = -1
-  
-  @TaskAction
-  void minify() {
-    def compressor;
-    try (def reader = source.singleFile.newReader(charset)) {
-      compressor = new CssCompressor(reader)
-    }
-    
-    project.file(dest).parentFile.mkdirs()
-    try (def writer = destFile.newWriter(charset)) {
-      compressor.compress(writer, lineBreakPos)
-      writer.flush()
-    }
-  }
 }
 
 abstract class MinifyJsTask extends SourceDestTask {
@@ -73,7 +53,5 @@ abstract class MinifyJsTask extends SourceDestTask {
   }
 }
 
-project.tasks.register('minifyCss', MinifyCssTask)
 project.tasks.register('minifyJs', MinifyJsTask)
-project.ext.MinifyCssTask = MinifyCssTask
 project.ext.MinifyJsTask = MinifyJsTask

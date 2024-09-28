@@ -50,11 +50,6 @@ appengine {
   }
 }
 
-minifyCss {
-  source 'src/main/webapp/static/css/main.css'
-  dest "${buildDir}/minify/css/all.min.css"
-}
-
 minifyJs {
   source 'src/main/webapp/static/js/commons.js'
   source 'src/main/webapp/static/js/analytics.js'
@@ -65,12 +60,8 @@ minifyJs {
 }
 
 war {
-  dependsOn minifyCss, minifyJs
+  dependsOn minifyJs
   
-  webInf {
-    from "${buildDir}/minify/css/"
-    into "/static/css/"
-  }
   webInf {
     from "${buildDir}/minify/js/"
     into "/static/js/"
