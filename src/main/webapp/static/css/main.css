@@ -260,7 +260,7 @@ footer {
 }
 
 .dencode-option:disabled {
-	border-color: var(--dc-input-disabled-border-color);
+	border: var(--bs-border-width) solid var(--dc-input-disabled-border-color);
 	color: var(--dc-input-disabled-color);
 	background-color: var(--dc-input-disabled-bg);
 	--bs-form-select-bg-img: none;
