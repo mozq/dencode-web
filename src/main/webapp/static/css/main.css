@@ -645,9 +645,10 @@ table.dencoded-list {
 }
 
 
-@media screen
-		and (min-device-width: 320px)
-		and (max-device-width: 568px) {
+@media screen and (max-device-width: 767px) {
+	.container {
+		max-width: 100%;
+	}
 	
 	.popover:has(#permanentLink) {
 		width: 90%;
