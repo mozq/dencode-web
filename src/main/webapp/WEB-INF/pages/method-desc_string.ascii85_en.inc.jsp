@@ -8,7 +8,7 @@
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Summary</th></tr>
 		<tr><th>Z85</th><td>Used by ZeroMQ." \" (backslash) and "'" (apostrophe) characters that require escaping are not used.</td></tr>
-		<tr><th>Adobe</th><td>It is used to encode images and other data in Adobe's PostScript and PDF (Portable Document Format) files. It is enclosed in "<~" and "~>".</td></tr>
+		<tr><th>Adobe</th><td>It is used to encode images and other data in Adobe's PostScript and PDF (Portable Document Format) files. It is enclosed in "&lt;~" and "~&gt;".</td></tr>
 		<tr><th>btoa</th><td>A form of the UNIX btoa command. It was used in the past for exchanging binary data, but is no longer common. Enclosed in "xbtoa Begin" and "xbtoa End" lines.</td></tr>
 	</table>
 </div>
@@ -18,7 +18,7 @@
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>ASCII characters</th></tr>
-		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;<>()[]{}@%$#</td></tr>
+		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;&lt;&gt;()[]{}@%$#</td></tr>
 		<tr><th>Adobe</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu</td></tr>
 		<tr><th>btoa</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu<br />(The original was from " " (space) to "t", but because some mailers excluded trailing spaces, it was later replaced by the "!" to "u" characters without spaces.)</td></tr>
 	</table>
@@ -51,13 +51,13 @@
 	</table>
 </div>
 
-<p>4. The characters are all joined together to form the Ascii85 conversion result. adobe is enclosed in "<~" & "~>", with a new line every 80 characters. btoa is enclosed in "xbtoa Begin" & "xbtoa End" (including data length, checksum, etc.), with a new line every 78 characters.</p>
+<p>4. The characters are all joined together to form the Ascii85 conversion result. adobe is enclosed in "&lt;~" &amp; "~&gt;", with a new line every 80 characters. btoa is enclosed in "xbtoa Begin" &amp; "xbtoa End" (including data length, checksum, etc.), with a new line every 78 characters.</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Conversion result</th></tr>
-		<tr><th>Z85</td><td>nm=QNzV</td></tr>
-		<tr><th>Adobe</th><td><~87cURDZ~></td></tr>
+		<tr><th>Z85</th><td>nm=QNzV</td></tr>
+		<tr><th>Adobe</th><td>&lt;~87cURDZ~&gt;</td></tr>
 		<tr><th>btoa</th><td>xbtoa Begin<br />
 87cURDZBb;<br />
 xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
@@ -70,7 +70,7 @@ xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Contractions</th></tr>
 		<tr><th>Z85</th><td>None</td></tr>
-		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -> z</td></tr>
-		<tr><th>btoa</th><td>00000000<sub>(16)</sub> -> z<br />20202020<sub>(16)</sub> -> y (btoa v4.2 or later)<br /></td></tr>
+		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -&gt; z</td></tr>
+		<tr><th>btoa</th><td>00000000<sub>(16)</sub> -&gt; z<br />20202020<sub>(16)</sub> -&gt; y (btoa v4.2 or later)<br /></td></tr>
 	</table>
 </div>

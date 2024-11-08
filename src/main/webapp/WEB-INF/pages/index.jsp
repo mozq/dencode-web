@@ -49,7 +49,7 @@
 	<nav class="navbar navbar-expand-sm">
 		<div class="container-fluid">
 			<a id="brand" class="navbar-brand" href="${mf:h(basePath)}/">${mf:h(msg['site.name'])}</a>
-			<span class="navbar-text">Enjoy Encoding &amp; Decoding!</span>
+			<span class="navbar-text">Enjoy encoding &amp; decoding!</span>
 			
 			<div id="localeMenu" class="dropdown">
 				<span class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">

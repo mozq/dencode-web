@@ -8,7 +8,7 @@
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>概要</th></tr>
 		<tr><th>Z85</th><td>ZeroMQで使用される。"\"(バックスラッシュ)や"'"(アポストロフィー)のようなエスケープが必要な文字を使用しないようにしたもの。</td></tr>
-		<tr><th>Adobe</th><td>AdobeのPostScriptやPDF(Portable Document Format)ファイル内での画像等のエンコードに使用されている。 "<~" と "~>" で囲まれる。</td></tr>
+		<tr><th>Adobe</th><td>AdobeのPostScriptやPDF(Portable Document Format)ファイル内での画像等のエンコードに使用されている。 "&lt;~" と "~&gt;" で囲まれる。</td></tr>
 		<tr><th>btoa</th><td>UNIXのbtoaコマンドの形式。過去にバイナリーデータの交換に使用されていたが、現在は一般的ではない。 "xbtoa Begin" と "xbtoa End" の行で囲まれる。</td></tr>
 	</table>
 </div>
@@ -18,7 +18,7 @@
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>ASCII文字</th></tr>
-		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;<>()[]{}@%$#</td></tr>
+		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;&lt;&gt;()[]{}@%$#</td></tr>
 		<tr><th>Adobe</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu</td></tr>
 		<tr><th>btoa</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu<br />(オリジナルは " "(スペース)から "t" までの文字だったが、末尾のスペースを除外するメーラーがあったため、後にスペースを除いた "!" から "u" の文字に置き換えられた。)</td></tr>
 	</table>
@@ -51,13 +51,13 @@
 	</table>
 </div>
 
-<p>4. 文字を全て繋げてAscii85の変換結果とする。Adobeは、 "<~" & "~>" で括り、80文字ごとに改行する。btoaは "xbtoa Begin" & "xbtoa End" (データ長やチェックサムなども含む)で括り、78文字ごとに改行する。</p>
+<p>4. 文字を全て繋げてAscii85の変換結果とする。Adobeは、 "&lt;~" &amp; "~&gt;" で括り、80文字ごとに改行する。btoaは "xbtoa Begin" &amp; "xbtoa End" (データ長やチェックサムなども含む)で括り、78文字ごとに改行する。</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>変換結果</th></tr>
 		<tr><th>Z85</th><td>nm=QNzV</td></tr>
-		<tr><th>Adobe</th><td><~87cURDZ~></td></tr>
+		<tr><th>Adobe</th><td>&lt;~87cURDZ~&gt;</td></tr>
 		<tr><th>btoa</th><td>xbtoa Begin<br />
 87cURDZBb;<br />
 xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
@@ -70,7 +70,7 @@ xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>短縮形</th></tr>
 		<tr><th>Z85</th><td>なし</td></tr>
-		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -> z</td></tr>
-		<tr><th>btoa</th><td>00000000<sub>(16)</sub> -> z<br />20202020<sub>(16)</sub> -> y (btoa v4.2以降)<br /></td></tr>
+		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -&gt; z</td></tr>
+		<tr><th>btoa</th><td>00000000<sub>(16)</sub> -&gt; z<br />20202020<sub>(16)</sub> -&gt; y (btoa v4.2以降)<br /></td></tr>
 	</table>
 </div>

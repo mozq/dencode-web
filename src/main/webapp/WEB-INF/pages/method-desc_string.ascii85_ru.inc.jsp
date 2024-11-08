@@ -8,7 +8,7 @@
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Резюме</th></tr>
 		<tr><th>Z85</th><td>Используется в ZeroMQ. "\" (обратная косая черта) и "'" (апостроф) символы, требующие экранирования, не используются.</td></tr>
-		<tr><th>Adobe</th><td>Он используется для кодирования изображений и других данных в файлах Adobe PostScript и PDF (Portable Document Format). Он заключен в "<~" и "~>".</td></tr>
+		<tr><th>Adobe</th><td>Он используется для кодирования изображений и других данных в файлах Adobe PostScript и PDF (Portable Document Format). Он заключен в "&lt;~" и "~&gt;".</td></tr>
 		<tr><th>btoa</th><td>Форма команды UNIX btoa. В прошлом он использовался для обмена двоичными данными, но сейчас уже не распространен. Охватывается линиями "xbtoa Начало" и "xbtoa Конец".</td></tr>
 	</table>
 </div>
@@ -18,7 +18,7 @@
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>ASCII символы</th></tr>
-		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;<>()[]{}@%$#</td></tr>
+		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;&lt;&gt;()[]{}@%$#</td></tr>
 		<tr><th>Adobe</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu</td></tr>
 		<tr><th>btoa</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu<br />(Первоначально это были символы " " (пробел) - "t", но поскольку некоторые почтовые службы исключали пробелы, позже они были заменены символами "!" до "u", исключая пробелы.)</td></tr>
 	</table>
@@ -51,13 +51,13 @@
 	</table>
 </div>
 
-<p>4. Все символы объединяются в результат преобразования Ascii85; Adobe заключен в "<~" и "~>", с новой строкой через каждые 80 символов; btoa заключен в "xbtoa Begin" и "xbtoa End" (включая длину данных и контрольную сумму), с новой строкой через каждые 78 символов.</p>
+<p>4. Все символы объединяются в результат преобразования Ascii85; Adobe заключен в "&lt;~" и "~&gt;", с новой строкой через каждые 80 символов; btoa заключен в "xbtoa Begin" и "xbtoa End" (включая длину данных и контрольную сумму), с новой строкой через каждые 78 символов.</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Результаты конверсии</th></tr>
 		<tr><th>Z85</th><td>nm=QNzV</td></tr>
-		<tr><th>Adobe</th><td><~87cURDZ~></td></tr>
+		<tr><th>Adobe</th><td>&lt;~87cURDZ~&gt;</td></tr>
 		<tr><th>btoa</th><td>xbtoa Begin<br />
 87cURDZBb;<br />
 xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
@@ -70,7 +70,7 @@ xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
 	<table class="table table-sm table-fit">
 		<tr><th></th><th>Cокращения</th></tr>
 		<tr><th>Z85</th><td>Нет</td></tr>
-		<tr><td>Adobe</th><td>00000000<sub>(16)</sub> -> z</td></tr>
-		<tr><th>btoa</th><td>00000000<sub>(16)</sub> -> z<br />20202020<sub>(16)</sub> -> y (btoa v4.2 или более поздняя версия)<br /></td></tr>
+		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -&gt; z</td></tr>
+		<tr><th>btoa</th><td>00000000<sub>(16)</sub> -&gt; z<br />20202020<sub>(16)</sub> -&gt; y (btoa v4.2 или более поздняя версия)<br /></td></tr>
 	</table>
 </div>

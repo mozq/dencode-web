@@ -18,7 +18,7 @@
 	</table>
 </div>
 
-<p>日本語の漢数字では、1 から 9 までの数値を以下の漢字で表します。</p>
+<p>日本語の漢数字では、0 から 9 までの数値を以下の漢字で表します。</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">

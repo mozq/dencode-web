@@ -18,7 +18,7 @@
 	</table>
 </div>
 
-<p>In Japanese numerals, numbers from 1 to 9 are represented by the following Chinese characters.</p>
+<p>In Japanese numerals, numbers from 0 to 9 are represented by the following Chinese characters.</p>
 
 <div class="table-responsive">
 	<table class="table table-sm table-fit">

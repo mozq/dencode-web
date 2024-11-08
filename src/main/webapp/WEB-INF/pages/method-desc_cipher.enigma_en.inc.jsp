@@ -32,10 +32,10 @@
          3      2      1
  ___    ___    ___    ___    ___    ___
 |   |  |   |  |   |  |   |  |   |  |   |
-|  -|--|---|--|---|--|---|--|---|--|---|-- < Tastatur
+|  -|--|---|--|---|--|---|--|---|--|---|-- &lt; Tastatur
 | | |  |   |  |   |  |   |  |   |  |   |
 | | |  |   |  |   |  |   |  |   |  |   |
-|  -|--|---|--|---|--|---|--|---|--|---|-- > Lampenfeld
+|  -|--|---|--|---|--|---|--|---|--|---|-- &gt; Lampenfeld
 |   |  |   |  |   |  |   |  |   |  |   |
  ---    ---    ---    ---    ---    ---
 </pre>
@@ -97,17 +97,17 @@ Text after encryption : LCGODU
 <p>In this case, the first letter "S" will be converted into the following sequence, and finally encrypted into "L".</p>
 
 <pre>
-S -> P  : Plugboard
-P -> P  : ETW
-P -> L  : III
-L -> P  : I
-P -> W  : II
-W -> K  : UKW-A
-K -> Q  : II
-Q -> O  : I
-O -> L  : III
-L -> L  : ETW
-L -> L  : Plugboard
+S -&gt; P  : Plugboard
+P -&gt; P  : ETW
+P -&gt; L  : III
+L -&gt; P  : I
+P -&gt; W  : II
+W -&gt; K  : UKW-A
+K -&gt; Q  : II
+Q -&gt; O  : I
+O -&gt; L  : III
+L -&gt; L  : ETW
+L -&gt; L  : Plugboard
 </pre>
 
 <p>The rotational position of the rotor and the input (+) / output (-) positions are represented by the letters on the ring as shown below. (Since the rotor is rotating, the above "transcribed characters" and "characters as positions on the ring" are different.)</p>
@@ -130,17 +130,17 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>The Enigma machine has a feature that if you encrypt an encrypted text again with the same settings, you will get the plain text before encryption. Therefore, inputting the encrypted "L" in the above example will yield the original "S".</p>
 
 <pre>
-L -> L  : Plugboard
-L -> L  : ETW
-L -> O  : III
-O -> Q  : I
-Q -> K  : II
-K -> W  : UKW-A
-W -> P  : II
-P -> L  : I
-L -> P  : III
-P -> P  : ETW
-P -> S  : Plugboard
+L -&gt; L  : Plugboard
+L -&gt; L  : ETW
+L -&gt; O  : III
+O -&gt; Q  : I
+Q -&gt; K  : II
+K -&gt; W  : UKW-A
+W -&gt; P  : II
+P -&gt; L  : I
+L -&gt; P  : III
+P -&gt; P  : ETW
+P -&gt; S  : Plugboard
 </pre>
 
 <pre>

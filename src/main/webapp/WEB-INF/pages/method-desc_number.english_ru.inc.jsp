@@ -3,9 +3,11 @@
 <p>Английские числа представляют собой числа на английском языке.</p>
 
 <p>Например, результат преобразования 123456789 в английскую цифру выглядит следующим образом.</p>
-<pre>One Hundred Twenty-Three Million Four Hundred Fifty-Six Thousand Seven Hundred Eighty-Nine</pre>
+<pre>123456789 = One Hundred Twenty-Three Million Four Hundred Fifty-Six Thousand Seven Hundred Eighty-Nine</pre>
 
 <p>Значения после десятичной точки могут быть выражены словом или дробной частью. Например, 0,99 отображается как «Zero point Nine Nine» в Word и «Zero and 99/100» в дробях.</p>
+<pre>Zero point Nine Nine
+Zero and 99/100</pre>
 
 
 <h4>Большие числа</h4>
@@ -17,7 +19,7 @@
 	<table class="table table-sm table-fit">
 		<thead>
 			<tr><th></th><th colspan="2">Короткая шкала</th><th colspan="2">Длинная чешуя (Chuquet)</th><th colspan="2">Длинная чешуя (Пелетье)</th></tr>
-			<tr><th>Digit</th><th>N (10<sup>3N+3</sup>)</th><th>Название</th><th>N (10<sup>6N</sup>)</th><th>Название</th><th>N (10<sup>6N</sup>)</th><th>Название</th></tr>
+			<tr><th>Цифра</th><th>N (10<sup>3N+3</sup>)</th><th>Название</th><th>N (10<sup>6N</sup>)</th><th>Название</th><th>N (10<sup>6N</sup>)</th><th>Название</th></tr>
 		</thead>
 		<tbody>
 			<tr><td>10<sup>3</sup></td><td>0</td><td>Thousand</td><td>0.5</td><td>Thousand</td><td>0.5</td><td>Thousand</td></tr>
@@ -48,6 +50,7 @@
 <p>Приведенные выше названия цифр распространены в современных английских словарях.</p>
 <p>Название системы Шуке и Пеллетье с длинной шкалой было получено от французского математика Николя Шуке в 1484 году, который определил до «Nonillion» N=9 (Биллион, Триллион, Квадриллион, Квиллион, Сикслион, Септиллион, Оттиллион и Нониллион на французском языке) и Жак Пелетье дю Ман распространил «Milliard» (Milliart) в 1549 году («Milliard» был популяризирован в значении 10<sup>12</sup> и уменьшен до 10<sup>9</sup> позже в конце 17 века).</p>
 
+
 <h4>Система Конвея-Векслера</h4>
 <p><dfn>Система Конвея-Векслера</dfn> (Conway-Wechsler system), определенная Джоном Хортоном Конвеем и Алланом Векслером, является типичным методом именования больших цифр с N=10 или более (10<sup>33</sup> или более). Система Конвея-Векслера называет цифры в соответствии со следующими правилами:</p>
 
@@ -72,13 +75,21 @@
 </div>
 
 <p>Система Конвея-Векслера была определена для коротких шкал, но ее также можно использовать для длинных шкал. Чтобы получить имя цифры с помощью этой системы, найдите N из 10<sup>3N+3</sup> на короткой шкале и 10<sup>6N</sup> на длинной шкале, а затем используйте это значение N для найдите имя в таблице выше.</p>
-<p>Например, 10<sup>96</sup> равно N=31, потому что это 10<sup>3*31+3</sup> на короткой шкале, и оно объединяется от младшего разряда к старшему разряду N как «duo»(1) + «triginta»(30) + «illion» = «Duotrigintillion». Если непосредственно перед «illion» стоит гласная «aeiou», удалите гласную и объедините их.</p>
-<p>Кроме того, при сочетании «Units» с «Tens» или «Hundreds» символы <sup>(mnsx)</sup> в скобках в приведенной выше таблице объединяются, включая символы, если они совпадают. Это называется правилом ассимиляции. Например, для N=26 «se <sup>(sx)</sup>»(6) + «<sup>(ns)</sup> triginta»(20) + «illion» = «Se<b>s</b>trigintillion».</p>
+<p>Например, 10<sup>96</sup> равно N=31, потому что это 10<sup>3*31+3</sup> на короткой шкале, и оно объединяется от младшего разряда к старшему разряду N как «un»(1) + «triginta»(30) + «illion» = «Untrigintillion». Если непосредственно перед «illion» стоит гласная «aeiou», удалите гласную и объедините их.</p>
+<pre>10<sup>96</sup> = One Untrigintillion</pre>
+
+<p>Кроме того, при сочетании «Units» с «Tens» или «Hundreds» символы <sup>(mnsx)</sup> в скобках в приведенной выше таблице объединяются, включая символы, если они совпадают. Это называется правилом ассимиляции. Например, для N=36 «se <sup>(sx)</sup>»(6) + «<sup>(ns)</sup> triginta»(30) + «illion» = «Se<b>s</b>trigintillion».</p>
+<pre>10<sup>111</sup> = 10<sup>3*36+3</sup> = One Sestrigintillion</pre>
+
 <p>«tre <sup>(s(x))</sup>»(3) является специальным, а «s» добавляется независимо от того, какой символ следует за <sup>(sx)</sup>. Например, для N=83 это будет «tre <sup>(s(x))</sup>»(3) + «<sup>(mx)</sup> octoginta»(80) + «illion» = «Tre<b>s</b>octogintillion».</p>
+<pre>10<sup>252</sup> = 10<sup>3*83+3</sup> = One Tresoctogintillion</pre>
 
-<p>Для более крупных чисел с N=1 000 и выше объедините N каждые 3 цифры с помощью описанной выше процедуры, чтобы получить имя и, наконец, присоединиться. Если N=1000000X + 1000Y + Z и имя каждой цифры - «Xillion», «Yillion», «Zillion», они объединяются как «Xilliyillizillion» и пропускают «on» из «-illion» в середине. Например, если N=1 003, то «Million»(1) + «Trillion»(3) = «Millitrillion». Также, когда N=12 210, «Duodecillion»(12) + «Deciducentillion»(210) = «Duodecillideciducentillion».</p>
-
+<p>Для более крупных чисел с N=1000 и выше (10<sup>3003</sup> и выше) объедините N каждые 3 цифры с помощью описанной выше процедуры, чтобы получить имя и, наконец, присоединиться. Если N=1000000<b>X</b> + 1000<b>Y</b> + <b>Z</b> и имя каждой цифры - «<b>X</b>illion», «<b>Y</b>illion», «<b>Z</b>illion», они объединяются как «<b>X</b>illi<b>y</b>illi<b>z</b>illion» и пропускают «on» из «-illion» в середине. Например, если N=1 003, то «Million»(1) + «Trillion»(3) = «Millitrillion». Также, когда N=12210, «Duodecillion»(12) + «Deciducentillion»(210) = «Duodecillideciducentillion».</p>
 <p>Кроме того, если трехзначное значение равно 0, это будет «Nillion». Например, если N=1 000 003, то «Million»(1) + «Nillion»(0) + «Trillion»(3) = «Millinillitrillion».</p>
+<pre>10<sup>3012</sup> = 10<sup>3*1003+3</sup> = One Millitrillion
+10<sup>36633</sup> = 10<sup>3*12210+3</sup> = One Duodecillideciducentillion
+10<sup>3000012</sup> = 10<sup>3*1000003+3</sup> = One Millinillitrillion</pre>
+
 <p>Система Конвея-Векслера в основном основана на латыни, поэтому, например, следующие имена могут отличаться от имен, определенных в словаре английского языка.</p>
 
 <div class="table-responsive">
@@ -112,7 +123,7 @@
 			<tr><td>3</td><td>tre <sup>(s)</sup></td><td>triginta</td><td>trecenti</td></tr>
 			<tr><td>4</td><td>quattuor</td><td>quadraginta</td><td>quadringenti</td></tr>
 			<tr><td>5</td><td>quin</td><td>quinquaginta</td><td>quingenti</td></tr>
-			<tr><td>6</td><td>se<b>x</b></sup></td><td>sexaginta</td><td>sescenti</td></tr>
+			<tr><td>6</td><td>se<b>x</b></td><td>sexaginta</td><td>sescenti</td></tr>
 			<tr><td>7</td><td>septe<b>n</b></td><td>septuaginta</td><td>septingenti</td></tr>
 			<tr><td>8</td><td>octo</td><td>octoginta</td><td>octingenti</td></tr>
 			<tr><td>9</td><td>nove<b>m</b></td><td>nonaginta</td><td>nongenti</td></tr>
@@ -145,16 +156,16 @@
 			<tr><td>53</td><td>Tre<b>s</b>quinquagintillion</td><td>Trequinquagintillion</td></tr>
 			<tr><td>56</td><td>Se<b>s</b>quinquagintillion</td><td>Se<b>x</b>quinquagintillion</td></tr>
 			<tr><td>59</td><td>Nove<b>n</b>quinquagintillion</td><td>Nove<b>m</b>quinquagintillion</td></tr>
-			<tr><td>66</td><td>Se<b>s</b></b>exagintillion</td><td>Se<b>x</b>sexagintillion</td></tr>
+			<tr><td>66</td><td>Sesexagintillion</td><td>Se<b>x</b>sexagintillion</td></tr>
 			<tr><td>69</td><td>Nove<b>n</b>sexagintillion</td><td>Nove<b>m</b>sexagintillion</td></tr>
-			<tr><td>76</td><td>Se<b>s</b>eptuagintillion</td><td>Se<b>x</b>septuagintillion</td></tr>
+			<tr><td>76</td><td>Seseptuagintillion</td><td>Se<b>x</b>septuagintillion</td></tr>
 			<tr><td>79</td><td>Nove<b>n</b>septuagintillion</td><td>Nove<b>m</b>septuagintillion</td></tr>
 			<tr><td>83</td><td>Tre<b>s</b>octogintillion</td><td>Treoctogintillion</td></tr>
 			<tr><td>87</td><td>Septe<b>m</b>octogintillion</td><td>Septe<b>n</b>octogintillion</td></tr>
 			<tr><td>96</td><td>Senonagintillion</td><td>Se<b>x</b>nonagintillion</td></tr>
 			<tr><td>97</td><td>Septenonagintillion</td><td>Septe<b>n</b>nonagintillion</td></tr>
 			<tr><td>99</td><td>Nove<b>n</b>onagintillion</td><td>Nove<b>m</b>nonagintillion</td></tr>
-			<tr><td>109</td><td>Nove<b>n</b></b>centillion</td><td>Nove<b>m</b>centillion</td></tr>
+			<tr><td>109</td><td>Nove<b>n</b>centillion</td><td>Nove<b>m</b>centillion</td></tr>
 			<tr><td>206</td><td>Seducentillion</td><td>Se<b>x</b>ducentillion</td></tr>
 			<tr><td>209</td><td>Nove<b>n</b>ducentillion</td><td>Nove<b>m</b>ducentillion</td></tr>
 			<tr><td>303</td><td>Tre<b>s</b>trecentillion</td><td>Tretrecentillion</td></tr>
@@ -177,3 +188,4 @@
 			<tr><td>909</td><td>Nove<b>n</b>ongentillion</td><td>Nove<b>m</b>nongentillion</td></tr>
 		</tbody>
 	</table>
+</div>
