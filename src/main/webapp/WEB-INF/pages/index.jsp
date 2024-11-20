@@ -35,7 +35,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${mf:fileLastModified(pageContext.servletContext.getRealPath('/static/css/main.css'))}" />
 	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-CDOy6cOibCWEdsRiZuaHf8dSGGJRYuBGC+mjoJimHGw=" crossorigin="anonymous"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath('/static/js/all.min.js'))}"></script>
-	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js" integrity="sha256-MSmrtuHgAn5nS0G93YmkxAHu1lM0jgLST6JsCiXNpbw=" crossorigin="anonymous"></script>
+	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
 	<c:choose>
 		<c:when test="${method eq 'all.all'}"><title>${mf:h(msg['site.name'])} | ${mf:h(msg[mf:strcat(method, '.title')])}</title></c:when>
 		<c:otherwise><title>${mf:h(msg[mf:strcat(method, '.title')])} - ${mf:h(msg['site.name'])}</title></c:otherwise>
