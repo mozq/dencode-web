@@ -232,7 +232,6 @@ public class CipherJisKeyboardDencoder {
 				switch (ch) {
 				case 'Q': sb.append('た'); break;
 				case 'W': sb.append('て'); break;
-				case 'E': sb.append('い'); break;
 				case 'R': sb.append('す'); break;
 				case 'T': sb.append('か'); break;
 				case 'Y': sb.append('ん'); break;
