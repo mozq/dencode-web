@@ -28,8 +28,8 @@ dependencies {
   implementation 'com.github.mifmi:mifmi-commons4j:v0.3.+'
   implementation 'com.github.mozq:enigma4j:v1.+'
   
-  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
-  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.+'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 
@@ -40,6 +40,10 @@ java {
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
+
+test {
+  useJUnitPlatform()
+}
 
 appengine {
   deploy {
