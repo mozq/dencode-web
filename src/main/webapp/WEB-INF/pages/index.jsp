@@ -35,6 +35,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${mf:fileLastModified(pageContext.servletContext.getRealPath('/static/css/main.css'))}" />
 	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-CDOy6cOibCWEdsRiZuaHf8dSGGJRYuBGC+mjoJimHGw=" crossorigin="anonymous"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${mf:fileLastModified(pageContext.servletContext.getRealPath('/static/js/all.min.js'))}"></script>
+	<script id="scriptTesseract" data-src="//cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js" integrity="sha256-qOKZGNCYsrBuEBK9rv+0rsBEXF1WVHCQI+C9H0QqgOg=" crossorigin="anonymous"></script>
 	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
 	<c:choose>
 		<c:when test="${method eq 'all.all'}"><title>${mf:h(msg['site.name'])} | ${mf:h(msg[mf:strcat(method, '.title')])}</title></c:when>
@@ -239,6 +240,7 @@
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right" role="menu">
 							<%-- <li id="loadFile" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-file-earmark-arrow-up"></i> ${mf:h(msg['label.load.file'])}</li> --%>
+							<li id="loadImage" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-camera"></i> ${mf:h(msg['label.load.image'])}</li>
 							<li id="loadQrcode" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${mf:h(msg['label.load.qrcode'])}</li>
 						</ul>
 						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
@@ -2258,6 +2260,7 @@
 
 <div style="display: none;">
 	<input id="loadFileInput" type="file" accept="text/*" />
+	<input id="loadImageInput" type="file" accept="image/*" />
 	<input id="loadQrcodeInput" type="file" accept="image/*" />
 </div>
 

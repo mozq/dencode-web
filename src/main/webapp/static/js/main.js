@@ -34,6 +34,8 @@ $.onReady(function () {
 	const elLoadBtn = $.id("load");
 	const elLoadFile = $.id("loadFile");
 	const elLoadFileInput = $.id("loadFileInput");
+	const elLoadImage = $.id("loadImage");
+	const elLoadImageInput = $.id("loadImageInput");
 	const elLoadQrcode = $.id("loadQrcode");
 	const elLoadQrcodeInput = $.id("loadQrcodeInput");
 	const elOeGroup = $.id("oeGroup");
@@ -409,6 +411,47 @@ $.onReady(function () {
 		
 		loadValueFromFile(file);
 		showTooltip(elLoadBtn, elLoadFile.getAttribute("data-load-message"), 2000);
+	});
+
+	$.on(elLoadImage, "click", function (ev) {
+		if (!window.File) {
+			showMessageDialog(elLoadImage.getAttribute("data-load-unsupported-message"));
+			
+			ev.preventDefault();
+			return;
+		}
+		
+		elLoadImageInput.click();
+	});
+
+	$.on(elLoadImageInput, "change", function () {
+		if (this.files.length === 0) {
+			showMessageDialog(elLoadImage.getAttribute("data-load-error-message"));
+			return;
+		}
+		
+		const file = this.files[0];
+		this.value = "";
+		
+		let language;
+		switch (document.documentElement.lang) {
+			case "ja": language = "jpn"; break;
+			case "ru": language = "rus"; break;
+			default: language = "eng"; break;
+		}
+		
+		loadScript("#scriptTesseract", async () => {
+			try {
+				const worker = await Tesseract.createWorker(language);
+				const ret = await worker.recognize(file);
+				await worker.terminate();
+				
+				updateValue(ret.data.text);
+				showTooltip(elLoadBtn, elLoadImage.getAttribute("data-load-message"), 2000);
+			} catch (ex) {
+				showMessageDialog(elLoadImage.getAttribute("data-load-error-message"));
+			}
+		});
 	});
 	
 	$.on(elLoadQrcode, "click", function (ev) {
