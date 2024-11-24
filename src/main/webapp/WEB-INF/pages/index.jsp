@@ -42,7 +42,7 @@
 		<c:otherwise><title>${mf:h(msg[mf:strcat(method, '.title')])} - ${mf:h(msg['site.name'])}</title></c:otherwise>
 	</c:choose>
 	<script>
-		document.documentElement.setAttribute("data-bs-theme", (window.matchMedia?.("(prefers-color-scheme:dark)").matches) ? "dark" : "light");
+		document.documentElement.setAttribute("data-bs-theme", (window.matchMedia?.("(prefers-color-scheme:dark)")?.matches) ? "dark" : "light");
 	</script>
 </head>
 <body data-context-path="${pageContext.request.contextPath}" data-dencode-type="${type}" data-dencode-method="${method}">
@@ -239,9 +239,9 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right" role="menu">
-							<li id="loadFile" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-file-text"></i> ${mf:h(msg['label.load.file'])}</li>
-							<li id="loadImage" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-camera"></i> ${mf:h(msg['label.load.image'])}</li>
-							<li id="loadQrcode" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" data-load-unsupported-message="${mf:h(msg['label.load.unsupportedMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${mf:h(msg['label.load.qrcode'])}</li>
+							<li id="loadFile" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-file-text"></i> ${mf:h(msg['label.load.file'])}</li>
+							<li id="loadImage" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-camera"></i> ${mf:h(msg['label.load.image'])}</li>
+							<li id="loadQrcode" class="dropdown-item" data-load-message="${mf:h(msg['label.load.message'])}" data-load-error-message="${mf:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${mf:h(msg['label.load.qrcode'])}</li>
 						</ul>
 						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${mf:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
 							<i class="bi bi-link-45deg"></i>

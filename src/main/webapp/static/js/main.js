@@ -1,4 +1,4 @@
-(function (window, document) {
+((window, document) => {
 "use strict";
 
 const $ = new Commons(window, document);
@@ -74,12 +74,10 @@ $.onReady(function () {
 	try {
 		const params = new URLSearchParams(window.location.search);
 		
-		const oex = selectItem(elOexMenuItems, elOexMenu, "oe", "oex");
-		elOexBtn.setAttribute("data-oe", oex);
-		const oe = selectItem(elOeGroupBtns, elOeGroup, "oe", "oe");
-		const nl = selectItem(elNlGroupBtns, elNlGroup, "nl", "nl");
-		const tz = selectItem(elTzMenuItems, elTzGroup, "tz", "tz");
-		elTz.setAttribute("data-tz", tz);
+		elOexBtn.setAttribute("data-oe", selectItem(elOexMenuItems, elOexMenu, "oe", "oex"));
+		selectItem(elOeGroupBtns, elOeGroup, "oe", "oe");
+		selectItem(elNlGroupBtns, elNlGroup, "nl", "nl");
+		elTz.setAttribute("data-tz", selectItem(elTzMenuItems, elTzGroup, "tz", "tz"));
 		
 		elOptions.forEach((el) => {
 			const name = el.name;
@@ -249,7 +247,7 @@ $.onReady(function () {
 						break;
 					}
 				}
-				elItem.style.display = (matched) ? "" :"none";
+				elItem.style.display = (matched) ? "" : "none";
 			});
 		});
 		
@@ -267,7 +265,7 @@ $.onReady(function () {
 	// Initialize popovers
 	new bootstrap.Popover(elVLen, {
 		trigger: "click",
-		content: function (el) {
+		content: (el) => {
 			const chars = Number(el.getAttribute("data-len-chars"));
 			const bytes = Number(el.getAttribute("data-len-bytes"));
 			return renderTemplate(getLengthTmpl(), {
@@ -284,7 +282,7 @@ $.onReady(function () {
 		trigger: "click",
 		html: true,
 		sanitize: false,
-		content: function (el) {
+		content: (el) => {
 			const method = el.closest("[data-dencode-method]").getAttribute("data-dencode-method");
 			const dcDef = dencoderDefs[method];
 			const permanentLink = getPermanentLink(method, dcDef);
@@ -309,9 +307,9 @@ $.onReady(function () {
 	});
 	
 	if (window.File) {
-		$.on(document, "drop", function (ev) {
+		$.on(document, "drop", async function (ev) {
 			const file = ev.originalEvent.dataTransfer.files[0];
-			loadValueFromFile(file);
+			updateValue(await readTextFileAsync(file));
 			
 			ev.preventDefault();
 		});
@@ -389,123 +387,64 @@ $.onReady(function () {
 		setBgColor(elV, _colors, isDarkMode());
 	});
 	
-	$.on(elLoadFile, "click", function (ev) {
-		if (!window.File) {
-			showMessageDialog(elLoadFile.getAttribute("data-load-unsupported-message"));
-			
-			ev.preventDefault();
-			return;
-		}
-		
+	$.on(elLoadFile, "click", function () {
 		elLoadFileInput.click();
 	});
 	
-	$.on(elLoadFileInput, "change", function () {
+	$.on(elLoadFileInput, "change", async function () {
 		if (this.files.length === 0) {
-			showMessageDialog(elLoadFile.getAttribute("data-load-error-message"));
 			return;
 		}
 		
 		const file = this.files[0];
 		this.value = "";
 		
-		loadValueFromFile(file);
-		showTooltip(elLoadBtn, elLoadFile.getAttribute("data-load-message"), 2000);
+		try {
+			updateValue(await readTextFileAsync(file));
+			showTooltip(elLoadBtn, elLoadFile.getAttribute("data-load-message"), 2000);
+		} catch (ex) {
+			showMessageDialog(elLoadFile.getAttribute("data-load-error-message"));
+		}
 	});
 
-	$.on(elLoadImage, "click", function (ev) {
-		if (!window.File) {
-			showMessageDialog(elLoadImage.getAttribute("data-load-unsupported-message"));
-			
-			ev.preventDefault();
-			return;
-		}
-		
+	$.on(elLoadImage, "click", function () {
 		elLoadImageInput.click();
 	});
 
-	$.on(elLoadImageInput, "change", function () {
+	$.on(elLoadImageInput, "change", async function () {
 		if (this.files.length === 0) {
-			showMessageDialog(elLoadImage.getAttribute("data-load-error-message"));
 			return;
 		}
 		
 		const file = this.files[0];
 		this.value = "";
 		
-		let language;
-		switch (document.documentElement.lang) {
-			case "ja": language = "jpn"; break;
-			case "ru": language = "rus"; break;
-			default: language = "eng"; break;
+		try {
+			updateValue(await readImageFileAsync(file));
+			showTooltip(elLoadBtn, elLoadImage.getAttribute("data-load-message"), 2000);
+		} catch (ex) {
+			showMessageDialog(elLoadImage.getAttribute("data-load-error-message"));
 		}
-		
-		loadScript("#scriptTesseract", async () => {
-			try {
-				const worker = await Tesseract.createWorker(language);
-				const ret = await worker.recognize(file);
-				await worker.terminate();
-				
-				updateValue(ret.data.text);
-				showTooltip(elLoadBtn, elLoadImage.getAttribute("data-load-message"), 2000);
-			} catch (ex) {
-				showMessageDialog(elLoadImage.getAttribute("data-load-error-message"));
-			}
-		});
 	});
 	
-	$.on(elLoadQrcode, "click", function (ev) {
-		if (!window.File) {
-			showMessageDialog(elLoadQrcode.getAttribute("data-load-unsupported-message"));
-			
-			ev.preventDefault();
-			return;
-		}
-		
+	$.on(elLoadQrcode, "click", function () {
 		elLoadQrcodeInput.click();
 	});
 	
-	$.on(elLoadQrcodeInput, "change", function () {
+	$.on(elLoadQrcodeInput, "change", async function () {
 		if (this.files.length === 0) {
-			showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
 			return;
 		}
 		
 		const file = this.files[0];
 		this.value = "";
 		
-		loadScript("#scriptJsqr", function () {
-			const reader = new FileReader();
-			reader.onload = function () {
-				const img = new Image();
-				img.onload = function () {
-					const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
-					if (code === null) {
-						showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
-						return;
-					}
-					
-					let data;
-					if (code.data.length === 0 && 0 < code.binaryData.length) {
-						// If the QR code cannot be parsed as UTF-8 text
-						try {
-							// Parse the binary data as JIS X 0208 (Shift_JIS) text
-							data = new TextDecoder("shift-jis", {fatal: true}).decode(Uint8Array.from(code.binaryData));
-						} catch (ex) {
-							// Convert the binary data to hex string
-							data = code.binaryData.map((b) => ("0" + (b & 0xFF).toString(16)).slice(-2)).join("");
-						}
-					} else {
-						data = code.data;
-					}
-					
-					updateValue(data);
-					showTooltip(elLoadBtn, elLoadQrcode.getAttribute("data-load-message"), 2000);
-				};
-				img.src = this.result;
-			}
-			reader.readAsDataURL(file);
-		}.bind(this));
+		try {
+			updateValue(await readQrcodeAsync(file));
+			showTooltip(elLoadBtn, elLoadQrcode.getAttribute("data-load-message"), 2000);
+		} catch (ex) {
+			showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
+		}
 	});
 	
 	$.on(elSubHeaders, "click", function () {
@@ -622,7 +561,7 @@ $.onReady(function () {
 	});
 	
 	
-	(function () {
+	(() => {
 		// for cipher.enigma
 		
 		const elOptMachines = $.all(".dencode-option[name='cipher.enigma.machine'],.dencode-option[name='_cipher.enigma.machine']");
@@ -869,7 +808,7 @@ $.onReady(function () {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(requestData)
-		}).then(function (response) {
+		}).then((response) => {
 			if (response.headers.get("Content-Type").indexOf("application/json") === -1) {
 				const messageObject = getMessage("default.error");
 				const error = new Error(messageObject.message);
@@ -884,7 +823,7 @@ $.onReady(function () {
 			}
 			
 			return response.json();
-		}).then(function (responseJson) {
+		}).then((responseJson) => {
 			if (responseJson.redirectUrl) {
 				window.location.href = responseJson.redirectUrl;
 			}
@@ -903,11 +842,11 @@ $.onReady(function () {
 					responseJson: responseJson
 				}
 			}));
-		}).catch(function (error) {
-			if (error.messageObject) {
+		}).catch((err) => {
+			if (err.messageObject) {
 				// Handled error
-				showMessages(error.messageObject);
-			} else if (error.statusCode) {
+				showMessages(err.messageObject);
+			} else if (err.statusCode) {
 				// HTTP 4xx or 5xx error
 				showMessages(getMessage("default.error"));
 			} else {
@@ -922,7 +861,7 @@ $.onReady(function () {
 					responseJson: null
 				}
 			}));
-		}).finally(function () {
+		}).finally(() => {
 			_inProc = false;
 			
 			elDecIndicator.style.display = "none";
@@ -1032,14 +971,55 @@ $.onReady(function () {
 		return _forCopyTmpl;
 	}
 	
-	function loadValueFromFile(file) {
+	async function readTextFileAsync(file) {
 		const encoding = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
 		
-		const reader = new FileReader();
-		reader.onload = function (ev) {
-			updateValue(this.result);
-		};
-		reader.readAsText(file, encoding);
+		return await readFileAsTextAsync(file, encoding);
+	}
+	
+	async function readImageFileAsync(file) {
+		await loadScriptAsync("#scriptTesseract");
+		
+		let language;
+		switch (document.documentElement.lang) {
+			case "ja": language = "jpn"; break;
+			case "ru": language = "rus"; break;
+			default: language = "eng"; break;
+		}
+		
+		const worker = await Tesseract.createWorker(language);
+		const ret = await worker.recognize(file);
+		worker.terminate();
+		
+		return ret.data.text;
+	}
+	
+	async function readQrcodeAsync(file) {
+		await loadScriptAsync("#scriptJsqr");
+		
+		const img = await readFileAsImageAsync(file);
+		
+		const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
+		if (code === null) {
+			reject(new Error("Could not parse."));
+			return;
+		}
+		
+		let data;
+		if (code.data.length === 0 && 0 < code.binaryData.length) {
+			// If the QR code cannot be parsed as UTF-8 text
+			try {
+				// Parse the binary data as JIS X 0208 (Shift_JIS) text
+				data = new TextDecoder("shift-jis", {fatal: true}).decode(Uint8Array.from(code.binaryData));
+			} catch (ex) {
+				// Convert the binary data to hex string
+				data = code.binaryData.map((b) => ("0" + (b & 0xFF).toString(16)).slice(-2)).join("");
+			}
+		} else {
+			data = code.data;
+		}
+		
+		return data;
 	}
 	
 	function updateValue(val) {
@@ -1049,10 +1029,10 @@ $.onReady(function () {
 		elV.classList.remove("updating");
 		elV.classList.remove("updated");
 		elV.classList.add("updating");
-		setTimeout(function () {
+		setTimeout(() => {
 			elV.classList.add("updated");
 			
-			setTimeout(function () {
+			setTimeout(() => {
 				elV.classList.remove("updating");
 				elV.classList.remove("updated");
 			}, 2000);
@@ -1214,7 +1194,7 @@ function showTooltip(el, message, time) {
 	
 	tooltip.show();
 	
-	setTimeout(function() {
+	setTimeout(() => {
 		tooltip.dispose();
 	}, time);
 }
@@ -1227,21 +1207,19 @@ function copyToClipboard(el) {
 	elCopy.classList.remove("copying");
 	elCopy.classList.remove("copied");
 	elCopy.classList.add("copying");
-	setTimeout(function () {
+	setTimeout(() => {
 		elCopy.classList.add("copied");
 		
-		setTimeout(function () {
+		setTimeout(() => {
 			elCopy.classList.remove("copying");
 			elCopy.classList.remove("copied");
 		}, 2000);
 	}, 1);
 	
 	if (window.navigator.clipboard) {
-		window.navigator.clipboard.writeText(elCopy.value).then(function () {
-			showTooltip(el, msg, 2000);
-		}).catch(function (err) {
-			showTooltip(el, errMsg, 2000);
-		});
+		window.navigator.clipboard.writeText(elCopy.value)
+			.then(() => showTooltip(el, msg, 2000))
+			.catch(() => showTooltip(el, errMsg, 2000));
 	} else {
 		const readOnly = elCopy.readOnly;
 		const contentEditable = elCopy.contentEditable;
@@ -1290,6 +1268,51 @@ function getNonBlankValue(values, index) {
 	}
 	
 	return null;
+}
+
+function loadScriptAsync(scriptTagQuery) {
+	return new Promise((resolve, reject) => {
+		const s = $.one(scriptTagQuery);
+		if (s.dataset.loaded === "true") {
+			resolve(s);
+			return;
+		}
+		
+		s.remove();
+		s.addEventListener("load", function () {
+			s.dataset.loaded = "true";
+			resolve(s);
+		});
+		s.addEventListener("error", function (err) {
+			s.dataset.loaded = "true";
+			reject(err);
+		});
+		s.src = s.dataset.src;
+		document.body.appendChild(s);
+	});
+}
+
+function readFileAsTextAsync(file, encoding) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = (err) => reject(err);
+		reader.readAsText(file, encoding);
+	});
+}
+
+function readFileAsImageAsync(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			const img = new Image();
+			img.onload = () => resolve(img);
+			img.onerror = (err) => reject(err);
+			img.src = reader.result;
+		};
+		reader.onerror = (err) => reject(err);
+		reader.readAsDataURL(file);
+	});
 }
 
 function readQrcodeFromImage(imgElm, maxSizes) {
@@ -1403,29 +1426,13 @@ function clearLocationHash() {
 	}
 }
 
-function loadScript(scriptTagQuery, callback) {
-	const s = $.one(scriptTagQuery);
-	if (s.dataset.loaded === "true") {
-		callback();
-		return;
-	}
-	
-	s.remove();
-	s.addEventListener("load", function () {
-		this.dataset.loaded = "true";
-		callback();
-	});
-	s.src = s.dataset.src;
-	document.body.appendChild(s);
-}
-
 function renderTemplate(tmpl, p) {
 	const r = /([\s\S]*?)\{\{([\#\^/]?)(.+?)\}\}([^\{]*)/g;
 	let buf = "";
 	let currentName = "";
 	let skip = false;
 	let m;
-	while((m = r.exec(tmpl)) != null) {
+	while ((m = r.exec(tmpl)) != null) {
 		const pv = m[1];
 		const type = m[2];
 		const name = m[3];

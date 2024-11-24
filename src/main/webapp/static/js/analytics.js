@@ -1,5 +1,5 @@
 // Google Analytics for GA4
-(function (window, document) {
+((window, document) => {
 	"use strict";
 	
 	const $ = new Commons(window, document);
