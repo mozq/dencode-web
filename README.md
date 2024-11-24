@@ -19,6 +19,11 @@ Open a shell or command line and execute the following commands on the project r
 
 After startup, DenCode can be accessed at http://localhost:8080/ .
 
+### Run using docker:
+```bash
+docker run -p 8080:8080 ghcr.io/mozq/dencode-web:latest
+```
+
 ### Deploy to Google App Engine:
 
 Install [Google Cloud SDK](https://cloud.google.com/sdk/) and execute the following commands. `gcloud` commands only needs to be executed for the first time.
