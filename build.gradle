@@ -60,7 +60,7 @@ minifyJs {
   source 'src/main/webapp/static/js/main.js'
   source 'src/main/webapp/static/js/adsense.js'
   dest "${buildDir}/minify/js/all.min.js"
-  languageOut 'ECMASCRIPT5_STRICT'
+  languageOut 'ECMASCRIPT_2020'
 }
 
 war {
