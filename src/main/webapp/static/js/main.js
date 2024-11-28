@@ -25,8 +25,8 @@ $.onReady(function () {
 	const dencoderDefs = JSON.parse($.id("dencoderDefs").textContent);
 	
 	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
-	const elTypeMenuLinks = $.all("#typeMenu a");
 	const elTypeMenuLabels = $.all("#typeMenu .dropdown-menu-label");
+	const elTypeMenuMethodLinks = $.all("#typeMenu a[data-dencode-method]");
 	const elExp = $.id("exp");
 	const elFollow = $.id("follow");
 	const elVLen = $.id("vLen");
@@ -360,8 +360,8 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on(elTypeMenuLinks, "click", function (ev) {
-		if (this.classList.contains("dropdown-toggle") || this.closest("li").classList.contains("active")) {
+	$.on(elTypeMenuMethodLinks, "click", function (ev) {
+		if (this.classList.contains("active")) {
 			ev.preventDefault();
 			return;
 		}
