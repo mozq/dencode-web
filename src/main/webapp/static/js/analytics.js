@@ -10,18 +10,49 @@
 	document.head.appendChild(s);
 	
 	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
+	function gtag(){window.dataLayer.push(arguments);}
 	gtag('js', new Date());
 	gtag('config', 'G-LXQ6W8SL7X');
 	
 	
 	$.onReady(function () {
-		$.on("#loadFromFile", "click", function () {
-			gtag("event", "load_file");
+		$.on($.id("loadFileInput"), "change", function () {
+			if (this.files.length === 0) {
+				return;
+			}
+			
+			const file = this.files[0];
+			
+			gtag("event", "load_file", {
+				dencode_load_file_type: file.type,
+				dencode_load_file_size: file.size
+			});
 		});
 		
-		$.on("#loadFromQrcode", "click", function () {
-			gtag("event", "load_qrcode");
+		$.on($.id("loadImageInput"), "change", function () {
+			if (this.files.length === 0) {
+				return;
+			}
+			
+			const file = this.files[0];
+			
+			gtag("event", "load_image", {
+				dencode_load_file_type: file.type,
+				dencode_load_file_size: file.size
+			});
+		});
+		
+		$.on($.id("loadQrcodeInput"), "change", function () {
+			if (this.files.length === 0) {
+				return;
+			}
+			
+			const file = this.files[0];
+			
+			gtag("event", "load_qrcode", {
+				dencode_load_file_type: file.type,
+				dencode_load_file_size: file.size
+			});
 		});
 		
 		$.on(".popover-toggle.permanent-link", "click", function () {
