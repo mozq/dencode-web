@@ -348,6 +348,18 @@ $.onReady(function () {
 		}
 	});
 	
+	$.on("#permanentLink .btn.share", "click", function () {
+		if (navigator.share) {
+			navigator.share({
+				url: $.id("linkURL").value
+			}).catch(() => {
+				// NOP
+			});
+		} else {
+			(new bootstrap.Dropdown(this)).show();
+		}
+	});
+	
 	$.on(elLocaleMenuLinks, "click", function (ev) {
 		if (this.closest("li").classList.contains("active")) {
 			ev.preventDefault();

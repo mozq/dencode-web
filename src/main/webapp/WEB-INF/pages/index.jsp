@@ -2304,7 +2304,7 @@
 			<i class="bi bi-clipboard"></i>
 			<span class="btn-label">${mf:h(msg['label.copyToClipboard.buttonLabel'])}</span>
 		</button>
-		<button type="button" class="btn btn-v-icon-label dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+		<button type="button" class="btn btn-v-icon-label dropdown-toggle share" data-bs-toggle="" aria-expanded="false">
 			<i class="bi bi-share-fill"></i>
 			<span class="btn-label">${mf:h(msg['label.share.buttonLabel'])}</span>
 			<span class="caret"></span>
