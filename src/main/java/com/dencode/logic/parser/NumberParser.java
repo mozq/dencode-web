@@ -54,9 +54,23 @@ public class NumberParser {
 			return num;
 		}
 		
-		// Hex Format
-		if (val.startsWith("0x") || val.startsWith("-0x")) {
-			num = parseHex(val);
+		// N-ary Format (0b, 0o and 0x)
+		if (val.startsWith("0") || val.startsWith("+0") || val.startsWith("-0")) {
+			int cIdx = (val.startsWith("0")) ? 1 : 2;
+			if (cIdx < val.length()) {
+				char ch = val.charAt(cIdx);
+				if (ch == 'b' || ch == 'B') {
+					// Bin Format
+					num = parseBin(val);
+				} else if (ch == 'o' || ch == 'O') {
+					// Oct Format
+					num = parseOct(val);
+				} else if (ch == 'x' || ch == 'X') {
+					// Hex Format
+					num = parseHex(val);
+				}
+			}
+			
 			if (num != null) {
 				return num;
 			}
@@ -121,18 +135,29 @@ public class NumberParser {
 			return null;
 		}
 		
+		if (val.startsWith("0") || val.startsWith("+0") || val.startsWith("-0")) {
+			int cIdx = (val.startsWith("0")) ? 1 : 2;
+			if (cIdx < val.length()) {
+				char ch = val.charAt(cIdx);
+				if ((radix == 2 && (ch == 'b' || ch == 'B'))
+						|| (radix == 8 && (ch == 'o' || ch == 'O'))
+						|| (radix == 16 && (ch == 'x' || ch == 'X'))
+						) {
+					// Remove N-ary prefix (0b, 0o or 0x), if the radix equals 2, 8 or 16
+					if (val.startsWith("-")) {
+						// Negative value
+						val = "-" + val.substring(cIdx + 1);
+					} else {
+						// Positive value
+						val = val.substring(cIdx + 1);
+					}
+				}
+			}
+		}
+		
 		if (val.endsWith("...")) {
 			// Remove "..." suffix
 			val = val.substring(0, val.length() - 3);
-		}
-		
-		if (radix == 16) {
-			// Remove hex prefix
-			if (val.startsWith("0x")) {
-				val = val.substring(2);
-			} else if (val.startsWith("-0x")) {
-				val = "-" + val.substring(3);
-			}
 		}
 		
 		if (val.isEmpty()) {
@@ -156,7 +181,7 @@ public class NumberParser {
 				if (intPartStr.isEmpty() || intPartStr.equals("+") || intPartStr.equals("-")) {
 					intPart = BigDecimal.ZERO;
 				} else {
-					intPart = new BigDecimal(new BigInteger(val.substring(0, decMarkIdx), radix));
+					intPart = new BigDecimal(new BigInteger(intPartStr, radix));
 				}
 				
 				negative = (intPartStr.startsWith("-") || intPart.signum() < 0); // if -0 then signum() == 0, so store the sign
