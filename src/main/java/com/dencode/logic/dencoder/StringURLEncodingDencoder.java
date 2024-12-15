@@ -71,8 +71,8 @@ public class StringURLEncodingDencoder {
 				int high = (b & 0xF0) >>> 4;
 				int low = b & 0x0F;
 				sb.append('%');
-				sb.append(DencodeUtils.numToHexDigit(high, true));
-				sb.append(DencodeUtils.numToHexDigit(low, true));
+				sb.append(DencodeUtils.numToDigit(high, true));
+				sb.append(DencodeUtils.numToDigit(low, true));
 			}
 		}
 		
@@ -97,8 +97,8 @@ public class StringURLEncodingDencoder {
 			
 			if (ch == '%') {
 				try {
-					int high = DencodeUtils.hexDigitToNum(val.charAt(++i));
-					int low = DencodeUtils.hexDigitToNum(val.charAt(++i));
+					int high = DencodeUtils.digitToNum(val.charAt(++i));
+					int low = DencodeUtils.digitToNum(val.charAt(++i));
 					binBuf.write((byte)((high << 4) | low));
 				} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
 					return null;

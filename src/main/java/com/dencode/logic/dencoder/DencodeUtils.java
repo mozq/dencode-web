@@ -31,19 +31,16 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.util.NumberUtilz;
 import org.mifmi.commons4j.util.StringUtilz;
 
 public class DencodeUtils {
 	
 	private static final Integer INT_ONE = Integer.valueOf(1);
 	
-	private static final BigDecimal DEC_TWO = BigDecimal.valueOf(2);
-	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
-	private static final char[] HEX_DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	private static final char[] HEX_DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+	private static final char[] N_ARY_DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+	private static final char[] N_ARY_DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	
 	
 	private DencodeUtils() {
@@ -178,6 +175,18 @@ public class DencodeUtils {
 			return null;
 		}
 		
+		BigInteger radixBI = BigInteger.valueOf(radix);
+		BigDecimal radixBD = BigDecimal.valueOf(radix);
+		
+		boolean negative = (bigDec.signum() < 0);
+		if (negative) {
+			bigDec = bigDec.abs();
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		boolean upperCase = false;
+		
+		// Integer part
 		BigInteger intPart;
 		try {
 			intPart = bigDec.toBigInteger();
@@ -185,109 +194,85 @@ public class DencodeUtils {
 			return null;
 		}
 		
-		String intPartStr = intPart.toString(radix);
-		int decPartLen = NumberUtilz.digitLengthDecimalPart(bigDec);
+		BigInteger ip = intPart;
+		do {
+			BigInteger[] dr = ip.divideAndRemainder(radixBI);
+			ip = dr[0];
+			int reminder = dr[1].intValue();
+			sb.append(numToDigit(reminder, upperCase));
+		} while (ip.signum() != 0);
+		sb.reverse();
 		
-		if (decPartLen == 0) {
+		// Sign
+		if (negative) {
+			sb.insert(0, '-');
+		}
+		
+		if (bigDec.scale() <= 0) {
 			// Integer
-			return intPartStr;
+			return sb.toString();
+		}
+		
+		// Decimal part
+		sb.append('.');
+		BigDecimal decPart = bigDec.subtract(new BigDecimal(intPart));
+		
+		if (decPart.signum() == 0) {
+			sb.append('0');
 		} else {
-			// Decimal
-			BigDecimal decPart = NumberUtilz.getDecimalPart(bigDec);
-			
-			if (decPart.signum() == 0) {
-				return intPartStr + ".0";
-			}
-			
-			int bitsPer;
-			switch (radix) {
-			case 2: bitsPer = 1; break;
-			case 8: bitsPer = 3; break;
-			case 16: bitsPer = 4; break;
-			default: throw new IllegalArgumentException("Unsupported radix. radix: " + radix);
-			}
-			
-			int decimalMaxBits = decimalMaxDigits * bitsPer;
-
-			StringBuilder sb = new StringBuilder(intPartStr.length() + decimalMaxDigits + 5); // 5 is length of "-", "." and "..."
-			if (intPart.signum() == 0 && decPart.signum() < 0) {
-				sb.append('-');
-			}
-			sb.append(intPartStr);
-			sb.append('.');
-			
-			BigDecimal d = decPart.abs();
-			HashMap<BigDecimal, Integer> recurringCountMap = (0 < decimalMaxRecurringCount) ? new HashMap<BigDecimal, Integer>(decimalMaxBits) : null;
-			boolean recurringBreak = false;
-			for (int i = 0, bits = 0, bitsIdx = 1; i < decimalMaxBits; i++, bits <<= 1, bitsIdx++) {
-				d = d.multiply(DEC_TWO);
+			BigDecimal dp = decPart;
+			HashMap<BigDecimal, Integer> recurringCountMap = (0 < decimalMaxRecurringCount) ? new HashMap<BigDecimal, Integer>() : null;
+			for (int i = 0; i < decimalMaxDigits; i++) {
+				dp = dp.multiply(radixBD);
 				
 				if (recurringCountMap != null) {
 					// Check recurring decimal
 					
-					Integer n = recurringCountMap.get(d);
+					Integer n = recurringCountMap.get(dp);
 					if (n == null) {
-						recurringCountMap.put(d, INT_ONE);
+						recurringCountMap.put(dp, INT_ONE);
 					} else if (n.intValue() < decimalMaxRecurringCount) {
-						recurringCountMap.put(d, Integer.valueOf(n.intValue() + 1));
+						recurringCountMap.put(dp, Integer.valueOf(n.intValue() + 1));
 					} else {
 						// Over the max recurring count
-						recurringBreak = true;
-					}
-				}
-				
-				if (d.compareTo(BigDecimal.ONE) >= 0) {
-					bits |= 1;
-					d = d.subtract(BigDecimal.ONE);
-					
-					if (d.signum() == 0) {
-						// Last digit
-						
-						// Output stacked bits
-						bits <<= (bitsPer - bitsIdx);
-						sb.append(numToHexDigit(bits, false));
-						
 						break;
 					}
 				}
 				
-				if (bitsIdx == bitsPer) {
-					// Output bits
-					sb.append(numToHexDigit(bits, false));
-					
-					bits = 0;
-					bitsIdx = 0;
-					
-					if (recurringBreak) {
-						break;
-					}
+				BigInteger ipBI = dp.toBigInteger();
+				int ipN = ipBI.intValue();
+				sb.append(numToDigit(ipN, upperCase));
+				
+				dp = dp.subtract(BigDecimal.valueOf(ipN));
+				if (dp.signum() == 0) {
+					break;
 				}
 			}
 			
-			if (d.signum() != 0) {
+			if (dp.signum() != 0) {
 				sb.append("...");
 			}
-			
-			return sb.toString();
 		}
+		
+		return sb.toString();
 	}
 	
-	protected static char numToHexDigit(int n, boolean upperCase) {
-		if (n < 0 || 16 <= n) {
-			throw new IllegalArgumentException("n=" + n);
+	protected static char numToDigit(int n, boolean upperCase) {
+		if (n < 0 || N_ARY_DIGITS_UPPER.length <= n) {
+			throw new IllegalArgumentException("Unsupported number: " + n);
 		}
-		return (upperCase) ? HEX_DIGITS_UPPER[n] : HEX_DIGITS_LOWER[n];
+		return (upperCase) ? N_ARY_DIGITS_UPPER[n] : N_ARY_DIGITS_LOWER[n];
 	}
 	
-	protected static int hexDigitToNum(char ch) {
+	protected static int digitToNum(char ch) {
 		if ('0' <= ch && ch <= '9') {
 			return ch - '0';
-		} else if ('A' <= ch && ch <= 'F') {
+		} else if ('A' <= ch && ch <= 'Z') {
 			return 10 + (ch - 'A');
-		} else if ('a' <= ch && ch <= 'f') {
+		} else if ('a' <= ch && ch <= 'Z') {
 			return 10 + (ch - 'a');
 		} else {
-			throw new IllegalArgumentException("Hex digit=" + ch);
+			throw new IllegalArgumentException("Unsupported digit: " + ch);
 		}
 	}
 	
@@ -298,8 +283,8 @@ public class DencodeUtils {
 		for (byte b : bin) {
 			int high = (b >>> 4) & 0x0F;
 			int low = b & 0x0F;
-			sb.append(DencodeUtils.numToHexDigit(high, upperCase));
-			sb.append(DencodeUtils.numToHexDigit(low, upperCase));
+			sb.append(numToDigit(high, upperCase));
+			sb.append(numToDigit(low, upperCase));
 		}
 		
 		return sb.toString();

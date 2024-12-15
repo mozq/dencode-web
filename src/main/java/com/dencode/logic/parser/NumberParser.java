@@ -18,6 +18,7 @@ package com.dencode.logic.parser;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.regex.Pattern;
 
 import org.mifmi.commons4j.util.NumberUtilz;
@@ -119,18 +120,22 @@ public class NumberParser {
 	}
 	
 	public static BigDecimal parseBin(String val) {
-		return parse(val, 2);
+		return parseN(val, 2);
 	}
 	
 	public static BigDecimal parseOct(String val) {
-		return parse(val, 8);
+		return parseN(val, 8);
 	}
 	
 	public static BigDecimal parseHex(String val) {
-		return parse(val, 16);
+		return parseN(val, 16);
 	}
 
-	private static BigDecimal parse(String val, int radix) {
+	public static BigDecimal parseN(String val, int radix) {
+		return parseN(val, radix, -1);
+	}
+	
+	public static BigDecimal parseN(String val, int radix, int maxScale) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -202,7 +207,11 @@ public class NumberParser {
 				return intPart.setScale(1);
 			}
 			
-			decPart = decPart.divide(BigDecimal.valueOf(radix).pow(decPartLen));
+			if (0 <= maxScale) {
+				decPart = decPart.divide(BigDecimal.valueOf(radix).pow(decPartLen), maxScale, RoundingMode.HALF_EVEN).stripTrailingZeros();
+			} else {
+				decPart = decPart.divide(BigDecimal.valueOf(radix).pow(decPartLen));
+			}
 			
 			if (negative) {
 				return intPart.subtract(decPart);
