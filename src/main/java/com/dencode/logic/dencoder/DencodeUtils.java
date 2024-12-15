@@ -264,12 +264,24 @@ public class DencodeUtils {
 		return (upperCase) ? N_ARY_DIGITS_UPPER[n] : N_ARY_DIGITS_LOWER[n];
 	}
 	
+	protected static int hexDigitToNum(char ch) {
+		if ('0' <= ch && ch <= '9') {
+			return ch - '0';
+		} else if ('A' <= ch && ch <= 'F') {
+			return 10 + (ch - 'A');
+		} else if ('a' <= ch && ch <= 'f') {
+			return 10 + (ch - 'a');
+		} else {
+			throw new IllegalArgumentException("Unsupported digit: " + ch);
+		}
+	}
+	
 	protected static int digitToNum(char ch) {
 		if ('0' <= ch && ch <= '9') {
 			return ch - '0';
 		} else if ('A' <= ch && ch <= 'Z') {
 			return 10 + (ch - 'A');
-		} else if ('a' <= ch && ch <= 'Z') {
+		} else if ('a' <= ch && ch <= 'z') {
 			return 10 + (ch - 'a');
 		} else {
 			throw new IllegalArgumentException("Unsupported digit: " + ch);

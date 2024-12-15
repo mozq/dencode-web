@@ -97,8 +97,8 @@ public class StringURLEncodingDencoder {
 			
 			if (ch == '%') {
 				try {
-					int high = DencodeUtils.digitToNum(val.charAt(++i));
-					int low = DencodeUtils.digitToNum(val.charAt(++i));
+					int high = DencodeUtils.hexDigitToNum(val.charAt(++i));
+					int low = DencodeUtils.hexDigitToNum(val.charAt(++i));
 					binBuf.write((byte)((high << 4) | low));
 				} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
 					return null;

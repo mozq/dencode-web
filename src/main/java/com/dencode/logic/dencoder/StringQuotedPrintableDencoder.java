@@ -204,8 +204,8 @@ public class StringQuotedPrintableDencoder {
 							continue;
 						}
 						
-						int high = DencodeUtils.digitToNum(ch1);
-						int low = DencodeUtils.digitToNum(ch2);
+						int high = DencodeUtils.hexDigitToNum(ch1);
+						int low = DencodeUtils.hexDigitToNum(ch2);
 						binBuf.write((byte)((high << 4) | low));
 					} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
 						return null;
