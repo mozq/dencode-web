@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.dencoder;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -44,7 +46,16 @@ public class DateUnixTimeDencoder {
 			}
 			
 			try {
-				return String.valueOf(dateVal.toInstant().toEpochMilli());
+				Instant instant = dateVal.toInstant();
+				long epochSecPart = instant.getEpochSecond();
+				long epochNanosecPart = instant.getNano();
+				
+				if (epochNanosecPart == 0) {
+					return Long.toString(epochSecPart);
+				} else {
+					BigDecimal epochSec = BigDecimal.valueOf(epochSecPart).add(BigDecimal.valueOf(epochNanosecPart, 9)).stripTrailingZeros();
+					return epochSec.toPlainString();
+				}
 			} catch (ArithmeticException e) {
 				return null;
 			}

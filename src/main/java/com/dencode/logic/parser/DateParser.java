@@ -16,6 +16,8 @@
  */
 package com.dencode.logic.parser;
 
+import java.math.BigDecimal;
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -258,9 +260,14 @@ public class DateParser {
 		}
 		
 		String strDate = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
+		
 		try {
-			return ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(strDate)), zone);
-		} catch (NumberFormatException e) {
+			// Parse as UNIX time
+			BigDecimal epochSec = new BigDecimal(strDate);
+			long epochSecPart = epochSec.longValue();
+			long epochNanosecPart = (epochSec.scale() <= 0) ? 0L : epochSec.subtract(new BigDecimal(epochSecPart)).movePointRight(9).longValue();
+			return ZonedDateTime.ofInstant(Instant.ofEpochSecond(epochSecPart, epochNanosecPart), zone);
+		} catch (NumberFormatException | DateTimeException e) {
 			// THRU
 		}
 		
