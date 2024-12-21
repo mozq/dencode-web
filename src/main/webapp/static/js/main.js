@@ -294,7 +294,11 @@ $.onReady(function () {
 	});
 	
 	// Initialize focus
-	elV.focus();
+	if (!("ontouchstart" in window) && !navigator.maxTouchPoints) {
+		// If non-touch screen
+		// Focus the textarea
+		elV.focus();
+	}
 	
 	
 	// Add event listeners
