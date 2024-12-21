@@ -293,6 +293,9 @@ $.onReady(function () {
 		}
 	});
 	
+	// Initialize focus
+	elV.focus();
+	
 	
 	// Add event listeners
 	$.on(window, "resize", function () {
@@ -735,7 +738,6 @@ $.onReady(function () {
 			return true;
 		}
 	})();
-	
 	
 	dencode();
 	
