@@ -32,9 +32,13 @@ public class DateJapaneseEraDencoder {
 	
 	private static final DateTimeFormatter FORMATTER_JA = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);
 	private static final DateTimeFormatter FORMATTER_JA_MSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSS秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);
+	private static final DateTimeFormatter FORMATTER_JA_MICROSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSSSSS秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);
+	private static final DateTimeFormatter FORMATTER_JA_NSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSSSSSSSS秒 z", Locale.JAPAN).withChronology(JapaneseChronology.INSTANCE);
 
 	private static final DateTimeFormatter FORMATTER_DEFAULT = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss秒 z", Locale.JAPAN);
 	private static final DateTimeFormatter FORMATTER_DEFAULT_MSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSS秒 z", Locale.JAPAN);
+	private static final DateTimeFormatter FORMATTER_DEFAULT_MICROSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSSSSS秒 z", Locale.JAPAN);
+	private static final DateTimeFormatter FORMATTER_DEFAULT_NSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSSSSSSSS秒 z", Locale.JAPAN);
 	
 	private DateJapaneseEraDencoder() {
 		// NOP
@@ -55,10 +59,10 @@ public class DateJapaneseEraDencoder {
 			
 			String strDate = null;
 			try {
-				strDate = DencodeUtils.encDate(dateVal, FORMATTER_JA, FORMATTER_JA_MSEC);
+				strDate = DencodeUtils.encDate(dateVal, FORMATTER_JA, FORMATTER_JA_MSEC, FORMATTER_JA_MICROSEC, FORMATTER_JA_NSEC);
 			} catch (DateTimeException e) {
 				// before Meiji 6 support
-				strDate = DencodeUtils.encDate(dateVal, FORMATTER_DEFAULT, FORMATTER_DEFAULT_MSEC);
+				strDate = DencodeUtils.encDate(dateVal, FORMATTER_DEFAULT, FORMATTER_DEFAULT_MSEC, FORMATTER_DEFAULT_MICROSEC, FORMATTER_DEFAULT_NSEC);
 			}
 			
 			if (strDate != null) {

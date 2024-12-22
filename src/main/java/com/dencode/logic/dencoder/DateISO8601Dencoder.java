@@ -34,11 +34,19 @@ public class DateISO8601Dencoder {
 	
 	private static final DateTimeFormatter FORMATTER_BASIC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmssXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_BASIC_DOT_MSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss.SSSXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_DOT_MICROSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss.SSSSSSXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_DOT_NSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss.SSSSSSSSSXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_BASIC_COMMA_MSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss,SSSXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_COMMA_MICROSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss,SSSSSSXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_BASIC_COMMA_NSEC = DateTimeFormatter.ofPattern("uuuuMMdd'T'HHmmss,SSSSSSSSSXX", Locale.US);
 	
 	private static final DateTimeFormatter FORMATTER_EXT = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ssXXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_EXT_DOT_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_DOT_MICROSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_DOT_NSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSSSSXXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_EXT_COMMA_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss,SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_COMMA_MICROSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss,SSSSSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_EXT_COMMA_NSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss,SSSSSSSSSXXX", Locale.US);
 	
 	private static final DateTimeFormatter FORMATTER_WEEK = new DateTimeFormatterBuilder()
 			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
@@ -58,6 +66,24 @@ public class DateISO8601Dencoder {
 			.appendLiteral('T')
 			.appendPattern("HH:mm:ss.SSSXXX")
 			.toFormatter(Locale.US);
+	private static final DateTimeFormatter FORMATTER_WEEK_DOT_MICROSEC = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ss.SSSSSSXXX")
+			.toFormatter(Locale.US);
+	private static final DateTimeFormatter FORMATTER_WEEK_DOT_NSEC = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ss.SSSSSSSSSXXX")
+			.toFormatter(Locale.US);
 	private static final DateTimeFormatter FORMATTER_WEEK_COMMA_MSEC = new DateTimeFormatterBuilder()
 			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
 			.appendLiteral("-W")
@@ -67,10 +93,32 @@ public class DateISO8601Dencoder {
 			.appendLiteral('T')
 			.appendPattern("HH:mm:ss,SSSXXX")
 			.toFormatter(Locale.US);
+	private static final DateTimeFormatter FORMATTER_WEEK_COMMA_MICROSEC = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ss,SSSSSSXXX")
+			.toFormatter(Locale.US);
+	private static final DateTimeFormatter FORMATTER_WEEK_COMMA_NSEC = new DateTimeFormatterBuilder()
+			.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+			.appendLiteral("-W")
+			.appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_WEEK, 1)
+			.appendLiteral('T')
+			.appendPattern("HH:mm:ss,SSSSSSSSSXXX")
+			.toFormatter(Locale.US);
 	
 	private static final DateTimeFormatter FORMATTER_ORDINAL = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ssXXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_ORDINAL_DOT_MSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss.SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_DOT_MICROSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss.SSSSSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_DOT_NSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss.SSSSSSSSSXXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_ORDINAL_COMMA_MSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss,SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_COMMA_MICROSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss,SSSSSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_ORDINAL_COMMA_NSEC = DateTimeFormatter.ofPattern("uuuu-DDD'T'HH:mm:ss,SSSSSSSSSXXX", Locale.US);
 	
 	private DateISO8601Dencoder() {
 		// NOP
@@ -112,25 +160,49 @@ public class DateISO8601Dencoder {
 	
 	private static String encDateISO8601Basic(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_BASIC, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_BASIC_DOT_MSEC, FORMATTER_BASIC_COMMA_MSEC));
+			return DencodeUtils.encDate(
+					dateVal,
+					FORMATTER_BASIC,
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_BASIC_DOT_MSEC, FORMATTER_BASIC_COMMA_MSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_BASIC_DOT_MICROSEC, FORMATTER_BASIC_COMMA_MICROSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_BASIC_DOT_NSEC, FORMATTER_BASIC_COMMA_NSEC)
+					);
 		});
 	}
 	
 	private static String encDateISO8601Ext(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_EXT, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_EXT_DOT_MSEC, FORMATTER_EXT_COMMA_MSEC));
+			return DencodeUtils.encDate(
+					dateVal,
+					FORMATTER_EXT,
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_EXT_DOT_MSEC, FORMATTER_EXT_COMMA_MSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_EXT_DOT_MICROSEC, FORMATTER_EXT_COMMA_MICROSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_EXT_DOT_NSEC, FORMATTER_EXT_COMMA_NSEC)
+					);
 		});
 	}
 	
 	private static String encDateISO8601Week(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_WEEK, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_WEEK_DOT_MSEC, FORMATTER_WEEK_COMMA_MSEC));
+			return DencodeUtils.encDate(
+					dateVal,
+					FORMATTER_WEEK,
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_WEEK_DOT_MSEC, FORMATTER_WEEK_COMMA_MSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_WEEK_DOT_MICROSEC, FORMATTER_WEEK_COMMA_MICROSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_WEEK_DOT_NSEC, FORMATTER_WEEK_COMMA_NSEC)
+					);
 		});
 	}
 	
 	private static String encDateISO8601Ordinal(List<ZonedDateTime> vals, String decimalMark) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER_ORDINAL, chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_ORDINAL_DOT_MSEC, FORMATTER_ORDINAL_COMMA_MSEC));
+			return DencodeUtils.encDate(
+					dateVal,
+					FORMATTER_ORDINAL,
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_ORDINAL_DOT_MSEC, FORMATTER_ORDINAL_COMMA_MSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_ORDINAL_DOT_MICROSEC, FORMATTER_ORDINAL_COMMA_MICROSEC),
+					chooseDecimalSeparatorFormatter(decimalMark, FORMATTER_ORDINAL_DOT_NSEC, FORMATTER_ORDINAL_COMMA_NSEC)
+					);
 		});
 	}
 	

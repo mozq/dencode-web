@@ -49,14 +49,11 @@ public class DateParser {
 	private static final DateTimeFormatter DATE_FORMATTER_DATE_TIME_SEPARATOR = new DateTimeFormatterBuilder().appendPattern("['T']['t'][' ']['　']").toFormatter();
 	private static final DateTimeFormatter DATE_FORMATTER_ZONE_SEPARATOR = new DateTimeFormatterBuilder().appendPattern("[','][' ']").toFormatter();
 	
-	// "X['['VV']']"
+	// "[X][Z]['['VV']']"
 	private static final DateTimeFormatter DATE_FORMATTER_ZONE = new DateTimeFormatterBuilder()
-			.appendZoneOrOffsetId()
-			.optionalStart()
-			.appendLiteral('[')
-			.appendZoneRegionId()
-			.appendLiteral(']')
-			.optionalEnd()
+			.optionalStart().appendZoneOrOffsetId().optionalEnd() // +HH:MM, America/New_York, UTC, UTC+HH:MM
+			.optionalStart().appendPattern("Z").optionalEnd() // +HHMM
+			.optionalStart().appendLiteral('[').appendZoneRegionId().appendLiteral(']').optionalEnd() // [America/New_York]
 			.toFormatter(Locale.ENGLISH);
 	
 	// "[[' ']X['['VV']']]"
@@ -83,7 +80,7 @@ public class DateParser {
 	private static final DateTimeFormatter DATE_FORMATTER_LOCAL_DATE_TIME_ISO_BASIC = new DateTimeFormatterBuilder()
 			.appendPattern("uuuuMMdd")
 			.append(DATE_FORMATTER_DATE_TIME_SEPARATOR)
-			.appendPattern("HH[mm[ss[")
+			.appendPattern("HH[mm[ss[['.'][',']")
 			.appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false)
 			.appendPattern("]]]")
 			.toFormatter(Locale.ENGLISH);

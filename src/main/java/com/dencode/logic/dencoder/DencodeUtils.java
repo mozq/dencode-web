@@ -302,15 +302,24 @@ public class DencodeUtils {
 		return sb.toString();
 	}
 	
-	protected static String encDate(ZonedDateTime dateVal, DateTimeFormatter formatter, DateTimeFormatter formatterWithMsec) {
+	protected static String encDate(ZonedDateTime dateVal, DateTimeFormatter formatter, DateTimeFormatter formatterWithMsec, DateTimeFormatter formatterWithMicrosec, DateTimeFormatter formatterWithNsec) {
 		if (dateVal == null) {
 			return null;
 		}
 		
-		if (dateVal.getNano() == 0) {
+		int nano = dateVal.getNano();
+		if (nano == 0) {
+			// Seconds (10^0)
 			return formatter.format(dateVal);
-		} else {
+		} else if (nano % 1000000 == 0) {
+			// Milliseconds (10^-3)
 			return formatterWithMsec.format(dateVal);
+		} else if (nano % 1000 == 0) {
+			// Microseconds (10^-6)
+			return formatterWithMicrosec.format(dateVal);
+		} else {
+			// Nanoseconds (10^-9)
+			return formatterWithNsec.format(dateVal);
 		}
 	}
 	

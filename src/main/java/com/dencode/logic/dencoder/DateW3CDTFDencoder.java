@@ -30,6 +30,8 @@ public class DateW3CDTFDencoder {
 	
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ssXXX", Locale.US);
 	private static final DateTimeFormatter FORMATTER_MSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_MICROSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSXXX", Locale.US);
+	private static final DateTimeFormatter FORMATTER_NSEC = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSSSSXXX", Locale.US);
 	
 	private DateW3CDTFDencoder() {
 		// NOP
@@ -44,7 +46,7 @@ public class DateW3CDTFDencoder {
 	
 	private static String encDateW3CDTF(List<ZonedDateTime> vals) {
 		return DencodeUtils.dencodeLines(vals, (dateVal) -> {
-			return DencodeUtils.encDate(dateVal, FORMATTER, FORMATTER_MSEC);
+			return DencodeUtils.encDate(dateVal, FORMATTER, FORMATTER_MSEC, FORMATTER_MICROSEC, FORMATTER_NSEC);
 		});
 	}
 }
