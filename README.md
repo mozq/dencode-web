@@ -51,6 +51,7 @@ gcloud config set project {PROJECT_ID}
     - [Unicode Escape](https://dencode.com/string/unicode-escape)
     - [Program String](https://dencode.com/string/program-string)
     - [Morse Code](https://dencode.com/string/morse-code)
+    - [Braille](https://dencode.com/string/braille)
     - [Naming Convention](https://dencode.com/string/naming-convention)
         - [Camel Case](https://dencode.com/string/camel-case)
         - [Snake Case](https://dencode.com/string/snake-case)

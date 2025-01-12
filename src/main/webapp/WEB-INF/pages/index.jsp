@@ -102,6 +102,7 @@
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/program-string" data-dencode-method="string.program-string">${mf:h(msg['string.program-string.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/morse-code" data-dencode-method="string.morse-code">${mf:h(msg['string.morse-code.method'])}</a></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/braille" data-dencode-method="string.braille">${mf:h(msg['string.braille.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/naming-convention" data-dencode-method="string.naming-convention">${mf:h(msg['string.naming-convention.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/string/camel-case" data-dencode-method="string.camel-case"><i class="bi bi-chevron-right"></i> ${mf:h(msg['string.camel-case.method'])}</a></li>
@@ -369,6 +370,16 @@
 											<option value="international">${mf:h(msg['string.morse-code.variant.international'])}</option>
 											<option value="japanese">${mf:h(msg['string.morse-code.variant.japanese'])}</option>
 											<option value="russian">${mf:h(msg['string.morse-code.variant.russian'])}</option>
+										</select>
+									</div>
+								</div>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('string.braille')}"><tr data-dencode-method="string.braille"><th>${mf:h(msg['string.braille.func.decStrBraille'])}</th><td><span id="decStrBraille" class="for-disp"></span>
+								<div class="dencode-option-group">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['string.braille.variant'])}</span>
+										<select name="_string.braille.variant" class="dencode-option form-select" data-sync-with="string.braille.variant">
+											<option value="ueb1">${mf:h(msg['string.braille.variant.ueb1'])}</option>
 										</select>
 									</div>
 								</div>
@@ -1303,6 +1314,16 @@
 											<option value="international">${mf:h(msg['string.morse-code.variant.international'])}</option>
 											<option value="japanese">${mf:h(msg['string.morse-code.variant.japanese'])}</option>
 											<option value="russian">${mf:h(msg['string.morse-code.variant.russian'])}</option>
+										</select>
+									</div>
+								</div>
+							</td></tr></c:if>
+							<c:if test="${methods.contains('string.braille')}"><tr data-dencode-method="string.braille"><th>${mf:h(msg['string.braille.func.encStrBraille'])}</th><td><span id="encStrBraille" class="for-disp"></span>
+								<div class="dencode-option-group">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['string.braille.variant'])}</span>
+										<select name="string.braille.variant" class="dencode-option form-select">
+											<option value="ueb1">${mf:h(msg['string.braille.variant.ueb1'])}</option>
 										</select>
 									</div>
 								</div>
