@@ -380,6 +380,7 @@
 										<span class="input-group-text">${mf:h(msg['string.braille.variant'])}</span>
 										<select name="_string.braille.variant" class="dencode-option form-select" data-sync-with="string.braille.variant">
 											<option value="ueb1">${mf:h(msg['string.braille.variant.ueb1'])}</option>
+											<option value="japanese">${mf:h(msg['string.braille.variant.japanese'])}</option>
 										</select>
 									</div>
 								</div>
@@ -1324,6 +1325,7 @@
 										<span class="input-group-text">${mf:h(msg['string.braille.variant'])}</span>
 										<select name="string.braille.variant" class="dencode-option form-select">
 											<option value="ueb1">${mf:h(msg['string.braille.variant.ueb1'])}</option>
+											<option value="japanese">${mf:h(msg['string.braille.variant.japanese'])}</option>
 										</select>
 									</div>
 								</div>
