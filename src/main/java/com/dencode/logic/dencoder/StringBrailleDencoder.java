@@ -105,7 +105,7 @@ public class StringBrailleDencoder {
 		for (int i = 0; i < len; i++) {
 			char ch = value.charAt(i);
 			
-			if (isNumber(ch) || (prevType == Type.Number && isNumericSymbol(ch))) {
+			if (isNumber(ch)) {
 				// Number
 				if (prevType != Type.Number) {
 					sb.append('⠼'); // Dots-3456 (Number indicator)
@@ -114,6 +114,9 @@ public class StringBrailleDencoder {
 				sb.append(numberToBraille(ch));
 				
 				prevType = Type.Number;
+			} else if (prevType == Type.Number && isNumericSymbol(ch)) {
+				// Numeric symbol
+				sb.append(numericSymbolToBraille(ch));
 			} else if (isLowerCaseLetter(ch)) {
 				// Lower-case letter
 				if (indicatorList.contains(Indicator.CapitalWord) || indicatorList.contains(Indicator.CapitalPassage)) {
@@ -238,11 +241,15 @@ public class StringBrailleDencoder {
 			if (isBraille(ch)) {
 				// Braille
 				char dch;
-				if (prevType == Type.Number && (dch = brailleToNumber(ch)) != ch) {
+				if (prevType == Type.Number && (dch = brailleToNumber(ch, false)) != ch) {
 					// Number
 					sb.append(dch);
 					prevType = Type.Number;
-				} else if ((dch = brailleToLetter(ch)) != ch) {
+				} else if (prevType == Type.Number && (dch = brailleToNumericSymbol(ch)) != ch) {
+					// Numeric symbol
+					sb.append(dch);
+					prevType = Type.Number;
+				} else if ((dch = brailleToLetter(ch, false)) != ch) {
 					// Letter
 					if (inCapitalLetter || inCapitalWord || inCapitalPassage) {
 						dch = toUpperCaseLetter(dch);
@@ -332,16 +339,19 @@ public class StringBrailleDencoder {
 			char ch = value.charAt(i);
 			char ch2 = charAt(value, i + 1, '\0');
 			
-			if (isNumber(ch) || (prevType == Type.Number && jp_isNumericSymbol(ch))) {
+			if (isNumber(ch)) {
 				// Number
 				if (prevType != Type.Number) {
 					sb.append('⠼'); // Dots-3456 (Number indicator)
 				}
 				
-				sb.append(jp_numberToBraille(ch));
+				sb.append(numberToBraille(ch));
 				
 				prevType = Type.Number;
 				removeIndicator(indicatorList, Indicator.JP_Gaiji);
+			} else if (prevType == Type.Number && jp_isNumericSymbol(ch)) {
+				// Numeric symbol
+				sb.append(jp_numericSymbolToBraille(ch));
 			} else if (isLowerCaseLetter(ch)) {
 				// Lower-case letter
 				if (!indicatorList.contains(Indicator.JP_Gaiji)) {
@@ -514,10 +524,13 @@ public class StringBrailleDencoder {
 				// Braille
 				char dch;
 				String dstr;
-				if (prevType == Type.Number && (dch = jp_brailleToNumber(ch)) != ch) {
+				if (prevType == Type.Number && (dch = brailleToNumber(ch, true)) != ch) {
 					// Number
 					sb.append(dch);
 					prevType = Type.Number;
+				} else if (prevType == Type.Number && (dch = jp_brailleToNumericSymbol(ch)) != ch) {
+					// Numeric symbol
+					sb.append(dch);
 				} else if ((prevType == Type.LowerLetter || prevType == Type.UpperLetter) && ch == '⠠') { // Dots-6 (Capital letter indicator)
 					// Capital letter indicator
 					if (ch == '⠠' && ch2 == '⠠') { // Dots-6 6 (Capital word indicator)
@@ -528,7 +541,7 @@ public class StringBrailleDencoder {
 						prevType = Type.UpperLetter;
 						inCapitalLetter = true;
 					}
-				} else if ((prevType == Type.LowerLetter || prevType == Type.UpperLetter) && (dch = jp_brailleToLetter(ch)) != ch) {
+				} else if ((prevType == Type.LowerLetter || prevType == Type.UpperLetter) && (dch = brailleToLetter(ch, true)) != ch) {
 					// Letter
 					if (inCapitalLetter || inCapitalWord) {
 						dch = toUpperCaseLetter(dch);
@@ -642,25 +655,37 @@ public class StringBrailleDencoder {
 			case '8', '８' -> '⠓'; // Dots-125
 			case '9', '９' -> '⠊'; // Dots-24
 			case '0', '０' -> '⠚'; // Dots-245
-			case '.', '．' -> '⠲'; // Dots-256
-			case ',', '，' -> '⠂'; // Dots-2
-			case ' ' -> '⠐'; // Dots-5 (U+2007 Numeric space)
-			default -> throw new IllegalArgumentException("ch=" + ch);
+			default -> ch;
 		};
 	}
 	
-	private static char brailleToNumber(char ch) {
+	private static char brailleToNumber(char ch, boolean fullWidth) {
 		return switch (ch) {
-			case '⠁' -> '1'; // Dots-1
-			case '⠃' -> '2'; // Dots-12
-			case '⠉' -> '3'; // Dots-14
-			case '⠙' -> '4'; // Dots-145
-			case '⠑' -> '5'; // Dots-15
-			case '⠋' -> '6'; // Dots-124
-			case '⠛' -> '7'; // Dots-1245
-			case '⠓' -> '8'; // Dots-125
-			case '⠊' -> '9'; // Dots-24
-			case '⠚' -> '0'; // Dots-245
+			case '⠁' -> (fullWidth) ? '１' : '1'; // Dots-1
+			case '⠃' -> (fullWidth) ? '２' : '2'; // Dots-12
+			case '⠉' -> (fullWidth) ? '３' : '3'; // Dots-14
+			case '⠙' -> (fullWidth) ? '４' : '4'; // Dots-145
+			case '⠑' -> (fullWidth) ? '５' : '5'; // Dots-15
+			case '⠋' -> (fullWidth) ? '６' : '6'; // Dots-124
+			case '⠛' -> (fullWidth) ? '７' : '7'; // Dots-1245
+			case '⠓' -> (fullWidth) ? '８' : '8'; // Dots-125
+			case '⠊' -> (fullWidth) ? '９' : '9'; // Dots-24
+			case '⠚' -> (fullWidth) ? '０' : '0'; // Dots-245
+			default -> ch;
+		};
+	}
+	
+	private static char numericSymbolToBraille(char ch) {
+		return switch (ch) {
+			case '.', '．' -> '⠲'; // Dots-256
+			case ',', '，' -> '⠂'; // Dots-2
+			case ' ' -> '⠐'; // Dots-5 (U+2007 Numeric space)
+			default -> ch;
+		};
+	}
+	
+	private static char brailleToNumericSymbol(char ch) {
+		return switch (ch) {
 			case '⠲' -> '.'; // Dots-256
 			case '⠂' -> ','; // Dots-2
 			case '⠐' -> ' '; // Dots-5 (U+2007 Numeric space)
@@ -696,38 +721,38 @@ public class StringBrailleDencoder {
 			case 'x', 'ｘ' -> '⠭'; // Dots-1346
 			case 'y', 'ｙ' -> '⠽'; // Dots-13456
 			case 'z', 'ｚ' -> '⠵'; // Dots-1356
-			default -> throw new IllegalArgumentException("ch=" + ch);
+			default -> ch;
 		};
 	}
 	
-	private static char brailleToLetter(char ch) {
+	private static char brailleToLetter(char ch, boolean fullWidth) {
 		return switch (ch) {
-			case '⠁' -> 'a'; // Dots-1
-			case '⠃' -> 'b'; // Dots-12
-			case '⠉' -> 'c'; // Dots-14
-			case '⠙' -> 'd'; // Dots-145
-			case '⠑' -> 'e'; // Dots-15
-			case '⠋' -> 'f'; // Dots-124
-			case '⠛' -> 'g'; // Dots-1245
-			case '⠓' -> 'h'; // Dots-125
-			case '⠊' -> 'i'; // Dots-24
-			case '⠚' -> 'j'; // Dots-245
-			case '⠅' -> 'k'; // Dots-13
-			case '⠇' -> 'l'; // Dots-123
-			case '⠍' -> 'm'; // Dots-134
-			case '⠝' -> 'n'; // Dots-1345
-			case '⠕' -> 'o'; // Dots-135
-			case '⠏' -> 'p'; // Dots-1234
-			case '⠟' -> 'q'; // Dots-12345
-			case '⠗' -> 'r'; // Dots-1235
-			case '⠎' -> 's'; // Dots-234
-			case '⠞' -> 't'; // Dots-2345
-			case '⠥' -> 'u'; // Dots-136
-			case '⠧' -> 'v'; // Dots-1236
-			case '⠺' -> 'w'; // Dots-2456
-			case '⠭' -> 'x'; // Dots-1346
-			case '⠽' -> 'y'; // Dots-13456
-			case '⠵' -> 'z'; // Dots-1356
+			case '⠁' -> (fullWidth) ? 'ａ' : 'a'; // Dots-1
+			case '⠃' -> (fullWidth) ? 'ｂ' : 'b'; // Dots-12
+			case '⠉' -> (fullWidth) ? 'ｃ' : 'c'; // Dots-14
+			case '⠙' -> (fullWidth) ? 'ｄ' : 'd'; // Dots-145
+			case '⠑' -> (fullWidth) ? 'ｅ' : 'e'; // Dots-15
+			case '⠋' -> (fullWidth) ? 'ｆ' : 'f'; // Dots-124
+			case '⠛' -> (fullWidth) ? 'ｇ' : 'g'; // Dots-1245
+			case '⠓' -> (fullWidth) ? 'ｈ' : 'h'; // Dots-125
+			case '⠊' -> (fullWidth) ? 'ｉ' : 'i'; // Dots-24
+			case '⠚' -> (fullWidth) ? 'ｊ' : 'j'; // Dots-245
+			case '⠅' -> (fullWidth) ? 'ｋ' : 'k'; // Dots-13
+			case '⠇' -> (fullWidth) ? 'ｌ' : 'l'; // Dots-123
+			case '⠍' -> (fullWidth) ? 'ｍ' : 'm'; // Dots-134
+			case '⠝' -> (fullWidth) ? 'ｎ' : 'n'; // Dots-1345
+			case '⠕' -> (fullWidth) ? 'ｏ' : 'o'; // Dots-135
+			case '⠏' -> (fullWidth) ? 'ｐ' : 'p'; // Dots-1234
+			case '⠟' -> (fullWidth) ? 'ｑ' : 'q'; // Dots-12345
+			case '⠗' -> (fullWidth) ? 'ｒ' : 'r'; // Dots-1235
+			case '⠎' -> (fullWidth) ? 'ｓ' : 's'; // Dots-234
+			case '⠞' -> (fullWidth) ? 'ｔ' : 't'; // Dots-2345
+			case '⠥' -> (fullWidth) ? 'ｕ' : 'u'; // Dots-136
+			case '⠧' -> (fullWidth) ? 'ｖ' : 'v'; // Dots-1236
+			case '⠺' -> (fullWidth) ? 'ｗ' : 'w'; // Dots-2456
+			case '⠭' -> (fullWidth) ? 'ｘ' : 'x'; // Dots-1346
+			case '⠽' -> (fullWidth) ? 'ｙ' : 'y'; // Dots-13456
+			case '⠵' -> (fullWidth) ? 'ｚ' : 'z'; // Dots-1356
 			default -> ch;
 		};
 	}
@@ -965,70 +990,18 @@ public class StringBrailleDencoder {
 	}
 	
 	
-	private static char jp_numberToBraille(char ch) {
+	private static char jp_numericSymbolToBraille(char ch) {
 		return switch (ch) {
-			case '1', '１' -> '⠁'; // Dots-1
-			case '2', '２' -> '⠃'; // Dots-12
-			case '3', '３' -> '⠉'; // Dots-14
-			case '4', '４' -> '⠙'; // Dots-145
-			case '5', '５' -> '⠑'; // Dots-15
-			case '6', '６' -> '⠋'; // Dots-124
-			case '7', '７' -> '⠛'; // Dots-1245
-			case '8', '８' -> '⠓'; // Dots-125
-			case '9', '９' -> '⠊'; // Dots-24
-			case '0', '０' -> '⠚'; // Dots-245
 			case '.', '．' -> '⠂'; // Dots-2
 			case ',', '，' -> '⠄'; // Dots-3
-			default -> throw new IllegalArgumentException("ch=" + ch);
-		};
-	}
-	
-	private static char jp_brailleToNumber(char ch) {
-		return switch (ch) {
-			case '⠁' -> '１'; // Dots-1
-			case '⠃' -> '２'; // Dots-12
-			case '⠉' -> '３'; // Dots-14
-			case '⠙' -> '４'; // Dots-145
-			case '⠑' -> '５'; // Dots-15
-			case '⠋' -> '６'; // Dots-124
-			case '⠛' -> '７'; // Dots-1245
-			case '⠓' -> '８'; // Dots-125
-			case '⠊' -> '９'; // Dots-24
-			case '⠚' -> '０'; // Dots-245
-			case '⠂' -> '．'; // Dots-2
-			case '⠄' -> '，'; // Dots-3
 			default -> ch;
 		};
 	}
 	
-	private static char jp_brailleToLetter(char ch) {
+	private static char jp_brailleToNumericSymbol(char ch) {
 		return switch (ch) {
-			case '⠁' -> 'ａ'; // Dots-1
-			case '⠃' -> 'ｂ'; // Dots-12
-			case '⠉' -> 'ｃ'; // Dots-14
-			case '⠙' -> 'ｄ'; // Dots-145
-			case '⠑' -> 'ｅ'; // Dots-15
-			case '⠋' -> 'ｆ'; // Dots-124
-			case '⠛' -> 'ｇ'; // Dots-1245
-			case '⠓' -> 'ｈ'; // Dots-125
-			case '⠊' -> 'ｉ'; // Dots-24
-			case '⠚' -> 'ｊ'; // Dots-245
-			case '⠅' -> 'ｋ'; // Dots-13
-			case '⠇' -> 'ｌ'; // Dots-123
-			case '⠍' -> 'ｍ'; // Dots-134
-			case '⠝' -> 'ｎ'; // Dots-1345
-			case '⠕' -> 'ｏ'; // Dots-135
-			case '⠏' -> 'ｐ'; // Dots-1234
-			case '⠟' -> 'ｑ'; // Dots-12345
-			case '⠗' -> 'ｒ'; // Dots-1235
-			case '⠎' -> 'ｓ'; // Dots-234
-			case '⠞' -> 'ｔ'; // Dots-2345
-			case '⠥' -> 'ｕ'; // Dots-136
-			case '⠧' -> 'ｖ'; // Dots-1236
-			case '⠺' -> 'ｗ'; // Dots-2456
-			case '⠭' -> 'ｘ'; // Dots-1346
-			case '⠽' -> 'ｙ'; // Dots-13456
-			case '⠵' -> 'ｚ'; // Dots-1356
+			case '⠂' -> '．'; // Dots-2
+			case '⠄' -> '，'; // Dots-3
 			default -> ch;
 		};
 	}
@@ -1771,18 +1744,11 @@ public class StringBrailleDencoder {
 	}
 	
 	private static boolean isNumericSymbol(char ch) {
-		return (
-				ch == '.' || ch == ',' ||
-				ch == '．' || ch == '，' ||
-				ch == ' ' // Numeric space
-				);
+		return (numericSymbolToBraille(ch) != ch);
 	}
 	
 	private static boolean jp_isNumericSymbol(char ch) {
-		return (
-				ch == '.' || ch == ',' ||
-				ch == '．' || ch == '，'
-				);
+		return (jp_numericSymbolToBraille(ch) != ch);
 	}
 	
 	private static boolean isUpperCaseLetter(char ch) {
@@ -1875,7 +1841,7 @@ public class StringBrailleDencoder {
 	}
 	
 	private static boolean jp_isNumericBraille(char ch) {
-		return (jp_brailleToNumber(ch) != ch);
+		return (brailleToNumber(ch, true) != ch) || (jp_brailleToNumericSymbol(ch) != ch);
 	}
 	
 	private static boolean jp_isTrailingCharacter(char ch) {
