@@ -1346,6 +1346,19 @@
 							<c:if test="${methods.contains('string.letter-case')}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['string.letter-case.func.encStrLowerCase'])}</th><td><span id="encStrLowerCase" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.letter-case')}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['string.letter-case.func.encStrSwapCase'])}</th><td><span id="encStrSwapCase" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.letter-case')}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['string.letter-case.func.encStrCapitalize'])}</th><td><span id="encStrCapitalize" class="for-disp"></span></td></tr></c:if>
+							<c:if test="${methods.contains('string.letter-case')}"><tr data-dencode-method="string.letter-case"><th>${mf:h(msg['string.letter-case.func.encStrAlternatingCaps'])}</th><td><span id="encStrAlternatingCaps" class="for-disp"></span>
+								<div class="dencode-option-group">
+									<div class="input-group">
+										<span class="input-group-text">${mf:h(msg['string.letter-case.alt-variant'])}</span>
+										<select name="string.letter-case.alt-variant" class="dencode-option form-select">
+											<option value="lower-upper">${mf:h(msg['string.letter-case.alt-variant.lower-upper'])}</option>
+											<option value="upper-lower">${mf:h(msg['string.letter-case.alt-variant.upper-lower'])}</option>
+											<option value="vowels-lower">${mf:h(msg['string.letter-case.alt-variant.vowels-lower'])}</option>
+											<option value="vowels-upper">${mf:h(msg['string.letter-case.alt-variant.vowels-upper'])}</option>
+										</select>
+									</div>
+								</div>
+							</td></tr></c:if>
 							<c:if test="${methods.contains('string.text-initials')}"><tr data-dencode-method="string.text-initials"><th>${mf:h(msg['string.text-initials.func.encStrInitials'])}</th><td><span id="encStrInitials" class="for-disp"></span></td></tr></c:if>
 							<c:if test="${methods.contains('string.text-reverse')}"><tr data-dencode-method="string.text-reverse"><th>${mf:h(msg['string.text-reverse.func.encStrReverse'])}</th><td><span id="encStrReverse" class="for-disp"></span></td></tr></c:if>
 						</tbody>
