@@ -155,15 +155,21 @@ $.onReady(function () {
 		// NOP
 	}
 	
-	const hash = window.location.hash;
-	if (hash !== null) {
-		if (hash.startsWith("#v=")) {
-			// Load value from location hash
-			elV.value = decodeURIComponent(hash.substring(3));
+	// Initialize value
+	try {
+		// Load value from session storage
+		const value = window.sessionStorage.getItem("value");
+		if (value !== null) {
+			elV.value = value;
+			window.sessionStorage.removeItem("value");
+		}
+	} catch (ex) {
+		// NOP
+	} finally {
+		// Load value from location hash
+		if (window.location.hash.startsWith("#v=")) {
+			elV.value = decodeURIComponent(window.location.hash.substring(3));
 			clearLocationHash();
-		} else if (hash === "#policy") {
-			const policyDialog = bootstrap.Modal.getOrCreateInstance(elPolicyDialog);
-			policyDialog.show();
 		}
 	}
 	
@@ -375,7 +381,11 @@ $.onReady(function () {
 		
 		const v = elV.value;
 		if (0 < v.length) {
-			this.href += "#v=" + encodeURIComponent(v);
+			try {
+				window.sessionStorage.setItem("value", v);
+			} catch(ex) {
+				this.href += "#v=" + encodeURIComponent(v);
+			}
 		}
 	});
 	
@@ -387,7 +397,11 @@ $.onReady(function () {
 		
 		const v = elV.value;
 		if (0 < v.length) {
-			this.href += "#v=" + encodeURIComponent(v);
+			try {
+				window.sessionStorage.setItem("value", v);
+			} catch(ex) {
+				this.href += "#v=" + encodeURIComponent(v);
+			}
 		}
 	});
 	
@@ -742,6 +756,13 @@ $.onReady(function () {
 			return true;
 		}
 	})();
+	
+	// Routing
+	if (window.location.hash === "#policy") {
+		const policyDialog = bootstrap.Modal.getOrCreateInstance(elPolicyDialog);
+		policyDialog.show();
+	}
+	
 	
 	dencode();
 	
