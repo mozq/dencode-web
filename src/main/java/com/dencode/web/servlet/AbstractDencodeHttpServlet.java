@@ -199,13 +199,8 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		return locales;
 	}
 	
-	protected static Locale toLocale(String localeId) {
-		int idx = localeId.indexOf('-');
-		if (idx == -1) {
-			return new Locale(localeId);
-		}
-		
-		return new Locale(localeId.substring(0, idx), localeId.substring(idx + 1));
+	protected static Locale toLocale(String languageTag) {
+		return Locale.forLanguageTag(languageTag);
 	}
 	
 	protected static String getBaseURL(HttpReqRes reqres) {
