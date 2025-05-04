@@ -24,19 +24,18 @@ import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.mifmi.commons4j.util.StringUtilz;
 
+import com.dencode.logic.parser.NumberParser;
+
 public class DencodeUtils {
-	
-	private static final Integer INT_ONE = Integer.valueOf(1);
-	
 	private static final Pattern DATA_SIZE_PATTERN = Pattern.compile("^([0-9]+)(b|B)$");
 	
 	private static final char[] N_ARY_DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -48,18 +47,24 @@ public class DencodeUtils {
 	}
 	
 	
-	protected static <T, R> List<R> dencodeEach(List<T> vals, Function<T, R> func) {
+	protected static <T, U, R> List<R> dencodeEach(List<T> vals, List<U> vals2, BiFunction<T, U, R> func) {
 		if (vals == null) {
 			return null;
 		}
 		
-		List<R> dencVals = new ArrayList<R>(vals.size());
-		for (T val : vals) {
+		int len = vals.size();
+		
+		List<R> dencVals = new ArrayList<R>(len);
+		
+		for (int i = 0; i < len; i++) {
+			T val = vals.get(i);
+			U val2 = (vals2 == null) ? null : vals2.get(i);
+			
 			R dencVal;
 			if (val == null) {
 				dencVal = null;
 			} else {
-				dencVal = func.apply(val);
+				dencVal = func.apply(val, val2);
 				if (dencVal == null) {
 					return null;
 				}
@@ -70,15 +75,19 @@ public class DencodeUtils {
 	}
 	
 	protected static <T> String dencodeLines(List<T> vals, Function<T, String> func) {
-		return dencodeLines(vals, func, "\n");
+		return dencodeLines(vals, null, (val1, val2) -> func.apply(val1));
 	}
 	
-	protected static <T> String dencodeLines(List<T> vals, Function<T, String> func, String separator) {
+	protected static <T, U> String dencodeLines(List<T> vals, List<U> vals2, BiFunction<T, U, String> func) {
+		return dencodeLines(vals, vals2, func, "\n");
+	}
+	
+	protected static <T, U> String dencodeLines(List<T> vals, List<U> vals2, BiFunction<T, U, String> func, String separator) {
 		if (vals == null) {
 			return null;
 		}
 		
-		List<String> dencVals = dencodeEach(vals, func);
+		List<String> dencVals = dencodeEach(vals, vals2, func);
 		if (dencVals == null) {
 			return null;
 		}
@@ -170,93 +179,6 @@ public class DencodeUtils {
 		}
 	}
 	
-	protected static String encNum(BigDecimal bigDec, int radix, int decimalMaxDigits, int decimalMaxRecurringCount) {
-		if (bigDec == null) {
-			return null;
-		}
-		
-		BigInteger radixBI = BigInteger.valueOf(radix);
-		BigDecimal radixBD = BigDecimal.valueOf(radix);
-		
-		boolean negative = (bigDec.signum() < 0);
-		if (negative) {
-			bigDec = bigDec.abs();
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		boolean upperCase = false;
-		
-		// Integer part
-		BigInteger intPart;
-		try {
-			intPart = bigDec.toBigInteger();
-		} catch (ArithmeticException e) {
-			return null;
-		}
-		
-		BigInteger ip = intPart;
-		do {
-			BigInteger[] dr = ip.divideAndRemainder(radixBI);
-			ip = dr[0];
-			int reminder = dr[1].intValue();
-			sb.append(numToDigit(reminder, upperCase));
-		} while (ip.signum() != 0);
-		sb.reverse();
-		
-		// Sign
-		if (negative) {
-			sb.insert(0, '-');
-		}
-		
-		if (bigDec.scale() <= 0) {
-			// Integer
-			return sb.toString();
-		}
-		
-		// Decimal part
-		sb.append('.');
-		BigDecimal decPart = bigDec.subtract(new BigDecimal(intPart));
-		
-		if (decPart.signum() == 0) {
-			sb.append('0');
-		} else {
-			BigDecimal dp = decPart;
-			HashMap<BigDecimal, Integer> recurringCountMap = (0 < decimalMaxRecurringCount) ? new HashMap<BigDecimal, Integer>() : null;
-			for (int i = 0; i < decimalMaxDigits; i++) {
-				dp = dp.multiply(radixBD);
-				
-				if (recurringCountMap != null) {
-					// Check recurring decimal
-					
-					Integer n = recurringCountMap.get(dp);
-					if (n == null) {
-						recurringCountMap.put(dp, INT_ONE);
-					} else if (n.intValue() < decimalMaxRecurringCount) {
-						recurringCountMap.put(dp, Integer.valueOf(n.intValue() + 1));
-					} else {
-						// Over the max recurring count
-						break;
-					}
-				}
-				
-				BigInteger ipBI = dp.toBigInteger();
-				int ipN = ipBI.intValue();
-				sb.append(numToDigit(ipN, upperCase));
-				
-				dp = dp.subtract(BigDecimal.valueOf(ipN));
-				if (dp.signum() == 0) {
-					break;
-				}
-			}
-			
-			if (dp.signum() != 0) {
-				sb.append("...");
-			}
-		}
-		
-		return sb.toString();
-	}
-	
 	protected static char numToDigit(int n, boolean upperCase) {
 		if (n < 0 || N_ARY_DIGITS_UPPER.length <= n) {
 			throw new IllegalArgumentException("Unsupported number: " + n);
@@ -276,16 +198,99 @@ public class DencodeUtils {
 		}
 	}
 	
-	protected static int digitToNum(char ch) {
-		if ('0' <= ch && ch <= '9') {
-			return ch - '0';
-		} else if ('A' <= ch && ch <= 'Z') {
-			return 10 + (ch - 'A');
-		} else if ('a' <= ch && ch <= 'z') {
-			return 10 + (ch - 'a');
-		} else {
-			throw new IllegalArgumentException("Unsupported digit: " + ch);
+	protected static int digitsOf(int decimalDigits, int radix) {
+		if (decimalDigits <= 0) {
+			return 0;
 		}
+		
+		double maxDecimalValue = Math.pow(10, decimalDigits) - 1;
+		return (int)Math.ceil(Math.log(maxDecimalValue) / Math.log(radix));
+	}
+	
+	protected static String numToString(BigDecimal bigDec, boolean truncatedDecimal, int radix, int maxScale, int maxRepetendCount) {
+		if (bigDec == null) {
+			return null;
+		}
+		
+		String strNum;
+		if (radix == 10) {
+			if (maxScale < bigDec.scale()) {
+				strNum = bigDec.setScale(maxScale, RoundingMode.DOWN).toPlainString();
+				truncatedDecimal = true;
+			} else {
+				strNum = bigDec.toPlainString();
+			}
+		} else {
+			BigInteger radixBI = BigInteger.valueOf(radix);
+			BigDecimal radixBD = BigDecimal.valueOf(radix);
+			
+			boolean negative = (bigDec.signum() < 0);
+			if (negative) {
+				bigDec = bigDec.abs();
+			}
+			
+			StringBuilder sb = new StringBuilder();
+			boolean upperCase = false;
+			
+			// Integer part
+			BigInteger intPart = bigDec.toBigInteger();
+			
+			BigInteger ip = intPart;
+			do {
+				BigInteger[] dr = ip.divideAndRemainder(radixBI);
+				ip = dr[0];
+				int reminder = dr[1].intValue();
+				sb.append(numToDigit(reminder, upperCase));
+			} while (ip.signum() != 0);
+			
+			// Sign
+			if (negative) {
+				sb.append('-');
+			}
+			
+			sb.reverse();
+			
+			if (bigDec.scale() <= 0) {
+				// Integer
+				return sb.toString();
+			}
+			
+			
+			// Decimal part
+			sb.append('.');
+			BigDecimal decPart = bigDec.subtract(new BigDecimal(intPart));
+			
+			if (decPart.signum() == 0) {
+				sb.append('0');
+			} else {
+				BigDecimal dp = decPart;
+				for (int i = 0; i < maxScale; i++) {
+					dp = dp.multiply(radixBD);
+					
+					BigInteger ipBI = dp.toBigInteger();
+					int ipN = ipBI.intValue();
+					sb.append(numToDigit(ipN, upperCase));
+					
+					dp = dp.subtract(BigDecimal.valueOf(ipN));
+					if (dp.signum() == 0) {
+						break;
+					}
+				}
+				
+				if (dp.signum() != 0) {
+					truncatedDecimal = true;
+				}
+			}
+			
+			strNum = sb.toString();
+		}
+		
+		if (truncatedDecimal) {
+			strNum = NumberParser.truncateRepeatingDecimal(strNum, maxRepetendCount);
+			strNum = NumberParser.toTruncatedDecimal(strNum);
+		}
+		
+		return strNum;
 	}
 	
 	protected static String binaryToHexString(byte[] bin, boolean upperCase) {

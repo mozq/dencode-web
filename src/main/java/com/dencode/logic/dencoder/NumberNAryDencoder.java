@@ -28,8 +28,12 @@ import com.dencode.logic.parser.NumberParser;
 @Dencoder(type="number", method="number.n-ary", hasEncoder=true, hasDecoder=true)
 public class NumberNAryDencoder {
 	
+	private static final int DEC_RADIX = 10;
+	private static final int DEC_MAX_SCALE = 100;
+	
+	private static final int MAX_REPETEND_COUNT = 3;
+	
 	private static final Pattern PARSABLE_NUM_PATTERN = Pattern.compile("[\\+\\-]?[0-9A-Za-z\\.]+");
-	private static final int MAX_SCALE = 100;
 	
 	private NumberNAryDencoder() {
 		// NOP
@@ -40,6 +44,7 @@ public class NumberNAryDencoder {
 	public static String encNumNAry(DencodeCondition cond) {
 		return encNumNAry(
 				cond.valueAsNumbers(),
+				cond.valueAsLines(),
 				DencodeUtils.getOptionAsInt(cond.options(), "number.n-ary.radix", 32, 32)
 				);
 	}
@@ -53,15 +58,15 @@ public class NumberNAryDencoder {
 	}
 	
 	
-	private static String encNumNAry(List<BigDecimal> vals, int radix) {
-		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
-			return DencodeUtils.encNum(bigDec, radix, 100, 3);
+	private static String encNumNAry(List<BigDecimal> vals, List<String> strVals, int radix) {
+		return DencodeUtils.dencodeLines(vals, strVals, (bigDec, strVal) -> {
+			return DencodeUtils.numToString(bigDec, NumberParser.isTruncatedDecimal(strVal), radix, DEC_MAX_SCALE, MAX_REPETEND_COUNT);
 		});
 	}
 	
 	private static String decNumNAry(List<String> vals, int radix) {
 		return DencodeUtils.dencodeLines(vals, (val) -> {
-			BigDecimal bigDec = NumberParser.parseN(val, radix, MAX_SCALE);
+			BigDecimal bigDec = NumberParser.parseN(val, radix);
 			if (bigDec == null) {
 				if (val != null && !val.isEmpty() && PARSABLE_NUM_PATTERN.matcher(val).matches()) {
 					// If the value is parsable as N-ary numbers,
@@ -72,11 +77,8 @@ public class NumberNAryDencoder {
 				}
 			}
 			
-			if (bigDec.scale() == MAX_SCALE) {
-				return bigDec.toPlainString() + "...";
-			} else {
-				return bigDec.toPlainString();
-			}
+			int maxScale = DencodeUtils.digitsOf(DEC_MAX_SCALE, radix);
+			return DencodeUtils.numToString(bigDec, NumberParser.isTruncatedDecimal(val), DEC_RADIX, maxScale, MAX_REPETEND_COUNT);
 		});
 	}
 }

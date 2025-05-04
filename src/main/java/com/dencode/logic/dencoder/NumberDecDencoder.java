@@ -27,6 +27,14 @@ import com.dencode.logic.parser.NumberParser;
 @Dencoder(type="number", method="number.dec", hasEncoder=true, hasDecoder=true)
 public class NumberDecDencoder {
 	
+	private static final int DEC_RADIX = 10;
+	private static final int DEC_MAX_SCALE = 100;
+	
+	private static final int ENC_RADIX = 10;
+	private static final int ENC_MAX_SCALE = DEC_MAX_SCALE;
+	
+	private static final int MAX_REPETEND_COUNT = 3;
+	
 	private NumberDecDencoder() {
 		// NOP
 	}
@@ -34,7 +42,7 @@ public class NumberDecDencoder {
 	
 	@DencoderFunction
 	public static String encNumDec(DencodeCondition cond) {
-		return encNumDec(cond.valueAsNumbers());
+		return encNumDec(cond.valueAsNumbers(), cond.valueAsLines());
 	}
 	
 	@DencoderFunction
@@ -43,25 +51,16 @@ public class NumberDecDencoder {
 	}
 	
 	
-	private static String encNumDec(List<BigDecimal> vals) {
-		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
-			if (bigDec == null) {
-				return null;
-			}
-			
-			return bigDec.toPlainString();
+	private static String encNumDec(List<BigDecimal> vals, List<String> strVals) {
+		return DencodeUtils.dencodeLines(vals, strVals, (bigDec, strVal) -> {
+			return DencodeUtils.numToString(bigDec, NumberParser.isTruncatedDecimal(strVal), ENC_RADIX, ENC_MAX_SCALE, MAX_REPETEND_COUNT);
 		});
 	}
 	
 	private static String decNumDec(List<String> vals) {
 		return DencodeUtils.dencodeLines(vals, (val) -> {
 			BigDecimal bigDec = NumberParser.parseDec(val);
-			
-			if (bigDec == null) {
-				return null;
-			}
-			
-			return bigDec.toPlainString();
+			return DencodeUtils.numToString(bigDec, NumberParser.isTruncatedDecimal(val), DEC_RADIX, DEC_MAX_SCALE, MAX_REPETEND_COUNT);
 		});
 	}
 }

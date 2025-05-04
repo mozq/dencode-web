@@ -18,7 +18,9 @@ package com.dencode.logic.parser;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.mifmi.commons4j.util.NumberUtilz;
@@ -26,16 +28,53 @@ import org.mifmi.commons4j.util.StringUtilz;
 import org.mifmi.commons4j.util.exception.NumberParseException;
 
 import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.config.ExpressionConfiguration;
 
 public class NumberParser {
 	
+	protected static class RepeatingInfo {
+		public static final RepeatingInfo NO_MATCHED = new RepeatingInfo(0, -1, 0, 0, 0);
+		
+		private int count; public int count() { return this.count; }
+		private int startIndex; public int startIndex() { return this.startIndex; }
+		private int repetendLength; public int repetendLength() { return this.repetendLength; }
+		private int oddRepetendLength; public int oddRepetendLength() { return this.oddRepetendLength; }
+		private int roundingDifference; public int roundingDifference() { return this.roundingDifference; }
+		
+		public RepeatingInfo(int count, int startIndex, int repetendLength, int oddRepetendLength, int roundingDifference) {
+			this.count = count;
+			this.startIndex = startIndex;
+			this.repetendLength = repetendLength;
+			this.oddRepetendLength = oddRepetendLength;
+			this.roundingDifference = roundingDifference;
+		}
+	}
+	
+	
+	private static final int DEFAULT_SCALE = 160;
+	private static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.DOWN;
+	
+	private static final ExpressionConfiguration EXP_CONF = ExpressionConfiguration.builder()
+			.mathContext(new MathContext(1000, DEFAULT_ROUNDING_MODE))
+			.stripTrailingZeros(false)
+			.build();
+	
 	private static final Pattern NUM_DEC_PATTERN_DOT_COMMA = Pattern.compile("[+-]?(?:(?:[0-9]{1,3}(?:\\.[0-9]{3}){2,})|(?:[0-9]{1,3}(?:\\.[0-9]{3})+\\,[0-9]*)|(?:[0-9]{4,}\\,.+)|(?:.+\\,[0-9]{1,2})|(?:.+\\,[0-9]{4,}))");
+	
+	private static final Pattern FRACTION_PATTERN = Pattern.compile("\\s?([\\+\\-]?[0-9A-Za-z\\.]+)\\s?/\\s?([\\+\\-]?[0-9A-Za-z\\.]+)\\s?");
+	
+	private static final String TRUNCATED_DECIMAL_SUFFIX = "...";
+	
 	
 	private NumberParser() {
 		// NOP
 	}
 	
 	public static BigDecimal parse(String val) {
+		return parse(val, DEFAULT_SCALE, DEFAULT_ROUNDING_MODE);
+	}
+	
+	private static BigDecimal parse(String val, int scale, RoundingMode roundingMode) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -50,174 +89,191 @@ public class NumberParser {
 		BigDecimal num;
 		
 		// Decimal Format
-		num = parseDec(val);
-		if (num != null) {
-			return num;
-		}
+		num = parseDec(val, scale, roundingMode);
 		
 		// N-ary Format (0b, 0o and 0x)
-		if (val.startsWith("0") || val.startsWith("+0") || val.startsWith("-0")) {
-			int cIdx = (val.startsWith("0")) ? 1 : 2;
-			if (cIdx < val.length()) {
-				char ch = val.charAt(cIdx);
-				if (ch == 'b' || ch == 'B') {
-					// Bin Format
-					num = parseBin(val);
-				} else if (ch == 'o' || ch == 'O') {
-					// Oct Format
-					num = parseOct(val);
-				} else if (ch == 'x' || ch == 'X') {
-					// Hex Format
-					num = parseHex(val);
-				}
-			}
-			
-			if (num != null) {
-				return num;
-			}
-		}
-		
-		// English Format
-		num = parseEnNumShortScale(val);
-		if (num != null) {
-			return num;
-		}
-		
-		// Japanese Format
-		num = parseJPNum(val);
-		if (num != null) {
-			return num;
-		}
-		
-		return null;
-	}
-	
-	public static BigDecimal parseDec(String val) {
-		if (val == null || val.isEmpty()) {
-			return null;
-		}
-		
-		String sanitizedVal;
-		if (NUM_DEC_PATTERN_DOT_COMMA.matcher(val).matches()) {
-			// 0.000.000,0 -> 0000000.0
-			sanitizedVal = val.replace(".", "").replace(",", ".");
-		} else {
-			// 0,000,000.0 -> 0000000.0
-			sanitizedVal = val.replace(",", "");
-		}
-		
-		try {
-			return new BigDecimal(sanitizedVal);
-		} catch (NumberFormatException e) {
-			// Parse as expression
-			try {
-				Expression exp = new Expression(val);
-				return exp.evaluate().getNumberValue();
-			} catch (Exception e1) {
-				return null;
-			}
-		}
-	}
-	
-	public static BigDecimal parseBin(String val) {
-		return parseN(val, 2);
-	}
-	
-	public static BigDecimal parseOct(String val) {
-		return parseN(val, 8);
-	}
-	
-	public static BigDecimal parseHex(String val) {
-		return parseN(val, 16);
-	}
-
-	public static BigDecimal parseN(String val, int radix) {
-		return parseN(val, radix, -1);
-	}
-	
-	public static BigDecimal parseN(String val, int radix, int maxScale) {
-		if (val == null || val.isEmpty()) {
-			return null;
-		}
-		
-		if (val.startsWith("0") || val.startsWith("+0") || val.startsWith("-0")) {
-			int cIdx = (val.startsWith("0")) ? 1 : 2;
-			if (cIdx < val.length()) {
-				char ch = val.charAt(cIdx);
-				if ((radix == 2 && (ch == 'b' || ch == 'B'))
-						|| (radix == 8 && (ch == 'o' || ch == 'O'))
-						|| (radix == 16 && (ch == 'x' || ch == 'X'))
-						) {
-					// Remove N-ary prefix (0b, 0o or 0x), if the radix equals 2, 8 or 16
-					if (val.startsWith("-")) {
-						// Negative value
-						val = "-" + val.substring(cIdx + 1);
-					} else {
-						// Positive value
-						val = val.substring(cIdx + 1);
+		if (num == null) {
+			if (val.startsWith("0") || val.startsWith("+0") || val.startsWith("-0")) {
+				int cIdx = (val.startsWith("0")) ? 1 : 2;
+				if (cIdx < val.length()) {
+					char ch = val.charAt(cIdx);
+					if (ch == 'b' || ch == 'B') {
+						// Bin Format
+						num = parseN(val, 2, scale, roundingMode);
+					} else if (ch == 'o' || ch == 'O') {
+						// Oct Format
+						num = parseN(val, 8, scale, roundingMode);
+					} else if (ch == 'x' || ch == 'X') {
+						// Hex Format
+						num = parseN(val, 16, scale, roundingMode);
 					}
 				}
 			}
 		}
 		
-		if (val.endsWith("...")) {
-			// Remove "..." suffix
-			val = val.substring(0, val.length() - 3);
+		// English Format
+		if (num == null) {
+			num = parseEnNumShortScale(val);
 		}
 		
-		if (val.isEmpty()) {
+		// Japanese Format
+		if (num == null) {
+			num = parseJPNum(val);
+		}
+		
+		if (isTruncatedDecimal(val)) {
+			num = increasePrecision(num, scale, roundingMode);
+		}
+		
+		return num;
+	}
+
+	public static BigDecimal parseDec(String val) {
+		return parseDec(val, DEFAULT_SCALE, DEFAULT_ROUNDING_MODE);
+	}
+	
+	private static BigDecimal parseDec(String val, int scale, RoundingMode roundingMode) {
+		if (val == null || val.isEmpty()) {
 			return null;
 		}
 		
-		int decMarkIdx = val.indexOf('.');
-		if (decMarkIdx == -1) {
+		String strNum;
+		if (NUM_DEC_PATTERN_DOT_COMMA.matcher(val).matches()) {
+			// 0.000.000,0 -> 0000000.0
+			strNum = val.replace(".", "").replace(",", ".");
+		} else {
+			// 0,000,000.0 -> 0000000.0
+			strNum = val.replace(",", "");
+		}
+		
+		BigDecimal bigDec = parseN(strNum, 10, scale, roundingMode);
+		if (bigDec == null) {
+			// Parse as expression
 			try {
-				return new BigDecimal(new BigInteger(val, radix));
+				String strNum2 = removeTruncatedDecimalSuffix(strNum);
+				Expression exp = new Expression(strNum2, EXP_CONF);
+				bigDec = exp.evaluate().getNumberValue();
+				
+				if (scale < bigDec.scale()) {
+					bigDec = bigDec.setScale(scale, roundingMode);
+				}
+			} catch (Exception e1) {
+				bigDec = null;
+			}
+		}
+		
+		return bigDec;
+	}
+	
+	public static BigDecimal parseN(String val, int radix) {
+		return parseN(val, radix, DEFAULT_SCALE, DEFAULT_ROUNDING_MODE);
+	}
+	
+	private static BigDecimal parseN(String val, int radix, int scale, RoundingMode roundingMode) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
+		
+		BigInteger[] fraction = parseFraction(val, radix);
+		if (fraction != null) {
+			BigInteger n = fraction[0];
+			BigInteger d = fraction[1];
+			
+			return divide(new BigDecimal(n), new BigDecimal(d), scale, roundingMode);
+		}
+		
+		String strNum = val;
+		
+		int prefixIdx = 0;
+		int suffixIdx = strNum.length();
+		boolean negative = false;
+		
+		if (strNum.startsWith("+")) {
+			prefixIdx += 1;
+		} else if (strNum.startsWith("-")) {
+			prefixIdx += 1;
+			negative = true;
+		}
+		
+		if ((radix == 2 && (strNum.startsWith("0b", prefixIdx) || strNum.startsWith("0B", prefixIdx)))
+				|| (radix == 8 && (strNum.startsWith("0o", prefixIdx) || strNum.startsWith("0O", prefixIdx)))
+				|| (radix == 16 && (strNum.startsWith("0x", prefixIdx) || strNum.startsWith("0X", prefixIdx)))
+				) {
+			prefixIdx += 2;
+		}
+		
+		boolean truncatedDecimal = strNum.endsWith(TRUNCATED_DECIMAL_SUFFIX);
+		if (truncatedDecimal) {
+			suffixIdx -= TRUNCATED_DECIMAL_SUFFIX.length();
+		}
+		
+		BigDecimal bigDec;
+		
+		int decMarkIdx = strNum.indexOf('.', prefixIdx, suffixIdx);
+		if (decMarkIdx == -1) {
+			// Integer
+			String intPartStr = strNum.substring(prefixIdx, suffixIdx);
+			try {
+				bigDec = new BigDecimal(new BigInteger(intPartStr, radix));
 			} catch (NumberFormatException e) {
 				return null;
 			}
 		} else {
-			int decPartLen = val.length() - decMarkIdx - 1;
-
-			boolean negative;
-			BigDecimal intPart;
-			try {
-				String intPartStr = val.substring(0, decMarkIdx);
-				if (intPartStr.isEmpty() || intPartStr.equals("+") || intPartStr.equals("-")) {
-					intPart = BigDecimal.ZERO;
-				} else {
-					intPart = new BigDecimal(new BigInteger(intPartStr, radix));
+			// Decimal
+			String intPartStr = strNum.substring(prefixIdx, decMarkIdx);
+			String decPartStr = strNum.substring(decMarkIdx + 1, suffixIdx);
+			String unscaledDigits = intPartStr + decPartStr;
+			int decPartLen = decPartStr.length();
+			
+			if (truncatedDecimal) {
+				try {
+					BigInteger[] decFraction = toFraction(unscaledDigits, radix, negative, decPartLen, truncatedDecimal);
+					BigInteger n = decFraction[0];
+					BigInteger d = decFraction[1];
+					
+					return divide(new BigDecimal(n), new BigDecimal(d), scale, roundingMode);
+				} catch (NumberFormatException e) {
+					// NOP
+				}
+			}
+			
+			if (radix == 10) {
+				try {
+					bigDec = new BigDecimal(new BigInteger(unscaledDigits), decPartLen);
+				} catch (NumberFormatException e) {
+					return null;
+				}
+			} else {
+				// radix != 10
+				try {
+					bigDec = new BigDecimal(new BigInteger(unscaledDigits, radix));
+				} catch (NumberFormatException e) {
+					return null;
 				}
 				
-				negative = (intPartStr.startsWith("-") || intPart.signum() < 0); // if -0 then signum() == 0, so store the sign
-			} catch (NumberFormatException e) {
-				return null;
+				if (0 < decPartLen) {
+					if (bigDec.signum() != 0) {
+						bigDec = divide(bigDec, BigDecimal.valueOf(radix).pow(decPartLen), scale, roundingMode);
+					}
+					if (bigDec.scale() == 0) {
+						bigDec = bigDec.setScale(1);
+					}
+				}
 			}
-			if (decPartLen == 0) {
-				return intPart;
-			}
-			
-			BigDecimal decPart;
-			try {
-				decPart = new BigDecimal(new BigInteger(val.substring(decMarkIdx + 1), radix));
-			} catch (NumberFormatException e) {
-				return null;
-			}
-			if (decPart.signum() == 0) {
-				return intPart.setScale(1);
-			}
-			
-			if (0 <= maxScale) {
-				decPart = decPart.divide(BigDecimal.valueOf(radix).pow(decPartLen), maxScale, RoundingMode.HALF_EVEN).stripTrailingZeros();
-			} else {
-				decPart = decPart.divide(BigDecimal.valueOf(radix).pow(decPartLen));
-			}
-			
-			if (negative) {
-				return intPart.subtract(decPart);
-			} else {
-				return intPart.add(decPart);
-			}
+		}
+		
+		if (negative) {
+			bigDec = bigDec.negate();
+		}
+		
+		return bigDec;
+	}
+	
+	private static BigDecimal divide(BigDecimal dividend, BigDecimal divisor, int scale, RoundingMode roundingMode) {
+		try {
+			return dividend.divide(divisor, MathContext.UNLIMITED);
+		} catch (ArithmeticException e) {
+			return dividend.divide(divisor, scale, roundingMode);
 		}
 	}
 	
@@ -243,5 +299,289 @@ public class NumberParser {
 		} catch (NumberParseException | ArithmeticException e) {
 			return null;
 		}
+	}
+	
+	public static BigInteger[] parseFraction(String val, int radix) {
+		if (val == null || val.isEmpty()) {
+			return null;
+		}
+		
+		Matcher m = FRACTION_PATTERN.matcher(val);
+		if (!m.matches()) {
+			return null;
+		}
+		
+		BigDecimal dn = parseN(m.group(1), radix);
+		BigDecimal dd = parseN(m.group(2), radix);
+		if (dn == null || dd == null) {
+			return null;
+		}
+		if (dd.signum() == 0) {
+			return null;
+		}
+		
+		int maxScale = Math.max(dn.scale(), dd.scale());
+		
+		BigInteger n = dn.movePointRight(maxScale).toBigIntegerExact();
+		BigInteger d = dd.movePointRight(maxScale).toBigIntegerExact();
+		
+		return new BigInteger[]{n, d};
+	}
+	
+	public static BigInteger[] toFraction(BigDecimal bigDec, boolean truncatedDecimal) {
+		if (bigDec == null) {
+			return null;
+		}
+		
+		int scale = bigDec.scale();
+		if (scale <= 0) {
+			// Has no decimal part
+			// (Integer part only)
+			return new BigInteger[] {bigDec.toBigInteger(), BigInteger.ONE};
+		}
+		
+		BigInteger unscaledNum = bigDec.unscaledValue();
+		String unscaledDigits = unscaledNum.abs().toString();
+		boolean negative = (bigDec.signum() < 0);
+		
+		return toFraction(unscaledDigits, 10, negative, scale, truncatedDecimal);
+	}
+	
+	private static BigInteger[] toFraction(String unscaledDigits, int radix, boolean negative, int scale, boolean truncatedDecimal) {
+		if (unscaledDigits == null || unscaledDigits.isEmpty()) {
+			return null;
+		}
+		
+		if (scale <= 0) {
+			// Has no decimal part
+			// (Integer part only)
+			return new BigInteger[] {
+					new BigInteger(unscaledDigits + repeat('0', -scale), radix),
+					BigInteger.ONE
+					};
+		}
+		
+		BigInteger n;
+		BigInteger d;
+		
+		if (truncatedDecimal) {
+			RepeatingInfo rep = analyzeRepeatingDecimal(unscaledDigits);
+			
+			if (1 <= rep.count()) {
+				// Repeating decimal
+				
+				int zeros = scale - unscaledDigits.length() + rep.startIndex();
+				
+				// Repeating part
+				String repetend = unscaledDigits.substring(rep.startIndex(), rep.startIndex() + rep.repetendLength());
+				n = new BigInteger(repetend + repeat('0', -zeros), radix);
+				d = new BigInteger(repeat(Character.forDigit(radix - 1, radix), rep.repetendLength()) + repeat('0', zeros), radix);
+				
+				if (1 <= rep.startIndex()) {
+					// Non-repeating part
+					String nonRepetend = unscaledDigits.substring(0, rep.startIndex());
+					BigInteger n2 = new BigInteger(nonRepetend + repeat('0', -zeros), radix);
+					BigInteger d2 = new BigInteger("1" + repeat('0', zeros), radix);
+					
+					// n/d + n2/d2
+					n = n.multiply(d2).add(n2.multiply(d));
+					d = d.multiply(d2);
+				}
+			} else {
+				// Non-repeating decimal (Truncated rational number)
+				n = new BigInteger(unscaledDigits, radix);
+				d = BigInteger.valueOf(radix).pow(scale);
+			}
+		} else {
+			// Terminating decimal
+			n = new BigInteger(unscaledDigits, radix);
+			d = BigInteger.valueOf(radix).pow(scale);
+		}
+		
+		if (negative) {
+			n = n.negate();
+		}
+		
+		return new BigInteger[] {n, d};
+	}
+	
+	public static BigInteger[] reduceFraction(BigInteger[] fraction) {
+		if (fraction == null) {
+			return null;
+		}
+		
+		BigInteger n = fraction[0];
+		BigInteger d = fraction[1];
+		
+		if (d.signum() == 0 || d.compareTo(BigInteger.ONE) == 0) {
+			// d == 0 or 1
+			return fraction;
+		}
+		
+		BigInteger gcd = n.gcd(d);
+		if (gcd.compareTo(BigInteger.ONE) == 0) {
+			return fraction;
+		}
+		
+		n = n.divide(gcd);
+		d = d.divide(gcd);
+		
+		return new BigInteger[] {n, d};
+	}
+
+	protected static RepeatingInfo analyzeRepeatingDecimal(String digits) {
+		return analyzeRepeatingDecimal(digits, 0, digits.length());
+	}
+	
+	protected static RepeatingInfo analyzeRepeatingDecimal(String digits, int beginIdx, int endIdx) {
+		if (digits.length() < endIdx) {
+			endIdx = digits.length();
+		}
+		
+		int lastDigitIdx = endIdx - 1;
+		
+		for (int startIdx = beginIdx; startIdx < endIdx; startIdx++) {
+			char digit = digits.charAt(startIdx);
+			
+			int repeatIdx = startIdx;
+			NEXT_MATCH: while ((repeatIdx = digits.indexOf(digit, repeatIdx + 1)) != -1) {
+				int repetendLen = repeatIdx - startIdx;
+				
+				int repeatingCount = (endIdx - repeatIdx) / repetendLen;
+				if (repeatingCount == 0) {
+					break;
+				}
+				
+				int oddRepetendLen = (endIdx - repeatIdx) % repetendLen;
+				if (oddRepetendLen != 0) {
+					repeatingCount++;
+				}
+				
+				int roundingDiff = 0;
+				for (int i = 0; i < repetendLen; i++) {
+					// Compare each digits in the repetend
+					
+					char ch1 = digits.charAt(startIdx + i);
+					
+					for (int ri = repeatIdx + i; ri < endIdx; ri += repetendLen) {
+						// Check all repetends
+						char ch2 = digits.charAt(ri);
+						if (ch1 != ch2) {
+							if (ri == lastDigitIdx) {
+								// The last digit may be rounded
+								// So ignore it and return the difference
+								roundingDiff = digitToNum(ch2) - digitToNum(ch1);
+							} else {
+								continue NEXT_MATCH;
+							}
+						}
+					}
+				}
+				
+				return new RepeatingInfo(repeatingCount, startIdx, repetendLen, oddRepetendLen, roundingDiff);
+			}
+		}
+		
+		// Non-repeating decimal
+		return RepeatingInfo.NO_MATCHED;
+	}
+	
+	private static BigDecimal increasePrecision(BigDecimal bigDec, int scale, RoundingMode roundingMode) {
+		if (bigDec == null) {
+			return null;
+		}
+		
+		if (bigDec.scale() <= 0) {
+			return bigDec;
+		}
+		
+		BigInteger[] fraction = toFraction(bigDec, true);
+		if (fraction == null) {
+			return bigDec;
+		}
+		
+		BigInteger n = fraction[0];
+		BigInteger d = fraction[1];
+		if (d.compareTo(BigInteger.ONE) == 0) {
+			return bigDec;
+		}
+		
+		return divide(new BigDecimal(n), new BigDecimal(d), scale, roundingMode);
+	}
+	
+	public static String truncateRepeatingDecimal(String strNum, int maxRepetendCount) {
+		if (strNum == null) {
+			return null;
+		}
+		
+		int endIdx = strNum.length();
+		if (strNum.endsWith(TRUNCATED_DECIMAL_SUFFIX)) {
+			endIdx -= TRUNCATED_DECIMAL_SUFFIX.length();
+		}
+		
+		int decPointIdx = strNum.indexOf('.', 0, endIdx);
+		if (decPointIdx == -1) {
+			return strNum;
+		}
+		
+		RepeatingInfo rep = analyzeRepeatingDecimal(strNum, decPointIdx + 1, endIdx);
+		if (rep.count() < maxRepetendCount) {
+			return strNum;
+		}
+		
+		// Repeating decimal
+		strNum = strNum.substring(0, rep.startIndex() + (rep.repetendLength() * maxRepetendCount));
+		strNum = toTruncatedDecimal(strNum);
+		
+		return strNum;
+	}
+	
+	public static boolean isTruncatedDecimal(String strNum) {
+		if (strNum == null) {
+			return false;
+		}
+		
+		return strNum.endsWith(TRUNCATED_DECIMAL_SUFFIX);
+	}
+	
+	public static String toTruncatedDecimal(String strNum) {
+		if (strNum == null) {
+			return null;
+		}
+		
+		if (isTruncatedDecimal(strNum)) {
+			return strNum;
+		}
+		
+		if (strNum.indexOf('.') == -1) {
+			return strNum;
+		}
+		
+		return strNum + TRUNCATED_DECIMAL_SUFFIX;
+	}
+	
+	private static String removeTruncatedDecimalSuffix(String strNum) {
+		if (strNum.endsWith(TRUNCATED_DECIMAL_SUFFIX)) {
+			// Remove "..." suffix
+			return strNum.substring(0, strNum.length() - TRUNCATED_DECIMAL_SUFFIX.length());
+		}
+		
+		return strNum;
+	}
+	
+	private static int digitToNum(char ch) {
+		int num = Character.digit(ch, Character.MAX_RADIX);
+		if (num == -1) {
+			num = 0;
+		}
+		return num;
+	}
+	
+	private static String repeat(char ch, int len) {
+		if (len <= 0) {
+			return "";
+		}
+		
+		return new StringBuilder(len).repeat(ch, len).toString();
 	}
 }
