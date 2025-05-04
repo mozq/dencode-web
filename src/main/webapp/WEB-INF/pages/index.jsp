@@ -137,6 +137,8 @@
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/hex" data-dencode-method="number.hex">${mf:h(msg['number.hex.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/n-ary" data-dencode-method="number.n-ary">${mf:h(msg['number.n-ary.method'])}</a></li>
 							<li class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/fraction" data-dencode-method="number.fraction">${mf:h(msg['number.fraction.method'])}</a></li>
+							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/english" data-dencode-method="number.english">${mf:h(msg['number.english.method'])}</a></li>
 							<li><a class="dropdown-item" href="${mf:h(basePath)}/number/japanese" data-dencode-method="number.japanese">${mf:h(msg['number.japanese.method'])}</a></li>
 						</ul>
@@ -1460,6 +1462,9 @@
 									</div>
 								</div>
 							</td></tr></c:if>
+						</tbody>
+						<tbody>
+							<c:if test="${methods.contains('number.fraction')}"><tr data-dencode-method="number.fraction"><th>${mf:h(msg['number.fraction.func.encNumFraction'])}</th><td><span id="encNumFraction" class="for-disp"></span></td></tr></c:if>
 						</tbody>
 						<tbody>
 							<c:if test="${methods.contains('number.english')}"><tr data-dencode-method="number.english"><th>${mf:h(msg['number.english.func.encNumEnShortScale'])}</th><td><span id="encNumEnShortScale" class="for-disp"></span>

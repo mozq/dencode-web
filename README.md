@@ -70,6 +70,7 @@ gcloud config set project {PROJECT_ID}
     - [Octal Numbers](https://dencode.com/number/oct)
     - [Hexadecimal Numbers](https://dencode.com/number/hex)
     - [N-ary Numbers](https://dencode.com/number/n-ary)
+    - [Fraction Numbers](https://dencode.com/number/fraction)
     - [English Numerals](https://dencode.com/number/english)
     - [Kanji Numerals](https://dencode.com/number/japanese)
 - [Date](https://dencode.com/date)
