@@ -226,14 +226,12 @@ public class NumberParser {
 			int decPartLen = decPartStr.length();
 			
 			if (truncatedDecimal) {
-				try {
-					BigInteger[] decFraction = toFraction(unscaledDigits, radix, negative, decPartLen, truncatedDecimal);
+				BigInteger[] decFraction = toFraction(unscaledDigits, radix, negative, decPartLen, truncatedDecimal);
+				if (decFraction != null) {
 					BigInteger n = decFraction[0];
 					BigInteger d = decFraction[1];
 					
 					return divide(new BigDecimal(n), new BigDecimal(d), scale, roundingMode);
-				} catch (NumberFormatException e) {
-					// NOP
 				}
 			}
 			
@@ -355,47 +353,55 @@ public class NumberParser {
 		if (scale <= 0) {
 			// Has no decimal part
 			// (Integer part only)
-			return new BigInteger[] {
-					new BigInteger(unscaledDigits + repeat('0', -scale), radix),
-					BigInteger.ONE
-					};
+			try {
+				return new BigInteger[] {
+						new BigInteger(unscaledDigits + repeat('0', -scale), radix),
+						BigInteger.ONE
+						};
+			} catch (NumberFormatException e) {
+				return null;
+			}
 		}
 		
 		BigInteger n;
 		BigInteger d;
 		
-		if (truncatedDecimal) {
-			RepeatingInfo rep = analyzeRepeatingDecimal(unscaledDigits);
-			
-			if (1 <= rep.count()) {
-				// Repeating decimal
+		try {
+			if (truncatedDecimal) {
+				RepeatingInfo rep = analyzeRepeatingDecimal(unscaledDigits);
 				
-				int zeros = scale - unscaledDigits.length() + rep.startIndex();
-				
-				// Repeating part
-				String repetend = unscaledDigits.substring(rep.startIndex(), rep.startIndex() + rep.repetendLength());
-				n = new BigInteger(repetend + repeat('0', -zeros), radix);
-				d = new BigInteger(repeat(Character.forDigit(radix - 1, radix), rep.repetendLength()) + repeat('0', zeros), radix);
-				
-				if (1 <= rep.startIndex()) {
-					// Non-repeating part
-					String nonRepetend = unscaledDigits.substring(0, rep.startIndex());
-					BigInteger n2 = new BigInteger(nonRepetend + repeat('0', -zeros), radix);
-					BigInteger d2 = new BigInteger("1" + repeat('0', zeros), radix);
+				if (1 <= rep.count()) {
+					// Repeating decimal
 					
-					// n/d + n2/d2
-					n = n.multiply(d2).add(n2.multiply(d));
-					d = d.multiply(d2);
+					int zeros = scale - unscaledDigits.length() + rep.startIndex();
+					
+					// Repeating part
+					String repetend = unscaledDigits.substring(rep.startIndex(), rep.startIndex() + rep.repetendLength());
+					n = new BigInteger(repetend + repeat('0', -zeros), radix);
+					d = new BigInteger(repeat(Character.forDigit(radix - 1, radix), rep.repetendLength()) + repeat('0', zeros), radix);
+					
+					if (1 <= rep.startIndex()) {
+						// Non-repeating part
+						String nonRepetend = unscaledDigits.substring(0, rep.startIndex());
+						BigInteger n2 = new BigInteger(nonRepetend + repeat('0', -zeros), radix);
+						BigInteger d2 = new BigInteger("1" + repeat('0', zeros), radix);
+						
+						// n/d + n2/d2
+						n = n.multiply(d2).add(n2.multiply(d));
+						d = d.multiply(d2);
+					}
+				} else {
+					// Non-repeating decimal (Truncated rational number)
+					n = new BigInteger(unscaledDigits, radix);
+					d = BigInteger.valueOf(radix).pow(scale);
 				}
 			} else {
-				// Non-repeating decimal (Truncated rational number)
+				// Terminating decimal
 				n = new BigInteger(unscaledDigits, radix);
 				d = BigInteger.valueOf(radix).pow(scale);
 			}
-		} else {
-			// Terminating decimal
-			n = new BigInteger(unscaledDigits, radix);
-			d = BigInteger.valueOf(radix).pow(scale);
+		} catch (NumberFormatException e) {
+			return null;
 		}
 		
 		if (negative) {
