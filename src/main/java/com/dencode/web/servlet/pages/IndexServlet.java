@@ -31,8 +31,6 @@ import java.util.stream.Collectors;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.mifmi.commons4j.util.DateUtilz;
-
 import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
@@ -109,10 +107,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		String oe = "UTF-8";
 		String oex = message("oe.ext.default");
 		String nl = "crlf";
-		String tz = DateUtilz.localeToTimeZoneID(request().getLocale());
-		if (tz == null) {
-			tz = "UTC";
-		}
+		String tz = "UTC";
 		
 		String type = reqres().attribute("type");
 		if (type == null) {
