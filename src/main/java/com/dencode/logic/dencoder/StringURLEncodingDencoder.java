@@ -20,8 +20,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -80,11 +78,11 @@ public class StringURLEncodingDencoder {
 	}
 	
 	private static String decStrURLEncoding(String val, Charset charset) {
-		if (!StringUtilz.isASCII(val)) {
+		if (!DencodeUtils.isASCII(val)) {
 			return null;
 		}
 		
-		int sidx = StringUtilz.indexOf(val, DECODING_SYMBOLS);
+		int sidx = DencodeUtils.indexOf(val, DECODING_SYMBOLS);
 		if (sidx == -1) {
 			return val;
 		}

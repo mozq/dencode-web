@@ -18,20 +18,12 @@ package com.dencode.logic.dencoder;
 
 import java.text.Normalizer;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
 
 @Dencoder(type="cipher", method="cipher.caesar", hasEncoder=true, hasDecoder=true)
 public class CipherCaesarDencoder {
-
-	private static final char[] CYRILLIC_I_CHARS = new char[] { 'И', 'и' };
-	private static final char CYRILLIC_BREVE_CHAR = '\u0306';
-	private static final String[] CYRILLIC_I_BREVE = new String[] { "И\u0306", "и\u0306" };
-	private static final String[] CYRILLIC_SHORT_I = new String[] { "Й", "й" };
-	
 	
 	private CipherCaesarDencoder() {
 		// NOP
@@ -89,15 +81,6 @@ public class CipherCaesarDencoder {
 		
 		val = Normalizer.normalize(val, Normalizer.Form.NFD);
 		
-		// for diacritical mark support
-		int idxBrave = val.indexOf(CYRILLIC_BREVE_CHAR);
-		if (idxBrave != -1) {
-			if (StringUtilz.indexOf(val, CYRILLIC_I_CHARS, idxBrave - 1) != -1) {
-				// Breve (U+0306) of 'Й' and 'й' is not a diacritical mark
-				val = StringUtilz.replaceAll(val, CYRILLIC_I_BREVE, CYRILLIC_SHORT_I);
-			}
-		}
-		
 		int len = val.length();
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++) {
@@ -117,9 +100,21 @@ public class CipherCaesarDencoder {
 				ch = (char)((ch - 'ａ' + shiftLatin) % 26 + 'ａ');
 			} else if ('А' <= ch && ch <= 'Я') {
 				// Cyrillic upper alphabets
+				if (ch == 'И' && DencodeUtils.charAt(val, i + 1) == '\u0306') {
+					// Breve (U+0306) of 'Й' is not a diacritical mark
+					// "И\u0306" to "Й"
+					ch = 'Й';
+					i++;
+				}
 				ch = (char)((ch - 'А' + shiftCyrillic) % 32 + 'А');
 			} else if ('а' <= ch && ch <= 'я') {
 				// Cyrillic lower alphabets
+				if (ch == 'и' && DencodeUtils.charAt(val, i + 1) == '\u0306') {
+					// Breve (U+0306) of 'й' is not a diacritical mark
+					// "и\u0306" to "й"
+					ch = 'й';
+					i++;
+				}
 				ch = (char)((ch - 'а' + shiftCyrillic) % 32 + 'а');
 			}
 			

@@ -19,12 +19,10 @@ package com.dencode.logic.dencoder;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.mifmi.commons4j.util.NumberUtilz;
-import org.mifmi.commons4j.util.exception.NumberParseException;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
+import com.dencode.logic.util.JapaneseNumberUtils;
 
 @Dencoder(type="number", method="number.japanese", hasEncoder=true, hasDecoder=true)
 public class NumberJapaneseDencoder {
@@ -57,8 +55,8 @@ public class NumberJapaneseDencoder {
 			}
 			
 			try {
-				return NumberUtilz.toJPNum(bigDec, false, false, false);
-			} catch (NumberParseException e) {
+				return JapaneseNumberUtils.toJPNum(bigDec, false, false, false);
+			} catch (IllegalArgumentException e) {
 				return null;
 			}
 		});
@@ -71,8 +69,8 @@ public class NumberJapaneseDencoder {
 			}
 			
 			try {
-				return NumberUtilz.toJPNum(bigDec, true, true, false);
-			} catch (NumberParseException e) {
+				return JapaneseNumberUtils.toJPNum(bigDec, true, true, false);
+			} catch (IllegalArgumentException e) {
 				return null;
 			}
 		});
@@ -82,8 +80,8 @@ public class NumberJapaneseDencoder {
 		return DencodeUtils.dencodeLines(vals, (val) -> {
 			BigDecimal bigDec;
 			try {
-				bigDec = NumberUtilz.parseJPNum(val);
-			} catch (NumberParseException | ArithmeticException e) {
+				bigDec = JapaneseNumberUtils.parseJPNum(val);
+			} catch (IllegalArgumentException e) {
 				return null;
 			}
 			

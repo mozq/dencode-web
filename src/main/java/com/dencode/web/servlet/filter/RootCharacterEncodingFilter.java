@@ -16,13 +16,29 @@
  */
 package com.dencode.web.servlet.filter;
 
-import org.mifmi.commons4j.web.servlet.filter.CharacterEncodingFilter;
+import java.io.IOException;
 
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.annotation.WebInitParam;
 
-@WebFilter(urlPatterns = "/*", initParams = {
-		@WebInitParam(name = "charset", value = "UTF-8"),
-		})
-public class RootCharacterEncodingFilter extends CharacterEncodingFilter {
+@WebFilter(urlPatterns = "/*")
+public class RootCharacterEncodingFilter implements Filter {
+	
+	private static String CHARSET = "UTF-8";
+	
+	public void init(FilterConfig config) throws ServletException {
+	}
+	
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+		request.setCharacterEncoding(CHARSET);
+		chain.doFilter(request,response);
+	}
+	
+	public void destroy() {
+	}
 }

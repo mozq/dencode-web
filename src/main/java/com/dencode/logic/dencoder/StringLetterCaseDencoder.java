@@ -18,8 +18,6 @@ package com.dencode.logic.dencoder;
 
 import java.util.Locale;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -82,11 +80,65 @@ public class StringLetterCaseDencoder {
 	}
 	
 	private static String encStrSwapCase(String val) {
-		return StringUtilz.swapCase(val);
+		if (val == null || val.isEmpty()) {
+			return val;
+		}
+		
+		boolean first = true;
+		int len = val.length();
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; ) {
+			int cp = val.codePointAt(i);
+			
+			if (Character.isWhitespace(cp)) {
+				first = true;
+			} else {
+				first = false;
+				
+				if (Character.isLowerCase(cp)) {
+					if (first) {
+						cp = Character.toTitleCase(cp);
+					} else {
+						cp = Character.toUpperCase(cp);
+					}
+				} else if (Character.isUpperCase(cp) || Character.isTitleCase(cp)) {
+					cp = Character.toLowerCase(cp);
+				} else {
+					// NOP
+				}
+			}
+			
+			sb.appendCodePoint(cp);
+			
+			i += Character.charCount(cp);
+		}
+		
+		return sb.toString();
 	}
 	
 	private static String encStrCapitalize(String val) {
-		return StringUtilz.capitalize(val, true);
+		if (val == null || val.isEmpty()) {
+			return val;
+		}
+		
+		boolean first = true;
+		int len = val.length();
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; ) {
+			int cp = val.codePointAt(i);
+			
+			if (first) {
+				sb.appendCodePoint(Character.toTitleCase(cp));
+			} else {
+				sb.appendCodePoint(cp);
+			}
+			
+			first = Character.isWhitespace(cp);
+			
+			i += Character.charCount(cp);
+		}
+		
+		return sb.toString();
 	}
 	
 	private static String encStrAlternatingCaps(String val, boolean firstUpper) {
@@ -101,10 +153,10 @@ public class StringLetterCaseDencoder {
 			if (Character.isWhitespace(ch)) {
 				sb.append(ch);
 			} else {
-				if (Character.isUpperCase(ch) && !upper) {
+				if (!upper && (Character.isUpperCase(ch) || Character.isTitleCase(ch))) {
 					// Upper to lower
 					sb.append(Character.toLowerCase(ch));
-				} else if (Character.isLowerCase(ch) && upper) {
+				} else if (upper && Character.isLowerCase(ch)) {
 					// Lower to upper
 					sb.append(Character.toUpperCase(ch));
 				} else {
@@ -126,7 +178,7 @@ public class StringLetterCaseDencoder {
 		for (int i = 0; i < len; i++) {
 			char ch = val.charAt(i);
 			
-			if (Character.isUpperCase(ch)) {
+			if (Character.isUpperCase(ch) || Character.isTitleCase(ch)) {
 				boolean vowels = switch (ch) {
 					case 'A', 'E', 'I', 'O', 'U' -> true; // Half-width
 					case 'Ａ', 'Ｅ', 'Ｉ', 'Ｏ', 'Ｕ' -> true; // Full-width

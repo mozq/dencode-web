@@ -19,12 +19,10 @@ package com.dencode.logic.dencoder;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.mifmi.commons4j.util.NumberUtilz;
-import org.mifmi.commons4j.util.exception.NumberParseException;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
+import com.dencode.logic.util.EnglishNumberUtils;
 
 @Dencoder(type="number", method="number.english", hasEncoder=true, hasDecoder=true)
 public class NumberEnglishDencoder {
@@ -49,9 +47,14 @@ public class NumberEnglishDencoder {
 	}
 	
 	
-	private static String encNumEnShortScale(List<BigDecimal> vals, String decimalNotation, String system) {
-		boolean fractionDec = (decimalNotation.equals("fraction"));
-		boolean useConwayWechslerSystem = (system.equals("cw"));
+	private static String encNumEnShortScale(List<BigDecimal> vals, String optDecimalNotation, String optSystem) {
+		EnglishNumberUtils.DecimalNotation decimalNotation = (optDecimalNotation.equals("fraction"))
+				? EnglishNumberUtils.DecimalNotation.FRACTION
+				: EnglishNumberUtils.DecimalNotation.POINT;
+		
+		EnglishNumberUtils.System system = (optSystem.equals("cw"))
+				? EnglishNumberUtils.System.CONWAY_WECHSLER
+				: EnglishNumberUtils.System.CW4EN;
 		
 		return DencodeUtils.dencodeLines(vals, (bigDec) -> {
 			if (bigDec == null) {
@@ -59,8 +62,8 @@ public class NumberEnglishDencoder {
 			}
 			
 			try {
-				return NumberUtilz.toEnNumShortScale(bigDec, fractionDec, useConwayWechslerSystem);
-			} catch (NumberParseException e) {
+				return EnglishNumberUtils.toEnNum(bigDec, decimalNotation, system);
+			} catch (IllegalArgumentException e) {
 				return null;
 			}
 		});
@@ -70,8 +73,8 @@ public class NumberEnglishDencoder {
 		return DencodeUtils.dencodeLines(vals, (val) -> {
 			BigDecimal bigDec;
 			try {
-				bigDec = NumberUtilz.parseEnNumShortScale(val);
-			} catch (NumberParseException | ArithmeticException e) {
+				bigDec = EnglishNumberUtils.parseEnNum(val);
+			} catch (IllegalArgumentException e) {
 				return null;
 			}
 			

@@ -26,9 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.mifmi.commons4j.graphics.color.RGBColor;
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.parser.ColorParser;
 import com.dencode.logic.parser.DateParser;
 import com.dencode.logic.parser.NumberParser;
@@ -61,10 +58,10 @@ public class DencodeCondition {
 	private List<ZonedDateTime> datesValue;
 	
 	private boolean colorValueParsed;
-	private RGBColor colorValue;
+	private double[] colorValue;
 	
 	private boolean colorsValueParsed;
-	private List<RGBColor> colorsValue;
+	private List<double[]> colorsValue;
 	
 	private Map<String, String> options;
 	
@@ -80,7 +77,7 @@ public class DencodeCondition {
 		
 		this.linesValue = List.of(this.value.split("\r?\n", -1));
 		if (1 < this.linesValue.size()) {
-			this.value = StringUtilz.join(this.lineBreak, this.linesValue);
+			this.value = String.join(this.lineBreak, this.linesValue);
 		}
 		
 		this.textLengthDiff = (this.linesValue.isEmpty()) ? 0 : -((this.lineBreak.length() - 1) * (this.linesValue.size() - 1));
@@ -144,7 +141,7 @@ public class DencodeCondition {
 		if (!this.codePointsWithLfValueParsed) {
 			String value = value();
 			if (1 < valueAsLines().size()) {
-				value = StringUtilz.join("\n", valueAsLines());
+				value = String.join("\n", valueAsLines());
 			}
 			this.codePointsWithLfValue = value.codePoints().toArray();
 			this.codePointsWithLfValueParsed = true;
@@ -184,7 +181,7 @@ public class DencodeCondition {
 		return this.datesValue;
 	}
 	
-	public RGBColor valueAsColor() {
+	public double[] valueAsColor() {
 		if (!this.colorValueParsed) {
 			this.colorValue = ColorParser.parseColor(value());
 			this.colorValueParsed = true;
@@ -192,7 +189,7 @@ public class DencodeCondition {
 		return this.colorValue;
 	}
 	
-	public List<RGBColor> valueAsColors() {
+	public List<double[]> valueAsColors() {
 		if (!this.colorsValueParsed) {
 			this.colorsValue = valueAsParsedLines((val) -> ColorParser.parseColor(val));
 			this.colorsValueParsed = true;

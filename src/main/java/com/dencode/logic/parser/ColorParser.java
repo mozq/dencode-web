@@ -19,12 +19,7 @@ package com.dencode.logic.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.graphics.color.CMYColor;
-import org.mifmi.commons4j.graphics.color.CMYKColor;
-import org.mifmi.commons4j.graphics.color.HSLColor;
-import org.mifmi.commons4j.graphics.color.HSVColor;
-import org.mifmi.commons4j.graphics.color.HWBColor;
-import org.mifmi.commons4j.graphics.color.RGBColor;
+import com.dencode.logic.util.ColorNameUtils;
 
 public class ColorParser {
 	
@@ -45,7 +40,7 @@ public class ColorParser {
 		// NOP
 	}
 	
-	public static RGBColor parseColor(String val) {
+	public static double[] parseColor(String val) {
 		if (val == null || val.isEmpty()) {
 			return null;
 		}
@@ -56,7 +51,7 @@ public class ColorParser {
 		
 		String lv = val.trim().toLowerCase();
 		
-		RGBColor namedColor = RGBColor.fromName(lv);
+		double[] namedColor = ColorNameUtils.toRGBA(lv);
 		if (namedColor != null) {
 			return namedColor;
 		}
@@ -75,7 +70,7 @@ public class ColorParser {
 					b = Math.min(Math.max(b, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new RGBColor(r, g, b, a);
+					return new double[] {r, g, b, a};
 				}
 			} else if (lv.startsWith("hsl")) {
 				Matcher hslFnMatcher = COLOR_HSL_FN_PATTERN.matcher(lv);
@@ -90,7 +85,7 @@ public class ColorParser {
 					l = Math.min(Math.max(l, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new HSLColor(h, s, l, a).toRGB();
+					return fromHSL(h, s, l, a);
 				}
 			} else if (lv.startsWith("hsv")) {
 				Matcher hsvFnMatcher = COLOR_HSV_FN_PATTERN.matcher(lv);
@@ -105,7 +100,7 @@ public class ColorParser {
 					v = Math.min(Math.max(v, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new HSVColor(h, s, v, a).toRGB();
+					return fromHSV(h, s, v, a);
 				}
 			} else if (lv.startsWith("hwb")) {
 				Matcher hwbFnMatcher = COLOR_HWB_FN_PATTERN.matcher(lv);
@@ -120,7 +115,7 @@ public class ColorParser {
 					b = Math.min(Math.max(b, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new HWBColor(h, w, b, a).toRGB();
+					return fromHWB(h, w, b, a);
 				}
 			} else if (lv.startsWith("gray")) {
 				Matcher grayFnMatcher = COLOR_GRAY_FN_PATTERN.matcher(lv);
@@ -131,7 +126,7 @@ public class ColorParser {
 					g = Math.min(Math.max(g, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new RGBColor(g, g, g, a);
+					return new double[] {g, g, g, a};
 				}
 			} else if (lv.startsWith("cmyk") || lv.startsWith("device-cmyk")) {
 				Matcher cmykFnMatcher = COLOR_CMYK_FN_PATTERN.matcher(lv);
@@ -148,7 +143,7 @@ public class ColorParser {
 					k = Math.min(Math.max(k, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new CMYKColor(c, m, y, k, a).toRGB();
+					return fromCMYK(c, m, y, k, a);
 				}
 			} else if (lv.startsWith("cmy") || lv.startsWith("device-cmy")) {
 				Matcher cmyFnMatcher = COLOR_CMY_FN_PATTERN.matcher(lv);
@@ -163,7 +158,7 @@ public class ColorParser {
 					y = Math.min(Math.max(y, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 
-					return new CMYColor(c, m, y, a).toRGB();
+					return fromCMY(c, m, y, a);
 				}
 			} else {
 				Matcher rgbHex6Matcher= COLOR_RGB_HEX6_PATTERN.matcher(lv);
@@ -178,7 +173,12 @@ public class ColorParser {
 						a = 1.0;
 					}
 					
-					return RGBColor.fromRGB8(r, g, b, a);
+					return new double[] {
+							((double) r) / 255.0,
+							((double) g) / 255.0,
+							((double) b) / 255.0,
+							a
+							};
 				}
 	
 				Matcher rgbHex3Matcher = COLOR_RGB_HEX3_PATTERN.matcher(lv);
@@ -200,7 +200,12 @@ public class ColorParser {
 						a = 1.0;
 					}
 					
-					return RGBColor.fromRGB8(r, g, b, a);
+					return new double[] {
+							((double) r) / 255.0,
+							((double) g) / 255.0,
+							((double) b) / 255.0,
+							a
+							};
 				}
 	
 				Matcher rgbCommaMatcher = COLOR_RGB_COMMA_PATTERN.matcher(lv);
@@ -215,7 +220,7 @@ public class ColorParser {
 					b = Math.min(Math.max(b, 0.0), 1.0);
 					a = Math.min(Math.max(a, 0.0), 1.0);
 					
-					return new RGBColor(r, g, b, a);
+					return new double[] {r, g, b, a};
 				}
 				
 			}
@@ -249,5 +254,90 @@ public class ColorParser {
 				return Double.parseDouble(val) / base;
 			}
 		}
+	}
+	
+	private static double[] fromHSL(double h, double s, double l, double a) {
+		double q;
+		if (l <= 0.5) {
+			q = l * (1.0 + s);
+		} else {
+			q = l + s - l * s;
+		}
+		double p = 2.0 * l - q;
+		
+		double r = hue2rgb(q, p, h + 120.0);
+		double g = hue2rgb(q, p, h);
+		double b = hue2rgb(q, p, h - 120.0);
+		
+		return new double[] {r, g, b, a};
+	}
+	
+	private static double hue2rgb(double p, double q, double hue) {
+		hue = (hue + 180.0) % 360.0;
+		if (hue < 60.0) {
+			return p + (q - p) * hue / 60.0;
+		} else if (hue < 180.0) {
+			return q;
+		} else if (hue < 240.0) {
+			return p + (q - p) * (240.0 - hue) / 60.0;
+		} else {
+			return p;
+		}
+	}
+	
+	private static double[] fromHSV(double h, double s, double v, double a) {
+		double hue = h % 360.0;
+		if (hue < 0) {
+			hue += 360.0;
+		}
+		
+		int i = (int) (hue / 60.0);
+		double f = hue / 60.0 - (double) i;
+		double p = v * (1 - s);
+		double q = v * (1 - f * s);
+		double t = v * (1 - (1 - f) * s);
+		
+		return switch (i) {
+			case 0 -> new double[] {v, t, p, a};
+			case 1 -> new double[] {q, v, p, a};
+			case 2 -> new double[] {p, v, t, a};
+			case 3 -> new double[] {p, q, v, a};
+			case 4 -> new double[] {t, p, v, a};
+			case 5 -> new double[] {v, p, q, a};
+			default -> throw new IllegalStateException();
+		};
+	}
+	
+	private static double[] fromHWB(double h, double w, double b, double a) {
+		double hue = h % 360.0;
+		if (hue < 0.0) {
+			hue += 360.0;
+		}
+		
+		double d = 1.0 - w - b;
+		d = Math.min(d, 0.0);
+		
+		double[] rgba = fromHSL(hue, 1.0, 0.5, a);
+		rgba[0] = rgba[0] * d + w; // R
+		rgba[1] = rgba[1] * d + w; // G
+		rgba[2] = rgba[2] * d + w; // B
+		
+		return rgba;
+	}
+	
+	private static double[] fromCMYK(double c, double m, double y, double k, double a) {
+		double r = 1.0 - Math.min(1.0, c + k);
+		double g = 1.0 - Math.min(1.0, m + k);
+		double b = 1.0 - Math.min(1.0, y + k);
+		
+		return new double[] {r, g, b, a};
+	}
+	
+	private static double[] fromCMY(double c, double m, double y, double a) {
+		double r = 1.0 - c;
+		double g = 1.0 - m;
+		double b = 1.0 - y;
+		
+		return new double[] {r, g, b, a};
 	}
 }

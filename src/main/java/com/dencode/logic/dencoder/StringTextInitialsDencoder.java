@@ -18,8 +18,6 @@ package com.dencode.logic.dencoder;
 
 import java.util.List;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -39,6 +37,30 @@ public class StringTextInitialsDencoder {
 	
 	
 	private static String encStrInitials(List<String> vals) {
-		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.initials(val));
+		return DencodeUtils.dencodeLines(vals, (val) -> initials(val));
+	}
+	
+	private static String initials(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		
+		boolean first = true;
+		int len = str.length();
+		StringBuilder sb = new StringBuilder(len / 2 + 1);
+		for (int i = 0; i < len; ) {
+			int cp = str.codePointAt(i);
+			
+			boolean nextFirst = Character.isWhitespace(cp);
+
+			if (first && !nextFirst) {
+				sb.appendCodePoint(cp);
+			}
+			
+			first = nextFirst;
+			i += Character.charCount(cp);
+		}
+		
+		return sb.toString();
 	}
 }

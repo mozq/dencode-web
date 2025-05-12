@@ -28,10 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.IntUnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.mifmi.commons4j.util.StringUtilz;
 
 import com.dencode.logic.parser.NumberParser;
 
@@ -41,6 +40,7 @@ public class DencodeUtils {
 	private static final char[] N_ARY_DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 	private static final char[] N_ARY_DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	
+	private static final Pattern WHITE_SPACE_PATTERN = Pattern.compile("\\s");
 	
 	private DencodeUtils() {
 		// NOP
@@ -92,7 +92,7 @@ public class DencodeUtils {
 			return null;
 		}
 		
-		return StringUtilz.join(separator, dencVals);
+		return String.join(separator, dencVals);
 	}
 	
 	protected static String getOption(Map<String, String> options, String key, String defaultValue) {
@@ -161,6 +161,132 @@ public class DencodeUtils {
 	protected static int parseDataSizeAsByte(String size) {
 		int bit = parseDataSizeAsBit(size);
 		return  (bit + 7) / 8; // Round UP
+	}
+	
+	protected static boolean isASCII(String str) {
+		if (str == null || str.isEmpty()) {
+			return true;
+		}
+		
+		return str.codePoints().noneMatch(cp -> ('\u007F' < cp));
+	}
+	
+	protected static int indexOf(String str, char[] chars) {
+		return indexOf(str, chars, 0);
+	}
+	
+	protected static int indexOf(String str, char[] chars, int fromIndex) {
+		if (str == null) {
+			return -1;
+		}
+		
+		int strLen = str.length();
+		int charsLen = chars.length;
+		for (int i = fromIndex; i < strLen; i++) {
+			char ch = str.charAt(i);
+			for (int j = 0; j < charsLen; j++) {
+				if (ch == chars[j]) {
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+	
+	protected static char charAt(String str, int idx) {
+		return charAt(str, idx, '\0');
+	}
+	
+	protected static char charAt(String str, int idx, char defaultChar) {
+		if (str == null || str.isEmpty()) {
+			return defaultChar;
+		}
+		if (str.length() <= idx) {
+			return defaultChar;
+		}
+		
+		return str.charAt(idx);
+	}
+	
+	protected static String removeAllWhitespace(String str) {
+		return WHITE_SPACE_PATTERN.matcher(str).replaceAll("");
+	}
+	
+	protected static String changeSeparator(String str, int separatorChar, IntUnaryOperator letterOpe, IntUnaryOperator initialOpe, IntUnaryOperator firstInitialOpe) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		
+		int len = str.length();
+		
+		StringBuilder sb = new StringBuilder(len);
+		boolean inWord = false;
+		boolean isInitial = false;
+		boolean isFirstInitial = true;
+		boolean isBeforeUpper = false;
+		for (int i = 0; i < len; i++) {
+			int cp = str.codePointAt(i);
+			
+			if (cp <= '\u007F') {
+				if (Character.isAlphabetic(cp) || Character.isDigit(cp)) {
+					if (Character.isUpperCase(cp)) {
+						isInitial = !isBeforeUpper;
+						if (!isInitial && i + 1 < len) {
+							int ncp = str.codePointAt(i + 1);
+							if (Character.isAlphabetic(ncp) && !(Character.isUpperCase(ncp) || Character.isDigit(cp))) {
+								isInitial = true;
+							}
+						}
+						isBeforeUpper = true;
+					} else {
+						isInitial = !inWord;
+						isBeforeUpper = false;
+					}
+					inWord = true;
+				} else if (cp == '\r' || cp == '\n') {
+					isInitial = false;
+					inWord = false;
+					isBeforeUpper = false;
+					
+					isFirstInitial = true;
+				} else {
+					isInitial = false;
+					inWord = false;
+					isBeforeUpper = false;
+				}
+			} else {
+				isInitial = !inWord;
+				inWord = true;
+				isBeforeUpper = false;
+			}
+			
+			if (inWord) {
+				if (isInitial && !isFirstInitial) {
+					if (0 <= separatorChar) {
+						sb.append((char)separatorChar);
+					}
+				}
+				
+				if (isInitial && isFirstInitial && firstInitialOpe != null) {
+					sb.appendCodePoint(firstInitialOpe.applyAsInt(cp));
+				} else if (isInitial && initialOpe != null) {
+					sb.appendCodePoint(initialOpe.applyAsInt(cp));
+				} else if (letterOpe != null) {
+					sb.appendCodePoint(letterOpe.applyAsInt(cp));
+				} else {
+					sb.appendCodePoint(cp);
+				}
+			} else {
+				if (cp == '\r' || cp == '\n') {
+					sb.appendCodePoint(cp);
+				}
+			}
+			
+			isFirstInitial = false;
+		}
+		
+		return sb.toString();
 	}
 	
 	protected static void appendRoundString(StringBuilder sb, double d, int scale, RoundingMode roundingMode) {

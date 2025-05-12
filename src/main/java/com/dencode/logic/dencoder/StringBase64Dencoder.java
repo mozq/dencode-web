@@ -25,8 +25,6 @@ import java.util.Base64.Encoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -82,7 +80,7 @@ public class StringBase64Dencoder {
 	}
 	
 	private static String decStrBase64(String val, Charset charset) {
-		if (!StringUtilz.isASCII(val)) {
+		if (!DencodeUtils.isASCII(val)) {
 			return null;
 		}
 		

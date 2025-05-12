@@ -22,6 +22,7 @@ import java.time.chrono.JapaneseChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -39,6 +40,8 @@ public class DateJapaneseEraDencoder {
 	private static final DateTimeFormatter FORMATTER_DEFAULT_MSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSS秒 z", Locale.JAPAN);
 	private static final DateTimeFormatter FORMATTER_DEFAULT_MICROSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSSSSS秒 z", Locale.JAPAN);
 	private static final DateTimeFormatter FORMATTER_DEFAULT_NSEC = DateTimeFormatter.ofPattern("GGGGy年MM月dd日HH時mm分ss.SSSSSSSSS秒 z", Locale.JAPAN);
+	
+	private static final Pattern FIRST_YEAR_PATTERN = Pattern.compile("([^0-9])1年");
 	
 	private DateJapaneseEraDencoder() {
 		// NOP
@@ -66,7 +69,7 @@ public class DateJapaneseEraDencoder {
 			}
 			
 			if (strDate != null) {
-				strDate = strDate.replaceAll("([^0-9])1年", "$1元年");
+				strDate = FIRST_YEAR_PATTERN.matcher(strDate).replaceFirst("$1元年");
 			}
 			
 			return strDate;

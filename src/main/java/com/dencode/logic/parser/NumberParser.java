@@ -16,17 +16,22 @@
  */
 package com.dencode.logic.parser;
 
+import static com.dencode.logic.util.CharWidthUtils.Type.ALPHABET;
+import static com.dencode.logic.util.CharWidthUtils.Type.NUMBER;
+import static com.dencode.logic.util.CharWidthUtils.Type.SPACE;
+import static com.dencode.logic.util.CharWidthUtils.Type.SYMBOL;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.EnumSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.util.NumberUtilz;
-import org.mifmi.commons4j.util.StringUtilz;
-import org.mifmi.commons4j.util.exception.NumberParseException;
-
+import com.dencode.logic.util.CharWidthUtils;
+import com.dencode.logic.util.EnglishNumberUtils;
+import com.dencode.logic.util.JapaneseNumberUtils;
 import com.ezylang.evalex.Expression;
 import com.ezylang.evalex.config.ExpressionConfiguration;
 
@@ -79,7 +84,7 @@ public class NumberParser {
 			return null;
 		}
 		
-		val = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
+		val = CharWidthUtils.toHalfWidth(val, EnumSet.of(ALPHABET, NUMBER, SYMBOL, SPACE));
 		val = val.trim();
 		
 		if (val.isEmpty()) {
@@ -281,8 +286,8 @@ public class NumberParser {
 		}
 		
 		try {
-			return NumberUtilz.parseEnNumShortScale(val);
-		} catch (NumberParseException | ArithmeticException e) {
+			return EnglishNumberUtils.parseEnNum(val);
+		} catch (IllegalArgumentException | ArithmeticException e) {
 			return null;
 		}
 	}
@@ -293,8 +298,8 @@ public class NumberParser {
 		}
 		
 		try {
-			return NumberUtilz.parseJPNum(val);
-		} catch (NumberParseException | ArithmeticException e) {
+			return JapaneseNumberUtils.parseJPNum(val);
+		} catch (IllegalArgumentException | ArithmeticException e) {
 			return null;
 		}
 	}

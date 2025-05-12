@@ -18,8 +18,6 @@ package com.dencode.logic.dencoder;
 
 import java.util.List;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -44,6 +42,6 @@ public class StringCamelCaseDencoder {
 	
 	
 	private static String encStrCamelCase(List<String> vals, boolean firstCapital) {
-		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.toCamelCase(val, firstCapital));
+		return DencodeUtils.dencodeLines(vals, (val) -> DencodeUtils.changeSeparator(val, -1, Character::toLowerCase, Character::toUpperCase, (firstCapital) ? Character::toUpperCase : Character::toLowerCase));
 	}
 }

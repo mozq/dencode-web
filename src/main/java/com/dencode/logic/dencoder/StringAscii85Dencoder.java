@@ -70,6 +70,8 @@ public class StringAscii85Dencoder {
 	private static final int ENCODED_CHUNK_SIZE = 5;
 	
 	private static final Pattern BTOA_TRAILER_SIZE_PATTERN = Pattern.compile("xbtoa End N ([0-9]+)");
+	private static final Pattern BTOA_HEADER_TRAILER_PATTERN = Pattern.compile("(?:^xbtoa.*? Begin\\r?\\n)|(?:\\r?\\nxbtoa End.*$)|\\s");
+	private static final Pattern ADOBE_HEADER_TRAILER_PATTERN = Pattern.compile("(?:^<~)|(?:~>$)|\\s");
 	
 	private StringAscii85Dencoder() {
 		// NOP
@@ -134,11 +136,11 @@ public class StringAscii85Dencoder {
 			if (sizeMatcher.find()) {
 				size = Integer.parseInt(sizeMatcher.group(1));
 			}
-			val = val.replaceAll("(?:^xbtoa.*? Begin\\r?\\n)|(?:\\r?\\nxbtoa End.*$)|\\s|\\r|\\n", "");
+			val = BTOA_HEADER_TRAILER_PATTERN.matcher(val).replaceAll("");
 			return toString(decodeAscii85(val, DECODE_TABLE, ENCODE_TABLE, true, true, true, size), cond.charset());
 		} else if (val.contains("<~")) {
 			// Adobe
-			val = val.replaceAll("(?:^<~)|(?:~>$)|\\s|\\r|\\n", "");
+			val = ADOBE_HEADER_TRAILER_PATTERN.matcher(val).replaceAll("");
 			return toString(decodeAscii85(val, DECODE_TABLE, ENCODE_TABLE, true, false, false, -1), cond.charset());
 		} else {
 			// Z85
@@ -356,6 +358,7 @@ public class StringAscii85Dencoder {
 		
 		return buf;
 	}
+	
 	private static String buildBTOASuffix(byte[] x, String lineBreak) {
 		int eor = 0;
 		int sum = 0;

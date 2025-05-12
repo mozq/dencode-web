@@ -19,8 +19,6 @@ package com.dencode.logic.dencoder;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -105,7 +103,7 @@ public class StringBase32Dencoder {
 	}
 	
 	private static String decStrBase32(String val, Charset charset) {
-		if (!StringUtilz.isASCII(val)) {
+		if (!DencodeUtils.isASCII(val)) {
 			return null;
 		}
 

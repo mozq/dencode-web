@@ -21,8 +21,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -139,7 +137,7 @@ public class StringUnicodeEscapeDencoder {
 			return val;
 		}
 		
-		int idx = StringUtilz.indexOf(val, NOTATION_PREFIXES);
+		int idx = DencodeUtils.indexOf(val, NOTATION_PREFIXES);
 		if (idx == -1) {
 			return val;
 		}

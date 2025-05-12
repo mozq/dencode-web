@@ -18,8 +18,6 @@ package com.dencode.logic.dencoder;
 
 import java.util.List;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
@@ -44,6 +42,6 @@ public class StringKebabCaseDencoder {
 	
 	
 	private static String encStrKebabCase(List<String> vals, boolean upper) {
-		return DencodeUtils.dencodeLines(vals, (val) -> StringUtilz.toChainCase(val, false, Boolean.valueOf(upper)));
+		return DencodeUtils.dencodeLines(vals, (val) -> DencodeUtils.changeSeparator(val, '-', (upper) ? Character::toUpperCase : Character::toLowerCase, null, null));
 	}
 }

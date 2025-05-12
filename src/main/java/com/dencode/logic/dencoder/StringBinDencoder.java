@@ -53,7 +53,7 @@ public class StringBinDencoder {
 			return val;
 		}
 		
-		val = val.replaceAll("\\s", "");
+		val = DencodeUtils.removeAllWhitespace(val);
 		
 		try {
 			int len = val.length();

@@ -16,11 +16,10 @@
  */
 package com.dencode.logic.dencoder;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
+import com.dencode.logic.util.CharWidthUtils;
 
 @Dencoder(type="string", method="string.character-width", hasEncoder=true, hasDecoder=false)
 public class StringCharacterWidthDencoder {
@@ -42,10 +41,10 @@ public class StringCharacterWidthDencoder {
 	
 	
 	private static String encStrHalfWidth(String val) {
-		return StringUtilz.toHalfWidth(val, true, true, true, true, true, true);
+		return CharWidthUtils.toHalfWidth(val);
 	}
 	
 	private static String encStrFullWidth(String val) {
-		return StringUtilz.toFullWidth(val, true, true, true, true, true, true);
+		return CharWidthUtils.toFullWidth(val);
 	}
 }

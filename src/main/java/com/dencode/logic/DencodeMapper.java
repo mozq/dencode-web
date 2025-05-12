@@ -34,8 +34,6 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.mifmi.commons4j.util.StringUtilz;
-
 import com.dencode.logic.dencoder.CommonDencoder;
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
@@ -282,7 +280,8 @@ public class DencodeMapper {
 		if (protocol.equals("file")) {
 			File[] files = new File(root.getFile()).listFiles((dir, name) -> name.endsWith(".class"));
 			for (File file : files) {
-				String className = StringUtilz.substringBefore(file.getName(), '.');
+				String fileName = file.getName();
+				String className = fileName.substring(0, fileName.length() - ".class".length());
 				try {
 					Class<?> clazz = Class.forName(packageName + "." + className);
 					if (clazz.isAnnotationPresent(annotationClass)) {
@@ -307,7 +306,8 @@ public class DencodeMapper {
 						continue;
 					}
 					
-					String className = StringUtilz.substringBefore(StringUtilz.substringAfter(jarEntryName, '/', true), '.');
+					int nameStartIdx = jarEntryName.lastIndexOf('/') + 1;
+					String className = jarEntryName.substring(nameStartIdx, jarEntryName.length() - ".class".length());
 					try {
 						Class<?> clazz = Class.forName(packageName + "." + className);
 						if (clazz.isAnnotationPresent(annotationClass)) {

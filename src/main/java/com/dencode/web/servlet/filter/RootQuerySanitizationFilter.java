@@ -37,9 +37,6 @@ public class RootQuerySanitizationFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 	}
 	
-	public void destroy() {
-	}
-
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
 			HttpServletRequest req = (HttpServletRequest)request;
@@ -63,5 +60,8 @@ public class RootQuerySanitizationFilter implements Filter {
 		}
 		
 		chain.doFilter(request, response);
+	}
+	
+	public void destroy() {
 	}
 }

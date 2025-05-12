@@ -16,6 +16,11 @@
  */
 package com.dencode.logic.parser;
 
+import static com.dencode.logic.util.CharWidthUtils.Type.ALPHABET;
+import static com.dencode.logic.util.CharWidthUtils.Type.NUMBER;
+import static com.dencode.logic.util.CharWidthUtils.Type.SPACE;
+import static com.dencode.logic.util.CharWidthUtils.Type.SYMBOL;
+
 import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.Instant;
@@ -26,6 +31,7 @@ import java.time.Month;
 import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
+import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -35,12 +41,12 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.EnumSet;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mifmi.commons4j.util.DateUtilz;
-import org.mifmi.commons4j.util.StringUtilz;
+import com.dencode.logic.util.CharWidthUtils;
 
 public class DateParser {
 	
@@ -256,7 +262,7 @@ public class DateParser {
 			return ZonedDateTime.now(zone);
 		}
 		
-		String strDate = StringUtilz.toHalfWidth(val, true, true, true, true, false, false);
+		String strDate = CharWidthUtils.toHalfWidth(val, EnumSet.of(ALPHABET, NUMBER, SYMBOL, SPACE));
 		
 		try {
 			// Parse as UNIX time
@@ -290,7 +296,7 @@ public class DateParser {
 		}
 		
 		try {
-			return parseDateAsZonedDateTime(strDate, DATE_FORMATTERS, zone, zone, 1970, Month.JANUARY, 1);
+			return parseDateAsZonedDateTime(strDate, DATE_FORMATTERS, zone, 1970, Month.JANUARY, 1);
 		} catch (Exception e) {
 			// THRU
 		}
@@ -298,15 +304,13 @@ public class DateParser {
 		return null;
 	}
 	
-	private static ZonedDateTime parseDateAsZonedDateTime(String date, DateTimeFormatter[] formatters, ZoneId zone, ZoneId defaultZone, int defaultYear, Month defaultMonth, int defaultDay) {
+	private static ZonedDateTime parseDateAsZonedDateTime(String date, DateTimeFormatter[] formatters, ZoneId zone, int defaultYear, Month defaultMonth, int defaultDay) {
 		DateTimeParseException exception = null;
 		
 		for (DateTimeFormatter formatter : formatters) {
 			try {
 				TemporalAccessor temporal = formatter.parseBest(date, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from, LocalDate::from, OffsetTime::from, LocalTime::from, YearMonth::from, MonthDay::from);
-				Instant instant = DateUtilz.toInstant(temporal, defaultZone, defaultYear, defaultMonth, defaultDay);
-				ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zone);
-				return zdt;
+				return toZonedDateTime(temporal, zone, defaultYear, defaultMonth, defaultDay);
 			} catch (DateTimeParseException e) {
 				exception = e;
 			}
@@ -317,5 +321,39 @@ public class DateParser {
 		}
 		
 		return null;
+	}
+	
+	private static ZonedDateTime toZonedDateTime(TemporalAccessor temporal, ZoneId zone, int defaultYear, Month defaultMonth, int defaultDay) {
+		if (temporal == null) {
+			return null;
+		}
+		
+		ZonedDateTime zonedDT;
+		if (temporal instanceof ZonedDateTime) {
+			zonedDT = ((ZonedDateTime)temporal).withZoneSameInstant(zone);
+		} else if (temporal instanceof OffsetDateTime) {
+			zonedDT = ((OffsetDateTime)temporal).atZoneSameInstant(zone);
+		} else if (temporal instanceof OffsetTime) {
+			zonedDT = ((OffsetTime)temporal).atDate(LocalDate.of(defaultYear, defaultMonth, defaultDay)).atZoneSameInstant(zone);
+		} else if (temporal instanceof LocalDateTime) {
+			zonedDT = ((LocalDateTime)temporal).atZone(zone);
+		} else if (temporal instanceof LocalDate) {
+			zonedDT = ((LocalDate)temporal).atStartOfDay(zone);
+		} else if (temporal instanceof LocalTime) {
+			zonedDT = ((LocalTime)temporal).atDate(LocalDate.of(defaultYear, defaultMonth, defaultDay)).atZone(zone);
+		} else if (temporal instanceof Year) {
+			zonedDT = ((Year)temporal).atMonth(defaultMonth).atDay(defaultDay).atStartOfDay(zone);
+		} else if (temporal instanceof YearMonth) {
+			zonedDT = ((YearMonth)temporal).atDay(defaultDay).atStartOfDay(zone);
+		} else if (temporal instanceof Month) {
+			zonedDT = LocalDate.of(defaultYear, (Month)temporal, defaultDay).atStartOfDay(zone);
+		} else if (temporal instanceof MonthDay) {
+			zonedDT = ((MonthDay)temporal).atYear(defaultYear).atStartOfDay(zone);
+		} else {
+			Instant instant = Instant.from(temporal);
+			zonedDT = ZonedDateTime.ofInstant(instant, zone);
+		}
+		
+		return zonedDT;
 	}
 }

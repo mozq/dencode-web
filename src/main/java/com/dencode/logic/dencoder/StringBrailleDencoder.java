@@ -32,7 +32,7 @@ public class StringBrailleDencoder {
 	// Japanese;
 	//   See: [ISBN 978-4-907272-23-4] 特定非営利活動法人 全国視覚障害者情報提供施設協会. 点訳のてびき 第４版. Tokyo, Japan: 読書工房, 2019.  (Japanese)
 	
-	private enum Type {
+	private static enum Type {
 		UpperLetter,
 		LowerLetter,
 		Number,
@@ -40,7 +40,7 @@ public class StringBrailleDencoder {
 		JP_Kana,
 	}
 	
-	private enum Indicator {
+	private static enum Indicator {
 		CapitalWord,
 		CapitalPassage,
 		AngleBracket(true), // <>
@@ -163,7 +163,7 @@ public class StringBrailleDencoder {
 				sb.append('\u2800'); // Braille blank
 				
 				prevType = null;
-			} else if (ch == '—' && charAt(value, i + 1, '\0') == '—') {
+			} else if (ch == '—' && DencodeUtils.charAt(value, i + 1) == '—') {
 				sb.append("⠐⠠⠤"); // Dots-5 6 36 (U+2014 x 2 Long Em dash)
 				i++;
 				prevType = Type.Symbol;
@@ -233,8 +233,8 @@ public class StringBrailleDencoder {
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i <= lastIdx; i++) {
 			char ch = value.charAt(i);
-			char ch2 = charAt(value, i + 1, '\0');
-			char ch3 = charAt(value, i + 2, '\0');
+			char ch2 = DencodeUtils.charAt(value, i + 1);
+			char ch3 = DencodeUtils.charAt(value, i + 2);
 			
 			inCapitalWord &= (prevType == Type.UpperLetter);
 			
@@ -337,7 +337,7 @@ public class StringBrailleDencoder {
 		StringBuilder sb = new StringBuilder(len * 2);
 		for (int i = 0; i < len; i++) {
 			char ch = value.charAt(i);
-			char ch2 = charAt(value, i + 1, '\0');
+			char ch2 = DencodeUtils.charAt(value, i + 1);
 			
 			if (isNumber(ch)) {
 				// Number
@@ -515,8 +515,8 @@ public class StringBrailleDencoder {
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i <= lastIdx; i++) {
 			char ch = value.charAt(i);
-			char ch2 = charAt(value, i + 1, '\0');
-			char ch3 = charAt(value, i + 2, '\0');
+			char ch2 = DencodeUtils.charAt(value, i + 1);
+			char ch3 = DencodeUtils.charAt(value, i + 2);
 			
 			inCapitalWord &= (prevType == Type.UpperLetter);
 			
@@ -1713,14 +1713,6 @@ public class StringBrailleDencoder {
 			
 			default -> ch;
 		};
-	}
-	
-	private static char charAt(String str, int index, char defaultValue) {
-		if (str.length() <= index) {
-			return defaultValue;
-		}
-		
-		return str.charAt(index);
 	}
 	
 	private static boolean isBraille(char ch) {

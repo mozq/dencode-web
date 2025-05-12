@@ -18,11 +18,10 @@ package com.dencode.logic.dencoder;
 
 import java.util.List;
 
-import org.mifmi.commons4j.graphics.color.RGBColor;
-
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.logic.dencoder.annotation.DencoderFunction;
 import com.dencode.logic.model.DencodeCondition;
+import com.dencode.logic.util.ColorNameUtils;
 
 @Dencoder(type="color", method="color.name", hasEncoder=true, hasDecoder=false)
 public class ColorNameDencoder {
@@ -38,13 +37,13 @@ public class ColorNameDencoder {
 	}
 	
 	
-	private static String encColorName(List<RGBColor> vals) {
-		return DencodeUtils.dencodeLines(vals, (rgb) -> {
-			if (rgb == null) {
+	private static String encColorName(List<double[]> vals) {
+		return DencodeUtils.dencodeLines(vals, (rgba) -> {
+			if (rgba == null) {
 				return null;
 			}
 			
-			return RGBColor.getName(rgb);
+			return ColorNameUtils.toName(rgba);
 		});
 	}
 }
