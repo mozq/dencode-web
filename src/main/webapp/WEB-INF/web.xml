@@ -5,6 +5,13 @@
          metadata-complete="false"
          version="6.0">
 
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://dencode.com/jsp/taglib</taglib-uri>
+      <taglib-location>/WEB-INF/taglib.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+
   <error-page>
     <error-code>404</error-code>
     <location>/error/404</location>
