@@ -18,8 +18,6 @@ package com.dencode.web.model;
 
 import java.util.List;
 
-import org.mifmi.commons4j.app.message.Message;
-
 public class ResponseModel {
 	private int statusCode;
 	private List<Message> messages;

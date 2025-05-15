@@ -16,6 +16,7 @@
  */
 package com.dencode.web.servlet.pages._ah;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import jakarta.servlet.annotation.WebServlet;
@@ -31,11 +32,14 @@ public class WarmupServlet extends AbstractDencodeHttpServlet {
 	@Override
 	protected void doGet() throws Exception {
 		// Warm up
+		
+		// Initialize DencodeMapper
 		DencodeMapper.init();
 		
-		String[] locales = config().getAsStringArray("locales");
-		for (String locale : locales) {
-			ResourceBundle.getBundle("messages", toLocale(locale));
+		// Cache messages
+		String[] supportedLocaleIds = config().getString("locales").split(",");
+		for (String id : supportedLocaleIds) {
+			ResourceBundle.getBundle("messages", Locale.forLanguageTag(id));
 		}
 		
 		// Response

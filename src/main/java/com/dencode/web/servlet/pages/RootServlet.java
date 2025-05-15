@@ -16,7 +16,6 @@
  */
 package com.dencode.web.servlet.pages;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,14 +39,15 @@ public class RootServlet extends AbstractDencodeHttpServlet {
 			String localeId = localePathMatcher.group(1);
 			String subPath = localePathMatcher.group(2);
 			
-			String[] locales = config().getAsStringArray("locales");
-			if (0 <= Arrays.binarySearch(locales, localeId)) {
-				setLocale(toLocale(localeId));
-				reqres().setAttribute("localeId", localeId);
-				reqres().setAttribute("currentPath", subPath);
-				
-				forward("/" + subPath);
-				return;
+			String[] supportedLocaleIds = config().getString("locales").split(",");
+			for (String supportedLocaleId : supportedLocaleIds) {
+				if (localeId.equals(supportedLocaleId)) {
+					reqres().setAttribute("localeId", localeId);
+					reqres().setAttribute("currentPath", subPath);
+					
+					forward("/" + subPath);
+					return;
+				}
 			}
 		}
 		

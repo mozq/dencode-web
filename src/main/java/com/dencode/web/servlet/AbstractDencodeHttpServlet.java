@@ -18,53 +18,72 @@ package com.dencode.web.servlet;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jakarta.servlet.http.HttpServletResponse;
-
-import org.mifmi.commons4j.app.message.Message;
-import org.mifmi.commons4j.app.message.MessageManager;
-import org.mifmi.commons4j.app.message.MifmiMessageException;
-import org.mifmi.commons4j.app.web.servlet.AbstractHttpServlet;
-import org.mifmi.commons4j.config.Config;
-import org.mifmi.commons4j.config.ResourceBundleConfig;
-import org.mifmi.commons4j.util.ExceptionUtilz;
-import org.mifmi.commons4j.web.servlet.HttpReqRes;
-import org.mifmi.commons4j.web.servlet.MifmiServletException;
-
+import com.dencode.web.model.Message;
 import com.dencode.web.model.ResponseModel;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
+import jakarta.servlet.http.HttpServletResponse;
 
+public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Config CONFIG = new ResourceBundleConfig("config");
+	private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 	
 	private static final Logger LOGGER = Logger.getLogger(AbstractDencodeHttpServlet.class.getName());
 	
 	
-	protected static Config config() {
-		return CONFIG;
+	protected static ResourceBundle config() {
+		return ResourceBundle.getBundle("config", Locale.ROOT);
 	}
 	
 	@Override
 	protected void doInit() throws Exception {
-		Locale locale = getLocale(reqres());
-		setLocale(locale);
-
-		reqres().setAttribute("conf", config().asMap());
-		reqres().setAttribute("msg", messageManager().getMessageConfig().asMap());
+		String localeId = reqres().attribute("localeId");
+		Locale locale = (localeId != null) ? Locale.forLanguageTag(localeId) : request().getLocale();
+		if (locale == null) {
+			locale = DEFAULT_LOCALE;
+		}
 		
-		Config defaultLocaleMessages = new ResourceBundleConfig("messages", getLocales(getDefaultLocale(reqres()), reqres()));
-		reqres().setAttribute("defaultLocaleName", defaultLocaleMessages.get("locale.name"));
+		reqres().setAttribute("locale", locale);
+		reqres().setAttribute("locales", getLocales(locale, reqres()));
+		
+		reqres().setAttribute("conf", config());
+		reqres().setAttribute("msg", messageBundle(locales()));
+		
+		ResourceBundle defaultLocaleMessages = messageBundle(getLocales(request().getLocale(), reqres()));
+		reqres().setAttribute("defaultLocaleName", defaultLocaleMessages.getString("locale.name"));
+	}
+	
+	@Override
+	protected boolean handleError(Throwable e) throws Exception {
+		Message message;
+		try {
+			if (isCause(e, OutOfMemoryError.class)) {
+				message = messageObject("data.capacity.error");
+			} else {
+				message = messageObject("default.error");
+			}
+		} catch (Exception e1) {
+			message = null;
+		}
+		
+		if (message != null) {
+			addResponseMessage(message);
+		}
+		
+		return handleError(e, (message == null) ? null : message.getLevel());
 	}
 	
 	protected boolean handleError(Throwable e, String level) throws Exception {
@@ -89,34 +108,6 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		return false;
 	}
 	
-	@Override
-	protected boolean handleError(Throwable e) throws Exception {
-		Message message;
-		if (e instanceof MifmiMessageException) {
-			message = ((MifmiMessageException)e).getMessageObject();
-		} else {
-			try {
-				if (ExceptionUtilz.isCause(e, OutOfMemoryError.class)) {
-					message = messageObject("data.capacity.error");
-				} else {
-					message = messageObject("default.error");
-				}
-			} catch (Exception e1) {
-				message = null;
-			}
-		}
-		if (message != null) {
-			addResponseMessage(message);
-		}
-		return handleError(e, (message == null) ? null : message.getLevel());
-	}
-	
-	protected void setLocale(Locale locale) {
-		reqres().setAttribute("locale", locale);
-		reqres().setAttribute("locales", getLocales(locale, reqres()));
-		reqres().setAttribute("messageManager", null);
-	}
-	
 	protected Locale locale() {
 		return reqres().attribute("locale");
 	}
@@ -125,25 +116,60 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		return reqres().attribute("locales");
 	}
 	
-	protected MessageManager messageManager() {
-		MessageManager messageManager = reqres().attribute("messageManager");
-		if (messageManager == null) {
-			messageManager = new MessageManager(new ResourceBundleConfig("messages", locales()));
-			reqres().setAttribute("messageManager", messageManager);
+	private ResourceBundle messageBundle(List<Locale> locales) {
+		for (Locale locale : locales) {
+			try {
+				return ResourceBundle.getBundle("messages", locale);
+			} catch (MissingResourceException e) {
+				continue;
+			}
 		}
-		return messageManager;
-	}
-	
-	protected String message(String messageId) {
-		return messageManager().loadMessage(messageId);
+		
+		return ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
 	}
 	
 	protected String message(String messageId, Object... params) {
-		return messageManager().loadMessage(messageId, params);
+		ResourceBundle bundle = reqres().attribute("msg");
+		if (bundle == null) {
+			return null;
+		}
+		
+		String message = bundle.getString(messageId);
+		if (message == null) {
+			throw new IllegalArgumentException("Message not found : " + messageId);
+		}
+		
+		message = formatMessage(message, params);
+		
+		return message;
 	}
 	
 	protected Message messageObject(String messageId, Object... params) {
-		return messageManager().loadMessageObject(messageId, params);
+		ResourceBundle bundle = reqres().attribute("msg");
+		if (bundle == null) {
+			return null;
+		}
+		
+		String message = bundle.getString(messageId);
+		if (message == null) {
+			throw new IllegalArgumentException("Message not found : " + messageId);
+		}
+		
+		String level = bundle.getString(messageId + ".level");
+		String detail = bundle.getString(messageId + ".detail");
+		
+		message = formatMessage(message, params);
+		detail = formatMessage(detail, params);
+		
+		return new Message(messageId, level, message, detail);
+	}
+	
+	private static String formatMessage(String message, Object... params) {
+		if (message == null || params == null || params.length == 0) {
+			return message;
+		}
+		
+		return MessageFormat.format(message, params);
 	}
 	
 	protected List<Message> getResponseMessages() {
@@ -163,24 +189,6 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		addResponseMessage(messageObject(messageId, params));
 	}
 	
-	private static Locale getLocale(HttpReqRes reqres) {
-		Locale attrLocale = reqres.attribute("locale");
-		if (attrLocale != null) {
-			return attrLocale;
-		}
-		
-		return getDefaultLocale(reqres);
-	}
-	
-	private static Locale getDefaultLocale(HttpReqRes reqres) {
-		Locale locale = reqres.request().getLocale();
-		if (locale != null) {
-			return locale;
-		}
-		
-		return Locale.getDefault();
-	}
-	
 	private static List<Locale> getLocales(Locale primaryLocale, HttpReqRes reqres) {
 		List<Locale> locales = new ArrayList<>();
 		
@@ -188,19 +196,15 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 			locales.add(primaryLocale);
 		}
 		
-		Enumeration<?> localesEnum = reqres.request().getLocales();
+		Enumeration<Locale> localesEnum = reqres.request().getLocales();
 		while (localesEnum.hasMoreElements()) {
-			Locale locale = (Locale) localesEnum.nextElement();
+			Locale locale = localesEnum.nextElement();
 			if (!locales.contains(locale)) {
 				locales.add(locale);
 			}
 		}
 		
 		return locales;
-	}
-	
-	protected static Locale toLocale(String languageTag) {
-		return Locale.forLanguageTag(languageTag);
 	}
 	
 	protected static String getBaseURL(HttpReqRes reqres) {
@@ -253,7 +257,7 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		try (OutputStream out = res.getOutputStream()) {
 			writeAsJson(out, responseModel);
 		} catch (IOException e) {
-			throw new MifmiServletException(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -264,7 +268,7 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		try {
 			mapper.writeValue(out, value);
 		} catch (IOException e) {
-			throw new MifmiServletException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -281,5 +285,17 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		}
 		
 		return true;
+	}
+	
+	private static boolean isCause(Throwable t, Class<? extends Throwable> causeClass) {
+		if (t == null) {
+			return false;
+		}
+		
+		if (causeClass.isInstance(t)) {
+			return true;
+		} else {
+			return isCause(t.getCause(), causeClass);
+		}
 	}
 }

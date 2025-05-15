@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -64,10 +65,10 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	
 	private static final Map<String, String> SUPPORTED_LOCALE_MAP;
 	static {
-		String[] supportedLocaleIds = config().getAsStringArray("locales");
+		String[] supportedLocaleIds = config().getString("locales").split(",");
 		Map<String, String> supportedLocaleMap = new LinkedHashMap<>(supportedLocaleIds.length);
 		for (String id : supportedLocaleIds) {
-			supportedLocaleMap.put(id, ResourceBundle.getBundle("messages", toLocale(id)).getString("locale.name"));
+			supportedLocaleMap.put(id, ResourceBundle.getBundle("messages", Locale.forLanguageTag(id)).getString("locale.name"));
 		}
 		
 		SUPPORTED_LOCALE_MAP = Collections.unmodifiableMap(supportedLocaleMap);
