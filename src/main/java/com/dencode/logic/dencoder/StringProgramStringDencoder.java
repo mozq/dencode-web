@@ -145,7 +145,7 @@ public class StringProgramStringDencoder {
 					endIdx = refIdx + 8;
 				}
 				
-				if (len < endIdx) {
+				if (len < endIdx || 8 < endIdx - refIdx) {
 					endIdx = -1;
 				}
 				
@@ -157,7 +157,8 @@ public class StringProgramStringDencoder {
 						if (hasBrace) {
 							endIdx++;
 						}
-					} catch (NumberFormatException e) {
+					} catch (IllegalArgumentException e) {
+						// Illegal number format or code point
 						endIdx = -1;
 					}
 				}
