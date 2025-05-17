@@ -41,6 +41,13 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 	
 	private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 	
+	private static final ResourceBundle.Control CONTROL_NO_FALLBACK_LOCALE = new ResourceBundle.Control() {
+		@Override
+		public Locale getFallbackLocale(String baseName, Locale locale) {
+			return null;
+		}
+	};
+	
 	private static final Logger LOGGER = Logger.getLogger(AbstractDencodeHttpServlet.class.getName());
 	
 	
@@ -119,7 +126,7 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 	private ResourceBundle messageBundle(List<Locale> locales) {
 		for (Locale locale : locales) {
 			try {
-				return ResourceBundle.getBundle("messages", locale);
+				return ResourceBundle.getBundle("messages", locale, CONTROL_NO_FALLBACK_LOCALE);
 			} catch (MissingResourceException e) {
 				continue;
 			}
