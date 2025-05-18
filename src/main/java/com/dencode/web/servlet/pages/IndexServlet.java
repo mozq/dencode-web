@@ -19,22 +19,21 @@ package com.dencode.web.servlet.pages;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServletResponse;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.logic.dencoder.annotation.Dencoder;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("")
 public class IndexServlet extends AbstractDencodeHttpServlet {
@@ -42,21 +41,23 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	
 	private static final Map<String, String> TZ_MAP;
 	static {
-		Set<String> tzList = ZoneId.getAvailableZoneIds();
-		Map<String, String> tzMap = new HashMap<String, String>(tzList.size());
 		Instant now = Instant.now();
-		for (String id : tzList) {
-			ZoneId zone = ZoneId.of(id);
-			ZoneOffset offset = zone.getRules().getStandardOffset(now);
-			String offsetId = offset.getId();
-			if (offsetId.equals("Z")) {
-				offsetId = "±00:00";
-			}
-			
-			String name = offsetId + " " + id;
-			
-			tzMap.put(id, name);
-		}
+		Map<String, String> tzMap = ZoneId.getAvailableZoneIds().stream()
+				.collect(Collectors.toMap(
+					Function.identity(),
+					id -> {
+						ZoneId zone = ZoneId.of(id);
+						ZoneOffset offset = zone.getRules().getStandardOffset(now);
+						String offsetId = offset.getId();
+						if (offsetId.equals("Z")) {
+							offsetId = "±00:00";
+						}
+						
+						String name = offsetId + " " + id;
+						
+						return name;
+					}
+				));
 		
 		TZ_MAP = tzMap.entrySet().stream()
 				.sorted(Map.Entry.comparingByValue())
@@ -66,12 +67,14 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 	private static final Map<String, String> SUPPORTED_LOCALE_MAP;
 	static {
 		String[] supportedLocaleIds = config().getString("locales").split(",");
-		Map<String, String> supportedLocaleMap = new LinkedHashMap<>(supportedLocaleIds.length);
-		for (String id : supportedLocaleIds) {
-			supportedLocaleMap.put(id, ResourceBundle.getBundle("messages", Locale.forLanguageTag(id)).getString("locale.name"));
-		}
 		
-		SUPPORTED_LOCALE_MAP = Collections.unmodifiableMap(supportedLocaleMap);
+		SUPPORTED_LOCALE_MAP = Arrays.stream(supportedLocaleIds)
+				.collect(Collectors.toMap(
+					Function.identity(),
+					id -> ResourceBundle.getBundle("messages", Locale.forLanguageTag(id)).getString("locale.name"),
+					(x, y) -> y,
+					LinkedHashMap::new
+				));
 	}
 	
 	private static final String DENCODER_DEFS_JSON;

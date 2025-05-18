@@ -16,6 +16,7 @@
  */
 package com.dencode.web.servlet.pages;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +30,8 @@ public class RootServlet extends AbstractDencodeHttpServlet {
 	
 	private static final Pattern LOCALE_PATH_PATTERN = Pattern.compile("/([a-z]{2}(?:\\-[A-Za-z]{2})?)/(.*)");
 	
+	private static final List<String> SUPPORTED_LOCALE_IDS = List.of(config().getString("locales").split(","));
+	
 	@Override
 	protected void doGet() throws Exception {
 		String servletPath = reqres().request().getServletPath();
@@ -39,15 +42,12 @@ public class RootServlet extends AbstractDencodeHttpServlet {
 			String localeId = localePathMatcher.group(1);
 			String subPath = localePathMatcher.group(2);
 			
-			String[] supportedLocaleIds = config().getString("locales").split(",");
-			for (String supportedLocaleId : supportedLocaleIds) {
-				if (localeId.equals(supportedLocaleId)) {
-					reqres().setAttribute("localeId", localeId);
-					reqres().setAttribute("currentPath", subPath);
-					
-					forward("/" + subPath);
-					return;
-				}
+			if (SUPPORTED_LOCALE_IDS.contains(localeId)) {
+				reqres().setAttribute("localeId", localeId);
+				reqres().setAttribute("currentPath", subPath);
+				
+				forward("/" + subPath);
+				return;
 			}
 		}
 		

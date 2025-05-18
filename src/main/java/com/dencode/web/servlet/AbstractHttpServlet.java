@@ -50,9 +50,8 @@ public class AbstractHttpServlet extends HttpServlet {
 		super.doDelete(request(), response());
 	}
 	
-	protected boolean handleError(Throwable e) throws Exception {
+	protected void handleError(Throwable e) throws Exception {
 		response().sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		return false;
 	}
 	
 	

@@ -18,16 +18,12 @@ package com.dencode.web.servlet.pages;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import jakarta.servlet.annotation.WebServlet;
 
 import com.dencode.logic.DencodeMapper;
 import com.dencode.web.servlet.AbstractDencodeHttpServlet;
+
+import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet("sitemap.xml")
 public class SitemapServlet extends AbstractDencodeHttpServlet {
@@ -56,22 +52,13 @@ public class SitemapServlet extends AbstractDencodeHttpServlet {
 		SUPPORTED_METHOD_PATHS = Collections.unmodifiableList(paths);
 	}
 	
-	private static final Map<String, String> SUPPORTED_LOCALE_MAP;
-	static {
-		String[] supportedLocaleIds = config().getString("locales").split(",");
-		Map<String, String> supportedLocaleMap = new LinkedHashMap<>();
-		for (String id : supportedLocaleIds) {
-			supportedLocaleMap.put(id, ResourceBundle.getBundle("messages", Locale.forLanguageTag(id)).getString("locale.name"));
-		}
-		
-		SUPPORTED_LOCALE_MAP = Collections.unmodifiableMap(supportedLocaleMap);
-	}
+	private static final List<String> SUPPORTED_LOCALE_IDS = List.of(config().getString("locales").split(","));
 	
 	@Override
 	protected void doGet() throws Exception {
 		
 		reqres().setAttribute("supportedMethodPaths", SUPPORTED_METHOD_PATHS);
-		reqres().setAttribute("supportedLocaleMap", SUPPORTED_LOCALE_MAP);
+		reqres().setAttribute("supportedLocaleIDs", SUPPORTED_LOCALE_IDS);
 		reqres().setAttribute("baseURL", getBaseURL(reqres()));
 		
 		forward("/WEB-INF/pages/sitemap.jsp");

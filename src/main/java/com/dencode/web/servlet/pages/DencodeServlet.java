@@ -98,18 +98,11 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	}
 	
 	private static String toLineBreakString(String nl) {
-		
-		String lineBreak;
-		if ("lf".equals(nl)) {
-			lineBreak = "\n";
-		} else if ("cr".equals(nl)) {
-			lineBreak = "\r";
-		} else {
-			// crlf
-			lineBreak = "\r\n";
-		}
-		
-		return lineBreak;
+		return switch (nl) {
+			case "lf" -> "\n";
+			case "cr" -> "\r";
+			default -> "\r\n";
+		};
 	}
 	
 	private static ZoneId toZoneId(String tz, String defaultTz) {

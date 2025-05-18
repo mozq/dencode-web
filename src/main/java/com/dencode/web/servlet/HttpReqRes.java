@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -44,6 +43,7 @@ public class HttpReqRes {
 	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	private List<Locale> locales;
 	private boolean isMultipartRequest;
 	private Map<String, String[]> parameterMap;
 	private Map<String, Part[]> parameterPartMap;
@@ -51,6 +51,8 @@ public class HttpReqRes {
 	public HttpReqRes(HttpServletRequest req, HttpServletResponse res) {
 		this.request = req;
 		this.response = res;
+		
+		this.locales = null;
 		
 		String contentType = req.getContentType();
 		this.isMultipartRequest = (contentType != null && contentType.startsWith("multipart/form-data"));
@@ -81,17 +83,19 @@ public class HttpReqRes {
 	}
 	
 	public List<Locale> getLocales(Locale defaultLocale) {
-		List<Locale> locales;
-		if (header("Accept-Language") == null) {
-			locales = new ArrayList<Locale>(1);
-			if (defaultLocale != null) {
-				locales.add(defaultLocale);
+		if (this.locales == null) {
+			if (header("Accept-Language") == null) {
+				this.locales = List.of();
+			} else {
+				this.locales = Collections.list(request().getLocales());
 			}
-		} else {
-			locales = Collections.list(request().getLocales());
 		}
 		
-		return Collections.unmodifiableList(locales);
+		if (this.locales.isEmpty() && defaultLocale != null) {
+			return List.of(defaultLocale);
+		} else {
+			return this.locales;
+		}
 	}
 	
 	public String header(String name) {
