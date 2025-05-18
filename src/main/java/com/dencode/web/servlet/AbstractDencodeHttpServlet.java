@@ -38,7 +38,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
+	private static final Locale DEFAULT_LOCALE = Locale.forLanguageTag(config().getString("locales").split(",")[0]);
 	
 	private static final ResourceBundle.Control CONTROL_NO_FALLBACK_LOCALE = new ResourceBundle.Control() {
 		@Override
