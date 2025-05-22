@@ -53,7 +53,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		}
 		
 		Charset charset = toCharset(req.oe, StandardCharsets.UTF_8);
-		String lineBreak = toLineBreakString(req.nl);
+		String lineBreak = toLineBreakString(req.nl, "\r\n");
 		ZoneId zone = toZoneId(req.tz, "UTC");
 		
 		DencodeCondition cond = new DencodeCondition(req.value, charset, lineBreak, zone, req.options);
@@ -97,11 +97,16 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		return charset;
 	}
 	
-	private static String toLineBreakString(String nl) {
+	private static String toLineBreakString(String nl, String defaultNl) {
+		if (nl == null) {
+			return defaultNl;
+		}
+		
 		return switch (nl) {
+			case "crlf" -> "\r\n";
 			case "lf" -> "\n";
 			case "cr" -> "\r";
-			default -> "\r\n";
+			default -> defaultNl;
 		};
 	}
 	

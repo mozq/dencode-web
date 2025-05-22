@@ -103,7 +103,7 @@ public abstract class AbstractDencodeHttpServlet extends AbstractHttpServlet {
 		}
 		
 		// Log error
-		String level = (message == null) ? null : message.getLevel();
+		String level = (message == null) ? "fatal" : message.getLevel();
 		switch (level) {
 			case "warn" -> LOGGER.log(Level.WARNING, e.getLocalizedMessage(), e);
 			default -> LOGGER.log(Level.SEVERE, e.getLocalizedMessage(), e);
