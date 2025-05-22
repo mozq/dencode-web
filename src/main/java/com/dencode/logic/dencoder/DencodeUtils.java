@@ -359,7 +359,12 @@ public class DencodeUtils {
 			boolean upperCase = false;
 			
 			// Integer part
-			BigInteger intPart = bigDec.toBigInteger();
+			BigInteger intPart;
+			try {
+				intPart = bigDec.toBigInteger();
+			} catch (ArithmeticException e) {
+				return null;
+			}
 			
 			BigInteger ip = intPart;
 			do {

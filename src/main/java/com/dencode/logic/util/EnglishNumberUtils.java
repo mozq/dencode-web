@@ -70,7 +70,12 @@ public class EnglishNumberUtils {
 			sb.append("Negative ");
 		}
 		
-		BigInteger numInt = num.toBigInteger();
+		BigInteger numInt;
+		try {
+			numInt = num.toBigInteger();
+		} catch (ArithmeticException e) {
+			return null;
+		}
 		
 		if (numInt.signum() == 0) {
 			sb.append("Zero ");

@@ -340,7 +340,11 @@ public class NumberParser {
 		if (scale <= 0) {
 			// Has no decimal part
 			// (Integer part only)
-			return new BigInteger[] {bigDec.toBigInteger(), BigInteger.ONE};
+			try {
+				return new BigInteger[] {bigDec.toBigInteger(), BigInteger.ONE};
+			} catch (ArithmeticException e) {
+				return null;
+			}
 		}
 		
 		BigInteger unscaledNum = bigDec.unscaledValue();

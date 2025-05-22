@@ -42,7 +42,12 @@ public class JapaneseNumberUtils {
 			sb.append("−");
 		}
 		
-		BigInteger numInt = num.toBigInteger();
+		BigInteger numInt;
+		try {
+			numInt = num.toBigInteger();
+		} catch (ArithmeticException e) {
+			return null;
+		}
 		
 		if (numInt.signum() == 0) {
 			sb.append((useDaiji) ? "零" : "〇");
