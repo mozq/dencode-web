@@ -10,7 +10,9 @@ handlers:
   secure: always
 
 automatic_scaling:
-  min_idle_instances: automatic
+  min_instances: 0
+  max_instances: 5
+  min_idle_instances: 0
   max_idle_instances: 1
-  min_pending_latency: 2000ms
-  max_pending_latency: automatic
+  min_pending_latency: 3000ms
+  max_pending_latency: 5000ms
