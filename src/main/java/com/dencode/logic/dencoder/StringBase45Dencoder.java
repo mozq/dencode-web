@@ -32,10 +32,10 @@ import com.fasterxml.jackson.dataformat.cbor.databind.CBORMapper;
 
 @Dencoder(type="string", method="string.base45", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringBase45Dencoder {
-	private static int BASE_N = 45;
+	private static final int BASE_N = 45;
 	
-	private static char MIN_ENCODE_CHAR = ' ';
-	private static char MAX_ENCODE_CHAR = 'Z';
+	private static final char MIN_ENCODE_CHAR = ' ';
+	private static final char MAX_ENCODE_CHAR = 'Z';
 	
 	private static final char[] ENCODE_TABLE = {
 			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',

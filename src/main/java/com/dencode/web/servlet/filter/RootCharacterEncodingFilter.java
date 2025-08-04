@@ -29,7 +29,7 @@ import jakarta.servlet.annotation.WebFilter;
 @WebFilter(urlPatterns = "/*")
 public class RootCharacterEncodingFilter implements Filter {
 	
-	private static String CHARSET = "UTF-8";
+	private static final String CHARSET = "UTF-8";
 	
 	public void init(FilterConfig config) throws ServletException {
 	}

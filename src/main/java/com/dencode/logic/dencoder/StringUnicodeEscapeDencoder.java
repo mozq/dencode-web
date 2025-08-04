@@ -28,9 +28,9 @@ import com.dencode.logic.model.DencodeCondition;
 @Dencoder(type="string", method="string.unicode-escape", hasEncoder=true, hasDecoder=true, useNl=true)
 public class StringUnicodeEscapeDencoder {
 	
-	private static char[] NOTATION_PREFIXES = new char[]{'\\', '%', '&', '0', 'U'};
-	private static Pattern NOTATION_PATTERN_CODE = Pattern.compile("\\\\u([0-9a-fA-F]{1,4})|\\\\U([0-9a-fA-F]{1,8})|\\\\u\\{([0-9a-fA-F]{1,6})\\}|\\\\x\\{([0-9a-fA-F]{1,6})\\}|\\\\([0-9a-fA-F]{1,6}) ?|&#x([0-9a-fA-F]{1,6});?|%u([0-9a-fA-F]{1,4})|0x([0-9a-fA-F]{1,6}) ?|U\\+([0-9a-fA-F]{1,6}) ?");
-	private static Pattern NOTATION_PATTERN_NAME = Pattern.compile("\\\\N\\{(.+?)\\}");
+	private static final char[] NOTATION_PREFIXES = new char[]{'\\', '%', '&', '0', 'U'};
+	private static final Pattern NOTATION_PATTERN_CODE = Pattern.compile("\\\\u([0-9a-fA-F]{1,4})|\\\\U([0-9a-fA-F]{1,8})|\\\\u\\{([0-9a-fA-F]{1,6})\\}|\\\\x\\{([0-9a-fA-F]{1,6})\\}|\\\\([0-9a-fA-F]{1,6}) ?|&#x([0-9a-fA-F]{1,6});?|%u([0-9a-fA-F]{1,4})|0x([0-9a-fA-F]{1,6}) ?|U\\+([0-9a-fA-F]{1,6}) ?");
+	private static final Pattern NOTATION_PATTERN_NAME = Pattern.compile("\\\\N\\{(.+?)\\}");
 	
 	private static final String TYPE_CODE_UNIT = "cu";
 	private static final String TYPE_CODE_POINT = "cp";

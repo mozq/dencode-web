@@ -66,6 +66,8 @@ public class NumberParser {
 	
 	private static final Pattern NUM_DEC_PATTERN_DOT_COMMA = Pattern.compile("[+-]?(?:(?:[0-9]{1,3}(?:\\.[0-9]{3}){2,})|(?:[0-9]{1,3}(?:\\.[0-9]{3})+\\,[0-9]*)|(?:[0-9]{4,}\\,.+)|(?:.+\\,[0-9]{1,2})|(?:.+\\,[0-9]{4,}))");
 	
+	private static final Pattern NUM_DEC_PATTERN_SI_ILLION = Pattern.compile("([\\+\\-]?[0-9\\.]+)\\s?([qryzafpnμmcdhkKMGBTPEZYRQ]|da|bn|tn)");
+	
 	private static final Pattern FRACTION_PATTERN = Pattern.compile("\\s?([\\+\\-]?[0-9A-Za-z\\.]+)\\s?/\\s?([\\+\\-]?[0-9A-Za-z\\.]+)\\s?");
 	
 	private static final String TRUNCATED_DECIMAL_SUFFIX = "...";
@@ -153,17 +155,50 @@ public class NumberParser {
 		
 		BigDecimal bigDec = parseN(strNum, 10, scale, roundingMode);
 		if (bigDec == null) {
-			// Parse as expression
-			try {
-				String strNum2 = removeTruncatedDecimalSuffix(strNum);
-				Expression exp = new Expression(strNum2, EXP_CONF);
-				bigDec = exp.evaluate().getNumberValue();
-				
-				if (scale < bigDec.scale()) {
-					bigDec = bigDec.setScale(scale, roundingMode);
+			Matcher m = NUM_DEC_PATTERN_SI_ILLION.matcher(strNum);
+			if (m.matches()) {
+				// Parse SI prefixes and "-illion" abbreviations
+				int base10 = switch (m.group(2)) {
+					case "q" -> -30; // Quecto
+					case "r" -> -27; // Ronto
+					case "y" -> -24; // Yocto
+					case "z" -> -21; // Zepto
+					case "a" -> -18; // Atto
+					case "f" -> -15; // Femto
+					case "p" -> -12; // Pico
+					case "n" -> -9; // Nano
+					case "μ" -> -6; // Micro
+					case "m" -> -3; // Milli
+					case "c" -> -2; // Centi
+					case "d" -> -1; // Deci
+					case "da" -> 1; // Deca
+					case "h" -> 2; // Hecto
+					case "k", "K" -> 3; // Kilo
+					case "M" -> 6; // Mega, Million
+					case "G", "B", "bn" -> 9; // Giga, Billion (Short scale)
+					case "T", "tn" -> 12; // Tera, Trillion (Short scale)
+					case "P" -> 15; // Peta
+					case "E" -> 18; // Exa
+					case "Z" -> 21; // Zetta
+					case "Y" -> 24; // Yotta
+					case "R" -> 27; // Ronna
+					case "Q" -> 30; // Quetta
+					default -> throw new IllegalArgumentException(strNum);
+				};
+				bigDec = new BigDecimal(m.group(1)).scaleByPowerOfTen(base10);
+			} else {
+				// Parse as expression
+				try {
+					String strNum2 = removeTruncatedDecimalSuffix(strNum);
+					Expression exp = new Expression(strNum2, EXP_CONF);
+					bigDec = exp.evaluate().getNumberValue();
+					
+					if (scale < bigDec.scale()) {
+						bigDec = bigDec.setScale(scale, roundingMode);
+					}
+				} catch (Exception e1) {
+					bigDec = null;
 				}
-			} catch (Exception e1) {
-				bigDec = null;
 			}
 		}
 		

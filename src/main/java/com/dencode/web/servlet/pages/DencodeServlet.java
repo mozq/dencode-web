@@ -44,17 +44,22 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		public Map<String, String> options;
 	}
 	
+	
+	private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+	private static final String DEFAULT_LINE_BREAK = "\r\n";
+	private static final ZoneId DEFAULT_ZONE_ID = ZoneId.of("UTC");
+	
+	
 	@Override
 	protected void doPost() throws Exception {
 		DencodeRequest req;
-		try (InputStream is = reqres().request().getInputStream()) {
-			ObjectMapper mapper = new ObjectMapper();
-			req = mapper.readValue(is, DencodeRequest.class);
+		try (InputStream is = request().getInputStream()) {
+			req = new ObjectMapper().readValue(is, DencodeRequest.class);
 		}
 		
-		Charset charset = toCharset(req.oe, StandardCharsets.UTF_8);
-		String lineBreak = toLineBreakString(req.nl, "\r\n");
-		ZoneId zone = toZoneId(req.tz, "UTC");
+		Charset charset = toCharset(req.oe, DEFAULT_CHARSET);
+		String lineBreak = toLineBreakString(req.nl, DEFAULT_LINE_BREAK);
+		ZoneId zone = toZoneId(req.tz, DEFAULT_ZONE_ID);
 		
 		DencodeCondition cond = new DencodeCondition(req.value, charset, lineBreak, zone, req.options);
 		
@@ -66,35 +71,26 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 			throw new IllegalArgumentException("Method: " + req.method + ", Value length: " + cond.value().length(), e);
 		}
 	}
-
+	
 	private static String toCharsetName(String oe) {
-		if (oe == null || oe.isEmpty()) {
-			return "UTF-8";
-		}
-		
-		switch (oe) {
-			case "Shift_JIS": return "windows-31j";
-			case "ISO-2022-JP": return "x-windows-iso2022jp";
-			case "windows-874": return "x-windows-874";
-		}
-		
-		if (!Charset.isSupported(oe)) {
-			return "UTF-8";
-		}
-		
-		return oe;
+		return switch (oe) {
+			case "Shift_JIS" -> "windows-31j";
+			case "ISO-2022-JP" -> "x-windows-iso2022jp";
+			case "windows-874" -> "x-windows-874";
+			default -> oe;
+		};
 	}
 	
 	private static Charset toCharset(String oe, Charset defaultCharset) {
-		
-		Charset charset;
-		try {
-			charset = Charset.forName(toCharsetName(oe));
-		} catch (IllegalArgumentException e) {
-			charset = defaultCharset;
+		if (oe == null) {
+			return defaultCharset;
 		}
 		
-		return charset;
+		try {
+			return Charset.forName(toCharsetName(oe));
+		} catch (IllegalArgumentException e) {
+			return defaultCharset;
+		}
 	}
 	
 	private static String toLineBreakString(String nl, String defaultNl) {
@@ -110,15 +106,15 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 		};
 	}
 	
-	private static ZoneId toZoneId(String tz, String defaultTz) {
-		
-		ZoneId zone;
-		try {
-			zone = ZoneId.of(tz);
-		} catch (DateTimeException | NullPointerException e) {
-			zone = ZoneId.of(defaultTz);
+	private static ZoneId toZoneId(String tz, ZoneId defaultTz) {
+		if (tz == null) {
+			return defaultTz;
 		}
 		
-		return zone;
+		try {
+			return ZoneId.of(tz);
+		} catch (DateTimeException e) {
+			return defaultTz;
+		}
 	}
 }

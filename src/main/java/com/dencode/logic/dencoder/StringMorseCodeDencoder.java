@@ -50,7 +50,7 @@ public class StringMorseCodeDencoder {
 	private static final String JAPANESE_SEMI_VOICED_SOUND_MARK_CHARS = "パピプペポぱぴぷぺぽ";
 	private static final String JAPANESE_UN_SEMI_VOICED_SOUND_MARK_CHARS = "ハヒフヘホはひふへほ";
 	
-	private static Map<String, char[]> MAP_INTERNATIONAL = new HashMap<>() {
+	private static final Map<String, char[]> MAP_INTERNATIONAL = new HashMap<>() {
 		private static final long serialVersionUID = 1L;
 		{
 			// See: https://en.wikipedia.org/wiki/Morse_code
@@ -137,7 +137,7 @@ public class StringMorseCodeDencoder {
 		}
 	};
 	
-	private static Map<String, char[]> MAP_JAPANESE = new HashMap<>() {
+	private static final Map<String, char[]> MAP_JAPANESE = new HashMap<>() {
 		private static final long serialVersionUID = 1L;
 		{
 			// See: https://en.wikipedia.org/wiki/Wabun_code
@@ -212,7 +212,7 @@ public class StringMorseCodeDencoder {
 		}
 	};
 	
-	private static Map<String, char[]> MAP_RUSSIAN = new HashMap<>() {
+	private static final Map<String, char[]> MAP_RUSSIAN = new HashMap<>() {
 		private static final long serialVersionUID = 1L;
 		{
 			// See: https://en.wikipedia.org/wiki/Russian_Morse_code
@@ -277,14 +277,14 @@ public class StringMorseCodeDencoder {
 		}
 	};
 	
-	private static Map<Char, String> ENC_MAP_INTERNATIONAL = toEncodingMap(MAP_INTERNATIONAL);
-	private static MorseTreeNode DEC_NODE_INTERNATIONAL = toDecodingNode(MAP_INTERNATIONAL);
+	private static final Map<Char, String> ENC_MAP_INTERNATIONAL = toEncodingMap(MAP_INTERNATIONAL);
+	private static final MorseTreeNode DEC_NODE_INTERNATIONAL = toDecodingNode(MAP_INTERNATIONAL);
 	
-	private static Map<Char, String> ENC_MAP_JAPANESE = toEncodingMap(MAP_JAPANESE);
-	private static MorseTreeNode DEC_NODE_JAPANESE = toDecodingNode(MAP_JAPANESE);
+	private static final Map<Char, String> ENC_MAP_JAPANESE = toEncodingMap(MAP_JAPANESE);
+	private static final MorseTreeNode DEC_NODE_JAPANESE = toDecodingNode(MAP_JAPANESE);
 	
-	private static Map<Char, String> ENC_MAP_RUSSIAN = toEncodingMap(MAP_RUSSIAN);
-	private static MorseTreeNode DEC_NODE_RUSSIAN = toDecodingNode(MAP_RUSSIAN);
+	private static final Map<Char, String> ENC_MAP_RUSSIAN = toEncodingMap(MAP_RUSSIAN);
+	private static final MorseTreeNode DEC_NODE_RUSSIAN = toDecodingNode(MAP_RUSSIAN);
 	
 	
 	private StringMorseCodeDencoder() {

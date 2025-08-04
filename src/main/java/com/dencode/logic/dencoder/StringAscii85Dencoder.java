@@ -27,10 +27,10 @@ import com.dencode.logic.model.DencodeCondition;
 
 @Dencoder(type="string", method="string.ascii85", hasEncoder=true, hasDecoder=true, useOe=true, useNl=true)
 public class StringAscii85Dencoder {
-	private static int BASE_N = 85;
-	private static int BASE_N_P2 = BASE_N * BASE_N;
-	private static int BASE_N_P3 = BASE_N_P2 * BASE_N;
-	private static int BASE_N_P4 = BASE_N_P3 * BASE_N;
+	private static final int BASE_N = 85;
+	private static final int BASE_N_P2 = BASE_N * BASE_N;
+	private static final int BASE_N_P3 = BASE_N_P2 * BASE_N;
+	private static final int BASE_N_P4 = BASE_N_P3 * BASE_N;
 	
 	private static final char[] ENCODE_TABLE = {
 			'!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*',

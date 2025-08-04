@@ -29,7 +29,7 @@ public class CharWidthUtils {
 		HANGUL,
 	}
 	
-	private static EnumSet<Type> TYPE_ALL = EnumSet.allOf(Type.class);
+	private static final EnumSet<Type> TYPE_ALL = EnumSet.allOf(Type.class);
 	
 	private static final char[] HALF_WIDTH_KANA = {
 			'｡', '｢', '｣', '､', '･',
