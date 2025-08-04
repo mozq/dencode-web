@@ -2443,10 +2443,14 @@ public class StringHTMLEscapeDencoder {
 				}
 				
 				if (refIdx < endIdx) {
-					int cp = Integer.parseInt(val, refIdx, endIdx, radix);
-					if (Character.isDefined(cp)) {
-						sb.appendCodePoint(cp);
-						matched = true;
+					try {
+						int cp = Integer.parseInt(val, refIdx, endIdx, radix);
+						if (Character.isDefined(cp)) {
+							sb.appendCodePoint(cp);
+							matched = true;
+						}
+					} catch (NumberFormatException e) {
+						// NOP
 					}
 				}
 				
