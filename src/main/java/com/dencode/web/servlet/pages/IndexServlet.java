@@ -50,7 +50,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 						ZoneOffset offset = zone.getRules().getStandardOffset(now);
 						String offsetId = offset.getId();
 						if (offsetId.equals("Z")) {
-							offsetId = "±00:00";
+							offsetId = "+00:00";
 						}
 						
 						String name = offsetId + " " + id;
