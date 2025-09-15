@@ -53,24 +53,42 @@ public class StringBinDencoder {
 			return val;
 		}
 		
-		val = DencodeUtils.removeAllWhitespace(val);
+		int len = val.length();
+		byte[] binValue = new byte[len / 8 + 1];
+		int binIdx = -1;
+		int digits = 0;
 		
-		try {
-			int len = val.length();
-			int binLen = 0;
-			byte[] binValue = new byte[len / 8 + 1];
-			for (int i = 0; i < val.length(); ) {
-				int lastIdx = Math.min(i + 8, len);
-				String v = val.substring(i, lastIdx);
-				byte b = (byte)Integer.parseInt(v, 2);
-				binValue[binLen] = b;
-				binLen++;
-				i = lastIdx;
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if (Character.isWhitespace(ch)) {
+				continue;
 			}
-			return new String(binValue, 0, binLen, charset);
-		} catch (NumberFormatException e) {
-			return null;
+			
+			int b;
+			switch (ch) {
+				case '0': b = 0; break;
+				case '1': b = 1; break;
+				default: return null;
+			}
+			
+			if (digits == 0) {
+				binValue[++binIdx] = (byte)b;
+				digits = 1;
+			} else {
+				binValue[binIdx] = (byte)((binValue[binIdx] << 1) | b);
+				digits += 1;
+				if (digits >= 8) {
+					digits = 0;
+				}
+			}
 		}
+		
+		if (digits != 0) {
+			binValue[binIdx] = (byte)((binValue[binIdx] << (8 - digits)));
+		}
+		
+		return new String(binValue, 0, binIdx + 1, charset);
 	}
 	
 	private static String toBinString(byte[] binary, String separatorEach) {

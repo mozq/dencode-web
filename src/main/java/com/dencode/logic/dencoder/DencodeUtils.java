@@ -40,8 +40,6 @@ public class DencodeUtils {
 	private static final char[] N_ARY_DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 	private static final char[] N_ARY_DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	
-	private static final Pattern WHITE_SPACE_PATTERN = Pattern.compile("\\s");
-	
 	private DencodeUtils() {
 		// NOP
 	}
@@ -207,10 +205,6 @@ public class DencodeUtils {
 		}
 		
 		return str.charAt(idx);
-	}
-	
-	protected static String removeAllWhitespace(String str) {
-		return WHITE_SPACE_PATTERN.matcher(str).replaceAll("");
 	}
 	
 	protected static String changeSeparator(String str, int separatorChar, IntUnaryOperator letterOpe, IntUnaryOperator initialOpe, IntUnaryOperator firstInitialOpe) {

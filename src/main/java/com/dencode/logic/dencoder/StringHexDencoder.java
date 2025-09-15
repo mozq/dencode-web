@@ -53,24 +53,40 @@ public class StringHexDencoder {
 		if (val == null || val.isEmpty()) {
 			return val;
 		}
-
-		val = DencodeUtils.removeAllWhitespace(val);
 		
-		try {
-			int len = val.length();
-			int binLen = 0;
-			byte[] binValue = new byte[len / 2 + 1];
-			for (int i = 0; i < val.length(); ) {
-				int lastIdx = Math.min(i + 2, len);
-				String v = val.substring(i, lastIdx);
-				byte b = (byte)Integer.parseInt(v, 16);
-				binValue[binLen++] = b;
-				i = lastIdx;
+		int len = val.length();
+		byte[] binValue = new byte[len / 2 + 1];
+		int binIdx = -1;
+		int digits = 0;
+		
+		for (int i = 0; i < len; i++) {
+			char ch = val.charAt(i);
+			
+			if (Character.isWhitespace(ch)) {
+				continue;
 			}
-			return new String(binValue, 0, binLen, charset);
-		} catch (NumberFormatException e) {
-			return null;
+			
+			int b;
+			try {
+				b = DencodeUtils.hexDigitToNum(ch);
+			} catch (IllegalArgumentException e) {
+				return null;
+			}
+			
+			if (digits == 0) {
+				binValue[++binIdx] = (byte)b;
+				digits = 4;
+			} else {
+				binValue[binIdx] = (byte)((binValue[binIdx] << 4) | b);
+				digits = 0;
+			}
 		}
+		
+		if (digits != 0) {
+			binValue[binIdx] = (byte)((binValue[binIdx] << (8 - digits)));
+		}
+		
+		return new String(binValue, 0, binIdx + 1, charset);
 	}
 	
 	private static String toHexString(byte[] binary, String separatorEach, boolean upperCase) {
