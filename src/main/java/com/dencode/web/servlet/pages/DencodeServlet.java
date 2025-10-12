@@ -46,7 +46,7 @@ public class DencodeServlet extends AbstractDencodeHttpServlet {
 	
 	
 	private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-	private static final String DEFAULT_LINE_BREAK = "\r\n";
+	private static final String DEFAULT_LINE_BREAK = "\n";
 	private static final ZoneId DEFAULT_ZONE_ID = ZoneId.of("UTC");
 	
 	

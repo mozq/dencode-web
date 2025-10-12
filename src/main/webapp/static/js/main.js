@@ -43,8 +43,9 @@ $.onReady(function () {
 	const elOexBtn = $.id("oex");
 	const elOexMenu = $.id("oexMenu");
 	const elOexMenuItems = $.all("#oexMenu .dropdown-item");
+	const elNl = $.id("nl");
 	const elNlGroup = $.id("nlGroup");
-	const elNlGroupBtns = $.all("#nlGroup .btn");
+	const elNlMenuItems = $.all("#nlMenu [data-nl]");
 	const elTz = $.id("tz");
 	const elTzGroup = $.id("tzGroup");
 	const elTzMenuItems = $.all("#tzMenuItems [data-tz]");
@@ -76,7 +77,7 @@ $.onReady(function () {
 		
 		elOexBtn.setAttribute("data-oe", selectItem(elOexMenuItems, elOexMenu, "oe", "oex"));
 		selectItem(elOeGroupBtns, elOeGroup, "oe", "oe");
-		selectItem(elNlGroupBtns, elNlGroup, "nl", "nl");
+		elNl.setAttribute("data-nl", selectItem(elNlMenuItems, elNlGroup, "nl", "nl"));
 		elTz.setAttribute("data-tz", selectItem(elTzMenuItems, elTzGroup, "tz", "tz"));
 		
 		elOptions.forEach((el) => {
@@ -212,15 +213,21 @@ $.onReady(function () {
 	}
 	
 	if (dencoderDefs[dencodeMethod].useNl) {
+		let elNlMenuItem = elNlMenuItems.find((el) => el.classList.contains("active"));
+		if (!elNlMenuItem) {
+			elNlMenuItem = elNlMenuItems[0];
+		}
+		elNl.textContent = elNlMenuItem.textContent;
+		elNl.setAttribute("data-nl", elNlMenuItem.getAttribute("data-nl"));
+		
 		elNlGroup.style.display = "";
 		
-		$.on(elNlGroupBtns, "click", function () {
-			if (this.classList.contains("active")) {
-				return;
-			}
-			
-			elNlGroupBtns.forEach((el) => el.classList.remove("active"));
+		$.on(elNlMenuItems, "click", function () {
+			elNlMenuItems.forEach((el) => el.classList.remove("active"));
 			this.classList.add("active");
+			
+			elNl.textContent = this.textContent;
+			elNl.setAttribute("data-nl", this.getAttribute("data-nl"));
 			
 			dencode();
 		});
@@ -775,7 +782,7 @@ $.onReady(function () {
 		const v = elV.value;
 		const oe = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
 		const oex = elOexMenuItems.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
-		const nl = elNlGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-nl");
+		const nl = elNl.getAttribute("data-nl");
 		const tz = elTz.getAttribute("data-tz");
 		let options = {};
 		elOptions.forEach((el) => {
@@ -955,7 +962,7 @@ $.onReady(function () {
 			url += "&oe=" + encodeURIComponent(oe);
 		}
 		if (dcDef === null || dcDef.useNl) {
-			const nl = elNlGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-nl");
+			const nl = elNl.getAttribute("data-nl");
 			url += "&nl=" + encodeURIComponent(nl);
 		}
 		if (dcDef === null || dcDef.useTz) {

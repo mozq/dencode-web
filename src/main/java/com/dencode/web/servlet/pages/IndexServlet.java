@@ -110,7 +110,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 		String v = reqres().param("v", "");
 		String oe = "UTF-8";
 		String oex = message("oe.ext.default");
-		String nl = "crlf";
+		String nl = "lf";
 		String tz = "UTC";
 		
 		String type = reqres().attribute("type");

@@ -316,9 +316,15 @@
 					</ul>
 				</div>
 				<div id="nlGroup" class="btn-group btn-group-sm" data-default-value="${dc:h(nl)}" style="display: none;">
-					<button class="btn" data-nl="crlf">CRLF (Win)</button>
-					<button class="btn" data-nl="lf">LF (UNIX/Mac)</button>
-					<button class="btn" data-nl="cr">CR (Old Mac)</button>
+					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${dc:h(msg['label.newline'])}" aria-expanded="false">
+						<span id="nl" data-nl=""></span>
+						<span class="caret"></span>
+					</button>
+					<div id="nlMenu" class="dropdown-menu" role="menu">
+						<span class="dropdown-item" data-nl="lf" tabindex="0">LF (\n)</span>
+						<span class="dropdown-item" data-nl="crlf" tabindex="0">CRLF (\r\n)</span>
+						<span class="dropdown-item" data-nl="cr" tabindex="0">CR (\r)</span>
+					</div>
 				</div>
 				<div id="tzGroup" class="btn-group btn-group-sm" data-default-value="${dc:h(tz)}" style="display: none;">
 					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${dc:h(msg['label.timeZone'])}" aria-expanded="false">

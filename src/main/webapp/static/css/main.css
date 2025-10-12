@@ -193,7 +193,7 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 
 .btn-group-sm .btn {
 	--bs-btn-padding-y: 1px;
-	--bs-btn-padding-x: 5px;
+	--bs-btn-padding-x: 1ex;
 	--bs-btn-font-size: 0.8rem;
 }
 .btn-group-sm .dropdown-menu {
@@ -349,7 +349,11 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 }
 
 #expOptions {
-	padding: 1px 0;
+	padding: 2px 0 0;
+}
+
+#expOptions .btn-group:not(:last-child) {
+	margin-right: 1.2ex;
 }
 
 #follow {
