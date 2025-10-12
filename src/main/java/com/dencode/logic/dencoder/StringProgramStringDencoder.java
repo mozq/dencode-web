@@ -95,24 +95,25 @@ public class StringProgramStringDencoder {
 			return val;
 		}
 		
-		if (2 <= val.length()) {
+		int len = val.length();
+		
+		if (2 <= len) {
 			char fc = val.charAt(0);
-			char lc = val.charAt(val.length() - 1);
+			char lc = val.charAt(len - 1);
 			if ((fc == '\"' && lc == '\"')
 				|| (fc == '\'' && lc == '\'')) {
 				// Trim quotes
-				val = val.substring(1, val.length() - 1);
+				val = val.substring(1, len - 1);
 			}
 		}
 		
-		int beginIdx = val.indexOf('\\');
+		int beginIdx = val.indexOf(ESCAPE_CHAR);
 		if (beginIdx == -1) {
 			return val;
 		}
-
-		int len = val.length();
+		
 		int idx = 0;
-		StringBuilder sb = new StringBuilder(val.length());
+		StringBuilder sb = new StringBuilder(len);
 		do {
 			sb.append(val, idx, beginIdx);
 			
@@ -186,9 +187,9 @@ public class StringProgramStringDencoder {
 				sb.append(ch);
 				idx = refIdx;
 			}
-		} while (idx < len && (beginIdx = val.indexOf('\\', idx)) != -1);
+		} while (idx < len && (beginIdx = val.indexOf(ESCAPE_CHAR, idx)) != -1);
 		
-		sb.append(val, idx, val.length());
+		sb.append(val, idx, len);
 		
 		return sb.toString();
 	}
