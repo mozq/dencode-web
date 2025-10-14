@@ -30,12 +30,12 @@
 	<link rel="icon" type="image/svg+xml" sizes="any" href="${pageContext.request.contextPath}/static/img/icons/icon.svg" />
 	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/apple-touch-icon.png" />
 	<link rel="manifest" href="${pageContext.request.contextPath}/manifest.json" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" integrity="sha256-zzPh8NflvEInFbVSzLYGVMLOn0j0kfsjq/UlNeMBRYw=" crossorigin="anonymous" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha256-2FMn2Zx6PuH5tdBQDRNwrOo60ts5wWPC9R8jK67b3t4=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" integrity="sha256-pdY4ejLKO67E0CM2tbPtq1DJ3VGDVVdqAR6j3ZwdiE4=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${dc:fileLastModified(pageContext, '/static/css/main.css')}" />
-	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha256-ORBCb//WwUWwNh+EjsvO97snO3mAJ1+jhMzrlPBTYSQ=" crossorigin="anonymous"></script>
+	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${dc:fileLastModified(pageContext, '/static/js/all.min.js')}"></script>
-	<script id="scriptTesseract" data-src="//cdn.jsdelivr.net/npm/tesseract.js@6.0.0/dist/tesseract.min.js" integrity="sha256-XQ0OqjYPYHiz6df5S453qRO+Ub5B84RM7w/R+hpsll4=" crossorigin="anonymous"></script>
+	<script id="scriptTesseract" data-src="//cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" integrity="sha256-EP/3hIQGd1nEMCigKnLXbQuQ6xcwK7I7WKnsVBC8kos=" crossorigin="anonymous"></script>
 	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
 	<c:choose>
 		<c:when test="${method eq 'all.all'}"><title>${dc:h(msg['site.name'])} | ${dc:h(msg[method += '.title'])}</title></c:when>
