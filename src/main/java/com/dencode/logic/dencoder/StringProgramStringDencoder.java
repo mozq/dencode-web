@@ -104,6 +104,7 @@ public class StringProgramStringDencoder {
 				|| (fc == '\'' && lc == '\'')) {
 				// Trim quotes
 				val = val.substring(1, len - 1);
+				len = val.length();
 			}
 		}
 		
