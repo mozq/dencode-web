@@ -50,7 +50,6 @@ $.onReady(function () {
 	const elTzGroup = $.id("tzGroup");
 	const elTzMenuItems = $.all("#tzMenuItems [data-tz]");
 	const elTzMenuFilter = $.id("tzMenuFilter");
-	const elSubHeaders = $.all("h2");
 	const elDecIndicator = $.id("decodingIndicator");
 	const elEncIndicator = $.id("encodingIndicator");
 	const elListRows = $.all(".dencoded-list > tbody > tr");
@@ -484,18 +483,6 @@ $.onReady(function () {
 			showTooltip(elLoadBtn, elLoadQrcode.getAttribute("data-load-message"), 2000);
 		} catch (ex) {
 			showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
-		}
-	});
-	
-	$.on(elSubHeaders, "click", function () {
-		const elToggleIcon = this.querySelector(".toggle-icon");
-		
-		if (elToggleIcon.classList.contains("bi-caret-down-square")) {
-			elToggleIcon.classList.remove("bi-caret-down-square");
-			elToggleIcon.classList.add("bi-caret-right-square");
-		} else {
-			elToggleIcon.classList.remove("bi-caret-right-square");
-			elToggleIcon.classList.add("bi-caret-down-square");
 		}
 	});
 	

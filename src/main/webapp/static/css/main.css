@@ -95,6 +95,11 @@ h2 .toggle-icon {
 	font-size: 0.6em;
 }
 
+h2.collapsed .toggle-icon {
+	display: inline-block;
+	transform: rotate(-90deg);
+}
+
 h3 {
 	margin: 1.4em 0 0.3em;
 	font-size: 1.4rem;
