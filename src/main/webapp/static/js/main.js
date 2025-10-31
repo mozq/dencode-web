@@ -910,9 +910,7 @@ $.onReady(function () {
 		elVLen.setAttribute("data-len-bytes", res.textByteLength);
 		
 		_colors = (res.encColorRGBHex) ? res.encColorRGBHex.split("\n") : null;
-		if (_colors) {
-			setBgColor(elV, _colors, isDarkMode());
-		}
+		setBgColor(elV, _colors, isDarkMode());
 		
 		for (const k in res) {
 			setResponseValue(k, res[k]);
@@ -1133,13 +1131,11 @@ function setResponseValue(id, value) {
 }
 
 function setBgColor(el, colors, darkMode) {
-	let bgColor = null;
-	if (colors) {
-		bgColor = getNonBlankValue(colors, getCurrentLineIndex(el));
-	}
+	let bgColor = getNonBlankValue(colors, getCurrentLineIndex(el), "");
 	
 	let color;
 	if (bgColor) {
+		// '#RRGGBBAA'
 		const r = parseInt(bgColor.substring(1, 3), 16);
 		const g = parseInt(bgColor.substring(3, 5), 16);
 		const b = parseInt(bgColor.substring(5, 7), 16);
@@ -1150,12 +1146,8 @@ function setBgColor(el, colors, darkMode) {
 		} else {
 			color = ((r + g + b) < 384) ? "white" : "black"; // 384 = 256 * 3 / 2
 		}
-		
-		// Temporary code: convert the color format #RRGGBBAA (CSS4) to rgba(R,G,B,A) (CSS3)
-		bgColor = "rgba(" + r + "," + g + "," + b + "," + (Math.round(a * 100) / 100) + ")";
 	} else {
-		color = "var(--bs-body-color)";
-		bgColor = "transparent";
+		color = "";
 	}
 	
 	el.style.color = color;
@@ -1279,28 +1271,26 @@ function copyToClipboard(el) {
 	}
 }
 
-function getNonBlankValue(values, index) {
+function getNonBlankValue(values, index, defaultValue) {
 	if (!values) {
-		return null;
+		return defaultValue;
 	}
 	
-	let value;
-	
 	for (let i = Math.min(index, values.length - 1); 0 <= i; i--) {
-		value = values[i];
-		if (value !== "") {
+		const value = values[i];
+		if (value !== null && value !== "") {
 			return value;
 		}
 	}
 	
 	for (let i = index + 1; i < values.length; i++) {
-		value = values[i];
-		if (value !== "") {
+		const value = values[i];
+		if (value !== null && value !== "") {
 			return value;
 		}
 	}
 	
-	return null;
+	return defaultValue;
 }
 
 function loadScriptAsync(scriptTagQuery) {
