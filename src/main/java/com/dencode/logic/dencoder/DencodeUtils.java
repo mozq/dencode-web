@@ -31,6 +31,7 @@ import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.dencode.logic.parser.NumberParser;
 
@@ -90,7 +91,9 @@ public class DencodeUtils {
 			return null;
 		}
 		
-		return String.join(separator, dencVals);
+		return dencVals.stream()
+				.map(v -> (v == null) ? "" : v)
+				.collect(Collectors.joining(separator));
 	}
 	
 	protected static String getOption(Map<String, String> options, String key, String defaultValue) {
