@@ -91,12 +91,12 @@ h2 {
 }
 
 h2 .toggle-icon {
-	vertical-align: 0.25em;
-	font-size: 0.6em;
+	vertical-align: 0.04em;
+	width: 0.65em;
+	height: 0.65em;
 }
 
 h2.collapsed .toggle-icon {
-	display: inline-block;
 	transform: rotate(-90deg);
 }
 
@@ -223,6 +223,7 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 }
 .btn-v-icon-label .bi {
 	display: block;
+	margin: 0 auto;
 	font-size: 1.1em;
 }
 .btn-v-icon-label .btn-label {

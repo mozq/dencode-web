@@ -31,19 +31,31 @@
 	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/apple-touch-icon.png" />
 	<link rel="manifest" href="${pageContext.request.contextPath}/manifest.json" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha256-2FMn2Zx6PuH5tdBQDRNwrOo60ts5wWPC9R8jK67b3t4=" crossorigin="anonymous" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" integrity="sha256-pdY4ejLKO67E0CM2tbPtq1DJ3VGDVVdqAR6j3ZwdiE4=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${dc:fileLastModified(pageContext, '/static/css/main.css')}" />
 	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${dc:fileLastModified(pageContext, '/static/js/all.min.js')}"></script>
 	<script id="scriptTesseract" data-src="//cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" integrity="sha256-EP/3hIQGd1nEMCigKnLXbQuQ6xcwK7I7WKnsVBC8kos=" crossorigin="anonymous"></script>
 	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
+	<style><%-- Bootstrap Icons --%>
+		.bi-globe2 { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/globe2.svg'); }
+		.bi-pin-angle-fill { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/pin-angle-fill.svg'); }
+		.bi-file-earmark-arrow-up { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/file-earmark-arrow-up.svg'); }
+		.bi-link-45deg { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/link-45deg.svg'); }
+		.bi-file-text { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/file-text.svg'); }
+		.bi-camera { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/camera.svg'); }
+		.bi-qr-code-scan { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/qr-code-scan.svg'); }
+		.bi-clipboard { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/clipboard.svg'); }
+		.bi-link-45deg { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/link-45deg.svg'); }
+		.bi-share-fill { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/share-fill.svg'); }
+		.bi { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; background-color: currentColor; -webkit-mask-image: var(--bi-icon); mask-image: var(--bi-icon); -webkit-mask-size: cover; mask-size: cover; }
+	</style>
+	<script>
+		document.documentElement.setAttribute("data-bs-theme", (window.matchMedia?.("(prefers-color-scheme:dark)")?.matches) ? "dark" : "light");
+	</script>
 	<c:choose>
 		<c:when test="${method eq 'all.all'}"><title>${dc:h(msg['site.name'])} | ${dc:h(msg[method += '.title'])}</title></c:when>
 		<c:otherwise><title>${dc:h(msg[method += '.title'])} - ${dc:h(msg['site.name'])}</title></c:otherwise>
 	</c:choose>
-	<script>
-		document.documentElement.setAttribute("data-bs-theme", (window.matchMedia?.("(prefers-color-scheme:dark)")?.matches) ? "dark" : "light");
-	</script>
 </head>
 <body data-context-path="${pageContext.request.contextPath}" data-dencode-type="${type}" data-dencode-method="${method}">
 <header>
@@ -105,9 +117,9 @@
 							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/braille" data-dencode-method="string.braille">${dc:h(msg['string.braille.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/naming-convention" data-dencode-method="string.naming-convention">${dc:h(msg['string.naming-convention.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/camel-case" data-dencode-method="string.camel-case"><i class="bi bi-chevron-right"></i> ${dc:h(msg['string.camel-case.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/snake-case" data-dencode-method="string.snake-case"><i class="bi bi-chevron-right"></i> ${dc:h(msg['string.snake-case.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/kebab-case" data-dencode-method="string.kebab-case"><i class="bi bi-chevron-right"></i> ${dc:h(msg['string.kebab-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/camel-case" data-dencode-method="string.camel-case">❯ ${dc:h(msg['string.camel-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/snake-case" data-dencode-method="string.snake-case">❯ ${dc:h(msg['string.snake-case.method'])}</a></li>
+							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/kebab-case" data-dencode-method="string.kebab-case">❯ ${dc:h(msg['string.kebab-case.method'])}</a></li>
 							<li class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/character-width" data-dencode-method="string.character-width">${dc:h(msg['string.character-width.method'])}</a></li>
 							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/letter-case" data-dencode-method="string.letter-case">${dc:h(msg['string.letter-case.method'])}</a></li>
@@ -345,7 +357,7 @@
 		
 		<div id="decoded" ${(hasDecoder) ? '' : 'style="display: none;"'}>
 			<h2 data-bs-toggle="collapse" data-bs-target="#decodedListContainer" aria-expanded="true">
-				<i class="toggle-icon bi bi-caret-down-square"></i>
+				<svg class="toggle-icon"><use href="#caret-down-square" /></svg>
 				${dc:h(msg['label.decoded'])}
 				<svg id="decodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
@@ -1183,7 +1195,7 @@
 		
 		<div id="encoded" ${(hasEncoder) ? '' : 'style="display: none;"'}>
 			<h2 data-bs-toggle="collapse" data-bs-target="#encodedListContainer" aria-expanded="true">
-				<i class="toggle-icon bi bi-caret-down-square"></i>
+				<svg class="toggle-icon"><use href="#caret-down-square" /></svg>
 				${dc:h(msg['label.encoded'])}
 				<svg id="encodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
@@ -2446,10 +2458,10 @@
 			<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" role="menu">
-			<li><a class="dropdown-item share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage"><i class="bi bi-box-arrow-up-right"></i> ${dc:h(msg['label.openNewPage'])}</a></li>
-			<li><a class="dropdown-item share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail"><i class="bi bi-envelope"></i> ${dc:h(msg['label.sendByEmail'])}</a></li>
-			<li><a class="dropdown-item share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter"><i class="bi bi-twitter"></i> ${dc:h(msg['label.shareOnTwitter'])}</a></li>
-			<li><a class="dropdown-item share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook"><i class="bi bi-facebook"></i> ${dc:h(msg['label.shareOnFacebook'])}</a></li>
+			<li><a class="dropdown-item share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage">${dc:h(msg['label.openNewPage'])}</a></li>
+			<li><a class="dropdown-item share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail">${dc:h(msg['label.sendByEmail'])}</a></li>
+			<li><a class="dropdown-item share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter">${dc:h(msg['label.shareOnTwitter'])}</a></li>
+			<li><a class="dropdown-item share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook">${dc:h(msg['label.shareOnFacebook'])}</a></li>
 		</ul>
 	</div>
 </script>
@@ -2472,6 +2484,10 @@
 			<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
 				<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
 			</circle>
+		</symbol>
+		<symbol id="caret-down-square" viewBox="0 0 16 16">
+			<rect x="1" y="1" rx="2" ry="2" width="14" height="14" fill="none" stroke="currentColor" stroke-width="0.9" />
+			<polygon points="3.5,6 12.5,6 8,11.2" fill="currentColor" />
 		</symbol>
 	</defs>
 </svg>
