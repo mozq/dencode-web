@@ -24,8 +24,8 @@ $.onReady(function () {
 	
 	const dencoderDefs = JSON.parse($.id("dencoderDefs").textContent);
 	
+	const elNavMenuToggler = $.id("navMenuToggler");
 	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
-	const elTypeMenuLabels = $.all("#typeMenu .dropdown-menu-label");
 	const elTypeMenuMethodLinks = $.all("#typeMenu a[data-dencode-method]");
 	const elExp = $.id("exp");
 	const elFollow = $.id("follow");
@@ -42,7 +42,7 @@ $.onReady(function () {
 	const elOeGroupBtns = $.all("#oeGroup .btn:not(.dropdown-toggle)");
 	const elOexBtn = $.id("oex");
 	const elOexMenu = $.id("oexMenu");
-	const elOexMenuItems = $.all("#oexMenu .dropdown-item");
+	const elOexMenuItems = $.all("#oexMenu [data-oe]");
 	const elNl = $.id("nl");
 	const elNlGroup = $.id("nlGroup");
 	const elNlMenuItems = $.all("#nlMenu [data-nl]");
@@ -174,7 +174,7 @@ $.onReady(function () {
 	}
 	
 	// Initialize menu
-	$.one(`#typeMenu a[data-dencode-method="${dencodeMethod}"]`).classList.add("active");
+	$.all(`#typeMenu li:has(a[data-dencode-method="${dencodeMethod}"])`).forEach((el) => el.classList.add("active"));
 	
 	// Initialize buttons
 	if (dencoderDefs[dencodeMethod].useOe) {
@@ -242,6 +242,10 @@ $.onReady(function () {
 		
 		elTzGroup.style.display = "";
 		
+		$.on(elTzMenuFilter, "click", function (ev) {
+			ev.stopPropagation();
+		});
+		
 		$.on(elTzMenuFilter, "input paste", function () {
 			const svals = this.value.toLowerCase().split(/\s+/g);
 			
@@ -275,33 +279,44 @@ $.onReady(function () {
 	}
 	
 	// Initialize popovers
-	new bootstrap.Popover(elVLen, {
-		trigger: "click",
-		content: (el) => {
-			const chars = Number(el.getAttribute("data-len-chars"));
-			const bytes = Number(el.getAttribute("data-len-bytes"));
-			return renderTemplate(getLengthTmpl(), {
+	$.on(elVLen, "click", function (ev) {
+		if (ev.target.closest(".popover")) {
+			return;
+		}
+		
+		if (this.classList.contains("active")) {
+			hidePopovers($.all(".popover-toggle.active"));
+		} else {
+			const title = this.getAttribute("title");
+			const chars = Number(this.getAttribute("data-len-chars"));
+			const bytes = Number(this.getAttribute("data-len-bytes"));
+			
+			showPopover(this, title, renderTemplate(getLengthTmpl(), {
 				chars: chars,
 				oneChar: (chars == 1),
 				bytes: bytes,
 				oneByte: (bytes == 1)
-			});
+			}), false);
 		}
 	});
 	
-	new bootstrap.Popover(document.body, {
-		selector: ".popover-toggle.permanent-link",
-		trigger: "click",
-		html: true,
-		sanitize: false,
-		content: (el) => {
-			const method = el.closest("[data-dencode-method]").getAttribute("data-dencode-method");
+	$.on(".popover-toggle.permanent-link", "click", function (ev) {
+		if (ev.target.closest(".popover")) {
+			return;
+		}
+		
+		if (this.classList.contains("active")) {
+			hidePopovers($.all(".popover-toggle.active"));
+		} else {
+			const title = this.getAttribute("title");
+			const method = this.closest("[data-dencode-method]").getAttribute("data-dencode-method");
 			const dcDef = dencoderDefs[method];
 			const permanentLink = getPermanentLink(method, dcDef);
-			return renderTemplate(getPermanentLinkTmpl(), {
+			
+			showPopover(this, title, renderTemplate(getPermanentLinkTmpl(), {
 				permanentLink: permanentLink,
 				permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
-			});
+			}), true);
 		}
 	});
 	
@@ -314,12 +329,21 @@ $.onReady(function () {
 	
 	
 	// Add event listeners
-	$.on(window, "resize", function () {
-		adjustPopovers($.all(".popover-toggle.active"));
+	$.on(window, "hashchange", function () {
+		handleHash(window.location.hash);
 	});
 	
 	$.on(document, "click", function (ev) {
-		// hide popover when other area clicked
+		// Hide dropdown menus when another area is clicked
+		const dropdownToggle = ev.target.closest(".dropdown-toggle");
+		$.all(".dropdown-toggle.show").forEach((el) => {
+			if (el !== dropdownToggle) {
+				el.classList.remove("show");
+				el.setAttribute("aria-expanded", false);
+			}
+		});
+		
+		// Hide popovers when another area is clicked
 		if (!ev.target.closest(".popover-toggle, .popover")) {
 			hidePopovers($.all(".popover-toggle.active"));
 		}
@@ -351,19 +375,42 @@ $.onReady(function () {
 		ev.preventDefault();
 	});
 	
-	$.on(".popover-toggle", "show.bs.popover", function () {
-		hidePopovers($.all(".popover-toggle.active"));
-		
-		this.classList.add("active");
+	$.on(".dropdown-toggle:not(.toggle-manual)", "click", function () {
+		this.classList.toggle("show");
+		this.setAttribute("aria-expanded", this.classList.contains("show"));
 	});
 	
-	$.on(".popover-toggle", "hidden.bs.popover", function () {
-		this.classList.remove("active");
+	$.on(".dropdown-menu li", "click", function (ev) {
+		const toggle = ev.target.closest(".dropdown-toggle");
+		if (toggle) {
+			toggle.classList.remove("show");
+			toggle.setAttribute("aria-expanded", false);
+		}
 	});
 	
-	$.on($.all(".dropdown-item"), "keyup", function (ev) {
-		if (ev.key === "Enter") {
+	$.on(".dropdown-menu li", "keydown", function (ev) {
+		if (ev.key === "Enter" || ev.key === " ") {
+			ev.preventDefault();
 			ev.target.click();
+		}
+	});
+	
+	$.on("[data-close='modal']", "click", function () {
+		$.all(".modal[open]").forEach((el) => {
+			el.close();
+		});
+	});
+	
+	$.on("[data-close='message']", "click", function () {
+		this.closest(".message").remove();
+	});
+	
+	$.on($.all("[data-toggle-collapse]"), "click", function () {
+		const targetSelector = this.getAttribute("data-toggle-collapse");
+		const el = $.one(targetSelector);
+		if (el) {
+			el.classList.toggle("expanded");
+			this.setAttribute("aria-expanded", el.classList.contains("expanded"));
 		}
 	});
 	
@@ -375,8 +422,14 @@ $.onReady(function () {
 				// NOP
 			});
 		} else {
-			(new bootstrap.Dropdown(this)).show();
+			this.classList.toggle("show");
 		}
+	});
+	
+	$.on(elNavMenuToggler, "click", function () {
+		const el = $.id(this.getAttribute("aria-controls"));
+		el.classList.toggle("expanded");
+		this.setAttribute("aria-expanded", el.classList.contains("expanded"));
 	});
 	
 	$.on(elLocaleMenuLinks, "click", function (ev) {
@@ -396,7 +449,7 @@ $.onReady(function () {
 	});
 	
 	$.on(elTypeMenuMethodLinks, "click", function (ev) {
-		if (this.classList.contains("active")) {
+		if (this.closest("li").classList.contains("active")) {
 			ev.preventDefault();
 			return;
 		}
@@ -409,13 +462,8 @@ $.onReady(function () {
 				this.href += "#v=" + encodeURIComponent(v);
 			}
 		}
-	});
-	
-	$.on(elTypeMenuLabels, "click", function (ev) {
-		const elDropdownMenuLink = this.closest("li").querySelector("ul.dropdown-menu li a");
-		elDropdownMenuLink.click();
 		
-		ev.preventDefault();
+		ev.stopPropagation();
 	});
 
 	$.on(elV, "input paste", function () {
@@ -487,8 +535,6 @@ $.onReady(function () {
 	});
 	
 	$.on(elListRows, "click", function (ev) {
-		hidePopovers($.all(".popover-toggle.active"));
-		
 		if (ev.target.closest(".for-copy")) {
 			return;
 		}
@@ -579,11 +625,7 @@ $.onReady(function () {
 		ev.preventDefault();
 	});
 	
-	$.on(elPolicyDialog, "show.bs.modal", function () {
-		window.location.hash = "#policy";
-	});
-	
-	$.on(elPolicyDialog, "hide.bs.modal", function () {
+	$.on(elPolicyDialog, "close", function () {
 		clearLocationHash();
 	});
 	
@@ -751,17 +793,14 @@ $.onReady(function () {
 		}
 	})();
 	
-	// Routing
-	if (window.location.hash === "#policy") {
-		const policyDialog = bootstrap.Modal.getOrCreateInstance(elPolicyDialog);
-		policyDialog.show();
-	}
+	// Hash routing
+	handleHash(window.location.hash);
 	
 	
 	dencode();
 	
 	
-	// function definitions
+	// Function definitions
 	
 	function dencode() {
 		const type = dencodeType;
@@ -843,7 +882,7 @@ $.onReady(function () {
 			body: JSON.stringify(requestData)
 		}).then((response) => {
 			if (response.headers.get("Content-Type").indexOf("application/json") === -1) {
-				const messageObject = getMessage("default.error");
+				const messageObject = getMessageObject("default.error");
 				const error = new Error(messageObject.message);
 				error.messageObject = messageObject;
 				throw error;
@@ -881,10 +920,10 @@ $.onReady(function () {
 				showMessages(err.messageObject);
 			} else if (err.statusCode) {
 				// HTTP 4xx or 5xx error
-				showMessages(getMessage("default.error"));
+				showMessages(getMessageObject("default.error"));
 			} else {
 				// Network error
-				showMessages(getMessage("network.error"));
+				showMessages(getMessageObject("network.error"));
 			}
 			focusMessages();
 			
@@ -914,6 +953,12 @@ $.onReady(function () {
 		
 		for (const k in res) {
 			setResponseValue(k, res[k]);
+		}
+	}
+	
+	function handleHash(hash) {
+		if (hash == "#policy") {
+			elPolicyDialog.showModal();
 		}
 	}
 	
@@ -1070,16 +1115,16 @@ $.onReady(function () {
 		}, 1);
 	}
 	
-	function showMessages(messages) {
+	function showMessages(messageObjects) {
 		let messagesHtml = "";
 		
-		if (messages) {
-			if (Array.isArray(messages)) {
-				for (const message of messages) {
-					messagesHtml += renderTemplate(getMessageTmpl(), formatMessage(message));
+		if (messageObjects) {
+			if (Array.isArray(messageObjects)) {
+				for (const messageObject of messageObjects) {
+					messagesHtml += renderTemplate(getMessageTmpl(), messageObject);
 				}
 			} else {
-				messagesHtml = renderTemplate(getMessageTmpl(), formatMessage(messages));
+				messagesHtml = renderTemplate(getMessageTmpl(), messageObjects);
 			}
 		}
 		
@@ -1099,14 +1144,13 @@ $.onReady(function () {
 	
 	function showMessageDialog(messageText) {
 		$.id("messageDialogBody").textContent = messageText;
-		const modal = bootstrap.Modal.getOrCreateInstance($.id("messageDialog"));
-		modal.show();
+		$.id("messageDialog").showModal();
 	}
 });
 
 
 function isDarkMode() {
-	return (document.documentElement.getAttribute("data-bs-theme") === "dark");
+	return (document.documentElement.getAttribute("data-ui-theme") === "dark");
 }
 
 function setResponseValue(id, value) {
@@ -1192,35 +1236,36 @@ function getCurrentLineIndex(el) {
 	return n;
 }
 
-function adjustPopovers(elPopovers) {
-	elPopovers.forEach((el) => {
-		const popover = bootstrap.Popover.getInstance(el);
-		if (popover) {
-			popover.update();
-		}
-	});
+function showPopover(el, title, content, isHtmlContent) {
+	hidePopovers($.all(".popover-toggle.active"));
+	
+	const elPopover = $.id("popoverTmpl").content.cloneNode(true).querySelector(".popover");
+	elPopover.querySelector(".popover-header").textContent = title;
+	if (isHtmlContent) {
+		elPopover.querySelector(".popover-body").innerHTML = content;
+	} else {
+		elPopover.querySelector(".popover-body").textContent = content;
+	}
+	el.appendChild(elPopover);
+	
+	el.classList.add("active");
 }
 
-function hidePopovers(elPopovers) {
-	elPopovers.forEach((el) => {
-		const popover = bootstrap.Popover.getInstance(el);
-		if (popover) {
-			popover.hide();
-		}
+function hidePopovers(elPopoverToggles) {
+	elPopoverToggles.forEach((el) => {
+		el.querySelector(".popover").remove();
+		el.classList.remove("active");
 	});
 }
 
 function showTooltip(el, message, time) {
-	const tooltip = new bootstrap.Tooltip(el, {
-		trigger: "manual",
-		container: "body",
-		title: message
-	});
-	
-	tooltip.show();
+	const elTooltip = document.createElement("span");
+	elTooltip.className = "tooltip";
+	elTooltip.innerText = message;
+	el.appendChild(elTooltip);
 	
 	setTimeout(() => {
-		tooltip.dispose();
+		elTooltip.remove();
 	}, time);
 }
 
@@ -1393,52 +1438,14 @@ function separateThousand(num) {
 	return strNum;
 }
 
-function getMessage(messageId) {
+function getMessageObject(messageId) {
 	const m = $.one(`script[type='text/message'][data-id='${messageId}']`);
-	return newMessage(
-			m.dataset.id,
-			m.dataset.level,
-			m.dataset.message,
-			m.dataset.detail
-			);
-}
-
-function formatMessage(message) {
-	if (message.type) {
-		return message;
-	} else {
-		return newMessage(
-				message.messageId,
-				message.level,
-				message.message,
-				message.detail
-				);
-	}
-}
-
-function newMessage(messageId, level, message, detail) {
 	return {
-		"messageId": messageId,
-		"level": level,
-		"type": toMessageType(level),
-		"message": message,
-		"detail": detail
-	};
-}
-
-function toMessageType(level) {
-	switch (level) {
-	case "success":
-		return "success";
-	case "info":
-		return "info";
-	case "warn":
-		return "warning";
-	case "error": //FALLTHRU
-	case "fatal": //FALLTHRU
-	default:
-		return "danger";
-	}
+			"messageId": m.dataset.id,
+			"level": m.dataset.level,
+			"message": m.dataset.message,
+			"detail": m.dataset.detail
+		};
 }
 
 function clearLocationHash() {

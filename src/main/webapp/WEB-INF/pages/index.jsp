@@ -3,7 +3,7 @@
 %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
 %><%@ taglib prefix="dc" uri="http://dencode.com/jsp/taglib"
 %><!DOCTYPE html>
-<html lang="${dc:h(msg['lang'])}" prefix="og: http://ogp.me/ns#" data-bs-theme="">
+<html lang="${dc:h(msg['lang'])}" prefix="og: http://ogp.me/ns#" data-ui-theme="">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,9 +30,7 @@
 	<link rel="icon" type="image/svg+xml" sizes="any" href="${pageContext.request.contextPath}/static/img/icons/icon.svg" />
 	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/apple-touch-icon.png" />
 	<link rel="manifest" href="${pageContext.request.contextPath}/manifest.json" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha256-2FMn2Zx6PuH5tdBQDRNwrOo60ts5wWPC9R8jK67b3t4=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${dc:fileLastModified(pageContext, '/static/css/main.css')}" />
-	<script defer src="//cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${dc:fileLastModified(pageContext, '/static/js/all.min.js')}"></script>
 	<script id="scriptTesseract" data-src="//cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" integrity="sha256-EP/3hIQGd1nEMCigKnLXbQuQ6xcwK7I7WKnsVBC8kos=" crossorigin="anonymous"></script>
 	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
@@ -50,7 +48,7 @@
 		.bi { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; background-color: currentColor; -webkit-mask-image: var(--bi-icon); mask-image: var(--bi-icon); -webkit-mask-size: cover; mask-size: cover; }
 	</style>
 	<script>
-		document.documentElement.setAttribute("data-bs-theme", (window.matchMedia?.("(prefers-color-scheme:dark)")?.matches) ? "dark" : "light");
+		document.documentElement.setAttribute("data-ui-theme", (window.matchMedia?.("(prefers-color-scheme:dark)")?.matches) ? "dark" : "light");
 	</script>
 	<c:choose>
 		<c:when test="${method eq 'all.all'}"><title>${dc:h(msg['site.name'])} | ${dc:h(msg[method += '.title'])}</title></c:when>
@@ -58,178 +56,160 @@
 	</c:choose>
 </head>
 <body data-context-path="${pageContext.request.contextPath}" data-dencode-type="${type}" data-dencode-method="${method}">
-<header>
-	<nav class="navbar navbar-expand-sm">
-		<div class="container-fluid">
-			<a id="brand" class="navbar-brand" href="${dc:h(basePath)}/">${dc:h(msg['site.name'])}</a>
-			<span class="navbar-text">Enjoy encoding &amp; decoding!</span>
-			
-			<div id="localeMenu" class="dropdown">
-				<span class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-					<i class="bi bi-globe2"></i>
-					${dc:h(msg['locale.name'])}
-					<span class="caret"></span>
-				</span>
+<header role="banner">
+	<nav class="navbar" role="navigation">
+		<a id="brand" class="navbar-brand" href="${dc:h(basePath)}/">${dc:h(msg['site.name'])}</a>
+		<span class="navbar-text">Enjoy encoding &amp; decoding!</span>
+		
+		<div id="localeMenu" class="dropdown">
+			<div class="dropdown-toggle" role="button" aria-expanded="false">
+				<i class="bi bi-globe2"></i>
+				${dc:h(msg['locale.name'])}
+				
 				<ul class="dropdown-menu dropdown-menu-end" role="menu">
-					<li><a class="dropdown-item ${(localeId eq null) ? 'active' : ''}" href="${pageContext.request.contextPath}/${dc:h(currentPath)}">${dc:h(msg['locale.name.default'])} (${dc:h(defaultLocaleName)})</a></li>
-					<li class="dropdown-divider"></li>
+					<li class="${(localeId eq null) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${dc:h(currentPath)}">${dc:h(msg['locale.name.default'])} (${dc:h(defaultLocaleName)})</a></li>
+					<li><hr /></li>
 					<c:forEach var="loc" items="${supportedLocaleMap}">
-						<li><a class="dropdown-item ${(localeId eq loc.key) ? 'active' : ''}" href="${pageContext.request.contextPath}/${dc:h(loc.key)}/${dc:h(currentPath)}">${dc:h(loc.value)}</a></li>
+						<li class="${(localeId eq loc.key) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${dc:h(loc.key)}/${dc:h(currentPath)}">${dc:h(loc.value)}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
-			
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#typeMenuCollapse" aria-controls="typeMenuCollapse" aria-label="${dc:h(msg['label.menu'])}" aria-expanded="false">
-				<span class="navbar-toggler-icon"></span>
-			</button>
 		</div>
+		
+		<button type="button" id="navMenuToggler" class="navbar-toggler" aria-controls="navMenu" aria-label="${dc:h(msg['label.menu'])}" aria-expanded="false">
+			<svg class="navbar-toggler-icon"><use href="#menu" /></svg>
+		</button>
 	</nav>
-	<nav class="navbar navbar-expand-sm">
-		<div class="container-fluid">
-			<div id="typeMenuCollapse" class="collapse navbar-collapse">
-				<ul id="typeMenu" class="navbar-nav">
-					<li class="nav-item ${(type eq 'all') ? 'active' : ''}" data-dencode-type="all">
-						<a class="nav-link" href="${dc:h(basePath)}/" data-dencode-method="all.all">${dc:h(msg['all.type'])}</a>
-					</li>
-					<li class="nav-item dropdown ${(type eq 'string') ? 'active' : ''}" role="presentation" data-dencode-type="string">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="dropdown-menu-label">${dc:h(msg['string.type'])}</span>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string" data-dencode-method="string.all">${dc:h(msg['string.all.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/bin" data-dencode-method="string.bin">${dc:h(msg['string.bin.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/hex" data-dencode-method="string.hex">${dc:h(msg['string.hex.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/html-escape" data-dencode-method="string.html-escape">${dc:h(msg['string.html-escape.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/url-encoding" data-dencode-method="string.url-encoding">${dc:h(msg['string.url-encoding.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/punycode" data-dencode-method="string.punycode">${dc:h(msg['string.punycode.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/base32" data-dencode-method="string.base32">${dc:h(msg['string.base32.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/base45" data-dencode-method="string.base45">${dc:h(msg['string.base45.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/base64" data-dencode-method="string.base64">${dc:h(msg['string.base64.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/ascii85" data-dencode-method="string.ascii85">${dc:h(msg['string.ascii85.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/quoted-printable" data-dencode-method="string.quoted-printable">${dc:h(msg['string.quoted-printable.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/unicode-escape" data-dencode-method="string.unicode-escape">${dc:h(msg['string.unicode-escape.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/program-string" data-dencode-method="string.program-string">${dc:h(msg['string.program-string.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/morse-code" data-dencode-method="string.morse-code">${dc:h(msg['string.morse-code.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/braille" data-dencode-method="string.braille">${dc:h(msg['string.braille.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/naming-convention" data-dencode-method="string.naming-convention">${dc:h(msg['string.naming-convention.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/camel-case" data-dencode-method="string.camel-case">❯ ${dc:h(msg['string.camel-case.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/snake-case" data-dencode-method="string.snake-case">❯ ${dc:h(msg['string.snake-case.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/kebab-case" data-dencode-method="string.kebab-case">❯ ${dc:h(msg['string.kebab-case.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/character-width" data-dencode-method="string.character-width">${dc:h(msg['string.character-width.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/letter-case" data-dencode-method="string.letter-case">${dc:h(msg['string.letter-case.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/text-initials" data-dencode-method="string.text-initials">${dc:h(msg['string.text-initials.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/text-reverse" data-dencode-method="string.text-reverse">${dc:h(msg['string.text-reverse.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/font-style" data-dencode-method="string.font-style">${dc:h(msg['string.font-style.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/unicode-normalization" data-dencode-method="string.unicode-normalization">${dc:h(msg['string.unicode-normalization.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/line-sort" data-dencode-method="string.line-sort">${dc:h(msg['string.line-sort.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/string/line-unique" data-dencode-method="string.line-unique">${dc:h(msg['string.line-unique.method'])}</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown ${(type eq 'number') ? 'active' : ''}" role="presentation" data-dencode-type="number">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="dropdown-menu-label">${dc:h(msg['number.type'])}</span>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number" data-dencode-method="number.all">${dc:h(msg['number.all.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/dec" data-dencode-method="number.dec">${dc:h(msg['number.dec.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/bin" data-dencode-method="number.bin">${dc:h(msg['number.bin.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/oct" data-dencode-method="number.oct">${dc:h(msg['number.oct.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/hex" data-dencode-method="number.hex">${dc:h(msg['number.hex.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/n-ary" data-dencode-method="number.n-ary">${dc:h(msg['number.n-ary.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/fraction" data-dencode-method="number.fraction">${dc:h(msg['number.fraction.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/english" data-dencode-method="number.english">${dc:h(msg['number.english.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/number/japanese" data-dencode-method="number.japanese">${dc:h(msg['number.japanese.method'])}</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown ${(type eq 'date') ? 'active' : ''}" role="presentation" data-dencode-type="date">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="dropdown-menu-label">${dc:h(msg['date.type'])}</span>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date" data-dencode-method="date.all">${dc:h(msg['date.all.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date/unix-time" data-dencode-method="date.unix-time">${dc:h(msg['date.unix-time.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date/w3cdtf" data-dencode-method="date.w3cdtf">${dc:h(msg['date.w3cdtf.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date/iso8601" data-dencode-method="date.iso8601">${dc:h(msg['date.iso8601.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date/rfc2822" data-dencode-method="date.rfc2822">${dc:h(msg['date.rfc2822.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date/ctime" data-dencode-method="date.ctime">${dc:h(msg['date.ctime.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/date/japanese-era" data-dencode-method="date.japanese-era">${dc:h(msg['date.japanese-era.method'])}</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown ${(type eq 'color') ? 'active' : ''}" role="presentation" data-dencode-type="color">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="dropdown-menu-label">${dc:h(msg['color.type'])}</span>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/color" data-dencode-method="color.all">${dc:h(msg['color.all.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/color/name" data-dencode-method="color.name">${dc:h(msg['color.name.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/color/rgb" data-dencode-method="color.rgb">${dc:h(msg['color.rgb.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/color/hsl" data-dencode-method="color.hsl">${dc:h(msg['color.hsl.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/color/hsv" data-dencode-method="color.hsv">${dc:h(msg['color.hsv.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/color/cmyk" data-dencode-method="color.cmyk">${dc:h(msg['color.cmyk.method'])}</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown ${(type eq 'cipher') ? 'active' : ''}" role="presentation" data-dencode-type="cipher">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="dropdown-menu-label">${dc:h(msg['cipher.type'])}</span>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher" data-dencode-method="cipher.all">${dc:h(msg['cipher.all.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/caesar" data-dencode-method="cipher.caesar">${dc:h(msg['cipher.caesar.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/rot13" data-dencode-method="cipher.rot13">${dc:h(msg['cipher.rot13.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/rot18" data-dencode-method="cipher.rot18">${dc:h(msg['cipher.rot18.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/rot47" data-dencode-method="cipher.rot47">${dc:h(msg['cipher.rot47.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/atbash" data-dencode-method="cipher.atbash">${dc:h(msg['cipher.atbash.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/affine" data-dencode-method="cipher.affine">${dc:h(msg['cipher.affine.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/vigenere" data-dencode-method="cipher.vigenere">${dc:h(msg['cipher.vigenere.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${dc:h(msg['cipher.enigma.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${dc:h(msg['cipher.jis-keyboard.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/scytale" data-dencode-method="cipher.scytale">${dc:h(msg['cipher.scytale.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/cipher/rail-fence" data-dencode-method="cipher.rail-fence">${dc:h(msg['cipher.rail-fence.method'])}</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown ${(type eq 'hash') ? 'active' : ''}" role="presentation" data-dencode-type="hash">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="dropdown-menu-label">${dc:h(msg['hash.type'])}</span>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash" data-dencode-method="hash.all">${dc:h(msg['hash.all.method'])}</a></li>
-							<li class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/md2" data-dencode-method="hash.md2">${dc:h(msg['hash.md2.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/md5" data-dencode-method="hash.md5">${dc:h(msg['hash.md5.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/sha1" data-dencode-method="hash.sha1">${dc:h(msg['hash.sha1.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/sha256" data-dencode-method="hash.sha256">${dc:h(msg['hash.sha256.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/sha384" data-dencode-method="hash.sha384">${dc:h(msg['hash.sha384.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/sha512" data-dencode-method="hash.sha512">${dc:h(msg['hash.sha512.method'])}</a></li>
-							<li><a class="dropdown-item" href="${dc:h(basePath)}/hash/crc32" data-dencode-method="hash.crc32">${dc:h(msg['hash.crc32.method'])}</a></li>
-						</ul>
-					</li>
+	<nav id="navMenu" class="navbar navbar-collapse" role="navigation">
+		<ul id="typeMenu" class="navbar-nav">
+			<li class="nav-item ${(type eq 'all') ? 'active' : ''}" data-dencode-type="all">
+				<a href="${dc:h(basePath)}/" data-dencode-method="all.all">${dc:h(msg['all.type'])}</a>
+			</li>
+			<li class="nav-item dropdown-toggle ${(type eq 'string') ? 'active' : ''}" role="button" aria-expanded="false" data-dencode-type="string">
+				<a href="${dc:h(basePath)}/string" data-dencode-method="string.all">${dc:h(msg['string.type'])}</a>
+				
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="${dc:h(basePath)}/string" data-dencode-method="string.all">${dc:h(msg['string.all.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/bin" data-dencode-method="string.bin">${dc:h(msg['string.bin.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/hex" data-dencode-method="string.hex">${dc:h(msg['string.hex.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/html-escape" data-dencode-method="string.html-escape">${dc:h(msg['string.html-escape.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/url-encoding" data-dencode-method="string.url-encoding">${dc:h(msg['string.url-encoding.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/punycode" data-dencode-method="string.punycode">${dc:h(msg['string.punycode.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/base32" data-dencode-method="string.base32">${dc:h(msg['string.base32.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/base45" data-dencode-method="string.base45">${dc:h(msg['string.base45.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/base64" data-dencode-method="string.base64">${dc:h(msg['string.base64.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/ascii85" data-dencode-method="string.ascii85">${dc:h(msg['string.ascii85.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/quoted-printable" data-dencode-method="string.quoted-printable">${dc:h(msg['string.quoted-printable.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/unicode-escape" data-dencode-method="string.unicode-escape">${dc:h(msg['string.unicode-escape.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/program-string" data-dencode-method="string.program-string">${dc:h(msg['string.program-string.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/morse-code" data-dencode-method="string.morse-code">${dc:h(msg['string.morse-code.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/braille" data-dencode-method="string.braille">${dc:h(msg['string.braille.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/naming-convention" data-dencode-method="string.naming-convention">${dc:h(msg['string.naming-convention.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/camel-case" data-dencode-method="string.camel-case">❯ ${dc:h(msg['string.camel-case.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/snake-case" data-dencode-method="string.snake-case">❯ ${dc:h(msg['string.snake-case.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/kebab-case" data-dencode-method="string.kebab-case">❯ ${dc:h(msg['string.kebab-case.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/character-width" data-dencode-method="string.character-width">${dc:h(msg['string.character-width.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/letter-case" data-dencode-method="string.letter-case">${dc:h(msg['string.letter-case.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/text-initials" data-dencode-method="string.text-initials">${dc:h(msg['string.text-initials.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/text-reverse" data-dencode-method="string.text-reverse">${dc:h(msg['string.text-reverse.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/font-style" data-dencode-method="string.font-style">${dc:h(msg['string.font-style.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/unicode-normalization" data-dencode-method="string.unicode-normalization">${dc:h(msg['string.unicode-normalization.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/string/line-sort" data-dencode-method="string.line-sort">${dc:h(msg['string.line-sort.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/string/line-unique" data-dencode-method="string.line-unique">${dc:h(msg['string.line-unique.method'])}</a></li>
 				</ul>
-			</div>
-		</div>
+			</li>
+			<li class="nav-item dropdown-toggle ${(type eq 'number') ? 'active' : ''}" role="button" aria-expanded="false" data-dencode-type="number">
+				<a href="${dc:h(basePath)}/number" data-dencode-method="number.all">${dc:h(msg['number.type'])}</a>
+				
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="${dc:h(basePath)}/number" data-dencode-method="number.all">${dc:h(msg['number.all.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/number/dec" data-dencode-method="number.dec">${dc:h(msg['number.dec.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/number/bin" data-dencode-method="number.bin">${dc:h(msg['number.bin.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/number/oct" data-dencode-method="number.oct">${dc:h(msg['number.oct.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/number/hex" data-dencode-method="number.hex">${dc:h(msg['number.hex.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/number/n-ary" data-dencode-method="number.n-ary">${dc:h(msg['number.n-ary.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/number/fraction" data-dencode-method="number.fraction">${dc:h(msg['number.fraction.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/number/english" data-dencode-method="number.english">${dc:h(msg['number.english.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/number/japanese" data-dencode-method="number.japanese">${dc:h(msg['number.japanese.method'])}</a></li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown-toggle ${(type eq 'date') ? 'active' : ''}" role="button" aria-expanded="false" data-dencode-type="date">
+				<a href="${dc:h(basePath)}/date" data-dencode-method="date.all">${dc:h(msg['date.type'])}</a>
+				
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="${dc:h(basePath)}/date" data-dencode-method="date.all">${dc:h(msg['date.all.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/date/unix-time" data-dencode-method="date.unix-time">${dc:h(msg['date.unix-time.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/date/w3cdtf" data-dencode-method="date.w3cdtf">${dc:h(msg['date.w3cdtf.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/date/iso8601" data-dencode-method="date.iso8601">${dc:h(msg['date.iso8601.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/date/rfc2822" data-dencode-method="date.rfc2822">${dc:h(msg['date.rfc2822.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/date/ctime" data-dencode-method="date.ctime">${dc:h(msg['date.ctime.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/date/japanese-era" data-dencode-method="date.japanese-era">${dc:h(msg['date.japanese-era.method'])}</a></li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown-toggle ${(type eq 'color') ? 'active' : ''}" role="button" aria-expanded="false" data-dencode-type="color">
+				<a href="${dc:h(basePath)}/color" data-dencode-method="color.all">${dc:h(msg['color.type'])}</a>
+				
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="${dc:h(basePath)}/color" data-dencode-method="color.all">${dc:h(msg['color.all.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/color/name" data-dencode-method="color.name">${dc:h(msg['color.name.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/color/rgb" data-dencode-method="color.rgb">${dc:h(msg['color.rgb.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/color/hsl" data-dencode-method="color.hsl">${dc:h(msg['color.hsl.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/color/hsv" data-dencode-method="color.hsv">${dc:h(msg['color.hsv.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/color/cmyk" data-dencode-method="color.cmyk">${dc:h(msg['color.cmyk.method'])}</a></li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown-toggle ${(type eq 'cipher') ? 'active' : ''}" role="button" aria-expanded="false" data-dencode-type="cipher">
+				<a href="${dc:h(basePath)}/cipher" data-dencode-method="cipher.all">${dc:h(msg['cipher.type'])}</a>
+				
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="${dc:h(basePath)}/cipher" data-dencode-method="cipher.all">${dc:h(msg['cipher.all.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/cipher/caesar" data-dencode-method="cipher.caesar">${dc:h(msg['cipher.caesar.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/rot13" data-dencode-method="cipher.rot13">${dc:h(msg['cipher.rot13.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/rot18" data-dencode-method="cipher.rot18">${dc:h(msg['cipher.rot18.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/rot47" data-dencode-method="cipher.rot47">${dc:h(msg['cipher.rot47.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/atbash" data-dencode-method="cipher.atbash">${dc:h(msg['cipher.atbash.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/affine" data-dencode-method="cipher.affine">${dc:h(msg['cipher.affine.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/cipher/vigenere" data-dencode-method="cipher.vigenere">${dc:h(msg['cipher.vigenere.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/enigma" data-dencode-method="cipher.enigma">${dc:h(msg['cipher.enigma.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/cipher/jis-keyboard" data-dencode-method="cipher.jis-keyboard">${dc:h(msg['cipher.jis-keyboard.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/cipher/scytale" data-dencode-method="cipher.scytale">${dc:h(msg['cipher.scytale.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/cipher/rail-fence" data-dencode-method="cipher.rail-fence">${dc:h(msg['cipher.rail-fence.method'])}</a></li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown-toggle ${(type eq 'hash') ? 'active' : ''}" role="button" aria-expanded="false" data-dencode-type="hash">
+				<a href="${dc:h(basePath)}/hash" data-dencode-method="hash.all">${dc:h(msg['hash.type'])}</a>
+				
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="${dc:h(basePath)}/hash" data-dencode-method="hash.all">${dc:h(msg['hash.all.method'])}</a></li>
+					<li><hr /></li>
+					<li><a href="${dc:h(basePath)}/hash/md2" data-dencode-method="hash.md2">${dc:h(msg['hash.md2.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/hash/md5" data-dencode-method="hash.md5">${dc:h(msg['hash.md5.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/hash/sha1" data-dencode-method="hash.sha1">${dc:h(msg['hash.sha1.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/hash/sha256" data-dencode-method="hash.sha256">${dc:h(msg['hash.sha256.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/hash/sha384" data-dencode-method="hash.sha384">${dc:h(msg['hash.sha384.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/hash/sha512" data-dencode-method="hash.sha512">${dc:h(msg['hash.sha512.method'])}</a></li>
+					<li><a href="${dc:h(basePath)}/hash/crc32" data-dencode-method="hash.crc32">${dc:h(msg['hash.crc32.method'])}</a></li>
+				</ul>
+			</li>
+		</ul>
 	</nav>
 </header>
 
@@ -237,29 +217,27 @@
 	<div id="messages" class="messages">
 	</div>
 	
-	<div class="content">
-		<div id="top"></div>
-		
+	<main role="main">
 		<div id="exp">
 			<div id="expHeader">
 				<span id="follow" title="${dc:h(msg['label.follow'])}"><i class="bi bi-pin-angle-fill"></i></span>
-				<span id="vLen" class="badge bg-secondary popover-toggle" title="${dc:h(msg['label.val.length'])}" data-bs-toggle="popover" data-bs-placement="left" data-len-chars="0" data-len-bytes="0">0</span>
+				<span id="vLen" class="popover-toggle" title="${dc:h(msg['label.val.length'])}" data-len-chars="0" data-len-bytes="0">0</span>
 			</div>
 			<div id="expValue">
 				<div class="input-group">
 					<textarea id="v" class="form-control" placeholder="${dc:h(msg[method += '.tooltip'])}">${dc:h(v)}</textarea>
 					<div class="btn-group-vertical">
-						<button id="load" type="button" class="btn btn-v-icon-label dropdown-toggle" title="${dc:h(msg['label.load'])}" data-bs-toggle="dropdown" aria-expanded="false">
+						<button type="button" id="load" class="btn btn-v-icon-label dropdown-toggle" title="${dc:h(msg['label.load'])}" aria-expanded="false">
 							<i class="bi bi-file-earmark-arrow-up"></i>
 							<span class="btn-label">${dc:h(msg['label.load.buttonLabel'])}</span>
-							<span class="caret"></span>
+							
+							<ul class="dropdown-menu dropdown-menu-end" role="menu">
+								<li id="loadFile" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-file-text"></i> ${dc:h(msg['label.load.file'])}</li>
+								<li id="loadImage" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-camera"></i> ${dc:h(msg['label.load.image'])}</li>
+								<li id="loadQrcode" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${dc:h(msg['label.load.qrcode'])}</li>
+							</ul>
 						</button>
-						<ul class="dropdown-menu dropdown-menu-right" role="menu">
-							<li id="loadFile" class="dropdown-item" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-file-text"></i> ${dc:h(msg['label.load.file'])}</li>
-							<li id="loadImage" class="dropdown-item" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-camera"></i> ${dc:h(msg['label.load.image'])}</li>
-							<li id="loadQrcode" class="dropdown-item" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${dc:h(msg['label.load.qrcode'])}</li>
-						</ul>
-						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
+						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}">
 							<i class="bi bi-link-45deg"></i>
 							<span class="btn-label">${dc:h(msg['label.permanentLink.buttonLabel'])}</span>
 						</button>
@@ -267,101 +245,97 @@
 				</div>
 			</div>
 			<div id="expOptions">
-				<div id="oeGroup" class="btn-group btn-group-sm" data-default-value="${dc:h(oe)}" style="display: none;">
-					<button class="btn" data-oe="UTF-8">UTF-8</button>
-					<button class="btn" data-oe="UTF-16BE">UTF-16</button>
-					<button class="btn" data-oe="UTF-32BE">UTF-32</button>
-					<button id="oex" class="btn" data-oe=""></button>
-					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${dc:h(msg['label.etc'])}" aria-expanded="false">
-						<span class="caret"></span>
-					</button>
-					<ul id="oexMenu" class="dropdown-menu" role="menu" data-default-value="${dc:h(oex)}">
-						<li class="dropdown-item" data-oe="UTF-16LE" tabindex="0">UTF-16LE</li>
-						<li class="dropdown-item" data-oe="UTF-32LE" tabindex="0">UTF-32LE</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="US-ASCII" tabindex="0">US-ASCII</li>
-						<li class="dropdown-item" data-oe="ISO-8859-1" tabindex="0">ISO-8859-1 (Latin-1)</li>
-						<li class="dropdown-item" data-oe="ISO-8859-15" tabindex="0">ISO-8859-15 (Latin-9)</li>
-						<li class="dropdown-item" data-oe="windows-1252" tabindex="0">Windows-1252</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-2" tabindex="0">ISO-8859-2 (Latin-2)</li>
-						<li class="dropdown-item" data-oe="windows-1250" tabindex="0">Windows-1250</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-3" tabindex="0">ISO-8859-3 (Latin-3)</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-4" tabindex="0">ISO-8859-4 (Latin-4)</li>
-						<li class="dropdown-item" data-oe="ISO-8859-13" tabindex="0">ISO-8859-13 (Latin-7)</li>
-						<li class="dropdown-item" data-oe="windows-1257" tabindex="0">Windows-1257</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="Shift_JIS" tabindex="0">Shift_JIS</li>
-						<li class="dropdown-item" data-oe="EUC-JP" tabindex="0">EUC-JP</li>
-						<li class="dropdown-item" data-oe="ISO-2022-JP" tabindex="0">ISO-2022-JP (JIS)</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="GB2312" tabindex="0">GB2312 (EUC-CN)</li>
-						<li class="dropdown-item" data-oe="GB18030" tabindex="0">GB18030</li>
-						<li class="dropdown-item" data-oe="Big5-HKSCS" tabindex="0">Big5-HKSCS</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="EUC-KR" tabindex="0">EUC-KR (KS X 1001)</li>
-						<li class="dropdown-item" data-oe="ISO-2022-KR" tabindex="0">ISO-2022-KR</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-5" tabindex="0">ISO-8859-5</li>
-						<li class="dropdown-item" data-oe="windows-1251" tabindex="0">Windows-1251</li>
-						<li class="dropdown-item" data-oe="KOI8-R" tabindex="0">KOI8-R</li>
-						<li class="dropdown-item" data-oe="KOI8-U" tabindex="0">KOI8-U</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-6" tabindex="0">ISO-8859-6</li>
-						<li class="dropdown-item" data-oe="windows-1256" tabindex="0">Windows-1256</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-7" tabindex="0">ISO-8859-7</li>
-						<li class="dropdown-item" data-oe="windows-1253" tabindex="0">Windows-1253</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-8" tabindex="0">ISO-8859-8</li>
-						<li class="dropdown-item" data-oe="windows-1255" tabindex="0">Windows-1255</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="ISO-8859-9" tabindex="0">ISO-8859-9 (Latin-5)</li>
-						<li class="dropdown-item" data-oe="windows-1254" tabindex="0">Windows-1254</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="TIS-620" tabindex="0">TIS-620</li>
-						<li class="dropdown-item" data-oe="windows-874" tabindex="0">Windows-874</li>
-						<li class="dropdown-divider"></li>
-						<li class="dropdown-item" data-oe="windows-1258" tabindex="0">Windows-1258</li>
+				<div id="oeGroup" class="btn-group btn-group-sm dropdown" data-default-value="${dc:h(oe)}" style="display: none;">
+					<button type="button" class="btn" data-oe="UTF-8">UTF-8</button>
+					<button type="button" class="btn" data-oe="UTF-16BE">UTF-16</button>
+					<button type="button" class="btn" data-oe="UTF-32BE">UTF-32</button>
+					<button type="button" id="oex" class="btn" data-oe=""></button>
+					<button type="button" class="btn dropdown-toggle" aria-label="${dc:h(msg['label.etc'])}" aria-expanded="false"></button>
+					<ul id="oexMenu" class="dropdown-menu dropdown-menu-end" role="menu" data-default-value="${dc:h(oex)}">
+						<li data-oe="UTF-16LE" tabindex="0">UTF-16LE</li>
+						<li data-oe="UTF-32LE" tabindex="0">UTF-32LE</li>
+						<li><hr /></li>
+						<li data-oe="US-ASCII" tabindex="0">US-ASCII</li>
+						<li data-oe="ISO-8859-1" tabindex="0">ISO-8859-1 (Latin-1)</li>
+						<li data-oe="ISO-8859-15" tabindex="0">ISO-8859-15 (Latin-9)</li>
+						<li data-oe="windows-1252" tabindex="0">Windows-1252</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-2" tabindex="0">ISO-8859-2 (Latin-2)</li>
+						<li data-oe="windows-1250" tabindex="0">Windows-1250</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-3" tabindex="0">ISO-8859-3 (Latin-3)</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-4" tabindex="0">ISO-8859-4 (Latin-4)</li>
+						<li data-oe="ISO-8859-13" tabindex="0">ISO-8859-13 (Latin-7)</li>
+						<li data-oe="windows-1257" tabindex="0">Windows-1257</li>
+						<li><hr /></li>
+						<li data-oe="Shift_JIS" tabindex="0">Shift_JIS</li>
+						<li data-oe="EUC-JP" tabindex="0">EUC-JP</li>
+						<li data-oe="ISO-2022-JP" tabindex="0">ISO-2022-JP (JIS)</li>
+						<li><hr /></li>
+						<li data-oe="GB2312" tabindex="0">GB2312 (EUC-CN)</li>
+						<li data-oe="GB18030" tabindex="0">GB18030</li>
+						<li data-oe="Big5-HKSCS" tabindex="0">Big5-HKSCS</li>
+						<li><hr /></li>
+						<li data-oe="EUC-KR" tabindex="0">EUC-KR (KS X 1001)</li>
+						<li data-oe="ISO-2022-KR" tabindex="0">ISO-2022-KR</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-5" tabindex="0">ISO-8859-5</li>
+						<li data-oe="windows-1251" tabindex="0">Windows-1251</li>
+						<li data-oe="KOI8-R" tabindex="0">KOI8-R</li>
+						<li data-oe="KOI8-U" tabindex="0">KOI8-U</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-6" tabindex="0">ISO-8859-6</li>
+						<li data-oe="windows-1256" tabindex="0">Windows-1256</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-7" tabindex="0">ISO-8859-7</li>
+						<li data-oe="windows-1253" tabindex="0">Windows-1253</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-8" tabindex="0">ISO-8859-8</li>
+						<li data-oe="windows-1255" tabindex="0">Windows-1255</li>
+						<li><hr /></li>
+						<li data-oe="ISO-8859-9" tabindex="0">ISO-8859-9 (Latin-5)</li>
+						<li data-oe="windows-1254" tabindex="0">Windows-1254</li>
+						<li><hr /></li>
+						<li data-oe="TIS-620" tabindex="0">TIS-620</li>
+						<li data-oe="windows-874" tabindex="0">Windows-874</li>
+						<li><hr /></li>
+						<li data-oe="windows-1258" tabindex="0">Windows-1258</li>
 					</ul>
 				</div>
-				<div id="nlGroup" class="btn-group btn-group-sm" data-default-value="${dc:h(nl)}" style="display: none;">
-					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${dc:h(msg['label.newline'])}" aria-expanded="false">
+				<div id="nlGroup" class="btn-group btn-group-sm dropdown" data-default-value="${dc:h(nl)}" style="display: none;">
+					<button type="button" class="btn dropdown-toggle" aria-label="${dc:h(msg['label.newline'])}" aria-expanded="false">
 						<span id="nl" data-nl=""></span>
-						<span class="caret"></span>
 					</button>
-					<div id="nlMenu" class="dropdown-menu" role="menu">
-						<span class="dropdown-item" data-nl="lf" tabindex="0">LF (\n)</span>
-						<span class="dropdown-item" data-nl="crlf" tabindex="0">CRLF (\r\n)</span>
-						<span class="dropdown-item" data-nl="cr" tabindex="0">CR (\r)</span>
-					</div>
+					<ul id="nlMenu" class="dropdown-menu" role="menu">
+						<li data-nl="lf" tabindex="0">LF (\n)</li>
+						<li data-nl="crlf" tabindex="0">CRLF (\r\n)</li>
+						<li data-nl="cr" tabindex="0">CR (\r)</li>
+					</ul>
 				</div>
-				<div id="tzGroup" class="btn-group btn-group-sm" data-default-value="${dc:h(tz)}" style="display: none;">
-					<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-label="${dc:h(msg['label.timeZone'])}" aria-expanded="false">
+				<div id="tzGroup" class="btn-group btn-group-sm dropdown" data-default-value="${dc:h(tz)}" style="display: none;">
+					<button type="button" class="btn dropdown-toggle" aria-label="${dc:h(msg['label.timeZone'])}" aria-expanded="false">
 						<span id="tz" data-tz=""></span>
-						<span class="caret"></span>
 					</button>
 					<div id="tzMenu" class="dropdown-menu" role="menu">
 						<input id="tzMenuFilter" class="form-control" value="" />
-						<div id="tzMenuItems">
+						<ul id="tzMenuItems">
 							<c:forEach var="tzVal" items="${tzMap}">
-								<span class="dropdown-item" data-tz="${dc:h(tzVal.key)}" tabindex="0">${dc:h(tzVal.value)}</span>
+								<li data-tz="${dc:h(tzVal.key)}" tabindex="0">${dc:h(tzVal.value)}</li>
 							</c:forEach>
-						</div>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 		
 		<div id="decoded" ${(hasDecoder) ? '' : 'style="display: none;"'}>
-			<h2 data-bs-toggle="collapse" data-bs-target="#decodedListContainer" aria-expanded="true">
+			<h2 data-toggle-collapse="#decodedListContainer" aria-expanded="true">
 				<svg class="toggle-icon"><use href="#caret-down-square" /></svg>
 				${dc:h(msg['label.decoded'])}
 				<svg id="decodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
-			<div id="decodedListContainer" class="collapse show">
+			<div id="decodedListContainer" class="collapse expanded">
 				<table id="decodedList" class="dencoded-list">
 					<c:if test="${types.contains('string')}">
 						<tbody>
@@ -1194,12 +1168,12 @@
 		</div>
 		
 		<div id="encoded" ${(hasEncoder) ? '' : 'style="display: none;"'}>
-			<h2 data-bs-toggle="collapse" data-bs-target="#encodedListContainer" aria-expanded="true">
+			<h2 data-toggle-collapse="#encodedListContainer" aria-expanded="true">
 				<svg class="toggle-icon"><use href="#caret-down-square" /></svg>
 				${dc:h(msg['label.encoded'])}
 				<svg id="encodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
-			<div id="encodedListContainer" class="collapse show">
+			<div id="encodedListContainer" class="collapse expanded">
 				<table id="encodedList" class="dencoded-list">
 					<c:if test="${types.contains('string')}">
 						<tbody>
@@ -2362,61 +2336,65 @@
 			<hr />
 			<jsp:include page="${methodDescIncPagePath}" />
 		</c:if>
-	</div>
+	</main>
 </div>
 
-<footer>
+<footer role="contentinfo">
 	© <a href="https://github.com/mozq/dencode-web" target="_blank">Mozq</a>
-	| <a href="#" data-bs-toggle="modal" data-bs-target="#policyDialog">${dc:h(msg['label.policy'])}</a>
+	| <a href="#policy">${dc:h(msg['label.policy'])}</a>
 </footer>
 
-<div id="messageDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div id="messageDialogBody" class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn" data-bs-dismiss="modal">${dc:h(msg['label.ok'])}</button>
-			</div>
-		</div>
-	</div>
-</div>
 
-<div id="policyDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<span id="policyDialogLabel" class="modal-title">${dc:h(msg['label.policy'])}</span>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="${dc:h(msg['label.close'])}"></button>
-			</div>
-			<div class="modal-body">
-				<c:choose>
-					<c:when test="${dc:fileExists(pageContext, '/WEB-INF/pages/policy_' += msg['lang'] += '.inc.jsp')}">
-						<jsp:include page="policy_${msg['lang']}.inc.jsp" />
-					</c:when>
-					<c:otherwise>
-						<jsp:include page="policy_en.inc.jsp" />
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn" data-bs-dismiss="modal">${dc:h(msg['label.close'])}</button>
-			</div>
-		</div>
+<dialog id="messageDialog" class="modal">
+	<div id="messageDialogBody" class="modal-body">
 	</div>
-</div>
+	<div class="modal-footer">
+		<button type="button" class="btn" data-close="modal">${dc:h(msg['label.ok'])}</button>
+	</div>
+</dialog>
 
-<div style="display: none;">
+<dialog id="policyDialog" class="modal">
+	<div class="modal-header">
+		<span id="policyDialogLabel" class="modal-title">${dc:h(msg['label.policy'])}</span>
+		<button type="button" class="btn-close" data-close="modal" aria-label="${dc:h(msg['label.close'])}">
+			<svg class="inline-icon"><use href="#close" /></svg>
+		</button>
+	</div>
+	<div class="modal-body">
+		<c:choose>
+			<c:when test="${dc:fileExists(pageContext, '/WEB-INF/pages/policy_' += msg['lang'] += '.inc.jsp')}">
+				<jsp:include page="policy_${msg['lang']}.inc.jsp" />
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="policy_en.inc.jsp" />
+			</c:otherwise>
+		</c:choose>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn" data-close="modal">${dc:h(msg['label.close'])}</button>
+	</div>
+</dialog>
+
+<div style="display:none" aria-hidden="true">
 	<input id="loadFileInput" type="file" accept="text/*" />
 	<input id="loadImageInput" type="file" accept="image/*" />
 	<input id="loadQrcodeInput" type="file" accept="image/*" />
 </div>
 
+<template id="popoverTmpl" style="display:none" aria-hidden="true">
+	<div class="popover" title="">
+		<div class="popover-header"></div>
+		<div class="popover-body"></div>
+	</div>
+</template>
+
 <script id="messageTmpl" type="text/template">
-	<div class="alert {{#type}}alert-{{type}}{{/type}} alert-dismissible" data-message-id="{{messageId}}" data-message-level="{{level}}" role="alert">
+	<div class="message message-{{level}}" data-message-id="{{messageId}}" role="alert">
 		<strong>{{message}}</strong>
-		{{#detail}}<p>{{detail}}</p>{{/detail}}
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="${dc:h(msg['label.close'])}"></button>
+		<p>{{detail}}</p>
+		<button type="button" class="btn-close" data-close="message" aria-label="${dc:h(msg['label.close'])}">
+			<svg class="inline-icon"><use href="#close" /></svg>
+		</button>
 	</div>
 </script>
 <script id="forCopyTmpl" type="text/template">
@@ -2428,7 +2406,7 @@
 					<i class="bi bi-clipboard"></i>
 					<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>
 				</button>
-				<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}" data-bs-toggle="popover" data-bs-placement="left">
+				<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}">
 					<i class="bi bi-link-45deg"></i>
 					<span class="btn-label">${dc:h(msg['label.permanentLink.buttonLabel'])}</span>
 				</button>
@@ -2452,17 +2430,17 @@
 			<i class="bi bi-clipboard"></i>
 			<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>
 		</button>
-		<button type="button" class="btn btn-v-icon-label dropdown-toggle share" data-bs-toggle="" aria-expanded="false">
+		<button type="button" class="btn btn-v-icon-label dropdown-toggle toggle-manual share" aria-expanded="false">
 			<i class="bi bi-share-fill"></i>
 			<span class="btn-label">${dc:h(msg['label.share.buttonLabel'])}</span>
-			<span class="caret"></span>
+
+			<ul class="dropdown-menu" role="menu">
+				<li><a class="share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage">${dc:h(msg['label.openNewPage'])}</a></li>
+				<li><a class="share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail">${dc:h(msg['label.sendByEmail'])}</a></li>
+				<li><a class="share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter">${dc:h(msg['label.shareOnTwitter'])}</a></li>
+				<li><a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook">${dc:h(msg['label.shareOnFacebook'])}</a></li>
+			</ul>
 		</button>
-		<ul class="dropdown-menu" role="menu">
-			<li><a class="dropdown-item share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage">${dc:h(msg['label.openNewPage'])}</a></li>
-			<li><a class="dropdown-item share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail">${dc:h(msg['label.sendByEmail'])}</a></li>
-			<li><a class="dropdown-item share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter">${dc:h(msg['label.shareOnTwitter'])}</a></li>
-			<li><a class="dropdown-item share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook">${dc:h(msg['label.shareOnFacebook'])}</a></li>
-		</ul>
 	</div>
 </script>
 <script id="adMiddleTmpl" type="text/template">
@@ -2478,16 +2456,25 @@
 <script type="text/message" data-id="default.error" data-level="${dc:h(msg['default.error.level'])}" data-message="${dc:h(msg['default.error'])}" data-detail=""></script>
 <script type="text/message" data-id="network.error" data-level="${dc:h(msg['network.error.level'])}" data-message="${dc:h(msg['network.error'])}" data-detail=""></script>
 
-<svg style="display: none;" aria-hidden="true">
+<svg style="display:none" aria-hidden="true">
 	<defs>
 		<symbol id="loading-indicator" fill="none" stroke="currentColor" viewBox="0 0 100 100">
 			<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
 				<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
 			</circle>
 		</symbol>
+		<symbol id="menu" viewBox="0 0 16 16" fill="currentColor">
+			<rect x="2" y="3" width="12" height="1.5" rx="0.7" />
+			<rect x="2" y="7" width="12" height="1.5" rx="0.7" />
+			<rect x="2" y="11" width="12" height="1.5" rx="0.7" />
+		</symbol>
 		<symbol id="caret-down-square" viewBox="0 0 16 16">
 			<rect x="1" y="1" rx="2" ry="2" width="14" height="14" fill="none" stroke="currentColor" stroke-width="0.9" />
 			<polygon points="3.5,6 12.5,6 8,11.2" fill="currentColor" />
+		</symbol>
+		<symbol id="close" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+			<line x1="3" y1="3" x2="13" y2="13" />
+			<line x1="13" y1="3" x2="3" y2="13" />
 		</symbol>
 	</defs>
 </svg>
