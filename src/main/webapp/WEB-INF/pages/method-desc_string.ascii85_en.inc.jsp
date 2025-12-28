@@ -5,7 +5,7 @@
 <p>There are many variants of Ascii85, and DenCode supports the following three types of Ascii85. The original being btoa, followed by Adobe and Z85.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>Summary</th></tr>
 		<tr><th>Z85</th><td>Used by ZeroMQ." \" (backslash) and "'" (apostrophe) characters that require escaping are not used.</td></tr>
 		<tr><th>Adobe</th><td>It is used to encode images and other data in Adobe's PostScript and PDF (Portable Document Format) files. It is enclosed in "&lt;~" and "~&gt;".</td></tr>
@@ -16,7 +16,7 @@
 <p>The ASCII characters used in Ascii85 are as follows: treat the 4-byte value as a big-endian unsigned integer, calculate each digit (5 digits) of the 85 decimal system from it, and then find the Ascii85 conversion result based on the following ASCII characters</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>ASCII characters</th></tr>
 		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;&lt;&gt;()[]{}@%$#</td></tr>
 		<tr><th>Adobe</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu</td></tr>
@@ -43,7 +43,7 @@
 <p>3. Convert each digit of the 85 decimal system to an ASCII character. If the end is padded with "00", the padding is excluded in the case of Adobe/Z85.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><td>23</td><td>22</td><td>66</td><td>52</td><td>49</td><td></td><td>35</td><td>57</td><td>33</td><td>65</td><td>26</td></tr>
 		<tr><th>Z85</th><td>n</td><td>m</td><td>=</td><td>Q</td><td>N</td><td></td><td>z</td><td>V</td><td></td><td></td><td></td></tr>
 		<tr><th>Adobe</th><td>8</td><td>7</td><td>c</td><td>U</td><td>R</td><td></td><td>D</td><td>Z</td><td></td><td></td><td></td></tr>
@@ -54,7 +54,7 @@
 <p>4. The characters are all joined together to form the Ascii85 conversion result. adobe is enclosed in "&lt;~" &amp; "~&gt;", with a new line every 80 characters. btoa is enclosed in "xbtoa Begin" &amp; "xbtoa End" (including data length, checksum, etc.), with a new line every 78 characters.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>Conversion result</th></tr>
 		<tr><th>Z85</th><td>nm=QNzV</td></tr>
 		<tr><th>Adobe</th><td>&lt;~87cURDZ~&gt;</td></tr>
@@ -67,7 +67,7 @@ xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
 <p>Several other contractions have been defined.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>Contractions</th></tr>
 		<tr><th>Z85</th><td>None</td></tr>
 		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -&gt; z</td></tr>

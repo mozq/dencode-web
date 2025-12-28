@@ -5,7 +5,7 @@
 <p>DenCode обрабатывает время UNIX в секундах. Миллисекунды и микросекунды выражаются десятичными числами.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Дата и время</th><th>Время UNIX</th></tr>
 		<tr><td>1900-01-01 00:00:00 UTC</td><td>-2208988800</td></tr>
 		<tr><td>1970-01-01 00:00:00 UTC (UNIX Epoch)</td><td>0</td></tr>

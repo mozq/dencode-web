@@ -4,7 +4,7 @@
 <p>It supports conversion to the following formats.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Name</th><th>Alternative name</th><th>Format</th></tr>
 		<tr><td>Upper snake case</td><td>Screaming snake case, Macro case, Constant case</td><td>UPPER_SNAKE_CASE</td></tr>
 		<tr><td>Lower snake case</td><td>Pothole case</td><td>lower_snake_case</td></tr>

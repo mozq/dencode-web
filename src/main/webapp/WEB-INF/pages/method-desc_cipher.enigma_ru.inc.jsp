@@ -51,7 +51,7 @@ EKMFLGDQVZNTOWYHXUSPAIBRCJ
 <p>Вся проводка для Enigma I выглядит следующим образом</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Роторы</th><th>ABCDEFGHIJKLMNOPQRSTUVWXYZ</th></tr>
 		<tr><td>ETW</td><td>ABCDEFGHIJKLMNOPQRSTUVWXYZ</td></tr>
 		<tr><td>I</td><td>EKMFLGDQVZNTOWYHXUSPAIBRCJ</td></tr>

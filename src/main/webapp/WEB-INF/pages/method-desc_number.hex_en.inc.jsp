@@ -7,7 +7,7 @@
 <p>An example of conversion in hexadecimal is as follows. For reference, an example of conversion between binary and octal numbers is also provided.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>Decimal</th><th>Binary</th><th>Octal</th><th>Hexadecimal</th></tr>
 		</thead>
@@ -29,7 +29,7 @@
 <p>Also, numbers after the decimal point are converted as 16<sup>-1</sup> (1/16), 16<sup>-2</sup> (1/256), 16<sup>-3</sup> (1/4096), ... in hexadecimal numbers. If the number after the decimal point cannot be represented by the total of 16<sup>-n</sup>, it cannot be completely converted to hexadecimal and an error will occur. In that case, DenCode omits it by adding "..." at the end.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>Decimal</th><th>Binary</th><th>Octal</th><th>Hexadecimal</th></tr>
 		</thead>

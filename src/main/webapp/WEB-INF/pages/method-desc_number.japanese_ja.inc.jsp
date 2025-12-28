@@ -5,7 +5,7 @@
 <p>現代の漢数字と大字の漢数字の例は以下のとおりです。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>算用数字</th><th>漢数字</th><th>漢数字 (大字)</th></tr>
 		</thead>
@@ -21,7 +21,7 @@
 <p>日本語の漢数字では、0 から 9 までの数値を以下の漢字で表します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>算用数字</th><th>漢数字</th><th>漢数字 (大字)</th></tr>
 		</thead>
@@ -43,7 +43,7 @@
 <p>10 以上の数字は、各桁ごとに以下の漢字で表します。漢数字では、4桁ごとに桁の名前が繰り上がります。これを「万進」と呼びます。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>桁</th><th>漢数字</th><th>漢数字 (大字)</th></tr>
 		</thead>

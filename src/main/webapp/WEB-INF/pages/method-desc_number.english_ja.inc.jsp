@@ -16,7 +16,7 @@
 <p>DenCodeでは、現代の英語圏で一般的なショートスケールを採用しています。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th></th><th colspan="2">ショートスケール</th><th colspan="2">ロングスケール (Chuquet)</th><th colspan="2">ロングスケール (Peletier)</th></tr>
 			<tr><th>桁</th><th>N (10<sup>3N+3</sup>)</th><th>桁名</th><th>N (10<sup>6N</sup>)</th><th>桁名</th><th>N (10<sup>6N</sup>)</th><th>桁名</th></tr>
@@ -55,7 +55,7 @@
 <p>N=10 以上 (10<sup>33</sup>以上) の大きな桁の命名方法として代表的なものに、John Horton Conway と Allan Wechsler が定義した <dfn>Conway-Wechslerシステム</dfn> があります。Conway-Wechslerシステムは以下のルールで桁を命名します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<caption>Conway-Wechsler system</caption>
 		<thead>
 			<tr><th></th><th>Units</th><th>Tens</th><th>Hundreds</th></tr>
@@ -93,7 +93,7 @@
 <p>Conway-Wechslerシステムは基本的にラテン語に準じているため、例えば以下の名前は英語辞書で定義された名前と差異が存在します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>N</th><th>Conway-Wechslerシステム</th><th>英語辞書</th><th>ラテン語のワード</th></tr>
 		</thead>
@@ -112,7 +112,7 @@
 <p>DenCodeでは上記のConway-Wechslerシステムをサポートしますが、より英語辞書に則したシステムを独自に定義してデフォルトの変換システムとして使用しています。ここでは便宜上、"<dfn><abbr title="Conway-Wechsler for English">CW4EN</abbr>システム</dfn>" (Conway-Wechsler for English システム) と呼称します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<caption>CW4ENシステム</caption>
 		<thead>
 			<tr><th></th><th>Units</th><th>Tens</th><th>Hundreds</th></tr>
@@ -137,7 +137,7 @@
 <p>Conway-Wechslerシステム と CW4ENシステム で異なる名前について、代表的なものを以下に列挙します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>N</th><th>Conway-Wechslerシステム</th><th>CW4ENシステム</th></tr>
 		</thead>

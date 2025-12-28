@@ -7,7 +7,7 @@
 <p>Таблица преобразования для символов Base64 выглядит следующим образом.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>5-битные данные</th><th>Base32 символа</th></tr>
 		<tr><td>000000</td><td>A</td></tr>
 		<tr><td>000001</td><td>B</td></tr>

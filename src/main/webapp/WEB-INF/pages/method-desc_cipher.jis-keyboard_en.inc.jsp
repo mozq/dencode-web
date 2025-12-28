@@ -18,7 +18,7 @@ Re-cipher text: this is a secret message</pre>
 <p>The mapping of characters converted by the JIS keyboard conversion is as follows. Characters in parentheses are those allowed in the lenient-mode.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>English</th><th>Japanese</th></tr>
 		</thead>

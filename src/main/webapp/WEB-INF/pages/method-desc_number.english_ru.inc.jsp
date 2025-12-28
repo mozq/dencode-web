@@ -16,7 +16,7 @@ Zero and 99/100</pre>
 <p>DenCode использует короткую шкалу, которая распространена в современных англоязычных странах.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th></th><th colspan="2">Короткая шкала</th><th colspan="2">Длинная чешуя (Chuquet)</th><th colspan="2">Длинная чешуя (Пелетье)</th></tr>
 			<tr><th>Цифра</th><th>N (10<sup>3N+3</sup>)</th><th>Название</th><th>N (10<sup>6N</sup>)</th><th>Название</th><th>N (10<sup>6N</sup>)</th><th>Название</th></tr>
@@ -55,7 +55,7 @@ Zero and 99/100</pre>
 <p><dfn>Система Конвея-Векслера</dfn> (Conway-Wechsler system), определенная Джоном Хортоном Конвеем и Алланом Векслером, является типичным методом именования больших цифр с N=10 или более (10<sup>33</sup> или более). Система Конвея-Векслера называет цифры в соответствии со следующими правилами:</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<caption>Система Конвея-Векслера</caption>
 		<thead>
 			<tr><th></th><th>Units</th><th>Tens</th><th>Hundreds</th></tr>
@@ -93,7 +93,7 @@ Zero and 99/100</pre>
 <p>Система Конвея-Векслера в основном основана на латыни, поэтому, например, следующие имена могут отличаться от имен, определенных в словаре английского языка.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>N</th><th>Система Конвея-Векслера</th><th>Английский словарь</th><th>Латинское слово</th></tr>
 		</thead>
@@ -112,7 +112,7 @@ Zero and 99/100</pre>
 <p>DenCode поддерживает указанную выше систему Конвея-Векслера, но определяет свою собственную систему, которая больше соответствует английскому словарю, и использует ее в качестве системы преобразования по умолчанию. Для удобства мы будем называть ее «Система <dfn><abbr title ="Conway-Wechsler for English">CW4EN</abbr></dfn>» (Conway-Wechsler for English system).</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<caption>Система CW4EN</caption>
 		<thead>
 			<tr><th></th><th>Units</th><th>Tens</th><th>Hundreds</th></tr>
@@ -137,7 +137,7 @@ Zero and 99/100</pre>
 <p>Ниже приводится список типичных имен, которые различаются между системой Конвея-Векслера и системой CW4EN.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>N</th><th>Система Конвея-Векслера</th><th>Система CW4EN</th></tr>
 		</thead>

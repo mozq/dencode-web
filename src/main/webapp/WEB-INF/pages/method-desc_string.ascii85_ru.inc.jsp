@@ -5,7 +5,7 @@
 <p>Существует множество различных вариантов Ascii85, и DenCode поддерживает следующие три типа Ascii85. Первоначально был btoa, затем Adobe и Z85.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>Резюме</th></tr>
 		<tr><th>Z85</th><td>Используется в ZeroMQ. "\" (обратная косая черта) и "'" (апостроф) символы, требующие экранирования, не используются.</td></tr>
 		<tr><th>Adobe</th><td>Он используется для кодирования изображений и других данных в файлах Adobe PostScript и PDF (Portable Document Format). Он заключен в "&lt;~" и "~&gt;".</td></tr>
@@ -16,7 +16,7 @@
 <p>Символы ASCII, используемые в Ascii85, следующие: рассматривайте 4-байтовое значение как big-endian беззнаковое целое число, вычислите каждую из 85 десятичных цифр (5 разрядов) этого значения, а затем найдите результат преобразования Ascii85 на основе следующих символов ASCII</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>ASCII символы</th></tr>
 		<tr><th>Z85</th><td>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&amp;&lt;&gt;()[]{}@%$#</td></tr>
 		<tr><th>Adobe</th><td>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu</td></tr>
@@ -43,7 +43,7 @@
 <p>3. Преобразуйте каждую цифру 85 десятичной системы в символ ASCII. Если в конце стоит "00", то для Adobe/Z85 это исключено.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><td>23</td><td>22</td><td>66</td><td>52</td><td>49</td><td></td><td>35</td><td>57</td><td>33</td><td>65</td><td>26</td></tr>
 		<tr><th>Z85</th><td>n</td><td>m</td><td>=</td><td>Q</td><td>N</td><td></td><td>z</td><td>V</td><td></td><td></td><td></td></tr>
 		<tr><th>Adobe</th><td>8</td><td>7</td><td>c</td><td>U</td><td>R</td><td></td><td>D</td><td>Z</td><td></td><td></td><td></td></tr>
@@ -54,7 +54,7 @@
 <p>4. Все символы объединяются в результат преобразования Ascii85; Adobe заключен в "&lt;~" и "~&gt;", с новой строкой через каждые 80 символов; btoa заключен в "xbtoa Begin" и "xbtoa End" (включая длину данных и контрольную сумму), с новой строкой через каждые 78 символов.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>Результаты конверсии</th></tr>
 		<tr><th>Z85</th><td>nm=QNzV</td></tr>
 		<tr><th>Adobe</th><td>&lt;~87cURDZ~&gt;</td></tr>
@@ -67,7 +67,7 @@ xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
 <p>Определены и некоторые другие сокращения.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th></th><th>Cокращения</th></tr>
 		<tr><th>Z85</th><td>Нет</td></tr>
 		<tr><th>Adobe</th><td>00000000<sub>(16)</sub> -&gt; z</td></tr>

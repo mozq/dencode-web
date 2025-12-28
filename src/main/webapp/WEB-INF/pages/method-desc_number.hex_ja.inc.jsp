@@ -7,7 +7,7 @@
 <p>16進数での変換例は以下の通りです。参考として、2進数と8進数の変換例も記載しています。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>10進数</th><th>2進数</th><th>8進数</th><th>16進数</th></tr>
 		</thead>
@@ -29,7 +29,7 @@
 <p>また、小数点以下の数値は16進数では 16<sup>-1</sup> (1/16), 16<sup>-2</sup> (1/256), 16<sup>-3</sup> (1/4096), ... の各位の値として変換します。小数点以下の数値が16<sup>-n</sup>の合計で表せない場合は、完全には16進数に変換できず誤差が発生します。その場合、DenCodeでは末尾に"..."を付加することで省略して表します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>10進数</th><th>2進数</th><th>8進数</th><th>16進数</th></tr>
 		</thead>

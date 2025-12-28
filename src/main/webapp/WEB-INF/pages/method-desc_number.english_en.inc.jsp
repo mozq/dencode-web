@@ -16,7 +16,7 @@
 <p>DenCode uses the short scale that is common in modern English-speaking countries.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th></th><th colspan="2">Short Scale</th><th colspan="2">Long Scale (Chuquet)</th><th colspan="2">Long Scale (Peletier)</th></tr>
 			<tr><th>Digit</th><th>N (10<sup>3N+3</sup>)</th><th>Name</th><th>N (10<sup>6N</sup>)</th><th>Name</th><th>N (10<sup>6N</sup>)</th><th>Name</th></tr>
@@ -55,7 +55,7 @@
 <p>The <dfn>Conway-Wechsler system</dfn> defined by John Horton Conway and Allan Wechsler is a typical naming method for large digits with N=10 or more (10<sup>33</sup> or more). The Conway-Wechsler system names digits according to the following rules:</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<caption>Conway-Wechsler system</caption>
 		<thead>
 			<tr><th></th><th>Units</th><th>Tens</th><th>Hundreds</th></tr>
@@ -93,7 +93,7 @@
 <p>The Conway-Wechsler system is basically Latin-based, so for example the following names may differ from the names defined in the English dictionary.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>N</th><th>Conway-Wechsler system</th><th>English dictionary</th><th>Latin word</th></tr>
 		</thead>
@@ -112,7 +112,7 @@
 <p>DenCode supports the above Conway-Wechsler system, but it defines its own system that is more in line with the English dictionary and uses it as the default conversion system. For convenience, we will refer to it as "<dfn><abbr title ="Conway-Wechsler for English">CW4EN</abbr> system</dfn>" (Conway-Wechsler for English system).</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<caption>CW4EN system</caption>
 		<thead>
 			<tr><th></th><th>Units</th><th>Tens</th><th>Hundreds</th></tr>
@@ -137,7 +137,7 @@
 <p>The following is a list of typical names that differ between the Conway-Wechsler system and the CW4EN system.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>N</th><th>Conway-Wechsler system</th><th>CW4EN system</th></tr>
 		</thead>

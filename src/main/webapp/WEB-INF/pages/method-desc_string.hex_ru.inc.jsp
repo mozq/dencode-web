@@ -6,7 +6,7 @@
 <p>Например, результат преобразования «выборки» в шестнадцатеричную строку выглядит следующим образом.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Кодировка символов</th><th>Шестиугольная струна</th></tr>
 		<tr><td>UTF-8</td><td>D0 B2 D1 8B D0 B1 D0 BE D1 80 D0 BA D0 B8</td></tr>
 		<tr><td>UTF-16</td><td>04 32 04 4B 04 31 04 3E 04 40 04 3A 04 38</td></tr>

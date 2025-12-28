@@ -4,7 +4,7 @@
 <p>There are the following types of Unicode normalization:</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Normalization Form</th><th scope="col">Description</th><th scope="col">Example</th></tr>
 		<tr><td>Normalization Form D (NFD)</td><td>Characters are decomposed by canonical equivalence</td><td>"â" (U+00E2) -&gt; "a" (U+0061) + " ̂" (U+0302)</td></tr>
 		<tr><td>Normalization Form KD (NFKD)</td><td>Characters are decomposed by compatibility</td><td>"ﬁ" (U+FB01) -&gt; "f" (U+0066) + "i" (U+0069)</td></tr>

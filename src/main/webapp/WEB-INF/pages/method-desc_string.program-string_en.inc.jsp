@@ -4,7 +4,7 @@
 <p>Enclose the string in quotes ("" or '') and escape the following characters with the \ symbol.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Character</th><th>ASCII code of character</th><th>Escape result</th></tr>
 		<tr><td>(NUL)</td><td>0x00</td><td>\0</td></tr>
 		<tr><td>(BEL)</td><td>0x07</td><td>\a</td></tr>

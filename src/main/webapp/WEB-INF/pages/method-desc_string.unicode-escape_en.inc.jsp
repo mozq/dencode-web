@@ -5,7 +5,7 @@
 <p>In DenCode, in addition to the \uXXXX format, the following notation formats are also supported.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Format</th><th scope="col">Conversion result of "ABC"</th><th scope="col">Description / Programming language</th></tr>
 		<tr><td>\uXXXX</td><td>\u0041\u0042\u0043</td><td>Common Unicode escape sequences</td></tr>
 		<tr><td>\u{X}</td><td>\u{41}\u{42}\u{43}</td><td>Lua</td></tr>
@@ -28,7 +28,7 @@
 <p>As Unicode escape sequences, escaping by Unicode name is also supported.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Format</th><th scope="col">Conversion result of "A"</th><th scope="col">Description / Programming language</th></tr>
 		<tr><td>\N{name}</td><td>\N{LATIN CAPITAL LETTER A}</td><td>C++23, Python, Perl</td></tr>
 	</table>
@@ -43,7 +43,7 @@
 <p>The result of converting "😀" (U+1F600), which is a Unicode non-BMP character, is as follows.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Format</th><th scope="col">Conversion result of "😀" (U+1F600)</th><th scope="col">Programming language</th></tr>
 		<tr><td>\uXXXX</td><td>\uD83D\uDE00</td><td>Java, Kotlin, Scala</td></tr>
 		<tr><td>\u{X}</td><td>\u{1F600}</td><td>C++23, Rust, Swift, JavaScript, PHP, Ruby, Dart, Lua</td></tr>

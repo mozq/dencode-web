@@ -4,7 +4,7 @@
 <p>It supports conversion to the following formats.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Name</th><th>Alternative name</th><th>Format</th></tr>
 		<tr><td>Upper camel case</td><td>Pascal case, Studly case</td><td>UpperCamelCase</td></tr>
 		<tr><td>Lower camel case</td><td>Camel case, Dromedary case</td><td>lowerCamelCase</td></tr>

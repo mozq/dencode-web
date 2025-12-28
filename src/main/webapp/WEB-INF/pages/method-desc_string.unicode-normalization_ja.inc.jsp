@@ -4,7 +4,7 @@
 <p>Unicode正規化には、以下の種類があります。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">正規化形式</th><th scope="col">説明</th><th scope="col">例</th></tr>
 		<tr><td>Normalization Form D (NFD)</td><td>正準等価で分解</td><td>「â」(U+00E2) -&gt; 「a」(U+0061) + 「 ̂」(U+0302)</td></tr>
 		<tr><td>Normalization Form KD (NFKD)</td><td>互換等価で分解</td><td>「ﬁ」(U+FB01) -&gt; 「f」(U+0066) + 「i」(U+0069)</td></tr>

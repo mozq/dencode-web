@@ -5,7 +5,7 @@
 <p>The following are examples of modern and old Japanese numerals.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>Numbers</th><th>Japanese numerals (Modern font)</th><th>Japanese numerals (Old font; Daiji)</th></tr>
 		</thead>
@@ -21,7 +21,7 @@
 <p>In Japanese numerals, numbers from 0 to 9 are represented by the following Chinese characters.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>Numbers</th><th>Japanese numerals (Modern font)</th><th>Japanese numerals (Old font; Daiji)</th></tr>
 		</thead>
@@ -43,7 +43,7 @@
 <p>Numbers 10 and above are represented by the following characters for each digit. In Japanese numerals, the digit name is carried up every 4 digits. This is called "Manshin" ("万進" in Japanese).</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>Digits</th><th>Japanese numerals (Modern font)</th><th>Japanese numerals (Old font; Daiji)</th></tr>
 		</thead>

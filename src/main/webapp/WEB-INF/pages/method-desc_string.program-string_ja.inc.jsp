@@ -4,7 +4,7 @@
 <p>文字列を引用符 ("" または '') で括り、以下の文字は\記号でエスケープします。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>文字</th><th>文字のASCIIコード</th><th>エスケープ結果</th></tr>
 		<tr><td>(NUL)</td><td>0x00</td><td>\0</td></tr>
 		<tr><td>(BEL)</td><td>0x07</td><td>\a</td></tr>

@@ -6,7 +6,7 @@
 <p>Символы ASCII, используемые в Base45, следующие: рассматривайте 2-байтовое значение как big-endian беззнаковое целое число, вычислите каждую цифру (3 разряда) 45-значного числа, а затем найдите результат преобразования Base45 на основе следующих символов ASCII.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Десятичной системы 45</th><th>Base45 ASCII символов</th></tr>
 		<tr><td>0</td><td>0</td></tr>
 		<tr><td>1</td><td>1</td></tr>
@@ -78,7 +78,7 @@
 <p>3. Преобразует каждые три цифры десятичной системы 45 в символы ASCII в обратном порядке.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Десятичной системы 45</th><td>38</td><td>6</td><td>9</td><td></td><td>36</td><td>31</td><td>13</td><td></td><td>21</td><td>2</td></tr>
 		<tr><th>Base45 ASCII символов</th><td>%</td><td>6</td><td>9</td><td></td><td> [SP]</td><td>V</td><td>D</td><td></td><td>L</td><td>2</td></tr>
 	</table>

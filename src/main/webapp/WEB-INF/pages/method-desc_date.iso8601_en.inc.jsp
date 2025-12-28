@@ -8,7 +8,7 @@
 <p>For example, converting January 23, 2000 1:23:45.678 (JST; +09:00) to ISO 8601 results in the following:</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Format</th><th>Conversion result</th></tr>
 		<tr><td>Basic format</td><td>20000123T012345.678+0900</td></tr>
 		<tr><td>Extended format</td><td>2000-01-23T01:23:45.678+09:00</td></tr>

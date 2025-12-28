@@ -6,7 +6,7 @@
 <p>Base32の文字への変換表は以下のとおりです。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>5ビットデータ</th><th>Base32文字</th></tr>
 		<tr><td>00000</td><td>A</td></tr>
 		<tr><td>00001</td><td>B</td></tr>

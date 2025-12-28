@@ -5,7 +5,7 @@
 <p>В DenCode, помимо формата \uXXXX, также поддерживаются следующие форматы обозначений.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Формат</th><th scope="col">Результат преобразования «ABC»</th><th scope="col">Описание / Язык программирования</th></tr>
 		<tr><td>\uXXXX</td><td>\u0041\u0042\u0043</td><td>Общие эскейп-последовательность Unicode</td></tr>
 		<tr><td>\u{X}</td><td>\u{41}\u{42}\u{43}</td><td>Lua</td></tr>
@@ -28,7 +28,7 @@
 <p>В качестве управляющих последовательностей Unicode также поддерживается экранирование по имени Unicode.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Формат</th><th scope="col">Результат преобразования «A»</th><th scope="col">Описание / Язык программирования</th></tr>
 		<tr><td>\N{name}</td><td>\N{LATIN CAPITAL LETTER A}</td><td>C++23, Python, Perl</td></tr>
 	</table>
@@ -43,7 +43,7 @@
 <p>Результат преобразования «😀» (U+01F600), который является символом Unicode, отличным от BMP, выглядит следующим образом.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Формат</th><th scope="col">Результат преобразования «😀» (U+01F600)</th><th scope="col">Язык программирования</th></tr>
 		<tr><td>\uXXXX</td><td>\uD83D\uDE00</td><td>Java, Kotlin, Scala</td></tr>
 		<tr><td>\u{X}</td><td>\u{1F600}</td><td>C++23, Rust, Swift, JavaScript, PHP, Ruby, Dart, Lua</td></tr>

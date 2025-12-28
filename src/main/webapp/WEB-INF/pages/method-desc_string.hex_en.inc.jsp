@@ -6,7 +6,7 @@
 <p>For example, the result of converting "サンプル" to a hex string is as follows.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Character encoding</th><th>Hex string</th></tr>
 		<tr><td>UTF-8</td><td>E3 82 B5 E3 83 B3 E3 83 97 E3 83 AB</td></tr>
 		<tr><td>UTF-16</td><td>30 B5 30 F3 30 D7 30 EB</td></tr>

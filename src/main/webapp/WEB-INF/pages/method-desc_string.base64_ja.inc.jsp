@@ -7,7 +7,7 @@
 <p>Base64の文字への変換表は以下のとおりです。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>6ビットデータ</th><th>Base64文字</th></tr>
 		<tr><td>000000</td><td>A</td></tr>
 		<tr><td>000001</td><td>B</td></tr>

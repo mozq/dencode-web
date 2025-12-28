@@ -7,7 +7,7 @@
 <p>The conversion table for Base64 characters is as follows.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>6-bit data</th><th>Base64 character</th></tr>
 		<tr><td>000000</td><td>A</td></tr>
 		<tr><td>000001</td><td>B</td></tr>

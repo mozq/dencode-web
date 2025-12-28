@@ -4,7 +4,7 @@
 <p>Существуют следующие типы нормализации Unicode:</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">Форма нормализации</th><th scope="col">Описание</th><th scope="col">пример</th></tr>
 		<tr><td>Normalization Form D (NFD)</td><td>Персонажи разлагаются по канонической эквивалентности</td><td>«â» (U+00E2) -&gt; «a» (U+0061) + « ̂» (U+0302)</td></tr>
 		<tr><td>Normalization Form KD (NFKD)</td><td>Персонажи разложены по совместимости</td><td>«ﬁ» (U+FB01) -&gt; «f» (U+0066) + «i» (U+0069)</td></tr>

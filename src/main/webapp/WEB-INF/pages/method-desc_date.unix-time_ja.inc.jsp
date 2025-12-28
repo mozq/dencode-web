@@ -5,7 +5,7 @@
 <p>DenCodeでは、UNIX時刻を秒単位で扱います。ミリ秒やマイクロ秒は小数点以下の数値で表します。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>日時</th><th>UNIXタイム</th></tr>
 		<tr><td>1900-01-01 00:00:00 UTC</td><td>-2208988800</td></tr>
 		<tr><td>1970-01-01 00:00:00 UTC (UNIX Epoch)</td><td>0</td></tr>

@@ -6,7 +6,7 @@
 <p>The conversion table for Base32 characters is as follows.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>5-bit data</th><th>Base32 character</th></tr>
 		<tr><td>00000</td><td>A</td></tr>
 		<tr><td>00001</td><td>B</td></tr>

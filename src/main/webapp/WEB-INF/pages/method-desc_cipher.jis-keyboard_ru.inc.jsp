@@ -18,7 +18,7 @@
 <p>Ниже приведено отображение символов, преобразованных с помощью преобразования клавиатуры JIS. В скобках указаны символы, допустимые в мягком режиме.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>Английский</th><th>Японский</th></tr>
 		</thead>

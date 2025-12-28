@@ -4,7 +4,7 @@
 <p>It supports conversion to the following formats.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>Name</th><th>Alternative name</th><th>Format</th></tr>
 		<tr><td>Upper kebab case</td><td>Screaming kebab case, Train case, COBOL case</td><td>UPPER-KEBAB-CASE</td></tr>
 		<tr><td>Lower kebab case</td><td>Chain case, Dash case, Lisp case</td><td>lower-kebab-case</td></tr>

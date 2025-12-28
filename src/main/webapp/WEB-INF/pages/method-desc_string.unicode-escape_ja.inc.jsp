@@ -6,7 +6,7 @@
 <p>DenCodeでは、 \uXXXX の形式のほかに、以下の形式の表記法にも対応しています。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">形式</th><th scope="col">「ABC」の変換結果</th><th scope="col">説明 / プログラミング言語</th></tr>
 		<tr><td>\uXXXX</td><td>\u0041\u0042\u0043</td><td>一般的なUnicodeエスケープシーケンス</td></tr>
 		<tr><td>\u{X}</td><td>\u{41}\u{42}\u{43}</td><td>Lua</td></tr>
@@ -29,7 +29,7 @@
 <p>Unicodeエスケープシーケンスとして、Unicodeの名前によるエスケープにも対応しています。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">形式</th><th scope="col">「A」の変換結果</th><th scope="col">説明 / プログラミング言語</th></tr>
 		<tr><td>\N{name}</td><td>\N{LATIN CAPITAL LETTER A}</td><td>C++23, Python, Perl</td></tr>
 	</table>
@@ -44,7 +44,7 @@
 <p>例えば「😀」(U+1F600)を変換した結果は以下の通りです。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th scope="col">形式</th><th scope="col">「😀」(U+1F600)の変換結果</th><th scope="col">プログラミング言語</th></tr>
 		<tr><td>\uXXXX</td><td>\uD83D\uDE00</td><td>Java, Kotlin, Scala</td></tr>
 		<tr><td>\u{X}</td><td>\u{1F600}</td><td>C++23, Rust, Swift, JavaScript, PHP, Ruby, Dart, Lua</td></tr>

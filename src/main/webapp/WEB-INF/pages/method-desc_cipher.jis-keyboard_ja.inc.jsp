@@ -18,7 +18,7 @@
 <p>みかか変換で変換される文字のマッピングは以下の通りです。括弧内は寛容モードにおいて許容される文字です。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<thead>
 			<tr><th>英字</th><th>カナ文字</th></tr>
 		</thead>

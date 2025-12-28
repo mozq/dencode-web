@@ -6,7 +6,7 @@
 <p>Base45で使用されるASCII文字は以下のとおりです。2バイトの値をビッグエンディアンの符号なし整数として扱い、それを45進法の各桁(3桁)を計算したうえで、以下のASCII文字をもとにBase45の変換結果を求めます。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>45進法の桁</th><th>Base45 ASCII文字</th></tr>
 		<tr><td>0</td><td>0</td></tr>
 		<tr><td>1</td><td>1</td></tr>
@@ -78,7 +78,7 @@
 <p>3. 45進法の各3桁を逆順でASCII文字に変換する。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>45進法の桁</th><td>38</td><td>6</td><td>9</td><td></td><td>36</td><td>31</td><td>13</td><td></td><td>21</td><td>2</td></tr>
 		<tr><th>Base45 ASCII文字</th><td>%</td><td>6</td><td>9</td><td></td><td> [SP]</td><td>V</td><td>D</td><td></td><td>L</td><td>2</td></tr>
 	</table>

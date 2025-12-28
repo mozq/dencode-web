@@ -8,7 +8,7 @@
 <p>例えば、2000年1月23日 1時23分45.678秒(JST; +09:00) をISO 8601に変換し場合は以下の結果になります。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>形式</th><th>変換結果</th></tr>
 		<tr><td>基本形式</td><td>20000123T012345.678+0900</td></tr>
 		<tr><td>拡張形式</td><td>2000-01-23T01:23:45.678+09:00</td></tr>

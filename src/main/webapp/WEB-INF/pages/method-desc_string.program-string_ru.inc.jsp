@@ -4,7 +4,7 @@
 <p>Заключите строку в кавычки ("" или '') и экранируйте следующие символы символом \.</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>письмо</th><th>Код ASCII символов</th><th>Результат побега</th></tr>
 		<tr><td>(NUL)</td><td>0x00</td><td>\0</td></tr>
 		<tr><td>(BEL)</td><td>0x07</td><td>\a</td></tr>

@@ -51,7 +51,7 @@ EKMFLGDQVZNTOWYHXUSPAIBRCJ
 <p>Enigma I の全ての配線は以下の通りです。</p>
 
 <div class="table-responsive">
-	<table class="table table-sm table-fit">
+	<table class="table">
 		<tr><th>ウィール</th><th>ABCDEFGHIJKLMNOPQRSTUVWXYZ</th></tr>
 		<tr><td>ETW</td><td>ABCDEFGHIJKLMNOPQRSTUVWXYZ</td></tr>
 		<tr><td>I</td><td>EKMFLGDQVZNTOWYHXUSPAIBRCJ</td></tr>
