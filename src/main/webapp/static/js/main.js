@@ -11,11 +11,6 @@ $.onReady(function () {
 	let _tz = null;
 	let _options = null;
 	
-	let _messageTmpl = null;
-	let _lengthTmpl = null;
-	let _permanentLinkTmpl = null;
-	let _forCopyTmpl = null;
-	
 	let _colors = null;
 	
 	const contextPath = document.body.getAttribute("data-context-path");
@@ -24,6 +19,7 @@ $.onReady(function () {
 	
 	const dencoderDefs = JSON.parse($.id("dencoderDefs").textContent);
 	
+	const elMessages = $.id("messages");
 	const elNavMenuToggler = $.id("navMenuToggler");
 	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
 	const elTypeMenuMethodLinks = $.all("#typeMenu a[data-dencode-method]");
@@ -291,12 +287,12 @@ $.onReady(function () {
 			const chars = Number(this.getAttribute("data-len-chars"));
 			const bytes = Number(this.getAttribute("data-len-bytes"));
 			
-			showPopover(this, title, renderTemplate(getLengthTmpl(), {
+			showPopover(this, title, renderTemplate("lengthTmpl", {
 				chars: chars,
 				oneChar: (chars == 1),
 				bytes: bytes,
 				oneByte: (bytes == 1)
-			}), false);
+			}));
 		}
 	});
 	
@@ -313,10 +309,10 @@ $.onReady(function () {
 			const dcDef = dencoderDefs[method];
 			const permanentLink = getPermanentLink(method, dcDef);
 			
-			showPopover(this, title, renderTemplate(getPermanentLinkTmpl(), {
+			showPopover(this, title, renderTemplate("permanentLinkTmpl", {
 				permanentLink: permanentLink,
 				permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
-			}), true);
+			}));
 		}
 	});
 	
@@ -587,14 +583,10 @@ $.onReady(function () {
 		const id = elForDisp.getAttribute("id");
 		const val = elForDisp.textContent;
 		
-		const forCopyHtml = renderTemplate(getForCopyTmpl(), {
+		const elForCopy = renderTemplate("forCopyTmpl", {
 			id: id,
 			value: val
 		});
-		
-		const elTmpl = document.createElement("template");
-		elTmpl.innerHTML = forCopyHtml;
-		const elForCopy = elTmpl.content;
 		
 		elForDisp.parentNode.insertBefore(elForCopy, elForDisp);
 	});
@@ -903,7 +895,6 @@ $.onReady(function () {
 			clearMessages();
 			if (responseJson.messages !== null && 0 < responseJson.messages.length) {
 				showMessages(responseJson.messages);
-				focusMessages();
 			}
 			
 			render(responseJson.response);
@@ -925,7 +916,6 @@ $.onReady(function () {
 				// Network error
 				showMessages(getMessageObject("network.error"));
 			}
-			focusMessages();
 			
 			document.dispatchEvent(new CustomEvent("dencode:dencoded", {
 				detail: {
@@ -1019,34 +1009,6 @@ $.onReady(function () {
 		return url;
 	}
 	
-	function getMessageTmpl() {
-		if (_messageTmpl === null) {
-			_messageTmpl = $.id("messageTmpl").innerHTML;
-		}
-		return _messageTmpl;
-	}
-	
-	function getLengthTmpl() {
-		if (_lengthTmpl === null) {
-			_lengthTmpl = $.id("lengthTmpl").innerHTML;
-		}
-		return _lengthTmpl;
-	}
-	
-	function getPermanentLinkTmpl() {
-		if (_permanentLinkTmpl === null) {
-			_permanentLinkTmpl = $.id("permanentLinkTmpl").innerHTML;
-		}
-		return _permanentLinkTmpl;
-	}
-	
-	function getForCopyTmpl() {
-		if (_forCopyTmpl === null) {
-			_forCopyTmpl = $.id("forCopyTmpl").innerHTML;
-		}
-		return _forCopyTmpl;
-	}
-	
 	async function readTextFileAsync(file) {
 		const encoding = elOeGroupBtns.find((el) => el.classList.contains("active"))?.getAttribute("data-oe");
 		
@@ -1116,30 +1078,26 @@ $.onReady(function () {
 	}
 	
 	function showMessages(messageObjects) {
-		let messagesHtml = "";
+		clearMessages();
 		
 		if (messageObjects) {
 			if (Array.isArray(messageObjects)) {
 				for (const messageObject of messageObjects) {
-					messagesHtml += renderTemplate(getMessageTmpl(), messageObject);
+					elMessages.appendChild(renderTemplate("messageTmpl", messageObject));
 				}
 			} else {
-				messagesHtml = renderTemplate(getMessageTmpl(), messageObjects);
+				elMessages.appendChild(renderTemplate("messageTmpl", messageObjects));
 			}
 		}
 		
-		$.id("messages").innerHTML = messagesHtml;
-	}
-	
-	function clearMessages() {
-		$.id("messages").textContent = "";
-	}
-
-	function focusMessages() {
 		window.scroll({
 			top: $.id("messages").offsetTop - 10,
 			behavior: "smooth"
 		});
+	}
+	
+	function clearMessages() {
+		elMessages.innerHTML = "";
 	}
 	
 	function showMessageDialog(messageText) {
@@ -1236,16 +1194,13 @@ function getCurrentLineIndex(el) {
 	return n;
 }
 
-function showPopover(el, title, content, isHtmlContent) {
+function showPopover(el, title, elPopoverBody) {
 	hidePopovers($.all(".popover-toggle.active"));
 	
-	const elPopover = $.id("popoverTmpl").content.cloneNode(true).querySelector(".popover");
-	elPopover.querySelector(".popover-header").textContent = title;
-	if (isHtmlContent) {
-		elPopover.querySelector(".popover-body").innerHTML = content;
-	} else {
-		elPopover.querySelector(".popover-body").textContent = content;
-	}
+	const elPopover = renderTemplate("popoverTmpl", {
+		title: title,
+		body: elPopoverBody
+	});
 	el.appendChild(elPopover);
 	
 	el.classList.add("active");
@@ -1456,7 +1411,54 @@ function clearLocationHash() {
 	}
 }
 
-function renderTemplate(tmpl, p) {
+function renderTemplate(templateId, data) {
+	const elTmplContent = $.id(templateId).content.cloneNode(true);
+	
+	const walker = document.createTreeWalker(
+		elTmplContent,
+		NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
+		(node) => {
+			if (node.nodeType === Node.ELEMENT_NODE) {
+				for (const attr of node.attributes) {
+					if (attr.value.includes("{{")) {
+						return NodeFilter.FILTER_ACCEPT;
+					}
+				}
+			} else {
+				// Node.TEXT_NODE
+				if (node.nodeValue.includes("{{")) {
+					return NodeFilter.FILTER_ACCEPT;
+				}
+			}
+			
+			return NodeFilter.FILTER_SKIP;
+		});
+	
+	let node;
+	while (node = walker.nextNode()) {
+		if (node.nodeType === Node.ELEMENT_NODE) {
+			for (const attr of node.attributes) {
+				attr.value = renderTemplateValue(attr.value, data);
+			}
+		} else {
+			// Node.TEXT_NODE
+			const v = renderTemplateValue(node.nodeValue, data);
+			if (v instanceof Node) {
+				node.parentNode.replaceChild(v, node);
+			} else {
+				node.nodeValue = v;
+			}
+		}
+	}
+	
+	return elTmplContent;
+}
+
+function renderTemplateValue(tmpl, data) {
+	if (!tmpl.includes("{{")) {
+		return tmpl;
+	}
+	
 	const r = /([\s\S]*?)\{\{([\#\^/]?)(.+?)\}\}([^\{]*)/g;
 	let buf = "";
 	let currentName = "";
@@ -1469,15 +1471,15 @@ function renderTemplate(tmpl, p) {
 		const sv = m[4];
 		
 		if (!skip) {
-			buf += pv;
+			buf = appendTemplateValue(buf, pv);
 		}
 		
 		if (type === "#") {
 			currentName = name;
-			skip = !p[name];
+			skip = !data[name];
 		 } else if (type === "^") {
 			currentName = name;
-			skip = p[name];
+			skip = data[name];
 		} else if (type === "/") {
 			if (name !== currentName) {
 				throw new Error("Wrong close mustache {{/" + name + "}}");
@@ -1486,22 +1488,40 @@ function renderTemplate(tmpl, p) {
 			skip = false;
 		} else if (type === "") {
 			if (!skip) {
-				const v = p[name];
-				if (v !== undefined && v !== null && v !== "") {
-					buf += ("" + v).replace(/&/g, "&amp;")
-							.replace(/</g, "&lt;")
-							.replace(/>/g, "&gt;")
-							.replace(/"/g, "&quot;")
-							.replace(/'/g, "&#39;");
-				}
+				const v = data[name];
+				buf = appendTemplateValue(buf, v);
 			}
 		} else {
 			throw new Error("Unsupported type {{" + type + "}}");
 		}
 		
 		if (!skip) {
-			buf += sv;
+			buf = appendTemplateValue(buf, sv);
 		}
+	}
+	
+	return buf;
+}
+
+function appendTemplateValue(buf, value) {
+	if (value === undefined || value === null || value === "") {
+		return buf;
+	}
+	
+	if (value instanceof Node && typeof buf === "string") {
+		// Change the buffer type to DocumentFragment node
+		const f = new DocumentFragment();
+		if (buf.length) {
+			f.append(buf);
+		}
+		buf = f;
+	}
+	
+	if (buf instanceof Node) {
+		buf.append(value);
+	} else {
+		// string
+		buf += value;
 	}
 	
 	return buf;

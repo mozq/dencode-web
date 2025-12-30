@@ -2376,108 +2376,113 @@
 </dialog>
 
 <div style="display:none" aria-hidden="true">
-	<input id="loadFileInput" type="file" accept="text/*" />
-	<input id="loadImageInput" type="file" accept="image/*" />
-	<input id="loadQrcodeInput" type="file" accept="image/*" />
-</div>
-
-<template id="popoverTmpl" style="display:none" aria-hidden="true">
-	<div class="popover" title="">
-		<div class="popover-header"></div>
-		<div class="popover-body"></div>
+	<div>
+		<input id="loadFileInput" type="file" accept="text/*" />
+		<input id="loadImageInput" type="file" accept="image/*" />
+		<input id="loadQrcodeInput" type="file" accept="image/*" />
 	</div>
-</template>
-
-<script id="messageTmpl" type="text/template">
-	<div class="message message-{{level}}" data-message-id="{{messageId}}" role="alert">
-		<strong>{{message}}</strong>
-		<p>{{detail}}</p>
-		<button type="button" class="btn-close" data-close="message" aria-label="${dc:h(msg['label.close'])}">
-			<svg class="inline-icon"><use href="#close" /></svg>
-		</button>
-	</div>
-</script>
-<script id="forCopyTmpl" type="text/template">
-	<div class="for-copy">
-		<div class="input-group">
-			<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
-			<span class="btn-group-vertical">
-				<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${dc:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${dc:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${dc:h(msg['label.copyToClipboard.errorMessage'])}">
-					<i class="bi bi-clipboard"></i>
-					<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>
-				</button>
-				<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}">
-					<i class="bi bi-link-45deg"></i>
-					<span class="btn-label">${dc:h(msg['label.permanentLink.buttonLabel'])}</span>
-				</button>
-			</span>
+	
+	<svg>
+		<defs>
+			<symbol id="loading-indicator" fill="none" stroke="currentColor" viewBox="0 0 100 100">
+				<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
+					<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
+				</circle>
+			</symbol>
+			<symbol id="menu" viewBox="0 0 16 16" fill="currentColor">
+				<rect x="2" y="3" width="12" height="1.5" rx="0.7" />
+				<rect x="2" y="7" width="12" height="1.5" rx="0.7" />
+				<rect x="2" y="11" width="12" height="1.5" rx="0.7" />
+			</symbol>
+			<symbol id="caret-down-square" viewBox="0 0 16 16">
+				<rect x="1" y="1" rx="2" ry="2" width="14" height="14" fill="none" stroke="currentColor" stroke-width="0.9" />
+				<polygon points="3.5,6 12.5,6 8,11.2" fill="currentColor" />
+			</symbol>
+			<symbol id="close" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+				<line x1="3" y1="3" x2="13" y2="13" />
+				<line x1="13" y1="3" x2="3" y2="13" />
+			</symbol>
+		</defs>
+	</svg>
+	
+	<template id="popoverTmpl">
+		<div class="popover">
+			<div class="popover-header">{{title}}</div>
+			<div class="popover-body">{{body}}</div>
 		</div>
-	</div>
-</script>
-<script id="lengthTmpl" type="text/template">
-	{{chars}}
-	{{#oneChar}}${dc:h(msg['label.val.length.char'])}{{/oneChar}}
-	{{^oneChar}}${dc:h(msg['label.val.length.chars'])}{{/oneChar}}
-	/
-	{{bytes}}
-	{{#oneByte}}${dc:h(msg['label.val.length.byte'])}{{/oneByte}}
-	{{^oneByte}}${dc:h(msg['label.val.length.bytes'])}{{/oneByte}}
-</script>
-<script id="permanentLinkTmpl" type="text/template">
-	<div id="permanentLink" class="input-group">
-		<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
-		<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${dc:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${dc:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${dc:h(msg['label.copyToClipboard.errorMessage'])}">
-			<i class="bi bi-clipboard"></i>
-			<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>
-		</button>
-		<button type="button" class="btn btn-v-icon-label dropdown-toggle toggle-manual share" aria-expanded="false">
-			<i class="bi bi-share-fill"></i>
-			<span class="btn-label">${dc:h(msg['label.share.buttonLabel'])}</span>
-
-			<ul class="dropdown-menu" role="menu">
-				<li><a class="share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage">${dc:h(msg['label.openNewPage'])}</a></li>
-				<li><a class="share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail">${dc:h(msg['label.sendByEmail'])}</a></li>
-				<li><a class="share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter">${dc:h(msg['label.shareOnTwitter'])}</a></li>
-				<li><a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook">${dc:h(msg['label.shareOnFacebook'])}</a></li>
-			</ul>
-		</button>
-	</div>
-</script>
-<script id="adMiddleTmpl" type="text/template">
-	<tr id="adMiddle">
-		<td colspan="2" style="padding: 2em 0">
-			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="8967889103" data-ad-format="rectangle, horizontal" data-full-width-responsive="true"></ins>
-		</td>
-	</tr>
-</script>
-
-<script id="dencoderDefs" type="application/json">${dencoderDefsJson}</script>
-
-<script type="text/message" data-id="default.error" data-level="${dc:h(msg['default.error.level'])}" data-message="${dc:h(msg['default.error'])}" data-detail=""></script>
-<script type="text/message" data-id="network.error" data-level="${dc:h(msg['network.error.level'])}" data-message="${dc:h(msg['network.error'])}" data-detail=""></script>
-
-<svg style="display:none" aria-hidden="true">
-	<defs>
-		<symbol id="loading-indicator" fill="none" stroke="currentColor" viewBox="0 0 100 100">
-			<circle cx="50" cy="50" r="40" stroke-width="15" stroke-dasharray="200">
-				<animateTransform attributeName="transform" type="rotate" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" repeatCount="indefinite" />
-			</circle>
-		</symbol>
-		<symbol id="menu" viewBox="0 0 16 16" fill="currentColor">
-			<rect x="2" y="3" width="12" height="1.5" rx="0.7" />
-			<rect x="2" y="7" width="12" height="1.5" rx="0.7" />
-			<rect x="2" y="11" width="12" height="1.5" rx="0.7" />
-		</symbol>
-		<symbol id="caret-down-square" viewBox="0 0 16 16">
-			<rect x="1" y="1" rx="2" ry="2" width="14" height="14" fill="none" stroke="currentColor" stroke-width="0.9" />
-			<polygon points="3.5,6 12.5,6 8,11.2" fill="currentColor" />
-		</symbol>
-		<symbol id="close" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-			<line x1="3" y1="3" x2="13" y2="13" />
-			<line x1="13" y1="3" x2="3" y2="13" />
-		</symbol>
-	</defs>
-</svg>
-
+	</template>
+	
+	<template id="messageTmpl">
+		<div class="message message-{{level}}" data-message-id="{{messageId}}" role="alert">
+			<strong>{{message}}</strong>
+			<p>{{detail}}</p>
+			<button type="button" class="btn-close" data-close="message" aria-label="${dc:h(msg['label.close'])}">
+				<svg class="inline-icon"><use href="#close" /></svg>
+			</button>
+		</div>
+	</template>
+	
+	<template id="forCopyTmpl">
+		<div class="for-copy">
+			<div class="input-group">
+				<textarea id="{{id}}ForCopy" class="form-control select-on-focus" rows="2" readonly>{{value}}</textarea>
+				<span class="btn-group-vertical">
+					<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${dc:h(msg['label.copyToClipboard'])}" data-copy-id="{{id}}ForCopy" data-copy-message="${dc:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${dc:h(msg['label.copyToClipboard.errorMessage'])}">
+						<i class="bi bi-clipboard"></i>
+						<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+					</button>
+					<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}">
+						<i class="bi bi-link-45deg"></i>
+						<span class="btn-label">${dc:h(msg['label.permanentLink.buttonLabel'])}</span>
+					</button>
+				</span>
+			</div>
+		</div>
+	</template>
+	
+	<template id="lengthTmpl">
+		{{chars}}
+		{{#oneChar}}${dc:h(msg['label.val.length.char'])}{{/oneChar}}
+		{{^oneChar}}${dc:h(msg['label.val.length.chars'])}{{/oneChar}}
+		/
+		{{bytes}}
+		{{#oneByte}}${dc:h(msg['label.val.length.byte'])}{{/oneByte}}
+		{{^oneByte}}${dc:h(msg['label.val.length.bytes'])}{{/oneByte}}
+	</template>
+	
+	<template id="permanentLinkTmpl">
+		<div id="permanentLink" class="input-group">
+			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
+			<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${dc:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${dc:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${dc:h(msg['label.copyToClipboard.errorMessage'])}">
+				<i class="bi bi-clipboard"></i>
+				<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>
+			</button>
+			<button type="button" class="btn btn-v-icon-label dropdown-toggle toggle-manual share" aria-expanded="false">
+				<i class="bi bi-share-fill"></i>
+				<span class="btn-label">${dc:h(msg['label.share.buttonLabel'])}</span>
+	
+				<ul class="dropdown-menu" role="menu">
+					<li><a class="share-link" href="{{permanentLink}}" target="_blank" data-share-method="openNewPage">${dc:h(msg['label.openNewPage'])}</a></li>
+					<li><a class="share-link" href="mailto:?body=%0D%0A{{permanentLinkUrlEncoded}}" data-share-method="sendByEmail">${dc:h(msg['label.sendByEmail'])}</a></li>
+					<li><a class="share-link" href="https://twitter.com/share?url={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnTwitter">${dc:h(msg['label.shareOnTwitter'])}</a></li>
+					<li><a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u={{permanentLinkUrlEncoded}}" target="_blank" data-share-method="shareOnFacebook">${dc:h(msg['label.shareOnFacebook'])}</a></li>
+				</ul>
+			</button>
+		</div>
+	</template>
+	
+	<template id="adMiddleTmpl">
+		<tr id="adMiddle">
+			<td colspan="2" style="padding: 2em 0">
+				<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6871955725174244" data-ad-slot="8967889103" data-ad-format="rectangle, horizontal" data-full-width-responsive="true"></ins>
+			</td>
+		</tr>
+	</template>
+	
+	<script id="dencoderDefs" type="application/json">${dencoderDefsJson}</script>
+	
+	<script type="text/message" data-id="default.error" data-level="${dc:h(msg['default.error.level'])}" data-message="${dc:h(msg['default.error'])}" data-detail=""></script>
+	<script type="text/message" data-id="network.error" data-level="${dc:h(msg['network.error.level'])}" data-message="${dc:h(msg['network.error'])}" data-detail=""></script>
+</div>
 </body>
 </html>

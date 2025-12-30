@@ -43,11 +43,7 @@
 				this.parentNode.insertBefore(elAdMiddle, this.nextElementSibling);
 				elAdMiddle.style.display = "";
 			} else {
-				const adMiddleHtml = $.id("adMiddleTmpl").innerHTML;
-				
-				const elTmpl = document.createElement("template");
-				elTmpl.innerHTML = adMiddleHtml;
-				const elAdMiddleNew = elTmpl.content;
+				const elAdMiddleNew = $.id("adMiddleTmpl").content.cloneNode(true);
 				
 				this.parentNode.insertBefore(elAdMiddleNew, this.nextElementSibling);
 				(window.adsbygoogle = window.adsbygoogle || []).push({});
