@@ -612,7 +612,7 @@ $.onReady(function () {
 	$.on(elOtherDencodeLinks, "click", function (ev) {
 		const method = this.getAttribute("data-other-dencode-method");
 		
-		$.one(`#typeMenu a[data-dencode-method="${method}"]`).click();
+		$.one(`#typeMenu a[data-dencode-method="${method}"]:last-child`).click();
 		
 		ev.preventDefault();
 	});
