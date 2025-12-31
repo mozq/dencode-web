@@ -613,13 +613,13 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 	flex: 1 1 auto;
 }
 
-.btn-group > .btn:not(:first-child) {
+.btn-group > .btn:not(:first-of-type) {
 	margin-left: -1px;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
 
-.btn-group > .btn:not(:last-child) {
+.btn-group > .btn:not(:last-of-type) {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
@@ -629,11 +629,11 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 	border-bottom-left-radius: 0;
 }
 
-.input-group .btn-group-vertical > .btn:not(:last-child) {
+.input-group .btn-group-vertical > .btn:not(:last-of-type) {
 	border-bottom-right-radius: 0;
 }
 
-.input-group .btn-group-vertical > .btn:not(:first-child) {
+.input-group .btn-group-vertical > .btn:not(:first-of-type) {
 	margin-top: -1px;
 	border-top-right-radius: 0;
 }
