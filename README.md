@@ -14,7 +14,7 @@ Open a shell or command line and execute the following commands on the project r
 ### Run on local machine:
 
 ```console
-./gradlew appRunStage
+./gradlew runApp
 ```
 
 After startup, DenCode can be accessed at http://localhost:8080/ .
@@ -26,12 +26,15 @@ docker run -p 8080:8080 ghcr.io/mozq/dencode-web:latest
 
 ### Deploy to Google App Engine:
 
-Install [Google Cloud SDK](https://cloud.google.com/sdk/) and execute the following commands. `gcloud` commands only needs to be executed for the first time.
+Install [Google Cloud SDK](https://cloud.google.com/sdk/) and execute the following commands. First two commands, `gcloud auth` and `gcloud config`, only needs to be executed for the first time.
 
 ```console
 gcloud auth login
 gcloud config set project {PROJECT_ID}
-./gradlew appengineDeploy
+
+./gradlew build
+cp src/main/appengine/app.yaml build/app/
+gcloud app deploy build/app/app.yaml --no-promote --no-stop-previous-version
 ```
 
 (Please replace {PROJECT_ID} to your own project id.)

@@ -1,12 +1,15 @@
 plugins {
   id 'war'
-  id 'com.google.cloud.tools.appengine-appyaml' version '+'
 }
 
 apply from: 'build-minify-plugin.gradle'
 
 group = 'com.dencode'
 version = '1.0.0-SNAPSHOT'
+
+ext {
+  appDir = "${buildDir}/app"
+}
 
 repositories {
   mavenCentral()
@@ -44,15 +47,6 @@ test {
   useJUnitPlatform()
 }
 
-appengine {
-  deploy {
-    projectId 'GCLOUD_CONFIG'
-    version 'GCLOUD_CONFIG'
-    promote false
-    stopPreviousVersion false
-  }
-}
-
 minifyJs {
   source 'src/main/webapp/static/js/commons.js'
   source 'src/main/webapp/static/js/analytics.js'
@@ -81,24 +75,22 @@ task archiveServerMainJar(type: Jar) {
   }
 }
 
-task bundleServer(type: Copy) {
-  dependsOn archiveServerMainJar, appengineStage
-  
-  from archiveServerMainJar.archiveFile
-  from configurations.providedCompile
-  into appengine.stage.stagingDirectory
+build.dependsOn(archiveServerMainJar)
+build.doLast {
+  copy {
+    from war.archiveFile
+    from archiveServerMainJar.archiveFile
+    from configurations.providedCompile
+    into appDir
+  }
 }
 
-task appRunStage(type: JavaExec) {
-  dependsOn bundleServer
+task runApp(type: JavaExec) {
+  dependsOn build
   
   mainClass = 'com.dencode.web.server.ServerMain'
   
   environment PORT: 8080
-  workingDir appengine.stage.stagingDirectory
-  classpath "${appengine.stage.stagingDirectory}/*"
-}
-
-appengineDeploy {
-  dependsOn bundleServer
+  workingDir appDir
+  classpath "${appDir}/*"
 }

@@ -1,12 +1,5 @@
 # Use OpenJDK 21 as the base image
-FROM eclipse-temurin:21
-
-# Installing required dependencies
-RUN apt-get update && apt-get install -yq \
-    findutils \
-    python3 \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+FROM eclipse-temurin:21-alpine
 
 # Set environment variables!
 ENV APP_HOME=/app
@@ -30,4 +23,4 @@ RUN ./gradlew clean build --no-daemon
 EXPOSE 8080
 
 # Command to run the application
-CMD ["./gradlew", "appRunStage", "--no-daemon"]
+CMD ["./gradlew", "runApp", "--no-daemon"]
