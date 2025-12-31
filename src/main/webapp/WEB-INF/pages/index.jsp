@@ -32,19 +32,19 @@
 	<link rel="manifest" href="${pageContext.request.contextPath}/manifest.json" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${dc:fileLastModified(pageContext, '/static/css/main.css')}" />
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${dc:fileLastModified(pageContext, '/static/js/all.min.js')}"></script>
-	<script id="scriptTesseract" data-src="//cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" integrity="sha256-EP/3hIQGd1nEMCigKnLXbQuQ6xcwK7I7WKnsVBC8kos=" crossorigin="anonymous"></script>
-	<script id="scriptJsqr" data-src="//cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
+	<script id="scriptTesseract" data-src="https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" integrity="sha256-EP/3hIQGd1nEMCigKnLXbQuQ6xcwK7I7WKnsVBC8kos=" crossorigin="anonymous"></script>
+	<script id="scriptJsqr" data-src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
 	<style><%-- Bootstrap Icons --%>
-		.bi-globe2 { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/globe2.svg'); }
-		.bi-pin-angle-fill { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/pin-angle-fill.svg'); }
-		.bi-file-earmark-arrow-up { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/file-earmark-arrow-up.svg'); }
-		.bi-link-45deg { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/link-45deg.svg'); }
-		.bi-file-text { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/file-text.svg'); }
-		.bi-camera { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/camera.svg'); }
-		.bi-qr-code-scan { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/qr-code-scan.svg'); }
-		.bi-clipboard { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/clipboard.svg'); }
-		.bi-link-45deg { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/link-45deg.svg'); }
-		.bi-share-fill { --bi-icon: url('//cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/share-fill.svg'); }
+		.bi-globe2 { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/globe2.svg'); }
+		.bi-pin-angle-fill { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/pin-angle-fill.svg'); }
+		.bi-file-earmark-arrow-up { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/file-earmark-arrow-up.svg'); }
+		.bi-link-45deg { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/link-45deg.svg'); }
+		.bi-file-text { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/file-text.svg'); }
+		.bi-camera { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/camera.svg'); }
+		.bi-qr-code-scan { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/qr-code-scan.svg'); }
+		.bi-clipboard { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/clipboard.svg'); }
+		.bi-link-45deg { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/link-45deg.svg'); }
+		.bi-share-fill { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/share-fill.svg'); }
 		.bi { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; background-color: currentColor; -webkit-mask-image: var(--bi-icon); mask-image: var(--bi-icon); -webkit-mask-size: cover; mask-size: cover; }
 	</style>
 	<script>
