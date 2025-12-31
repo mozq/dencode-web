@@ -4,7 +4,7 @@ buildscript {
   }
   
   dependencies {
-    classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20250706'
+    classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20251216'
   }
 }
 
