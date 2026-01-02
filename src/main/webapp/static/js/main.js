@@ -374,6 +374,19 @@ $.onReady(function () {
 	$.on(".dropdown-toggle:not(.toggle-manual)", "click", function () {
 		this.classList.toggle("show");
 		this.setAttribute("aria-expanded", this.classList.contains("show"));
+		
+		const elMenu = this.querySelector(".dropdown-menu") ?? this.nextElementSibling;
+		if (elMenu) {
+			elMenu.style.transform = "none";
+			
+			const rect = elMenu.getBoundingClientRect();
+			
+			if (window.innerWidth < rect.right) {
+				elMenu.style.transform = "translateX(" + (window.innerWidth - rect.right) +  "px)";
+			} else if (rect.left < 0) {
+				elMenu.style.transform = "translateX(" + (-rect.left) +  "px)";
+			}
+		}
 	});
 	
 	$.on(".dropdown-menu li", "click", function (ev) {
