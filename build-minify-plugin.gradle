@@ -19,8 +19,7 @@ import java.nio.charset.Charset
 
 abstract class SourceDestTask extends SourceTask {
   @Input String charset = 'UTF-8'
-  @Input String dest
-  @OutputFile File getDestFile() { project.file(dest) }
+  @OutputFile RegularFileProperty destinationFile = project.objects.fileProperty()
 }
 
 abstract class MinifyJsTask extends SourceDestTask {
@@ -45,8 +44,9 @@ abstract class MinifyJsTask extends SourceDestTask {
     }
     
     if (result.success) {
-      project.file(dest).parentFile.mkdirs()
-      project.file(dest).write(compiler.toSource(), charset)
+      File f = destinationFile.get().asFile
+      f.parentFile.mkdirs()
+      f.write(compiler.toSource(), charset)
     } else {
       throw new RuntimeException(result.errors.join('\n'))
     }

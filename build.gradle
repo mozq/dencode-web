@@ -8,12 +8,12 @@ group = 'com.dencode'
 version = '1.0.0-SNAPSHOT'
 
 ext {
-  appDir = "${buildDir}/app"
+  appDir = layout.buildDirectory.dir('app')
 }
 
 repositories {
   mavenCentral()
-  maven { url 'https://jitpack.io' }
+  maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
@@ -52,15 +52,15 @@ minifyJs {
   source 'src/main/webapp/static/js/analytics.js'
   source 'src/main/webapp/static/js/main.js'
   source 'src/main/webapp/static/js/adsense.js'
-  dest "${buildDir}/minify/js/all.min.js"
-  languageOut 'ECMASCRIPT_2020'
+  destinationFile = layout.buildDirectory.file('minifyJs/all.min.js')
+  languageOut = 'ECMASCRIPT_2020'
 }
 
 war {
   dependsOn minifyJs
   
   webInf {
-    from "${buildDir}/minify/js/"
+    from minifyJs.destinationFile
     into "/static/js/"
   }
 }
@@ -85,12 +85,10 @@ build.doLast {
   }
 }
 
-task runApp(type: JavaExec) {
+task runApp(type: Exec) {
   dependsOn build
   
-  mainClass = 'com.dencode.web.server.ServerMain'
-  
   environment PORT: 8080
-  workingDir appDir
-  classpath "${appDir}/*"
+  workingDir appDir.get()
+  commandLine 'java', '-cp', '*', 'com.dencode.web.server.ServerMain'
 }
