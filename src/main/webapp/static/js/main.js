@@ -1214,15 +1214,15 @@ function showPopover(el, title, elPopoverBody) {
 		title: title,
 		body: elPopoverBody
 	});
-	el.appendChild(elPopover);
 	
+	el.appendChild(elPopover);
 	el.classList.add("active");
 }
 
 function hidePopovers(elPopoverToggles) {
 	elPopoverToggles.forEach((el) => {
-		el.querySelector(".popover").remove();
 		el.classList.remove("active");
+		el.querySelector(".popover")?.remove();
 	});
 }
 
