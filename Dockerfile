@@ -1,26 +1,23 @@
-# Use OpenJDK 21 as the base image
-FROM eclipse-temurin:21-alpine
+# Builder stage
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /app
 
-# Set environment variables!
-ENV APP_HOME=/app
+COPY gradlew .
+COPY gradle ./gradle
+COPY *.gradle .
+RUN ./gradlew dependencies --no-daemon
 
-# Create application directory
-WORKDIR $APP_HOME
+COPY src ./src
+RUN ./gradlew build -x test --no-daemon
 
-# Copy the project files to the container
-COPY . .
 
-# Grant execute permission for gradlew
-RUN chmod +x ./gradlew
+# Runner stage
+FROM eclipse-temurin:21-jre-alpine AS runner
+WORKDIR /app
 
-# Set GRADLE_USER_HOME to avoid permission issues
-ENV GRADLE_USER_HOME=$APP_HOME/gradle-cache
+COPY --from=builder /app/build/app/* .
 
-# Run the Gradle build to fetch dependencies and build the project
-RUN ./gradlew clean build --no-daemon
+ENV PORT=8080
+EXPOSE $PORT
 
-# Expose the default port the app runs on
-EXPOSE 8080
-
-# Command to run the application
-CMD ["./gradlew", "runApp", "--no-daemon"]
+ENTRYPOINT ["java", "-cp", "*", "com.dencode.web.server.ServerMain"]
