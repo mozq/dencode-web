@@ -10,7 +10,7 @@ RUN chmod +x gradlew && \
     ./gradlew dependencies --no-daemon
 
 COPY src/ ./src/
-RUN ./gradlew build -x test --no-daemon
+RUN ./gradlew assemble --no-daemon
 
 
 # Runner stage

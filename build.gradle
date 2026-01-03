@@ -75,18 +75,20 @@ task archiveServerMainJar(type: Jar) {
   }
 }
 
-build.dependsOn(archiveServerMainJar)
-build.doLast {
-  copy {
-    from war.archiveFile
-    from archiveServerMainJar.archiveFile
-    from configurations.providedCompile
-    into appDir
-  }
+task packageApp(type: Copy) {
+  dependsOn assemble
+  
+  from war.archiveFile
+  from archiveServerMainJar.archiveFile
+  from configurations.providedCompile
+  into appDir
 }
 
+assemble.dependsOn archiveServerMainJar
+assemble.finalizedBy packageApp
+
 task runApp(type: Exec) {
-  dependsOn build
+  dependsOn assemble
   
   environment PORT: 8080
   workingDir appDir.get()
