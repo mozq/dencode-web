@@ -7,28 +7,41 @@ e.g. HTML Escape / URL Encoding / Base64 / MD5 / SHA-1 / CRC32 / and many other 
 [https://dencode.com/](https://dencode.com/)
 
 ## Usage
-Install [Java SE Development Kit (JDK)](https://www.oracle.com/java/technologies/downloads/).
 
-Open a shell or command line and execute the following commands on the project root directory.
+### Use DenCode online:
+You can use DenCode online without downloading it.
 
-### Run on local machine:
+[https://dencode.com/](https://dencode.com/)
 
-```console
-./gradlew runApp
-```
+### Run using Docker:
+With [Docker](https://www.docker.com/), you can run DenCode wherever you want.
 
-After startup, DenCode can be accessed at http://localhost:8080/ .
-
-### Run using docker:
 ```bash
 docker run -p 8080:8080 ghcr.io/mozq/dencode-web:latest
 ```
 
+After startup, DenCode can be accessed at http://localhost:8080/ .
+
+### Build using Gradle:
+If you want to build DenCode from the source code yourself, use [Gradle](https://gradle.org/) within the project.
+Install [Java SE Development Kit (JDK)](https://www.oracle.com/java/technologies/downloads/) and run the following command on the project root directory.
+Build artifacts are stored in build/app/ directory.
+
+```bash
+./gradlew build
+```
+
+If you want to run DenCode as well, run the following command.
+
+```bash
+./gradlew runApp
+```
+
 ### Deploy to Google App Engine:
+Install [Google Cloud SDK](https://cloud.google.com/sdk/) and run the following commands.
+First two commands, `gcloud auth` and `gcloud config`, only needs to be ran for the first time.
 
-Install [Google Cloud SDK](https://cloud.google.com/sdk/) and execute the following commands. First two commands, `gcloud auth` and `gcloud config`, only needs to be executed for the first time.
-
-```console
+```bash
 gcloud auth login
 gcloud config set project {PROJECT_ID}
 
