@@ -7,9 +7,7 @@ apply from: 'build-minify-plugin.gradle'
 group = 'com.dencode'
 version = '1.0.0-SNAPSHOT'
 
-ext {
-  appDir = layout.buildDirectory.dir('app')
-}
+def appDir = layout.buildDirectory.dir('app')
 
 repositories {
   mavenCentral()
@@ -40,8 +38,9 @@ java {
   targetCompatibility = JavaVersion.VERSION_21
 }
 
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach {
+  options.encoding = 'UTF-8'
+}
 
 test {
   useJUnitPlatform()
@@ -57,15 +56,12 @@ minifyJs {
 }
 
 war {
-  dependsOn minifyJs
-  
-  webInf {
-    from minifyJs.destinationFile
-    into "/static/js/"
+  from(minifyJs) {
+    into 'static/js'
   }
 }
 
-task archiveServerMainJar(type: Jar) {
+tasks.register('archiveServerMainJar', Jar) {
   archiveAppendix = 'server-main'
   
   from sourceSets.main.output
@@ -75,22 +71,21 @@ task archiveServerMainJar(type: Jar) {
   }
 }
 
-task packageApp(type: Copy) {
-  dependsOn assemble
-  
-  from war.archiveFile
-  from archiveServerMainJar.archiveFile
+tasks.register('packageApp', Copy) {
+  from war
+  from tasks.named('archiveServerMainJar')
   from configurations.providedCompile
   into appDir
 }
 
-assemble.dependsOn archiveServerMainJar
-assemble.finalizedBy packageApp
+assemble.configure {
+  dependsOn 'packageApp'
+}
 
-task runApp(type: Exec) {
+tasks.register('runApp', Exec) {
   dependsOn assemble
   
+  workingDir = appDir
   environment PORT: 8080
-  workingDir appDir.get()
   commandLine 'java', '-cp', '*', 'com.dencode.web.server.ServerMain'
 }

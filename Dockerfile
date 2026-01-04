@@ -18,8 +18,8 @@ FROM eclipse-temurin:21-jre-alpine AS runner
 
 RUN addgroup -g 1001 appgroup && \
     adduser -S -D -u 1001 -G appgroup appuser && \
-	mkdir -p /app && \
-	chown appuser:appgroup /app
+    mkdir -p /app && \
+    chown appuser:appgroup /app
 WORKDIR /app
 
 COPY --from=builder --chown=appuser:appgroup /app/build/app/ ./

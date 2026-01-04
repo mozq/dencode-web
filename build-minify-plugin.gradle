@@ -17,38 +17,41 @@ import com.google.javascript.jscomp.WarningLevel
 import java.nio.charset.Charset
 
 
-abstract class SourceDestTask extends SourceTask {
-  @Input String charset = 'UTF-8'
-  @OutputFile RegularFileProperty destinationFile = project.objects.fileProperty()
-}
-
-abstract class MinifyJsTask extends SourceDestTask {
-  @Input String compilationLevel = 'SIMPLE_OPTIMIZATIONS'
-  @Input String warningLevel = 'DEFAULT'
-  @Input String languageIn = 'STABLE'
-  @Input String languageOut = 'STABLE'
+abstract class MinifyJsTask extends SourceTask {
+  @Input abstract Property<String> getCharset()
+  @Input abstract Property<String> getCompilationLevel()
+  @Input abstract Property<String> getWarningLevel()
+  @Input abstract Property<String> getLanguageIn()
+  @Input abstract Property<String> getLanguageOut()
+  @OutputFile abstract RegularFileProperty getDestinationFile()
+  
+  MinifyJsTask() {
+    charset.convention('UTF-8')
+    compilationLevel.convention('SIMPLE_OPTIMIZATIONS')
+    warningLevel.convention('DEFAULT')
+    languageIn.convention('STABLE')
+    languageOut.convention('STABLE')
+  }
   
   @TaskAction
   void minify() {
     def options = new CompilerOptions()
-    CompilationLevel.fromString(compilationLevel).setOptionsForCompilationLevel(options)
-    WarningLevel.valueOf(warningLevel).setOptionsForWarningLevel(options)
-    options.setLanguageIn(LanguageMode.fromString(languageIn))
-    options.setLanguageOut(LanguageMode.fromString(languageOut))
+    CompilationLevel.fromString(compilationLevel.get()).setOptionsForCompilationLevel(options)
+    WarningLevel.valueOf(warningLevel.get()).setOptionsForWarningLevel(options)
+    options.setLanguageIn(LanguageMode.fromString(languageIn.get()))
+    options.setLanguageOut(LanguageMode.fromString(languageOut.get()))
     
     def compiler = new Compiler()
-    def result = compiler.compile([], source.files.collect { SourceFile.fromPath(it.toPath(), Charset.forName(charset)) }, options)
+    def result = compiler.compile([], source.files.collect { SourceFile.fromPath(it.toPath(), Charset.forName(charset.get())) }, options)
     
     result.warnings.each {
-      logger.warn("WARN: " + it.toString())
+      logger.warn('WARN: ' + it.toString())
     }
     
     if (result.success) {
-      File f = destinationFile.get().asFile
-      f.parentFile.mkdirs()
-      f.write(compiler.toSource(), charset)
+      destinationFile.get().asFile.setText(compiler.toSource(), charset.get())
     } else {
-      throw new RuntimeException(result.errors.join('\n'))
+      throw new GradleException('Closure Compiler failed:\n' + result.errors.join('\n'))
     }
   }
 }
