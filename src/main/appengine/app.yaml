@@ -1,4 +1,4 @@
-runtime: java21
+runtime: java25
 entrypoint: 'java -cp "*" com.dencode.web.server.ServerMain'
 
 inbound_services:

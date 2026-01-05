@@ -1,5 +1,5 @@
 # Builder stage
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM eclipse-temurin:25-jdk-alpine AS builder
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ RUN ./gradlew assemble --no-daemon
 
 
 # Runner stage
-FROM eclipse-temurin:21-jre-alpine AS runner
+FROM eclipse-temurin:25-jre-alpine AS runner
 
 RUN addgroup -g 1001 appgroup && \
     adduser -S -D -u 1001 -G appgroup appuser && \
