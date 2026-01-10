@@ -487,7 +487,9 @@ public class HttpReqRes {
 	
 	public void redirect(String path) {
 		try {
-			response().sendRedirect(path);
+			response().setStatus(HttpServletResponse.SC_FOUND);
+			response().setHeader("Location", path);
+			response().flushBuffer(); 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
