@@ -245,6 +245,10 @@ hr {
 	opacity: 0.25;
 }
 
+iframe {
+	border: none;
+}
+
 footer {
 	margin-top: 1em;
 	padding: 2px 2ex 6px;
