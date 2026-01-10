@@ -4,9 +4,7 @@ plugins {
 
 apply from: 'build-minify-plugin.gradle'
 
-group = 'com.dencode'
-version = '1.0.0-SNAPSHOT'
-
+def appName = 'dencode'
 def appDir = layout.buildDirectory.dir('app')
 
 configurations {
@@ -66,12 +64,14 @@ minifyJs {
 }
 
 war {
+  archiveBaseName = appName
   from(minifyJs) {
     into 'static/js'
   }
 }
 
 tasks.register('archiveServerMainJar', Jar) {
+  archiveBaseName = appName
   archiveAppendix = 'server-main'
   
   from sourceSets.main.output
