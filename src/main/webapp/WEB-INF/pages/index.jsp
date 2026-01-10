@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><%@ taglib prefix="c" uri="jakarta.tags.core"
-%><%@ taglib prefix="fn" uri="jakarta.tags.functions"
 %><%@ taglib prefix="dc" uri="http://dencode.com/jsp/taglib"
 %><!DOCTYPE html>
 <html lang="${dc:h(msg['lang'])}" prefix="og: http://ogp.me/ns#" data-ui-theme="">
@@ -2323,7 +2322,7 @@
 			</c:if>
 			
 			<c:if test="${type ne 'all'}">
-				<div><a class="other-dencode-link" href="#" data-other-dencode-method="${dc:h(fn:endsWith(method, '.all') ? 'all.all' : type += '.all')}">${dc:h(msg['label.otherDencodeLink.' += (fn:endsWith(method, '.all') ? 'all.all' : type += '.all')])}</a></div>
+				<div><a class="other-dencode-link" href="#" data-other-dencode-method="${dc:h(method.endsWith('.all') ? 'all.all' : type += '.all')}">${dc:h(msg['label.otherDencodeLink.' += (method.endsWith('.all') ? 'all.all' : type += '.all')])}</a></div>
 			</c:if>
 		</div>
 		
