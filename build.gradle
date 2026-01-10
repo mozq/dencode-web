@@ -9,19 +9,29 @@ version = '1.0.0-SNAPSHOT'
 
 def appDir = layout.buildDirectory.dir('app')
 
+configurations {
+  resolvableCompileOnly {
+    extendsFrom(configurations.compileOnly)
+    canBeResolved = true
+    canBeConsumed = false
+  }
+}
+
 repositories {
   mavenCentral()
   maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
-  providedCompile 'org.eclipse.jetty:jetty-server:12.1.+'
-  providedCompile 'org.eclipse.jetty:jetty-slf4j-impl:12.1.+'
-  providedCompile 'org.eclipse.jetty.ee10:jetty-ee10-webapp:12.1.+'
-  providedCompile 'org.eclipse.jetty.ee10:jetty-ee10-annotations:12.1.+'
-  providedCompile 'org.eclipse.jetty.ee10:jetty-ee10-apache-jsp:12.1.+'
+  compileOnly 'org.eclipse.jetty:jetty-server:12.1.+'
+  compileOnly 'org.eclipse.jetty:jetty-slf4j-impl:12.1.+'
+  compileOnly 'org.eclipse.jetty.ee10:jetty-ee10-webapp:12.1.+'
+  compileOnly 'org.eclipse.jetty.ee10:jetty-ee10-annotations:12.1.+'
+  compileOnly 'org.eclipse.jetty.ee10:jetty-ee10-apache-jsp:12.1.+'
   
-  implementation 'org.eclipse.jetty.ee10:jetty-ee10-glassfish-jstl:12.1.+'
+  implementation('org.eclipse.jetty.ee10:jetty-ee10-glassfish-jstl:12.1.+') {
+    exclude group: 'org.eclipse.jetty.ee10'
+  }
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.+'
   implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.20.+'
   implementation 'com.ezylang:EvalEx:3.5.+'
@@ -74,7 +84,7 @@ tasks.register('archiveServerMainJar', Jar) {
 tasks.register('packageApp', Copy) {
   from war
   from tasks.named('archiveServerMainJar')
-  from configurations.providedCompile
+  from configurations.resolvableCompileOnly
   into appDir
 }
 

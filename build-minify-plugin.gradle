@@ -4,7 +4,7 @@ buildscript {
   }
   
   dependencies {
-    classpath group: 'com.google.javascript', name: 'closure-compiler', version: 'v20251216'
+    classpath 'com.google.javascript:closure-compiler:v20251216'
   }
 }
 
@@ -57,4 +57,3 @@ abstract class MinifyJsTask extends SourceTask {
 }
 
 project.tasks.register('minifyJs', MinifyJsTask)
-project.ext.MinifyJsTask = MinifyJsTask
