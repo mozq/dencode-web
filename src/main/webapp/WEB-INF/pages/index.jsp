@@ -75,11 +75,11 @@
 			</div>
 		</div>
 		
-		<button type="button" id="navMenuToggler" class="navbar-toggler" aria-controls="navMenu" aria-label="${dc:h(msg['label.menu'])}" aria-expanded="false">
+		<button type="button" class="navbar-toggler" aria-label="${dc:h(msg['label.menu'])}" aria-controls="navMenu" aria-expanded="false">
 			<svg class="navbar-toggler-icon"><use href="#menu" /></svg>
 		</button>
 	</nav>
-	<nav id="navMenu" class="navbar navbar-collapse" role="navigation">
+	<nav id="navMenu" class="navbar navbar-collapsible" role="navigation">
 		<ul id="typeMenu" class="navbar-nav">
 			<li class="nav-item ${(type eq 'all') ? 'active' : ''}" data-dencode-type="all">
 				<a href="${dc:h(basePath)}/" data-dencode-method="all.all">${dc:h(msg['all.type'])}</a>
@@ -329,12 +329,12 @@
 		</div>
 		
 		<div id="decoded" ${(hasDecoder) ? '' : 'style="display: none;"'}>
-			<h2 data-toggle-collapse="#decodedListContainer" aria-expanded="true">
+			<h2 aria-controls="decodedListContainer" aria-expanded="true">
 				<svg class="toggle-icon"><use href="#caret-down-square" /></svg>
 				${dc:h(msg['label.decoded'])}
 				<svg id="decodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
-			<div id="decodedListContainer" class="collapse expanded">
+			<div id="decodedListContainer" class="collapsible expanded">
 				<table id="decodedList" class="dencoded-list">
 					<c:if test="${types.contains('string')}">
 						<tbody>
@@ -1167,12 +1167,12 @@
 		</div>
 		
 		<div id="encoded" ${(hasEncoder) ? '' : 'style="display: none;"'}>
-			<h2 data-toggle-collapse="#encodedListContainer" aria-expanded="true">
+			<h2 aria-controls="encodedListContainer" aria-expanded="true">
 				<svg class="toggle-icon"><use href="#caret-down-square" /></svg>
 				${dc:h(msg['label.encoded'])}
 				<svg id="encodingIndicator" style="display: none;"><use href="#loading-indicator" /></svg>
 			</h2>
-			<div id="encodedListContainer" class="collapse expanded">
+			<div id="encodedListContainer" class="collapsible expanded">
 				<table id="encodedList" class="dencoded-list">
 					<c:if test="${types.contains('string')}">
 						<tbody>

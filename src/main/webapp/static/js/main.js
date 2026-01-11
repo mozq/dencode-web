@@ -20,7 +20,6 @@ $.onReady(function () {
 	const dencoderDefs = JSON.parse($.id("dencoderDefs").textContent);
 	
 	const elMessages = $.id("messages");
-	const elNavMenuToggler = $.id("navMenuToggler");
 	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
 	const elTypeMenuMethodLinks = $.all("#typeMenu a[data-dencode-method]");
 	const elExp = $.id("exp");
@@ -332,9 +331,8 @@ $.onReady(function () {
 	$.on(document, "click", function (ev) {
 		// Hide dropdown menus when another area is clicked
 		const dropdownToggle = ev.target.closest(".dropdown-toggle");
-		$.all(".dropdown-toggle.show").forEach((el) => {
+		$.all(".dropdown-toggle[aria-expanded='true']").forEach((el) => {
 			if (el !== dropdownToggle) {
-				el.classList.remove("show");
 				el.setAttribute("aria-expanded", false);
 			}
 		});
@@ -372,8 +370,8 @@ $.onReady(function () {
 	});
 	
 	$.on(".dropdown-toggle:not(.toggle-manual)", "click", function () {
-		this.classList.toggle("show");
-		this.setAttribute("aria-expanded", this.classList.contains("show"));
+		const expanded = (this.getAttribute("aria-expanded") === "true");
+		this.setAttribute("aria-expanded", !expanded);
 		
 		const elMenu = this.querySelector(".dropdown-menu") ?? this.nextElementSibling;
 		if (elMenu) {
@@ -392,7 +390,6 @@ $.onReady(function () {
 	$.on(".dropdown-menu li", "click", function (ev) {
 		const toggle = ev.target.closest(".dropdown-toggle");
 		if (toggle) {
-			toggle.classList.remove("show");
 			toggle.setAttribute("aria-expanded", false);
 		}
 	});
@@ -414,9 +411,9 @@ $.onReady(function () {
 		this.closest(".message").remove();
 	});
 	
-	$.on($.all("[data-toggle-collapse]"), "click", function () {
-		const targetSelector = this.getAttribute("data-toggle-collapse");
-		const el = $.one(targetSelector);
+	$.on($.all("[aria-controls][aria-expanded]"), "click", function () {
+		const id = this.getAttribute("aria-controls");
+		const el = $.id(id);
 		if (el) {
 			el.classList.toggle("expanded");
 			this.setAttribute("aria-expanded", el.classList.contains("expanded"));
@@ -431,14 +428,9 @@ $.onReady(function () {
 				// NOP
 			});
 		} else {
-			this.classList.toggle("show");
+			const expanded = (this.getAttribute("aria-expanded") === "true");
+			this.setAttribute("aria-expanded", !expanded);
 		}
-	});
-	
-	$.on(elNavMenuToggler, "click", function () {
-		const el = $.id(this.getAttribute("aria-controls"));
-		el.classList.toggle("expanded");
-		this.setAttribute("aria-expanded", el.classList.contains("expanded"));
 	});
 	
 	$.on(elLocaleMenuLinks, "click", function (ev) {
