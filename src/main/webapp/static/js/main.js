@@ -357,16 +357,20 @@ $.onReady(function () {
 	}
 	
 	$.on(".select-on-focus", "focus", function () {
-		setTimeout(function () {
-			selectAllTextValue(this);
-		}.bind(this), 1);
+		setTimeout(() => {
+			this.select();
+			this.setSelectionRange(0, this.value.length);
+		}, 1);
 	}, true);
 	
-	$.on(".copy-to-clipboard", "click", function (ev) {
-		copyToClipboard(this);
-		this.focus();
+	$.on(".copy-to-clipboard", "click", function () {
+		const elCopy = $.id(this.getAttribute("data-copy-id"));
 		
-		ev.preventDefault();
+		highlightInput(elCopy);
+		
+		window.navigator.clipboard.writeText(elCopy.value)
+			.then(() => showTooltip(this, this.getAttribute("data-copy-message"), 2000))
+			.catch(() => showTooltip(this, this.getAttribute("data-copy-error-message"), 2000));
 	});
 	
 	$.on(".dropdown-toggle:not(.toggle-manual)", "click", function () {
@@ -1069,17 +1073,7 @@ $.onReady(function () {
 		elV.value = val;
 		elV.dispatchEvent(new Event("input"));
 		
-		elV.classList.remove("updating");
-		elV.classList.remove("updated");
-		elV.classList.add("updating");
-		setTimeout(() => {
-			elV.classList.add("updated");
-			
-			setTimeout(() => {
-				elV.classList.remove("updating");
-				elV.classList.remove("updated");
-			}, 2000);
-		}, 1);
+		highlightInput(elV);
 	}
 	
 	function showMessages(messageObjects) {
@@ -1161,35 +1155,6 @@ function setBgColor(el, colors, darkMode) {
 	el.style.backgroundColor = bgColor;
 }
 
-function selectAllTextValue(el) {
-	if (el.select) {
-		el.select();
-	}
-	
-	if (document.createRange && window.getSelection) {
-		const range = document.createRange();
-		range.selectNode(el);
-		const selection = window.getSelection();
-		selection.removeAllRanges();
-		selection.addRange(range);
-	}
-	
-	if (el.setSelectionRange) {
-		el.setSelectionRange(0, 2147483647);
-	}
-}
-
-function clearSelection(el) {
-	if (window.getSelection) {
-		const selection = window.getSelection();
-		selection.removeAllRanges();
-	}
-	
-	if (el.setSelectionRange) {
-		el.setSelectionRange(0, 0);
-	}
-}
-
 function getCurrentLineIndex(el) {
 	const cursorPos = el.selectionStart;
 	const val = el.value;
@@ -1229,51 +1194,15 @@ function showTooltip(el, message, time) {
 	}, time);
 }
 
-function copyToClipboard(el) {
-	const elCopy = $.id(el.getAttribute("data-copy-id"));
-	const msg = el.getAttribute("data-copy-message");
-	const errMsg = el.getAttribute("data-copy-error-message");
-	
-	elCopy.classList.remove("copying");
-	elCopy.classList.remove("copied");
-	elCopy.classList.add("copying");
+function highlightInput(el) {
+	el.classList.add("input-highlight");
 	setTimeout(() => {
-		elCopy.classList.add("copied");
-		
+		el.classList.add("input-highlight-transition");
+		el.classList.remove("input-highlight");
 		setTimeout(() => {
-			elCopy.classList.remove("copying");
-			elCopy.classList.remove("copied");
+			el.classList.remove("input-highlight-transition");
 		}, 2000);
 	}, 1);
-	
-	if (window.navigator.clipboard) {
-		window.navigator.clipboard.writeText(elCopy.value)
-			.then(() => showTooltip(el, msg, 2000))
-			.catch(() => showTooltip(el, errMsg, 2000));
-	} else {
-		const readOnly = elCopy.readOnly;
-		const contentEditable = elCopy.contentEditable;
-		
-		elCopy.readOnly = true;
-		elCopy.contentEditable = true;
-		
-		elCopy.focus();
-		selectAllTextValue(elCopy);
-		
-		try {
-			document.execCommand("copy");
-			
-			showTooltip(el, msg, 2000);
-		} catch (ex) {
-			showTooltip(el, errMsg, 2000);
-		} finally {
-			elCopy.readOnly = readOnly;
-			elCopy.contentEditable = contentEditable;
-			
-			clearSelection(elCopy);
-			elCopy.blur();
-		}
-	}
 }
 
 function getNonBlankValue(values, index, defaultValue) {
@@ -1409,11 +1338,7 @@ function getMessageObject(messageId) {
 }
 
 function clearLocationHash() {
-	if (window.history.replaceState) {
-		window.history.replaceState(null, null, window.location.pathname + window.location.search);
-	} else {
-		window.location.hash = "";
-	}
+	window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
 }
 
 function renderTemplate(templateId, data) {

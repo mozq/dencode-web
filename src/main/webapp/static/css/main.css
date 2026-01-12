@@ -759,28 +759,18 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 	border-bottom-right-radius: 0;
 }
 
+.input-highlight {
+	background-color: var(--dc-input-highlight-bg) !important;
+}
+
+.input-highlight-transition {
+	transition: background-color 1s linear;
+}
+
 .inline-icon {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
-}
-
-.updating {
-	background-color: var(--dc-input-highlight-bg);
-}
-
-.updated {
-	background-color: var(--dc-base-bg);
-	transition: background-color 1000ms linear;
-}
-
-.copying {
-	background-color: var(--dc-input-highlight-bg);
-}
-
-.copied {
-	background-color: var(--dc-base-bg);
-	transition: background-color 1000ms linear;
 }
 
 .tooltip {
