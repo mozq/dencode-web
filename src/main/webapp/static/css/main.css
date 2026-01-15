@@ -415,6 +415,7 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 	position: relative;
 	display: inline;
 	white-space: nowrap;
+	cursor: pointer;
 }
 
 .dropdown-toggle::after {

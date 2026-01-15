@@ -317,7 +317,7 @@
 						<span id="tz" data-tz=""></span>
 					</button>
 					<div id="tzMenu" class="dropdown-menu" role="menu">
-						<input id="tzMenuFilter" class="form-control" value="" />
+						<input type="search" id="tzMenuFilter" class="form-control" value="" />
 						<ul id="tzMenuItems">
 							<c:forEach var="tzVal" items="${tzMap}">
 								<li data-tz="${dc:h(tzVal.key)}" tabindex="0">${dc:h(tzVal.value)}</li>
@@ -637,7 +637,7 @@
 								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${dc:h(msg['cipher.vigenere.key'])}</span>
-										<input name="_cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${dc:h(msg['cipher.vigenere.key.tooltip'])}" data-sync-with="cipher.vigenere.key" />
+										<input type="text" name="_cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${dc:h(msg['cipher.vigenere.key.tooltip'])}" data-sync-with="cipher.vigenere.key" />
 									</div>
 								</div>
 							</td></tr></c:if>
@@ -1749,7 +1749,7 @@
 								<div class="dencode-option-group">
 									<div class="input-group">
 										<span class="input-group-text">${dc:h(msg['cipher.vigenere.key'])}</span>
-										<input name="cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${dc:h(msg['cipher.vigenere.key.tooltip'])}" />
+										<input type="text" name="cipher.vigenere.key" class="dencode-option form-control" value="" placeholder="${dc:h(msg['cipher.vigenere.key.tooltip'])}" />
 									</div>
 								</div>
 							</td></tr></c:if>
@@ -2376,9 +2376,9 @@
 
 <div style="display:none" aria-hidden="true">
 	<div>
-		<input id="loadFileInput" type="file" accept="text/*" />
-		<input id="loadImageInput" type="file" accept="image/*" />
-		<input id="loadQrcodeInput" type="file" accept="image/*" />
+		<input type="file" id="loadFileInput" accept="text/*" />
+		<input type="file" id="loadImageInput" accept="image/*" />
+		<input type="file" id="loadQrcodeInput" accept="image/*" />
 	</div>
 	
 	<svg>
@@ -2451,7 +2451,7 @@
 	
 	<template id="permanentLinkTmpl">
 		<div id="permanentLink" class="input-group">
-			<input id="linkURL" class="form-control select-on-focus" type="text" value="{{permanentLink}}" readonly />
+			<input type="text" id="linkURL" class="form-control select-on-focus" value="{{permanentLink}}" readonly />
 			<button type="button" class="btn btn-v-icon-label copy-to-clipboard" title="${dc:h(msg['label.copyToClipboard'])}" data-copy-id="linkURL" data-copy-message="${dc:h(msg['label.copyToClipboard.message'])}" data-copy-error-message="${dc:h(msg['label.copyToClipboard.errorMessage'])}">
 				<i class="bi bi-clipboard"></i>
 				<span class="btn-label">${dc:h(msg['label.copyToClipboard.buttonLabel'])}</span>

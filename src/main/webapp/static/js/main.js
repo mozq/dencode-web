@@ -20,8 +20,7 @@ $.onReady(function () {
 	const dencoderDefs = JSON.parse($.id("dencoderDefs").textContent);
 	
 	const elMessages = $.id("messages");
-	const elLocaleMenuLinks = $.all("#localeMenu .dropdown-menu a");
-	const elTypeMenuMethodLinks = $.all("#typeMenu a[data-dencode-method]");
+	const elMenuLinks = $.all("#localeMenu a, #typeMenu a");
 	const elExp = $.id("exp");
 	const elFollow = $.id("follow");
 	const elVLen = $.id("vLen");
@@ -48,7 +47,6 @@ $.onReady(function () {
 	const elDecIndicator = $.id("decodingIndicator");
 	const elEncIndicator = $.id("encodingIndicator");
 	const elListRows = $.all(".dencoded-list > tbody > tr");
-	const elOptionGroups = $.all(".dencode-option-group");
 	const elOptions = $.all(".dencode-option:not([name^=_])");
 	const elSyncOptions = $.all(".dencode-option[data-sync-with]");
 	const elOtherDencodeLinks = $.all(".other-dencode-link");
@@ -237,10 +235,6 @@ $.onReady(function () {
 		
 		elTzGroup.style.display = "";
 		
-		$.on(elTzMenuFilter, "click", function (ev) {
-			ev.stopPropagation();
-		});
-		
 		$.on(elTzMenuFilter, "input paste", function () {
 			const svals = this.value.toLowerCase().split(/\s+/g);
 			
@@ -273,48 +267,6 @@ $.onReady(function () {
 		});
 	}
 	
-	// Initialize popovers
-	$.on(elVLen, "click", function (ev) {
-		if (ev.target.closest(".popover")) {
-			return;
-		}
-		
-		if (this.classList.contains("active")) {
-			hidePopovers($.all(".popover-toggle.active"));
-		} else {
-			const title = this.getAttribute("title");
-			const chars = Number(this.getAttribute("data-len-chars"));
-			const bytes = Number(this.getAttribute("data-len-bytes"));
-			
-			showPopover(this, title, renderTemplate("lengthTmpl", {
-				chars: chars,
-				oneChar: (chars == 1),
-				bytes: bytes,
-				oneByte: (bytes == 1)
-			}));
-		}
-	});
-	
-	$.on(".popover-toggle.permanent-link", "click", function (ev) {
-		if (ev.target.closest(".popover")) {
-			return;
-		}
-		
-		if (this.classList.contains("active")) {
-			hidePopovers($.all(".popover-toggle.active"));
-		} else {
-			const title = this.getAttribute("title");
-			const method = this.closest("[data-dencode-method]").getAttribute("data-dencode-method");
-			const dcDef = dencoderDefs[method];
-			const permanentLink = getPermanentLink(method, dcDef);
-			
-			showPopover(this, title, renderTemplate("permanentLinkTmpl", {
-				permanentLink: permanentLink,
-				permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
-			}));
-		}
-	});
-	
 	// Initialize focus
 	if (!("ontouchstart" in window) && !navigator.maxTouchPoints) {
 		// If non-touch screen
@@ -330,7 +282,7 @@ $.onReady(function () {
 	
 	$.on(document, "click", function (ev) {
 		// Hide dropdown menus when another area is clicked
-		const dropdownToggle = ev.target.closest(".dropdown-toggle");
+		const dropdownToggle = ev.target.closest(".dropdown-toggle") ?? ev.target.closest(".dropdown-menu")?.previousElementSibling;
 		$.all(".dropdown-toggle[aria-expanded='true']").forEach((el) => {
 			if (el !== dropdownToggle) {
 				el.setAttribute("aria-expanded", false);
@@ -356,6 +308,25 @@ $.onReady(function () {
 		});
 	}
 	
+	$.on("[aria-controls][aria-expanded]", "click", function () {
+		const id = this.getAttribute("aria-controls");
+		const el = $.id(id);
+		if (el) {
+			el.classList.toggle("expanded");
+			this.setAttribute("aria-expanded", el.classList.contains("expanded"));
+		}
+	});
+	
+	$.on("[data-close='modal']", "click", function () {
+		$.all(".modal[open]").forEach((el) => {
+			el.close();
+		});
+	});
+	
+	$.on("[data-close='message']", "click", function () {
+		this.closest(".message").remove();
+	});
+	
 	$.on(".select-on-focus", "focus", function () {
 		setTimeout(() => {
 			this.select();
@@ -373,7 +344,14 @@ $.onReady(function () {
 			.catch(() => showTooltip(this, this.getAttribute("data-copy-error-message"), 2000));
 	});
 	
-	$.on(".dropdown-toggle:not(.toggle-manual)", "click", function () {
+	$.on(".dropdown-toggle", "click", function (ev) {
+		if (ev.target.closest(".dropdown-menu, a[href]")) {
+			return;
+		}
+		if (this.matches(".toggle-manual")) {
+			return;
+		}
+		
 		const expanded = (this.getAttribute("aria-expanded") === "true");
 		this.setAttribute("aria-expanded", !expanded);
 		
@@ -391,8 +369,8 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on(".dropdown-menu li", "click", function (ev) {
-		const toggle = ev.target.closest(".dropdown-toggle");
+	$.on(".dropdown-menu li", "click", function () {
+		const toggle = this.closest(".dropdown-toggle") ?? this.closest(".dropdown-menu")?.previousElementSibling;
 		if (toggle) {
 			toggle.setAttribute("aria-expanded", false);
 		}
@@ -405,22 +383,23 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on("[data-close='modal']", "click", function () {
-		$.all(".modal[open]").forEach((el) => {
-			el.close();
-		});
-	});
-	
-	$.on("[data-close='message']", "click", function () {
-		this.closest(".message").remove();
-	});
-	
-	$.on($.all("[aria-controls][aria-expanded]"), "click", function () {
-		const id = this.getAttribute("aria-controls");
-		const el = $.id(id);
-		if (el) {
-			el.classList.toggle("expanded");
-			this.setAttribute("aria-expanded", el.classList.contains("expanded"));
+	$.on(".popover-toggle.permanent-link", "click", function (ev) {
+		if (ev.target.closest(".popover")) {
+			return;
+		}
+		
+		if (this.classList.contains("active")) {
+			hidePopovers($.all(".popover-toggle.active"));
+		} else {
+			const title = this.getAttribute("title");
+			const method = this.closest("[data-dencode-method]").getAttribute("data-dencode-method");
+			const dcDef = dencoderDefs[method];
+			const permanentLink = getPermanentLink(method, dcDef);
+			
+			showPopover(this, title, renderTemplate("permanentLinkTmpl", {
+				permanentLink: permanentLink,
+				permanentLinkUrlEncoded: encodeURIComponent(permanentLink)
+			}));
 		}
 	});
 	
@@ -437,7 +416,7 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on(elLocaleMenuLinks, "click", function (ev) {
+	$.on(elMenuLinks, "click", function (ev) {
 		if (this.closest("li").classList.contains("active")) {
 			ev.preventDefault();
 			return;
@@ -453,28 +432,42 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on(elTypeMenuMethodLinks, "click", function (ev) {
-		if (this.closest("li").classList.contains("active")) {
-			ev.preventDefault();
+	$.on(elFollow, "click", function () {
+		toggleFollow();
+	});
+	try {
+		if (window.localStorage.getItem("follow") === "true") {
+			toggleFollow();
+		}
+	} catch (ex) {
+		// NOP
+	}
+	
+	$.on(elVLen, "click", function (ev) {
+		if (ev.target.closest(".popover")) {
 			return;
 		}
 		
-		const v = elV.value;
-		if (0 < v.length) {
-			try {
-				window.sessionStorage.setItem("value", v);
-			} catch(ex) {
-				this.href += "#v=" + encodeURIComponent(v);
-			}
+		if (this.classList.contains("active")) {
+			hidePopovers($.all(".popover-toggle.active"));
+		} else {
+			const title = this.getAttribute("title");
+			const chars = Number(this.getAttribute("data-len-chars"));
+			const bytes = Number(this.getAttribute("data-len-bytes"));
+			
+			showPopover(this, title, renderTemplate("lengthTmpl", {
+				chars: chars,
+				oneChar: (chars == 1),
+				bytes: bytes,
+				oneByte: (bytes == 1)
+			}));
 		}
-		
-		ev.stopPropagation();
 	});
-
+	
 	$.on(elV, "input paste", function () {
 		dencode();
 	});
-
+	
 	$.on(elV, "keyup click", function () {
 		setBgColor(elV, _colors, isDarkMode());
 	});
@@ -498,11 +491,11 @@ $.onReady(function () {
 			showMessageDialog(elLoadFile.getAttribute("data-load-error-message"));
 		}
 	});
-
+	
 	$.on(elLoadImage, "click", function () {
 		elLoadImageInput.click();
 	});
-
+	
 	$.on(elLoadImageInput, "change", async function () {
 		if (this.files.length === 0) {
 			return;
@@ -540,7 +533,7 @@ $.onReady(function () {
 	});
 	
 	$.on(elListRows, "click", function (ev) {
-		if (ev.target.closest(".for-copy")) {
+		if (ev.target.closest(".for-copy, .dencode-option-group")) {
 			return;
 		}
 		if (this.classList.contains("invalid-value")) {
@@ -560,9 +553,27 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on(elOptionGroups, "click", function (ev) {
-		ev.stopPropagation();
-	}, { capture: true });
+	$.on(elListRows, "dencode:select-row", function () {
+		this.classList.add("active");
+		
+		const elForDisp = this.querySelector(".for-disp");
+		const id = elForDisp.getAttribute("id");
+		const val = elForDisp.textContent;
+		
+		const elForCopy = renderTemplate("forCopyTmpl", {
+			id: id,
+			value: val
+		});
+		
+		elForDisp.before(elForCopy);
+	});
+	
+	$.on(elListRows, "dencode:deselect-row", function () {
+		this.classList.remove("active");
+		
+		const elForCopy = this.querySelector(".for-copy");
+		elForCopy.remove();
+	});
 	
 	$.on(elOptions, "input paste change", function () {
 		const name = this.name;
@@ -584,39 +595,6 @@ $.onReady(function () {
 		elOpt.value = this.value;
 		elOpt.dispatchEvent(new Event("change"));
 	});
-	
-	$.on(elListRows, "dencode:select-row", function () {
-		this.classList.add("active");
-		
-		const elForDisp = this.querySelector(".for-disp");
-		const id = elForDisp.getAttribute("id");
-		const val = elForDisp.textContent;
-		
-		const elForCopy = renderTemplate("forCopyTmpl", {
-			id: id,
-			value: val
-		});
-		
-		elForDisp.parentNode.insertBefore(elForCopy, elForDisp);
-	});
-	
-	$.on(elListRows, "dencode:deselect-row", function () {
-		this.classList.remove("active");
-		
-		const elForCopy = this.querySelector(".for-copy");
-		elForCopy.parentNode.removeChild(elForCopy);
-	});
-	
-	$.on(elFollow, "click", function () {
-		toggleFollow();
-	});
-	try {
-		if (window.localStorage.getItem("follow") === "true") {
-			toggleFollow();
-		}
-	} catch (ex) {
-		// NOP
-	}
 	
 	$.on(elOtherDencodeLinks, "click", function (ev) {
 		const method = this.getAttribute("data-other-dencode-method");
@@ -1440,7 +1418,7 @@ function appendTemplateValue(buf, value) {
 	
 	if (value instanceof Node && typeof buf === "string") {
 		// Change the buffer type to DocumentFragment node
-		const f = new DocumentFragment();
+		const f = document.createDocumentFragment();
 		if (buf.length) {
 			f.append(buf);
 		}
