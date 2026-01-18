@@ -30,8 +30,8 @@ $.onReady(function () {
 	const elLoadFileInput = $.id("loadFileInput");
 	const elLoadImage = $.id("loadImage");
 	const elLoadImageInput = $.id("loadImageInput");
-	const elLoadQrcode = $.id("loadQrcode");
-	const elLoadQrcodeInput = $.id("loadQrcodeInput");
+	const elLoadCode = $.id("loadCode");
+	const elLoadCodeInput = $.id("loadCodeInput");
 	const elOeGroup = $.id("oeGroup");
 	const elOeGroupBtns = $.all("#oeGroup .btn:not(.dropdown-toggle)");
 	const elOexBtn = $.id("oex");
@@ -512,11 +512,11 @@ $.onReady(function () {
 		}
 	});
 	
-	$.on(elLoadQrcode, "click", function () {
-		elLoadQrcodeInput.click();
+	$.on(elLoadCode, "click", function () {
+		elLoadCodeInput.click();
 	});
 	
-	$.on(elLoadQrcodeInput, "change", async function () {
+	$.on(elLoadCodeInput, "change", async function () {
 		if (this.files.length === 0) {
 			return;
 		}
@@ -525,10 +525,10 @@ $.onReady(function () {
 		this.value = "";
 		
 		try {
-			updateValue(await readQrcodeAsync(file));
-			showTooltip(elLoadBtn, elLoadQrcode.getAttribute("data-load-message"), 2000);
+			updateValue(await readCodeAsync(file));
+			showTooltip(elLoadBtn, elLoadCode.getAttribute("data-load-message"), 2000);
 		} catch (ex) {
-			showMessageDialog(elLoadQrcode.getAttribute("data-load-error-message"));
+			showMessageDialog(elLoadCode.getAttribute("data-load-error-message"));
 		}
 	});
 	
@@ -1019,32 +1019,83 @@ $.onReady(function () {
 		return ret.data.text;
 	}
 	
-	async function readQrcodeAsync(file) {
-		await loadScriptAsync("#scriptJsqr");
-		
+	async function readCodeAsync(file) {
 		const img = await readFileAsImageAsync(file);
 		
-		const code = readQrcodeFromImage(img, [600, 200, 1000, 400, 800, 1200, 1400, 1600]);
+		let code = await detectCodeAsync(img);
 		if (code === null) {
-			reject(new Error("Could not parse."));
-			return;
+			code = await detectCodeByZXingAsync(img);
+		}
+		if (code === null) {
+			throw new Error("Could not parse.");
 		}
 		
-		let data;
-		if (code.data.length === 0 && 0 < code.binaryData.length) {
-			// If the QR code cannot be parsed as UTF-8 text
-			try {
-				// Parse the binary data as JIS X 0208 (Shift_JIS) text
-				data = new TextDecoder("shift-jis", {fatal: true}).decode(Uint8Array.from(code.binaryData));
-			} catch (ex) {
-				// Convert the binary data to hex string
-				data = code.binaryData.map((b) => ("0" + (b & 0xFF).toString(16)).slice(-2)).join("");
+		return code;
+	}
+	
+	async function detectCodeAsync(img) {
+		if (!("BarcodeDetector" in window)) {
+			return null;
+		}
+		
+		const canvas = toCanvas(img, 1.0, "white");
+		
+		const detector = new BarcodeDetector();
+		const barcodes = await detector.detect(canvas);
+		
+		if (barcodes.length === 0) {
+			return null;
+		}
+		
+		const code = Array.from(barcodes, (barcode) => barcode.rawValue).join("\n");
+		
+		if (code.length === 0) {
+			return null;
+		}
+		
+		return code;
+	}
+	
+	async function detectCodeByZXingAsync(img) {
+		await loadScriptAsync("#scriptZXing");
+		
+		const codeReader = new ZXing.BrowserMultiFormatReader();
+		const hints = new Map([
+			[ZXing.DecodeHintType.TRY_HARDER, true]
+		]);
+		
+		let parsedOrgSize = false;
+		let result = null;
+		for (let maxSize of [480, 640, 800, 1024, 1280, 1600, 1920, 2160]) {
+			const scale = calcImageScale(img, maxSize);
+			if (scale === 1.0) {
+				if (parsedOrgSize) {
+					continue;
+				}
+				parsedOrgSize = true;
 			}
-		} else {
-			data = code.data;
+			
+			const canvas = toCanvas(img, scale, "white");
+			
+			try {
+				result = await codeReader.decodeFromImageUrl(canvas.toDataURL("image/png"), hints);
+				break;
+			} catch (ex) {
+				continue;
+			}
 		}
 		
-		return data;
+		if (result === null) {
+			return null;
+		}
+		
+		let code = result.getText();
+		if (code.includes("\uFFFD")) {
+			// Binary to hex string
+			code = Array.from(result.getRawBytes(), (b) => b.toString(16).padStart(2, "0")).join("");
+		}
+		
+		return code;
 	}
 	
 	function updateValue(val) {
@@ -1250,38 +1301,27 @@ function readFileAsImageAsync(file) {
 	});
 }
 
-function readQrcodeFromImage(imgElm, maxSizes) {
-	const minImgSize = Math.min(imgElm.width, imgElm.height);
-	
+function calcImageScale(img, maxSize) {
+	const maxImgSize = Math.max(img.naturalWidth, img.naturalHeight);
+	const scale = Math.min(1.0, 1.0 * maxSize / maxImgSize);
+	return scale;
+}
+
+function toCanvas(img, scale, bgColor) {
 	const canvas = document.createElement("canvas");
+	canvas.width = img.naturalWidth * scale;
+	canvas.height = img.naturalHeight * scale;
 	
-	let code = null;
-	let parsedOrgSize = false;
-	for (const maxSize of maxSizes) {
-		const r = Math.min(1.0, 1.0 * maxSize / minImgSize);
-		
-		if (1.0 <= r) {
-			if (parsedOrgSize) {
-				break;
-			}
-			parsedOrgSize = true;
-		}
-		
-		canvas.width = imgElm.width * r;
-		canvas.height = imgElm.height * r;
-		
-		const ctx = canvas.getContext("2d");
-		ctx.scale(r, r);
-		ctx.drawImage(imgElm, 0, 0);
-		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-		
-		code = jsQR(imageData.data, imageData.width, imageData.height);
-		if (code !== null) {
-			break;
-		}
+	const ctx = canvas.getContext("2d");
+	if (bgColor) {
+		ctx.fillStyle = bgColor;
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
+	ctx.imageSmoothingEnabled = true;
+	ctx.imageSmoothingQuality = "high";
+	ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 	
-	return code;
+	return canvas;
 }
 
 function separateThousand(num) {

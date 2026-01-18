@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${dc:fileLastModified(pageContext, '/static/css/main.css')}" />
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${dc:fileLastModified(pageContext, '/static/js/all.min.js')}"></script>
 	<script id="scriptTesseract" data-src="https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" integrity="sha256-EP/3hIQGd1nEMCigKnLXbQuQ6xcwK7I7WKnsVBC8kos=" crossorigin="anonymous"></script>
-	<script id="scriptJsqr" data-src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" integrity="sha256-vEDIoVGWI2sjFNsIVvcsoLSZgM1UE7jIUqc0n1/uCFk=" crossorigin="anonymous"></script>
+	<script id="scriptZXing" data-src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js" integrity="sha256-18yPad1wvc86wAya5XK/KsufQTK6N5xy34QuTbkYZS0=" crossorigin="anonymous"></script>
 	<style><%-- Bootstrap Icons --%>
 		.bi-globe2 { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/globe2.svg'); }
 		.bi-pin-angle-fill { --bi-icon: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1/icons/pin-angle-fill.svg'); }
@@ -233,7 +233,7 @@
 							<ul class="dropdown-menu dropdown-menu-end" role="menu">
 								<li id="loadFile" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-file-text"></i> ${dc:h(msg['label.load.file'])}</li>
 								<li id="loadImage" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-camera"></i> ${dc:h(msg['label.load.image'])}</li>
-								<li id="loadQrcode" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${dc:h(msg['label.load.qrcode'])}</li>
+								<li id="loadCode" data-load-message="${dc:h(msg['label.load.message'])}" data-load-error-message="${dc:h(msg['label.load.errorMessage'])}" tabindex="0"><i class="bi bi-qr-code-scan"></i> ${dc:h(msg['label.load.code'])}</li>
 							</ul>
 						</button>
 						<button type="button" class="btn btn-v-icon-label permanent-link popover-toggle" title="${dc:h(msg['label.permanentLink'])}">
@@ -2377,8 +2377,8 @@
 <div style="display:none" aria-hidden="true">
 	<div>
 		<input type="file" id="loadFileInput" accept="text/*" />
-		<input type="file" id="loadImageInput" accept="image/*" />
-		<input type="file" id="loadQrcodeInput" accept="image/*" />
+		<input type="file" id="loadImageInput" accept="image/*;capture=camera" />
+		<input type="file" id="loadCodeInput" accept="image/*;capture=camera" />
 	</div>
 	
 	<svg>
