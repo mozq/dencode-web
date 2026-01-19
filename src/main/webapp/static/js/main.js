@@ -456,10 +456,10 @@ $.onReady(function () {
 			const bytes = Number(this.getAttribute("data-len-bytes"));
 			
 			showPopover(this, title, renderTemplate("lengthTmpl", {
-				chars: chars,
-				oneChar: (chars == 1),
-				bytes: bytes,
-				oneByte: (bytes == 1)
+				chars: formatNumber(chars),
+				oneChar: (chars === 1),
+				bytes: formatNumber(bytes),
+				oneByte: (bytes === 1)
 			}));
 		}
 	});
@@ -810,7 +810,7 @@ $.onReady(function () {
 		}
 		
 		const len = v.length - (v.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
-		elVLen.textContent = separateThousand(len);
+		elVLen.textContent = formatNumber(len);
 		
 		// Store settings to local storage
 		try {
@@ -921,7 +921,7 @@ $.onReady(function () {
 	}
 	
 	function render(res) {
-		elVLen.textContent = separateThousand(res.textLength);
+		elVLen.textContent = formatNumber(res.textLength);
 		elVLen.setAttribute("data-len-chars", res.textLength);
 		elVLen.setAttribute("data-len-bytes", res.textByteLength);
 		
@@ -1324,25 +1324,8 @@ function toCanvas(img, scale, bgColor) {
 	return canvas;
 }
 
-function separateThousand(num) {
-	let strNum = String(num);
-	
-	const decPos = strNum.indexOf(".");
-	let dec = null;
-	if (0 <= decPos) {
-		dec = strNum.substring(decPos);
-		strNum = strNum.substring(0, decPos);
-	}
-	
-	if (3 < strNum.length) {
-		strNum = strNum.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-	}
-	
-	if (dec !== null) {
-		strNum += dec;
-	}
-	
-	return strNum;
+function formatNumber(num) {
+	return Number(num).toLocaleString();
 }
 
 function getMessageObject(messageId) {
