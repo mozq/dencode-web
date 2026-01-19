@@ -42,14 +42,14 @@
 			});
 		});
 		
-		$.on($.id("loadQrcodeInput"), "change", function () {
+		$.on($.id("loadCodeInput"), "change", function () {
 			if (this.files.length === 0) {
 				return;
 			}
 			
 			const file = this.files[0];
 			
-			gtag("event", "load_qrcode", {
+			gtag("event", "load_code", {
 				dc_load_file_type: file.type,
 				dc_load_file_size: file.size
 			});
