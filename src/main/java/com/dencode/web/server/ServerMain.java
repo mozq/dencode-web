@@ -18,14 +18,14 @@ package com.dencode.web.server;
 
 import java.io.File;
 
-import org.eclipse.jetty.ee10.webapp.WebAppContext;
+import org.eclipse.jetty.ee11.webapp.WebAppContext;
 import org.eclipse.jetty.server.Server;
 
 public class ServerMain {
 
 	public static void main(String[] args) throws Exception {
 		int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
-		File warFile = new File(".").getCanonicalFile().listFiles((dir, name) -> name.endsWith(".war"))[0];
+		File warFile = new File(".").getCanonicalFile().listFiles((_, name) -> name.endsWith(".war"))[0];
 		
 		WebAppContext webAppContext = new WebAppContext();
 		webAppContext.setContextPath("/");

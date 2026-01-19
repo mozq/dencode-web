@@ -17,6 +17,7 @@
 package com.dencode.web.servlet.filter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -29,13 +30,11 @@ import jakarta.servlet.annotation.WebFilter;
 @WebFilter(urlPatterns = "/*")
 public class RootCharacterEncodingFilter implements Filter {
 	
-	private static final String CHARSET = "UTF-8";
-	
 	public void init(FilterConfig config) throws ServletException {
 	}
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-		request.setCharacterEncoding(CHARSET);
+		request.setCharacterEncoding(StandardCharsets.UTF_8);
 		chain.doFilter(request,response);
 	}
 	
