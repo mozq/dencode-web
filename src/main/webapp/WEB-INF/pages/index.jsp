@@ -25,9 +25,10 @@
 		<link rel="alternate" hreflang="${dc:h(loc.key)}" href="${baseURL}${pageContext.request.contextPath}/${dc:h(loc.key)}/${dc:h(currentPath)}" />
 	</c:forEach>
 	<link rel="alternate" hreflang="x-default" href="${baseURL}${pageContext.request.contextPath}/${dc:h(currentPath)}" />
+	<link rel="apple-touch-icon" type="image/png" href="${pageContext.request.contextPath}/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" type="image/svg+xml" href="${pageContext.request.contextPath}/static/img/icons/icon.svg" />
 	<link rel="icon" type="image/png" sizes="192x192" href="${pageContext.request.contextPath}/static/img/icons/icon-192.png" />
 	<link rel="icon" type="image/svg+xml" sizes="any" href="${pageContext.request.contextPath}/static/img/icons/icon.svg" />
-	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="${pageContext.request.contextPath}/static/img/icons/apple-touch-icon.png" />
 	<link rel="manifest" href="${pageContext.request.contextPath}/manifest.json" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css?v=${dc:fileLastModified(pageContext, '/static/css/main.css')}" />
 	<script defer src="${pageContext.request.contextPath}/static/js/all.min.js?v=${dc:fileLastModified(pageContext, '/static/js/all.min.js')}"></script>
