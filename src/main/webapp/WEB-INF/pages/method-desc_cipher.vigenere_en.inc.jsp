@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>About Vigenère Cipher</h3>
-<p>Vigenère cipher is one of the single transliteration ciphers that encrypts by replacing the characters in the text with other characters.</p>
+<p>Vigenère cipher is one of the polyalphabetic substitution ciphers that encrypts by replacing the characters in the text with other characters.</p>
 <p>Character replacement is performed using the encryption key and the following Vigenère square.</p>
 
 <div class="table-responsive">

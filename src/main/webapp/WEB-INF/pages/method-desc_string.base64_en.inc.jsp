@@ -78,11 +78,11 @@
 
 <p>For example, if you convert "Hello" with Base64, it will be as follows.</p>
 
-<p>1. Make it a binary representation.</p>
+<p>1. Convert it to a binary representation.</p>
 
 <pre>01001000 01100101 01101100 01101100 01101111  (For US-ASCII / UTF-8)</pre>
 
-<p>2. Separate every 6 bits. If it is less than 6 bits, pad it with "0" at the end.</p>
+<p>2. Split into 6-bit groups. If the last group is less than 6 bits, pad it with "0" at the end.</p>
 
 <pre>010010 000110 010101 101100 011011 000110 111100</pre>
 

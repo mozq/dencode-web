@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>About Affine Cipher</h3>
-<p>Affine cipher is one of the single transliteration ciphers that encrypts by replacing the characters in the text with other characters.</p>
+<p>Affine cipher is one of the monoalphabetic substitution ciphers that encrypts by replacing the characters in the text with other characters.</p>
 <p>Character replacement is performed using the following formula.</p>
 
 <pre>E(<var>x</var>) = (<var>a</var><var>x</var> + <var>b</var>) mod <var>m</var></pre>

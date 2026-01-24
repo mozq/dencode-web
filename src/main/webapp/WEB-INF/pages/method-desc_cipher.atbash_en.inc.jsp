@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>About Atbash Cipher</h3>
-<p>Atbash cipher is one of the single transliteration ciphers that encrypts by replacing the characters in the text with other characters.</p>
+<p>Atbash cipher is one of the monoalphabetic substitution ciphers that encrypts by replacing the characters in the text with other characters.</p>
 <p>Character replacement is done by mapping the list of characters in reverse order.</p>
 <p>For example, in the alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "A" is encrypted to "Z" and "B" to "Y".</p>
 

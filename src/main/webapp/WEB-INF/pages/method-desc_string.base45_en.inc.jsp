@@ -92,4 +92,3 @@
 <p>Base45/Zlib/COSE/CBOR is CBOR format data signed in COSE format, compressed in Zlib format, and converted to Base45 format.</p>
 <p><a href="https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/eu-digital-covid-certificate_en" target="_blank">EUDCC (EU Digital COVID Certificate)</a> is used as the data format for QR codes. EUDCC is the common format for the COVID-19 vaccination certificate in the EU, also known as DGC (EU Digital Green Certificate) or Green Pass.</p>
 <p>DenCode supports decoding only, and the decoded result is expressed in JSON format. The validity of the signature is not verified.</p>
-

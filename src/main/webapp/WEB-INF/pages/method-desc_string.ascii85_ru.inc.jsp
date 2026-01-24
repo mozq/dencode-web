@@ -58,9 +58,7 @@
 		<tr><th></th><th>Результаты конверсии</th></tr>
 		<tr><th>Z85</th><td>nm=QNzV</td></tr>
 		<tr><th>Adobe</th><td>&lt;~87cURDZ~&gt;</td></tr>
-		<tr><th>btoa</th><td>xbtoa Begin<br />
-87cURDZBb;<br />
-xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
+		<tr><th>btoa</th><td>xbtoa Begin<br />87cURDZBb;<br />xbtoa End N 5 5 E 42 S 1f9 R a9f</td></tr>
 	</table>
 </div>
 

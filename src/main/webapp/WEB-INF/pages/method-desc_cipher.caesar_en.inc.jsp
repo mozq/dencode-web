@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>About Caesar Cipher</h3>
-<p>Caesar cipher is one of the single transliteration ciphers that encrypts by replacing the characters in the text with other characters.</p>
+<p>Caesar cipher is one of the monoalphabetic substitution ciphers that encrypts by replacing the characters in the text with other characters.</p>
 <p>Character replacement is performed by shifting the characters from "A" to "Z" among the 26 characters of "ABCDEFGHIJKLMNOPQRSTUVWXYZ".</p>
 <p>For example, when shifting -3 characters, "A" is encrypted to "X" and "Z" is encrypted to "W".</p>
 

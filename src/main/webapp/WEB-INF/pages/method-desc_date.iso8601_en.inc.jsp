@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %><h3>About ISO 8601 date and time</h3>
 <p>ISO 8601 is a date and time notation format defined by ISO as an international standard.</p>
-<p>The date and time are connected by "T" and written. The time zone is expressed as "+09:00" as the difference time from UTC, and in the case of UTC, it is expressed as "Z".</p>
+<p>The date and time are separated by "T". The time zone is expressed as "+09:00" as the difference time from UTC, and in the case of UTC, it is expressed as "Z".</p>
 <p>Separate seconds and milliseconds with a comma (,) or dot (.). DenCode omits milliseconds when milliseconds are 000.</p>
 
 <p>ISO 8601 comes in several formats.</p>

@@ -39,7 +39,7 @@ If you want to run DenCode as well, run the following command.
 
 ### Deploy to Google App Engine:
 Install [Google Cloud SDK](https://cloud.google.com/sdk/) and run the following commands.
-First two commands, `gcloud auth` and `gcloud config`, only needs to be ran for the first time.
+First two commands, `gcloud auth` and `gcloud config`, only need to be run for the first time.
 
 ```bash
 gcloud auth login
@@ -50,7 +50,7 @@ cp src/main/appengine/app.yaml build/app/
 gcloud app deploy build/app/app.yaml --no-promote --no-stop-previous-version
 ```
 
-(Please replace {PROJECT_ID} to your own project id.)
+(Please replace {PROJECT_ID} with your own project ID.)
 
 ## Supported encoding
 - [String](https://dencode.com/string)
@@ -127,7 +127,7 @@ gcloud app deploy build/app/app.yaml --no-promote --no-stop-previous-version
 DenCode supports English (en), Japanese (ja) and Russian (ru).
 If you want to add other languages, please add or modify the following source code.
 
-- Append a new language-code to locales config with comma separator (like locales=en,ja,ru)
+- Append a new language code to the locales config with a comma separator (like locales=en,ja,ru)
     - /src/main/resources/config.properties [Required]
 - Add translated files
     - /src/main/resources/messages_*.properties [Required]
@@ -135,7 +135,7 @@ If you want to add other languages, please add or modify the following source co
     - /src/main/webapp/WEB-INF/pages/method-desc_\*.\*_*.inc.jsp [Optional]
 
 ## How to add another encoder and decoder
-If you want to add another encoder and decoder, please add or modify the following source code.
+If you want to add a new encoder or decoder, please add or modify the following source code.
 
 - Add a new dencoder class
     - /src/main/java/com/dencode/logic/dencoder/*Dencoder.java [Required]
