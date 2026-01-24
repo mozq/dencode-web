@@ -1005,12 +1005,7 @@ $.onReady(function () {
 	async function readImageFileAsync(file) {
 		await loadScriptAsync("#scriptTesseract");
 		
-		let language;
-		switch (document.documentElement.lang) {
-			case "ja": language = "jpn"; break;
-			case "ru": language = "rus"; break;
-			default: language = "eng"; break;
-		}
+		const language = document.documentElement.getAttribute("data-lang3");
 		
 		const worker = await Tesseract.createWorker(language);
 		const ret = await worker.recognize(file);

@@ -2,7 +2,7 @@
 %><%@ taglib prefix="c" uri="jakarta.tags.core"
 %><%@ taglib prefix="dc" uri="http://dencode.com/jsp/taglib"
 %><!DOCTYPE html>
-<html lang="${dc:h(msg['lang'])}" prefix="og: http://ogp.me/ns#" data-ui-theme="">
+<html lang="${dc:h(msg['lang'])}" prefix="og: http://ogp.me/ns#" data-lang3="${dc:h(msg['lang3'])}" data-ui-theme="">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
