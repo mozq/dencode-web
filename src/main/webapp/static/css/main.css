@@ -775,6 +775,10 @@ footer a, footer a:link, footer a:visited, footer a:hover, footer a:active {
 	height: 1em;
 }
 
+.text-right {
+	text-align: right;
+}
+
 .tooltip {
 	position: absolute;
 	right: 0;
