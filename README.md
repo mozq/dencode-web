@@ -124,7 +124,16 @@ gcloud app deploy build/app/app.yaml --no-promote --no-stop-previous-version
     - [CRC32](https://dencode.com/hash/crc32)
 
 ## I18n support
-DenCode supports English (en), German (de), Spanish (es), French (fr), Japanese (ja) and Russian (ru).
+DenCode supports the following languages:
+
+- [English (en)](https://dencode.com/en/)
+- [German (de)](https://dencode.com/de/)
+- [Spanish (es)](https://dencode.com/es/)
+- [French (fr)](https://dencode.com/fr/)
+- [Japanese (ja)](https://dencode.com/ja/)
+- [Portuguese (pt)](https://dencode.com/pt/)
+- [Russian (ru)](https://dencode.com/ru/)
+
 If you want to add other languages, please add or modify the following source code.
 
 - Append a new language code to the locales config with a comma separator (like locales=en,ja,ru)
