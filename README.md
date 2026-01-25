@@ -132,6 +132,7 @@ DenCode supports the following languages:
 - [French (fr)](https://dencode.com/fr/)
 - [Italian (it)](https://dencode.com/it/)
 - [Japanese (ja)](https://dencode.com/ja/)
+- [Korean (ko)](https://dencode.com/ko/)
 - [Portuguese (pt)](https://dencode.com/pt/)
 - [Russian (ru)](https://dencode.com/ru/)
 
