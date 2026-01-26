@@ -85,13 +85,13 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>Um exemplo de criptografia com Enigma I é mostrado abaixo.</p>
 
 <pre>
-Rodas             : UKW-A II I III
-Config. Anéis     : X M V  (24 13 22)
-Config. Posição   : A B L  (01 02 12)
-Painel de Conexões: AM FI NV PS TU WZ
+Rodas              : UKW-A II I III
+Config. Anéis      : X M V  (24 13 22)
+Config. Posição    : A B L  (01 02 12)
+Painel de Conexões : AM FI NV PS TU WZ
 
-Antes da Criptografia : SECRET
-Depois da Criptografia: LCGODU
+Antes da Criptografia  : SECRET
+Depois da Criptografia : LCGODU
 </pre>
 
 <p>Neste caso, a primeira letra "S" é substituída na seguinte sequência, e finalmente criptografada para "L".</p>
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>A notação do anel de um refletor normal é "ABCDEFGHIJKLMNOPQRSTUVWXYZ", mas a notação do UKW-D é uma ordem especial "A-ZXWVUTSRQPON-MLKIHGFEDCB". Os dois "-" na notação (BO na notação normal) são fixos e estão sempre conectados um ao outro e não podem ser alterados. Os outros 24 caracteres são configurados como 12 pares de fiação.</p>
 
 <pre>
-Notação UKW-D : A-ZXWVUTSRQPON-MLKIHGFEDCB
-Notação normal: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Notação UKW-D  : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Notação normal : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>UKW-D pode ser configurado para Enigma I, Enigma M4 e Enigma KD.</p>

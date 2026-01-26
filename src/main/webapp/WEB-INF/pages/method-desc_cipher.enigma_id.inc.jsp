@@ -85,13 +85,13 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>Contoh enkripsi dengan Enigma I adalah sebagai berikut.</p>
 
 <pre>
-Roda          : UKW-A II I III
+Roda              : UKW-A II I III
 Pengaturan Cincin : X M V  (24 13 22)
 Pengaturan Posisi : A B L  (01 02 12)
-Papan Colokan : AM FI NV PS TU WZ
+Papan Colokan     : AM FI NV PS TU WZ
 
-Sebelum Enkripsi: SECRET
-Setelah Enkripsi: LCGODU
+Sebelum Enkripsi : SECRET
+Setelah Enkripsi : LCGODU
 </pre>
 
 <p>Dalam kasus ini, karakter pertama "S" diganti melalui aliran berikut dan akhirnya dienkripsi menjadi "L".</p>
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>Notasi cincin reflektor normal adalah "ABCDEFGHIJKLMNOPQRSTUVWXYZ", tetapi notasi UKW-D adalah urutan khusus "A-ZXWVUTSRQPON-MLKIHGFEDCB". Dua "-" dalam notasi (BO dalam notasi normal) tetap, selalu terhubung satu sama lain dan tidak dapat diubah. Atur kabel untuk 12 pasang dari 24 karakter lainnya.</p>
 
 <pre>
-Notasi UKW-D : A-ZXWVUTSRQPON-MLKIHGFEDCB
-Notasi Normal: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Notasi UKW-D  : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Notasi Normal : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>UKW-D dapat diatur dalam kasus Enigma I, Enigma M4, dan Enigma KD.</p>

@@ -90,8 +90,8 @@ Ringstellung  : X M V  (24 13 22)
 Grundstellung : A B L  (01 02 12)
 Steckerbrett  : AM FI NV PS TU WZ
 
-Klartext      : SECRET
-Geheimtext    : LCGODU
+Klartext   : SECRET
+Geheimtext : LCGODU
 </pre>
 
 <p>Der erste Buchstabe "S" durchläuft folgenden Pfad und wird zu "L":</p>
@@ -185,8 +185,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>Im Gegensatz zur normalen Beschriftung "A...Z" nutzt UKW-D die Reihenfolge "A-ZXWVUTSRQPON-MLKIHGFEDCB". Die zwei "-" (entspricht B und O) sind fest verbunden. Die anderen 24 Buchstaben können in 12 Paaren frei verbunden werden.</p>
 
 <pre>
-UKW-D Beschriftung: A-ZXWVUTSRQPON-MLKIHGFEDCB
-Normale Notation:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+UKW-D Beschriftung : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Normale Notation   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>Verfügbar für Enigma I, Enigma M4, Enigma KD.</p>

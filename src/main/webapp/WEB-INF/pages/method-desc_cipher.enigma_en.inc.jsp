@@ -85,13 +85,13 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>An example of encryption with Enigma I is shown below.</p>
 
 <pre>
-Wheel order     : UKW-A II I III
-Ring setting    : X M V  (24 13 22)
-Position setting: A B L  (01 02 12)
-Plugboard       : AM FI NV PS TU WZ
+Wheel order      : UKW-A II I III
+Ring setting     : X M V  (24 13 22)
+Position setting : A B L  (01 02 12)
+Plugboard        : AM FI NV PS TU WZ
 
-Text before encryption: SECRET
-Text after encryption : LCGODU
+Text before encryption : SECRET
+Text after encryption  : LCGODU
 </pre>
 
 <p>In this case, the first letter "S" will be converted into the following sequence, and finally encrypted into "L".</p>

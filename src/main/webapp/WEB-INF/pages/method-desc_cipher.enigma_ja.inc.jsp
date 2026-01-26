@@ -85,13 +85,13 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>Enigma I で暗号化する場合の例を以下に示します。</p>
 
 <pre>
-ウィール      : UKW-A II I III
-リング設定    : X M V  (24 13 22)
-ポジション設定: A B L  (01 02 12)
-プラグボード  : AM FI NV PS TU WZ
+ウィール       : UKW-A II I III
+リング設定     : X M V  (24 13 22)
+ポジション設定 : A B L  (01 02 12)
+プラグボード   : AM FI NV PS TU WZ
 
-暗号化前の文章: SECRET
-暗号化後の文章: LCGODU
+暗号化前の文章 : SECRET
+暗号化後の文章 : LCGODU
 </pre>
 
 <p>この場合の1文字目の「S」は以下の流れで換字されていき、最終的に「L」に暗号化されます。</p>
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>通常のリフレクターのリングの表記は「ABCDEFGHIJKLMNOPQRSTUVWXYZ」ですが、UKW-Dの表記は「A-ZXWVUTSRQPON-MLKIHGFEDCB」という特殊な並び順となっています。表記上の2つの「-」（通常の表記でいうBO）は固定であり、常にお互いが配線されていて変更できません。その他の24文字12ペアの配線を設定します。</p>
 
 <pre>
-UKW-D表記: A-ZXWVUTSRQPON-MLKIHGFEDCB
-通常の表記: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+UKW-D表記 : A-ZXWVUTSRQPON-MLKIHGFEDCB
+通常の表記 : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>UKW-Dは、 Enigma I, Enigma M4, Enigma KD の場合に設定できます。</p>

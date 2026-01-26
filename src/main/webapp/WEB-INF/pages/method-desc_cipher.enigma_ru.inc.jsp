@@ -90,8 +90,8 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 Позиции               : A B L  (01 02 12)
 Коммутационная панель : AM FI NV PS TU WZ
 
-Текст до шифрования   : SECRET
-Текст после шифрования: LCGODU
+Текст до шифрования    : SECRET
+Текст после шифрования : LCGODU
 </pre>
 
 <p>В этом случае первая буква "S" преобразуется следующим образом и окончательно шифруется в букву "L".</p>
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>Обычная нотация для колец рефлекторов - "ABCDEFGHIJKLMNOPQRSTUVWXYZ", но нотация UKW-D имеет специальный порядок - "A-ZXWVUTSRQPON-MLKIHGFEDCB". Два "-" (BO в обычной нотации) в обозначениях фиксированы, всегда соединены друг с другом и не могут быть изменены. Установите проводку для остальных 24 символов и 12 пар.</p>
 
 <pre>
-Нотация UKW-D  : A-ZXWVUTSRQPON-MLKIHGFEDCB
-Обычная нотация: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Нотация UKW-D   : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Обычная нотация : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>UKW-D можно установить для Enigma I, Enigma M4 и Enigma KD.</p>

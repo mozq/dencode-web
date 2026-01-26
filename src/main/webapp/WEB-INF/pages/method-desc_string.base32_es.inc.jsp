@@ -46,13 +46,17 @@
 <p>Por ejemplo, convertir "Hello!" en Base32 da el siguiente resultado:</p>
 
 <p>1. Convertir a representación binaria.</p>
+
 <pre>01001000 01100101 01101100 01101100 01101111 00100001  (Para US-ASCII / UTF-8)</pre>
 
 <p>2. Dividir en grupos de 5 bits. Si hay menos de 5 bits, rellenar el final con "0".</p>
+
 <pre>01001 00001 10010 10110 11000 11011 00011 01111 00100 00100</pre>
 
 <p>3. Convertir a caracteres usando la tabla de conversión. Se convierten cada 8 caracteres, y si hay menos de 8 caracteres, se rellena el final con "=".</p>
+
 <pre>JBSWY3DP EE======</pre>
 
 <p>4. Unir todos los caracteres para obtener el resultado de la conversión Base32.</p>
+
 <pre>JBSWY3DPEE======</pre>

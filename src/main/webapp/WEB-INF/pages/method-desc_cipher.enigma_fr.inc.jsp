@@ -85,10 +85,10 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>Un exemple de chiffrement avec Enigma I est présenté ci-dessous.</p>
 
 <pre>
-Ordre des roues    : UKW-A II I III
-Réglage de l'anneau: X M V  (24 13 22)
-Position initiale  : A B L  (01 02 12)
-Tableau de connexions: AM FI NV PS TU WZ
+Ordre des roues       : UKW-A II I III
+Réglage de l'anneau   : X M V  (24 13 22)
+Position initiale     : A B L  (01 02 12)
+Tableau de connexions : AM FI NV PS TU WZ
 
 Texte avant chiffrement : SECRET
 Texte après chiffrement : LCGODU
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>La notation normale pour les anneaux de réflecteur est "ABCDEFGHIJKLMNOPQRSTUVWXYZ", mais la notation de l'UKW-D suit un ordre spécial : "A-ZXWVUTSRQPON-MLKIHGFEDCB". Les deux "-" (BO dans la notation normale) sont fixes et toujours connectés l'un à l'autre sans pouvoir être modifiés. Les 24 autres caractères et 12 paires de fils sont configurables.</p>
 
 <pre>
-Notation UKW-D  : A-ZXWVUTSRQPON-MLKIHGFEDCB
-Notation normale: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Notation UKW-D   : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Notation normale : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>L'UKW-D peut être configuré pour Enigma I, Enigma M4 et Enigma KD.</p>

@@ -90,8 +90,8 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 포지션 설정 : A B L  (01 02 12)
 플러그보드  : AM FI NV PS TU WZ
 
-암호화 전 문장: SECRET
-암호화 후 문장: LCGODU
+암호화 전 문장 : SECRET
+암호화 후 문장 : LCGODU
 </pre>
 
 <p>이 경우 1문자째 'S'는 다음의 흐름으로 환자되어 가고, 최종적으로 'L'로 암호화됩니다.</p>

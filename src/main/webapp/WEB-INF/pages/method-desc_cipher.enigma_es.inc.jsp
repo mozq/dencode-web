@@ -85,13 +85,13 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>A continuación se muestra un ejemplo de cifrado con Enigma I.</p>
 
 <pre>
-Ruedas        : UKW-A II I III
-Anillos       : X M V  (24 13 22)
-Posiciones    : A B L  (01 02 12)
-Clavijero     : AM FI NV PS TU WZ
+Ruedas     : UKW-A II I III
+Anillos    : X M V  (24 13 22)
+Posiciones : A B L  (01 02 12)
+Clavijero  : AM FI NV PS TU WZ
 
-Antes  : SECRET
-Después: LCGODU
+Antes   : SECRET
+Después : LCGODU
 </pre>
 
 <p>En este caso, la primera letra "S" se sustituye en el siguiente flujo y finalmente se cifra a "L".</p>
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>La notación del anillo para un reflector normal es "ABCDEFGHIJKLMNOPQRSTUVWXYZ", pero para UKW-D es un orden especial "A-ZXWVUTSRQPON-MLKIHGFEDCB". Los dos guiones "-" en la notación (BO en notación estándar) son fijos y siempre están conectados entre sí y no se pueden cambiar. Se configuran los 12 pares de cableado para los 24 caracteres restantes.</p>
 
 <pre>
-Notación UKW-D : A-ZXWVUTSRQPON-MLKIHGFEDCB
-Notación Normal: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Notación UKW-D  : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Notación Normal : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>UKW-D se puede configurar en Enigma I, Enigma M4 y Enigma KD.</p>

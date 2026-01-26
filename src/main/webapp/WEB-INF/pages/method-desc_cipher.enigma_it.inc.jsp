@@ -85,13 +85,13 @@ FLNGMHERWAOUPXZIYVTQBJCSDK
 <p>Di seguito è mostrato un esempio di crittografia con Enigma I.</p>
 
 <pre>
-Ordine Ruote         : UKW-A II I III
-Impostazione Anelli  : X M V  (24 13 22)
-Impostazione Posizione: A B L (01 02 12)
-Pannello a prese     : AM FI NV PS TU WZ
+Ordine Ruote           : UKW-A II I III
+Impostazione Anelli    : X M V  (24 13 22)
+Impostazione Posizione : A B L (01 02 12)
+Pannello a prese       : AM FI NV PS TU WZ
 
-Testo prima della crittografia: SECRET
-Testo dopo la crittografia    : LCGODU
+Testo prima della crittografia : SECRET
+Testo dopo la crittografia     : LCGODU
 </pre>
 
 <p>In questo caso, il primo carattere "S" viene convertito nel seguente flusso e infine cifrato in "L".</p>
@@ -186,8 +186,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ  : UKW-A
 <p>La notazione normale dell'anello del riflettore è "ABCDEFGHIJKLMNOPQRSTUVWXYZ", ma la notazione di UKW-D è in un ordine speciale "A-ZXWVUTSRQPON-MLKIHGFEDCB". I due "-" nella notazione (BO nella notazione normale) sono fissi e sono sempre cablati l'uno all'altro e non possono essere modificati. Si impostano le altre 24 lettere in 12 coppie.</p>
 
 <pre>
-Notazione UKW-D  : A-ZXWVUTSRQPON-MLKIHGFEDCB
-Notazione Normale: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Notazione UKW-D   : A-ZXWVUTSRQPON-MLKIHGFEDCB
+Notazione Normale : ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </pre>
 
 <p>UKW-D può essere impostato per Enigma I, Enigma M4 ed Enigma KD.</p>

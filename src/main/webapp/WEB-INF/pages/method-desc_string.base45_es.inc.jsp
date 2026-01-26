@@ -58,6 +58,7 @@
 <p>Por ejemplo, convertir "Hello" en Base45 da el siguiente resultado:</p>
 
 <p>1. Dividir en grupos de 2 bytes.</p>
+
 <pre>4865<sub>(16)</sub> 6C6C<sub>(16)</sub> 6F<sub>(16)</sub>  (He ll o)</pre>
 
 <p>2. Tratar cada 2 bytes como un entero sin signo big-endian y convertir ese valor a 3 dígitos en base 45. Si el último es 1 byte, convertir a 2 dígitos en base 45.</p>
@@ -84,6 +85,7 @@
 </div>
 
 <p>4. Unir todos los caracteres para obtener el resultado de la conversión Base45.</p>
+
 <pre>%69 VDL2</pre>
 
 <h3>Sobre Base45/Zlib/COSE/CBOR</h3>

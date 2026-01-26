@@ -23,6 +23,7 @@
 <p>Das Format %uXXXX wird von Microsoft IIS unterstützt, ist aber nicht standardisiert. In C# kann <a href="https://learn.microsoft.com/en-us/dotnet/api/system.web.httputility.urlencodeunicode" target="_blank">System.Web.HttpUtility.UrlEncodeUnicode</a> in das %u-Format kodieren, diese Methode ist jedoch ab .NET Framework 4.5 veraltet.</p>
 <p>Beachten Sie, dass beim Format \X gemäß der <a href="https://www.w3.org/International/questions/qa-escapes" target="_blank">CSS-Spezifikation</a> ein nachfolgendes Leerzeichen beim Dekodieren als Trennzeichen behandelt und ignoriert wird. Bei den Formaten U+XXXX und 0xX werden Zeichen beim Kodieren durch ein Leerzeichen getrennt, und beim Dekodieren wird, wie beim \X-Format, ein nachfolgendes Leerzeichen ignoriert.</p>
 
+
 <h4>Unicode-Escape mit Namen</h4>
 
 <p>Es wird auch das Escapen mit Unicode-Namen unterstützt.</p>
@@ -36,14 +37,15 @@
 
 <p>Unicode-Namen können in <a href="https://unicode.org/charts/nameslist/" target="_blank">Names List Charts - Unicode</a> oder <a href="https://www.unicode.org/Public/15.0.0/ucd/NamesList.txt" target="_blank">NamesList.txt - Unicode</a> nachgeschlagen werden.</p>
 
+
 <h4>Zeichen außerhalb der BMP (Basic Multilingual Plane)</h4>
 
-<p>Für Unicode-Zeichen außerhalb der BMP reicht ein 4-stelliger Codepoint nicht aus. Je nach Programmiersprache werden folgende Schreibweisen verwendet:</p>
+<p>Für Unicode-Zeichen außerhalb der BMP reicht ein 4-stelliger Codepoint nicht aus. Je nach Programmiersprache werden folgende Schreibweisen verwendet.</p>
 <p>Beispiel für die Konvertierung von „😀“ (U+1F600):</p>
 
 <div class="table-responsive">
 	<table class="table">
-		<tr><th scope="col">Format</th><th scope="col">Ergebnis für „😀“(U+1F600)</th><th scope="col">Programmiersprache</th></tr>
+		<tr><th scope="col">Format</th><th scope="col">Ergebnis für „😀“ (U+1F600)</th><th scope="col">Programmiersprache</th></tr>
 		<tr><td>\uXXXX</td><td>\uD83D\uDE00</td><td>Java, Kotlin, Scala</td></tr>
 		<tr><td>\u{X}</td><td>\u{1F600}</td><td>C++23, Rust, Swift, JavaScript, PHP, Ruby, Dart, Lua</td></tr>
 		<tr><td>\U00XXXXXX</td><td>\U0001F600</td><td>C, C++, Objective-C, C#, Go, Python, R</td></tr>
