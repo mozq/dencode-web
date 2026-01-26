@@ -39,8 +39,10 @@
 
 <p>Beispiel: Klartext "MESSAGE", Schlüssel "SECRET". Der erste Buchstabe "M" und Schlüssel "S" ergeben "E".</p>
 
-<pre>Klartext  : MESSAGE
-Schlüssel : SECRETS
-Geheimtext: EIUJEZW</pre>
+<pre>
+Klartext   : MESSAGE
+Schlüssel  : SECRETS
+Geheimtext : EIUJEZW
+</pre>
 
 <p>Der Schlüssel wird wiederholt, wenn er kürzer als der Klartext ist.</p>

@@ -1,10 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-%><h3>Tentang Sandi ROT18</h3>
-<p>Sandi ROT18 adalah kombinasi dari <a href="rot13">ROT13</a> dan ROT5. ROT18 dinamai dari 13 + 5 = 18.</p>
-<p>Alfabet diganti dengan menggeser 13 karakter (ROT13), dan angka diganti dengan menggeser 5 karakter (ROT5).</p>
-<p>Karena alfabet memiliki 26 huruf dan angka memiliki 10 digit, menggeser 13 atau 5 karakter dua kali akan kembali ke aslinya. Artinya, proses yang sama dapat digunakan untuk enkripsi dan dekripsi.</p>
+%><h3>Tentang ROT18</h3>
+<p>ROT18 adalah salah satu cipher substitusi monoalfabetik yang mengenkripsi dengan mengganti karakter dalam teks dengan karakter lain.</p>
+<p>Penggantian karakter dilakukan dengan menggeser karakter "A" hingga "Z" sejauh 13 karakter dalam 26 karakter "ABCDEFGHIJKLMNOPQRSTUVWXYZ". Selain itu, angka "0" hingga "9" digeser sejauh 5 karakter dalam 10 karakter "0123456789".</p>
+<p>Sebagai contoh, "A" dienkripsi menjadi "N", dan "0" menjadi "5".</p>
 
-<p>Misalnya, "0" dienkripsi menjadi "5", dan "9" menjadi "4".</p>
+<pre>
+Sebelum enkripsi : ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+Setelah enkripsi : NOPQRSTUVWXYZABCDEFGHIJKLM5678901234
+</pre>
 
-<pre>Sebelum: 0123456789
-Sesudah: 5678901234</pre>
+<pre>
+Teks sebelum enkripsi : THIS IS A SECRET MESSAGE 123
+Teks setelah enkripsi : GUVF VF N FRPERG ZRFFNTR 567
+</pre>
+
+<p>Karena memiliki sifat resiprokal di mana teks asli dapat diperoleh dengan mengenkripsi kembali teks sandi, dekripsi juga dapat dilakukan dengan alur yang sama seperti enkripsi.</p>

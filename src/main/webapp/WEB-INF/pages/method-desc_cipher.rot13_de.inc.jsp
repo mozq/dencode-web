@@ -4,10 +4,14 @@
 <p>Die Ersetzung erfolgt durch eine Verschiebung der Buchstaben „A“ bis „Z“ um 13 Stellen im Alphabet „ABCDEFGHIJKLMNOPQRSTUVWXYZ“.</p>
 <p>Zum Beispiel wird „A“ zu „N“ und „Z“ zu „M“ verschlüsselt.</p>
 
-<pre>Klartext:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Geheimtext: NOPQRSTUVWXYZABCDEFGHIJKLM</pre>
+<pre>
+Klartext   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Geheimtext : NOPQRSTUVWXYZABCDEFGHIJKLM
+</pre>
 
-<pre>Klartext-Nachricht: THIS IS A SECRET MESSAGE
-Geheimtext-Nachricht: GUVF VF N FRPERG ZRFFNTR</pre>
+<pre>
+Klartext-Nachricht   : THIS IS A SECRET MESSAGE
+Geheimtext-Nachricht : GUVF VF N FRPERG ZRFFNTR
+</pre>
 
 <p>Da die erneute Verschlüsselung des Geheimtextes wieder den Klartext ergibt (Reziprozität), kann die Entschlüsselung auf demselben Weg wie die Verschlüsselung erfolgen.</p>

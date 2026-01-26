@@ -39,8 +39,10 @@
 
 <p>For example, if the plaintext before encryption is "MESSAGE" and the encryption key is "SECRET", the characters are replaced and encrypted as follows. Since the first letter is 'M' and the key is 'S', the encrypted letter will be 'E'.</p>
 
-<pre>Plain text : MESSAGE
-Key      　: SECRETS
-Cipher text: EIUJEZW</pre>
+<pre>
+Plain text  : MESSAGE
+Key       　: SECRETS
+Cipher text : EIUJEZW
+</pre>
 
 <p>One character of the encryption key is used for each character of plaintext. If the key length is shorter than the plaintext, use the key repeatedly.</p>

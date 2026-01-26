@@ -30,8 +30,10 @@
 
 <p>Le résultat du chiffrement de toutes les lettres avec <var>a</var> = 5, <var>b</var> = 3 est le suivant.</p>
 
-<pre>Texte clair  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Texte chiffré: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
+<pre>
+Texte clair   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Texte chiffré : DINSXCHMRWBGLQVAFKPUZEJOTY
+</pre>
 
 <p>Spécifier <var>a</var> = 1, <var>b</var> = -3 donne le chiffre de César, spécifier <var>a</var> = 1, <var>b</var> = 13 donne le même résultat que ROT13, et spécifier <var>a</var> = -1, <var>b</var> = -1 donne le même résultat que le chiffre Atbash.</p>
 
@@ -44,17 +46,23 @@ Texte chiffré: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
 <p>Les résultats du chiffrement avec <var>a</var> = 5 et <var>b</var> = 3 sont les suivants.</p>
 
 <h5>Cyrillique</h5>
-<pre>Texte clair  : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Texte chiffré: ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ</pre>
+<pre>
+Texte clair   : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Texte chiffré : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ
+</pre>
 
 <p><var>m</var> = 32 (32 caractères).</p>
 
 <h5>Hiragana / Katakana japonais</h5>
-<pre>Texte clair  : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Texte chiffré: いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん</pre>
+<pre>
+Texte clair   : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Texte chiffré : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん
+</pre>
 
-<pre>Texte clair  : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Texte chiffré: イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン</pre>
+<pre>
+Texte clair   : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Texte chiffré : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン
+</pre>
 
 <p>L'ordre des caractères est l'ordre de définition Unicode. Veuillez noter que «ゕ», «ゖ», «ヵ», «ヶ», «ヷ», «ヸ», «ヹ», et «ヺ» ne sont pas sujets au chiffrement.</p>
 

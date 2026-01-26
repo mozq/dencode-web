@@ -38,8 +38,10 @@
 
 <p>Sebagai contoh, jika teks asli adalah "MESSAGE" dan kunci enkripsi adalah "SECRET", karakter diganti sebagai berikut. Karakter pertama adalah "M" dan kuncinya "S", jadi karakter terenkripsi adalah "E".</p>
 
-<pre>Teks asli  : MESSAGE
+<pre>
+Teks asli  : MESSAGE
 Kunci      : SECRETS
-Teks sandi : EIUJEZW</pre>
+Teks sandi : EIUJEZW
+</pre>
 
 <p>Satu karakter kunci digunakan untuk setiap karakter teks asli. Jika kunci lebih pendek dari teks asli, kunci diulang.</p>

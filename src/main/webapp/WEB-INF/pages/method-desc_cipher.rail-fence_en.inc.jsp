@@ -7,7 +7,8 @@
 <p>For example, when "THIS_IS_A_SECRET_MESSAGE" is encrypted with 4 rails, it is as follows.</p>
 
 <p>1. Prepare four rails (height 4) and arrange the characters in zigzag from the upper left.</p>
-<pre>-----------------------------------------------
+<pre>
+-----------------------------------------------
 T           S           C           E          
 -----------------------------------------------
   H       I   _       E   R       M   S       E
@@ -15,13 +16,16 @@ T           S           C           E
     I   _       A   S       E   _       S   G  
 -----------------------------------------------
       S           _           T           A    
------------------------------------------------</pre>
+-----------------------------------------------
+</pre>
 
 <p>2. Get the placed characters in each rail.</p>
-<pre>TSCE
+<pre>
+TSCE
 HI_ERMSE
 I_ASE_SG
-S_TA</pre>
+S_TA
+</pre>
 
 <p>3. Concatenated the rail characters.</p>
 <pre>TSCEHI_ERMSEI_ASE_SGS_TA</pre>

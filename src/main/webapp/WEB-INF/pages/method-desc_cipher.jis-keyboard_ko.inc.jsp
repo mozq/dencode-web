@@ -3,17 +3,19 @@
 <p>JIS 키보드 변환(미카카 변환)은 문장의 문자를 다른 문자로 치환하여 암호화하는 단일 환자 암호 중 하나입니다. 기본적으로 일본 인터넷에서 은어(Jargon)나 난독화를 위해 사용됩니다.</p>
 <p>문자 치환은 영문자와, 일본어 JIS 키보드(JIS X4064 / OADG109A)에 인쇄된 일본어 문자 사이를 변환하여 수행합니다. 원래는 일본 통신 사업자 중 하나인 'NTT'를 JIS 키보드로 쳤을 때의 결과인 '미카카(みかか)'라는 인터넷 속어(Slang)에서 유래했습니다.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>예를 들어 't'는 'か'로, 'h'는 'く'로 암호화됩니다. DenCode는 영문자와 일본어 문자를 동시에 변환하므로, 암호화와 복호화는 같은 의미를 가집니다.</p>
 
-<pre>평문          : this is a secret message
-암호문        : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+평문   : this is a secret message
+암호문 : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>암호문        : かくにと にと ち といそすいか もいととちきい
-재암호문      : this is a secret message</pre>
+<pre>
+암호문   : かくにと にと ち といそすいか もいととちきい
+재암호문 : this is a secret message
+</pre>
 
 <p>JIS 키보드 변환으로 변환되는 문자 매핑은 다음과 같습니다. 괄호 안의 문자는 관용 모드(Lenient-mode)에서 허용되는 문자입니다.</p>
 

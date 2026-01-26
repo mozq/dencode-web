@@ -6,4 +6,4 @@
 
 <p>Beispiel für die Konvertierung von 23. Januar 2000, 01:23:45.678 (JST) in Wareki:</p>
 
-<pre>Heisei 12-nen 01-gatsu 03-nich 01-ji 23-fun 45.678-byō JST</pre>
+<pre>平成12年01月03日01時23分45.678秒 JST</pre>

@@ -4,10 +4,14 @@
 <p>Замена символов выполняется путем сдвига символов с «A» на «Z» на 13 символов из 26 символов «ABCDEFGHIJKLMNOPQRSTUVWXYZ». Кроме того, числа от «0» до «9» сдвинуты на 5 символов из 10 символов «0123456789».</p>
 <p>Например, «A» зашифровано до «N», а «0» зашифровано до «5».</p>
 
-<pre>Исходный алфавит: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
-Шифрованный     : NOPQRSTUVWXYZABCDEFGHIJKLM5678901234</pre>
+<pre>
+Исходный алфавит : ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+Шифрованный      : NOPQRSTUVWXYZABCDEFGHIJKLM5678901234
+</pre>
 
-<pre>Простой текст: THIS IS A SECRET MESSAGE 123
-Криптограмма : GUVF VF N FRPERG ZRFFNTR 567</pre>
+<pre>
+Простой текст : THIS IS A SECRET MESSAGE 123
+Криптограмма  : GUVF VF N FRPERG ZRFFNTR 567
+</pre>
 
 <p>Поскольку открытый текст может быть получен путем повторного шифрования зашифрованного текста, дешифрование может выполняться в том же потоке, что и шифрование.</p>

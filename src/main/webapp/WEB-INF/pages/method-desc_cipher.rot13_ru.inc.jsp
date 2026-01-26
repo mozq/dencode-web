@@ -4,10 +4,14 @@
 <p>Замена символов выполняется путем сдвига символов с «A» на «Z» на 13 символов из 26 символов «ABCDEFGHIJKLMNOPQRSTUVWXYZ».</p>
 <p>Например, «A» зашифровано до «N», а «Z» зашифровано до «M».</p>
 
-<pre>Исходный алфавит: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Шифрованный     : NOPQRSTUVWXYZABCDEFGHIJKLM</pre>
+<pre>
+Исходный алфавит : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Шифрованный      : NOPQRSTUVWXYZABCDEFGHIJKLM
+</pre>
 
-<pre>Простой текст: THIS IS A SECRET MESSAGE
-Криптограмма : GUVF VF N FRPERG ZRFFNTR</pre>
+<pre>
+Простой текст : THIS IS A SECRET MESSAGE
+Криптограмма  : GUVF VF N FRPERG ZRFFNTR
+</pre>
 
 <p>Поскольку открытый текст может быть получен путем повторного шифрования зашифрованного текста, дешифрование может выполняться в том же потоке, что и шифрование.</p>

@@ -4,9 +4,9 @@
 <p>Mendukung konversi ke format berikut.</p>
 
 <div class="table-responsive">
-        <table class="table">
-                <tr><th>Nama</th><th>Alias</th><th>Format</th></tr>
-                <tr><td>Upper camel case</td><td>Pascal case, Studly case</td><td>UpperCamelCase</td></tr>
-                <tr><td>Lower camel case</td><td>Camel case, Dromedary case</td><td>lowerCamelCase</td></tr>
-        </table>
+	<table class="table">
+		<tr><th>Nama</th><th>Alias</th><th>Format</th></tr>
+		<tr><td>Upper camel case</td><td>Pascal case, Studly case</td><td>UpperCamelCase</td></tr>
+		<tr><td>Lower camel case</td><td>Camel case, Dromedary case</td><td>lowerCamelCase</td></tr>
+	</table>
 </div>

@@ -7,12 +7,14 @@
 <p>Ad esempio, se il numero di caratteri per giro è 4 e si cripta "THIS_IS_A_SECRET_MESSAGE":</p>
 
 <p>1. Disponi i caratteri attraverso la pergamena. Poiché il numero di caratteri per giro è 4 e il testo da criptare ha 24 caratteri, disponi fino a 6 caratteri orizzontalmente.</p>
-<pre>-----------------------------------
+<pre>
+-----------------------------------
      | T | H | I | S | _ | I |___|
      | S | _ | A | _ | S | E |
   ___| C | R | E | T | _ | M |
  |   | E | S | S | A | G | E |
------------------------------------</pre>
+-----------------------------------
+</pre>
 
 <p>2. Srotolando la pergamena dal bastone, il testo risulta cifrato.</p>
 <pre>TSCEH_RSIAESS_TA_S_GIEME</pre>

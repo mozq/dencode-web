@@ -30,8 +30,10 @@
 
 <p>El resultado de cifrar todas las letras con <var>a</var> = 5, <var>b</var> = 3 es el siguiente:</p>
 
-<pre>Antes:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Después: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
+<pre>
+Antes   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Después : DINSXCHMRWBGLQVAFKPUZEJOTY
+</pre>
 
 <p>Especificar <var>a</var> = 1, <var>b</var> = -3 da el mismo resultado que el Cifrado César, <var>a</var> = 1, <var>b</var> = 13 da ROT13, y <var>a</var> = -1, <var>b</var> = -1 da Cifrado Atbash.</p>
 
@@ -44,17 +46,23 @@ Después: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
 <p>Los resultados del cifrado con <var>a</var> = 5, <var>b</var> = 3 son los siguientes:</p>
 
 <h5>Cirílico</h5>
-<pre>Antes:   АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Después: ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ</pre>
+<pre>
+Antes   : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Después : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ
+</pre>
 
 <p><var>m</var> = 32 (32 caracteres).</p>
 
 <h5>Hiragana/Katakana Japonés</h5>
-<pre>Antes:   ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Después: いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん</pre>
+<pre>
+Antes   : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Después : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん
+</pre>
 
-<pre>Antes:   ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Después: イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン</pre>
+<pre>
+Antes   : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Después : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン
+</pre>
 
 <p>El orden de los caracteres se basa en el orden de definición de Unicode. Tenga en cuenta que "ゕ", "ゖ", "ヵ", "ヶ", "ヷ", "ヸ", "ヹ", y "ヺ" no están sujetos a cifrado.</p>
 

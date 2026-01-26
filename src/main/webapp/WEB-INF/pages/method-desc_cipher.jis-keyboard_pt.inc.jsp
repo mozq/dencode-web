@@ -3,17 +3,19 @@
 <p>A Cifra de Teclado JIS (Mikaka) é um tipo de cifra de substituição monoalfabética que criptografa substituindo caracteres por outros caracteres. Basicamente, é usada na internet japonesa para gírias ou ofuscação.</p>
 <p>A substituição de caracteres é realizada convertendo mutuamente entre caracteres alfanuméricos e caracteres Kana impressos em um teclado JIS japonês (JIS X4064 / OADG109A). Origina-se da gíria da internet que chamava "Mikaka" o resultado de digitar "NTT" (uma das operadoras de telecomunicações do Japão) usando entrada Kana em um teclado JIS.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>Por exemplo, "t" é criptografado como "か", e "h" como "く". Como o DenCode realiza a conversão entre alfanuméricos e Kana simultaneamente, a criptografia e a descriptografia têm o mesmo significado.</p>
 
-<pre>Antes da Criptografia　: this is a secret message
-Depois da Criptografia　: かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Antes da Criptografia  : this is a secret message
+Depois da Criptografia : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Depois da Criptografia　: かくにと にと ち といそすいか もいととちきい
-Depois da Recriptografia: this is a secret message</pre>
+<pre>
+Depois da Criptografia   : かくにと にと ち といそすいか もいととちきい
+Depois da Recriptografia : this is a secret message
+</pre>
 
 <p>O mapeamento de caracteres convertidos pela Cifra de Teclado JIS é o seguinte. Os caracteres entre parênteses são permitidos no modo relaxado.</p>
 

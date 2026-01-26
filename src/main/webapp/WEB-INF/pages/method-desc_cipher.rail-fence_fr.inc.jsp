@@ -7,7 +7,8 @@
 <p>Par exemple, lorsque "THIS_IS_A_SECRET_MESSAGE" est chiffré avec 4 rails, cela donne ce qui suit.</p>
 
 <p>1. Préparez 4 rails (hauteur 4) et disposez les caractères en zigzag à partir du haut à gauche.</p>
-<pre>-----------------------------------------------
+<pre>
+-----------------------------------------------
 T           S           C           E          
 -----------------------------------------------
   H       I   _       E   R       M   S       E
@@ -15,13 +16,16 @@ T           S           C           E
     I   _       A   S       E   _       S   G  
 -----------------------------------------------
       S           _           T           A    
------------------------------------------------</pre>
+-----------------------------------------------
+</pre>
 
 <p>2. Récupérez les caractères placés dans chaque rail.</p>
-<pre>TSCE
+<pre>
+TSCE
 HI_ERMSE
 I_ASE_SG
-S_TA</pre>
+S_TA
+</pre>
 
 <p>3. Concaténez les caractères des rails.</p>
 <pre>TSCEHI_ERMSEI_ASE_SGS_TA</pre>

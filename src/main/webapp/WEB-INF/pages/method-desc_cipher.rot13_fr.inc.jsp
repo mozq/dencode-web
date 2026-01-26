@@ -4,10 +4,14 @@
 <p>Le remplacement des caractères est effectué en décalant les caractères de "A" à "Z" de 13 caractères parmi les 26 caractères de "ABCDEFGHIJKLMNOPQRSTUVWXYZ".</p>
 <p>Par exemple, "A" est chiffré en "N" et "Z" est chiffré en "M".</p>
 
-<pre>Texte clair  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Texte chiffré: NOPQRSTUVWXYZABCDEFGHIJKLM</pre>
+<pre>
+Texte clair   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Texte chiffré : NOPQRSTUVWXYZABCDEFGHIJKLM
+</pre>
 
-<pre>Texte clair  : THIS IS A SECRET MESSAGE
-Texte chiffré: GUVF VF N FRPERG ZRFFNTR</pre>
+<pre>
+Texte clair  : THIS IS A SECRET MESSAGE
+Texte chiffré : GUVF VF N FRPERG ZRFFNTR
+</pre>
 
 <p>Puisqu'il existe une réciprocité permettant d'obtenir le texte clair en chiffrant à nouveau le texte chiffré, le déchiffrement peut être effectué dans le même flux que le chiffrement.</p>

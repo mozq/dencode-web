@@ -3,17 +3,19 @@
 <p>Преобразование клавиатуры JIS (преобразование Микака) - это один из единых подстановочных шифров, который шифрует путем замены символов в тексте на другие символы. В основном, он используется для жаргона и обфускации в японском Интернете.</p>
 <p>Замена символов осуществляется путем преобразования между английскими символами и японскими символами, напечатанными на японской клавиатуре JIS (JIS X4064 / OADG109A). Первоначально он происходит от интернет-сленга под названием «みかか» (Микака), который является результатом набора «<abbr title="Nippon Telegraph and Telephone corporation">NTT</abbr>», одного из японских телекоммуникационных операторов, на клавиатуре JIS.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>Например, «t» шифруется в «か», а «h» - в «く». DenCode конвертирует английские и японские символы одновременно, поэтому шифрование и расшифровка имеют одинаковый смысл.</p>
 
-<pre>Ключ       　: this is a secret message
-Криптограмма : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Ключ         : this is a secret message
+Криптограмма : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Ключ       　: かくにと にと ち といそすいか もいととちきい
-Криптограмма : this is a secret message</pre>
+<pre>
+Ключ         : かくにと にと ち といそすいか もいととちきい
+Криптограмма : this is a secret message
+</pre>
 
 <p>Ниже приведено отображение символов, преобразованных с помощью преобразования клавиатуры JIS. В скобках указаны символы, допустимые в мягком режиме.</p>
 

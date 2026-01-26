@@ -7,12 +7,14 @@
 <p>For example, when "THIS_IS_A_SECRET_MESSAGE" is encrypted with 4 characters per one round of the scytale, it is as follows.</p>
 
 <p>1. Place the characters across the strip of parchment.</p>
-<pre>-----------------------------------
+<pre>
+-----------------------------------
      | T | H | I | S | _ | I |___|
      | S | _ | A | _ | S | E |
   ___| C | R | E | T | _ | M |
  |   | E | S | S | A | G | E |
------------------------------------</pre>
+-----------------------------------
+</pre>
 
 <p>2. It is encrypted by unwinding the parchment from the scytale.</p>
 <pre>TSCEH_RSIAESS_TA_S_GIEME</pre>

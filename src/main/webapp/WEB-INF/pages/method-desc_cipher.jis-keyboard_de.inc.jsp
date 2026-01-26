@@ -7,11 +7,15 @@
 
 <p>Zum Beispiel entspricht "t" dem Zeichen "か" (ka) und "h" dem Zeichen "く" (ku). Da DenCode die Konvertierung in beide Richtungen gleichzeitig durchführt, ist Verschlüsselung und Entschlüsselung identisch.</p>
 
-<pre>Klartext    : this is a secret message
-Geheimtext  : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Klartext   : this is a secret message
+Geheimtext : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Geheimtext  : かくにと にと ち といそすいか もいととちきい
-Klartext    : this is a secret message</pre>
+<pre>
+Geheimtext : かくにと にと ち といそすいか もいととちきい
+Klartext   : this is a secret message
+</pre>
 
 <p>Die Zuordnungstabelle ist wie folgt (Klammern zeigen Zeichen im toleranten Modus):</p>
 

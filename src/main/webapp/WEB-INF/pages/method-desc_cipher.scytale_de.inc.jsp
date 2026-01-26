@@ -7,12 +7,14 @@
 <p>Beispiel: Verschlüsselung von „THIS_IS_A_SECRET_MESSAGE“ mit einem Stabumfang von 4 Buchstaben.</p>
 
 <p>1. Den Text quer über den aufgewickelten Streifen schreiben. Bei 4 Buchstaben pro Umfang und 24 Buchstaben Textlänge ergeben sich 6 Spalten.</p>
-<pre>-----------------------------------
+<pre>
+-----------------------------------
      | T | H | I | S | _ | I |___|
      | S | _ | A | _ | S | E |
   ___| C | R | E | T | _ | M |
  |   | E | S | S | A | G | E |
------------------------------------</pre>
+-----------------------------------
+</pre>
 
 <p>2. Wenn man den Streifen vom Stab abwickelt, erhält man den verschlüsselten Text.</p>
 <pre>TSCEH_RSIAESS_TA_S_GIEME</pre>

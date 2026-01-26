@@ -7,7 +7,8 @@
 <p>Ad esempio, se criptiamo "THIS_IS_A_SECRET_MESSAGE" con 4 rotaie:</p>
 
 <p>1. Prepara 4 rotaie (altezza 4) e disponi i caratteri a zigzag partendo da in alto a sinistra.</p>
-<pre>-----------------------------------------------
+<pre>
+-----------------------------------------------
 T           S           C           E          
 -----------------------------------------------
   H       I   _       E   R       M   S       E
@@ -15,13 +16,16 @@ T           S           C           E
     I   _       A   S       E   _       S   G  
 -----------------------------------------------
       S           _           T           A    
------------------------------------------------</pre>
+-----------------------------------------------
+</pre>
 
 <p>2. Prendi i caratteri disposti per ogni rotaia.</p>
-<pre>TSCE
+<pre>
+TSCE
 HI_ERMSE
 I_ASE_SG
-S_TA</pre>
+S_TA
+</pre>
 
 <p>3. Unisci i caratteri delle rotaie.</p>
 <pre>TSCEHI_ERMSEI_ASE_SGS_TA</pre>

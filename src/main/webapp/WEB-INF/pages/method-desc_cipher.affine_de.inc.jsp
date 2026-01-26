@@ -30,8 +30,10 @@
 
 <p>Das Ergebnis der Verschlüsselung aller Buchstaben mit <var>a</var> = 5, <var>b</var> = 3 ist wie folgt:</p>
 
-<pre>Klartext:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Geheimtext: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
+<pre>
+Klartext   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Geheimtext : DINSXCHMRWBGLQVAFKPUZEJOTY
+</pre>
 
 <p>Wenn <var>a</var> = 1 und <var>b</var> = -3 gewählt wird, entspricht dies der Caesar-Chiffre. <var>a</var> = 1 und <var>b</var> = 13 entspricht ROT13. <var>a</var> = -1 und <var>b</var> = -1 führt zum gleichen Ergebnis wie die Atbash-Chiffre.</p>
 
@@ -43,17 +45,23 @@ Geheimtext: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
 <p>Die Ergebnisse der Verschlüsselung mit <var>a</var> = 5, <var>b</var> = 3 sind wie folgt:</p>
 
 <h5>Kyrillisch</h5>
-<pre>Klartext:   АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Geheimtext: ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ</pre>
+<pre>
+Klartext   : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Geheimtext : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ
+</pre>
 
 <p><var>m</var> = 32 (32 Zeichen).</p>
 
 <h5>Japanisches Hiragana/Katakana</h5>
-<pre>Klartext:   ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Geheimtext: いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん</pre>
+<pre>
+Klartext   : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Geheimtext : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん
+</pre>
 
-<pre>Klartext:   ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Geheimtext: イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン</pre>
+<pre>
+Klartext   : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Geheimtext : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン
+</pre>
 
 <p>Die Reihenfolge der Zeichen entspricht der Unicode-Definition. Bitte beachten Sie, dass „ゕ“, „ゖ“, „ヵ“, „ヶ“ sowie „ヷ“, „ヸ“, „ヹ“, „ヺ“ nicht verschlüsselt werden.</p>
 

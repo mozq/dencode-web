@@ -3,17 +3,19 @@
 <p>La conversion clavier JIS (conversion Mikaka) est l'un des chiffres de substitution simple qui chiffre en remplaçant les caractères du texte par d'autres caractères. Elle est principalement utilisée pour le jargon et l'obfuscation sur l'Internet japonais.</p>
 <p>Le remplacement des caractères est effectué par conversion entre les caractères anglais et les caractères japonais imprimés sur le clavier japonais JIS (JIS X4064 / OADG109A). À l'origine, cela dérive de l'argot Internet appelé "みかか" (Mikaka), qui est le résultat de la frappe de "<abbr title="Nippon Telegraph and Telephone corporation">NTT</abbr>", l'un des opérateurs de télécommunications japonais, avec un clavier JIS.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>Par exemple, "t" est chiffré en "か" et "h" en "く". DenCode convertit les caractères anglais et japonais en même temps, le chiffrement et le déchiffrement ont donc la même signification.</p>
 
-<pre>Texte clair    : this is a secret message
-Texte chiffré  : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Texte clair   : this is a secret message
+Texte chiffré : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Texte chiffré  : かくにと にと ち といそすいか もいととちきい
-Texte rechiffré: this is a secret message</pre>
+<pre>
+Texte chiffré   : かくにと にと ち といそすいか もいととちきい
+Texte rechiffré : this is a secret message
+</pre>
 
 <p>Le mappage des caractères convertis par la conversion de clavier JIS est le suivant. Les caractères entre parenthèses sont ceux autorisés en mode tolérant.</p>
 

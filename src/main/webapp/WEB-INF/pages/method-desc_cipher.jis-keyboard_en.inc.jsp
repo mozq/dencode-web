@@ -3,17 +3,19 @@
 <p>JIS keyboard conversion (Mikaka conversion) is one of the single substitution ciphers that encrypts by replacing characters in text with other characters. Basically, it is used for jargon and obfuscation on the Japanese Internet.</p>
 <p>Character replacement is performed by converting between English characters and Japanese characters printed on the Japanese JIS keyboard (JIS X4064 / OADG109A). Originally, it is derived from Internet slang called "みかか" (Mikaka), which is the result of typing "<abbr title="Nippon Telegraph and Telephone corporation">NTT</abbr>", one of the Japanese telecommunications carriers, with a JIS keyboard.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>For example, "t" is encrypted to "か" and "h" to "く". DenCode converts English and Japanese characters at the same time, so encryption and decryption have the same meaning.</p>
 
-<pre>Plain text    : this is a secret message
-Cipher text   : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Plain text  : this is a secret message
+Cipher text : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Cipher text   : かくにと にと ち といそすいか もいととちきい
-Re-cipher text: this is a secret message</pre>
+<pre>
+Cipher text    : かくにと にと ち といそすいか もいととちきい
+Re-cipher text : this is a secret message
+</pre>
 
 <p>The mapping of characters converted by the JIS keyboard conversion is as follows. Characters in parentheses are those allowed in the lenient-mode.</p>
 

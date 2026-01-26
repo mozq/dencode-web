@@ -30,8 +30,10 @@
 
 <p>Il risultato della crittografia di tutte le lettere inglesi con <var>a</var> = 5 e <var>b</var> = 3 è il seguente:</p>
 
-<pre>Prima: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Dopo : DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
+<pre>
+Prima : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Dopo  : DINSXCHMRWBGLQVAFKPUZEJOTY
+</pre>
 
 <p>Specificando <var>a</var> = 1, <var>b</var> = -3 si ottiene lo stesso risultato del Cifrario di Cesare, con <var>a</var> = 1, <var>b</var> = 13 si ottiene ROT13, e con <var>a</var> = -1, <var>b</var> = -1 si ottiene lo stesso risultato del Cifrario Atbash.</p>
 
@@ -44,17 +46,23 @@ Dopo : DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
 <p>I risultati della crittografia con <var>a</var> = 5 e <var>b</var> = 3 sono i seguenti:</p>
 
 <h5>Cirillico</h5>
-<pre>Prima: АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Dopo : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ</pre>
+<pre>
+Prima : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Dopo  : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ
+</pre>
 
 <p><var>m</var> = 32 (32 caratteri).</p>
 
 <h5>Giapponese Hiragana/Katakana</h5>
-<pre>Prima: ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Dopo : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん</pre>
+<pre>
+Prima : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Dopo  : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん
+</pre>
 
-<pre>Prima: ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Dopo : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン</pre>
+<pre>
+Prima : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Dopo  : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン
+</pre>
 
 <p>L'ordine dei caratteri è quello definito in Unicode. Si noti che "ゕ", "ゖ", "ヵ", "ヶ", "ヷ", "ヸ", "ヹ", e "ヺ" non sono soggetti a crittografia.</p>
 

@@ -3,17 +3,19 @@
 <p>El Cifrado Teclado JIS es un tipo de cifrado de sustitución monoalfabética que encripta reemplazando caracteres en un texto con otros caracteres. Básicamente se utiliza en internet en Japón para jerga u ofuscación.</p>
 <p>La sustitución de caracteres se realiza convirtiendo mutuamente entre caracteres ingleses y caracteres Kana impresos en un teclado JIS japonés (JIS X4064 / OADG109A). Se origina en la jerga de internet "Mikaka" (みかか), que es el resultado de escribir "NTT" (una importante empresa de telecomunicaciones japonesa) utilizando la entrada Kana en un teclado JIS.</p>
 
-<p>
-	<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>Por ejemplo, "t" se cifra como "か" (ka) y "h" como "く" (ku). Como DenCode realiza la conversión entre caracteres ingleses y Kana simultáneamente, el cifrado y el descifrado son la misma operación.</p>
 
-<pre>Texto antes:   this is a secret message
-Texto después: かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Texto antes   : this is a secret message
+Texto después : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Texto después: かくにと にと ち といそすいか もいととちきい
-Re-cifrado   : this is a secret message</pre>
+<pre>
+Texto después : かくにと にと ち といそすいか もいととちきい
+Re-cifrado    : this is a secret message
+</pre>
 
 <p>El mapeo de caracteres convertidos por el Cifrado Teclado JIS es el siguiente. Los caracteres entre paréntesis son los permitidos en el modo indulgente.</p>
 

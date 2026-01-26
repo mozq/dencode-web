@@ -6,4 +6,4 @@
 
 <p>Par exemple, si vous convertissez le 23 janvier 2000 à 01:23:45.678 (JST) en calendrier japonais, le résultat sera le suivant.</p>
 
-<pre>Heisei 12-nen 01-gatsu 03-nichi 01-ji 23-fun 45.678-byo JST</pre>
+<pre>平成12年01月03日01時23分45.678秒 JST</pre>

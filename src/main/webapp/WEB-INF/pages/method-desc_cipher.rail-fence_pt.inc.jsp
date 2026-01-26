@@ -7,7 +7,8 @@
 <p>Por exemplo, se o número de trilhos for 4 e você criptografar "THIS_IS_A_SECRET_MESSAGE", ficará assim:</p>
 
 <p>1. Prepare 4 trilhos (altura 4) e coloque os caracteres em ziguezague a partir do canto superior esquerdo.</p>
-<pre>-----------------------------------------------
+<pre>
+-----------------------------------------------
 T           S           C           E          
 -----------------------------------------------
   H       I   _       E   R       M   S       E
@@ -15,13 +16,16 @@ T           S           C           E
     I   _       A   S       E   _       S   G  
 -----------------------------------------------
       S           _           T           A    
------------------------------------------------</pre>
+-----------------------------------------------
+</pre>
 
 <p>2. Obtenha os caracteres arranjados para cada trilho.</p>
-<pre>TSCE
+<pre>
+TSCE
 HI_ERMSE
 I_ASE_SG
-S_TA</pre>
+S_TA
+</pre>
 
 <p>3. Conecte os caracteres dos trilhos.</p>
 <pre>TSCEHI_ERMSEI_ASE_SGS_TA</pre>

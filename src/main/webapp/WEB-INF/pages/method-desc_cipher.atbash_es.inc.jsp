@@ -4,16 +4,22 @@
 <p>La sustitución de caracteres se realiza invirtiendo la lista de caracteres.</p>
 <p>Por ejemplo, en el caso de las letras "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "A" se cifra como "Z" y "B" como "Y".</p>
 
-<pre>Antes:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Después: ZYXWVUTSRQPONMLKJIHGFEDCBA</pre>
+<pre>
+Antes   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Después : ZYXWVUTSRQPONMLKJIHGFEDCBA
+</pre>
 
-<pre>Texto antes:   THIS IS A SECRET MESSAGE
-Texto después: GSRH RH Z HVXIVG NVHHZTV</pre>
+<pre>
+Texto antes   : THIS IS A SECRET MESSAGE
+Texto después : GSRH RH Z HVXIVG NVHHZTV
+</pre>
 
 <p>Originalmente se usaba como un cifrado para el hebreo. El cifrado hebreo es el siguiente:</p>
 
-<pre>Antes:   אבגדהוזחטיכלמנסעפצקרשת
-Después: תשרקצפעסנמלכיטחזוהדגבא</pre>
+<pre>
+Antes   : אבגדהוזחטיכלמנסעפצקרשת
+Después : תשרקצפעסנמלכיטחזוהדגבא
+</pre>
 
 <p>Debido a la propiedad de reversibilidad donde cifrar el texto cifrado nuevamente produce el texto plano, el descifrado se puede realizar de la misma manera que el cifrado.</p>
 
@@ -22,14 +28,20 @@ Después: תשרקצפעסנמלכיטחזוהדגבא</pre>
 <p>Además del alfabeto latino y hebreo, se soportan el alfabeto cirílico y Hiragana/Katakana japonés.</p>
 
 <h5>Cirílico</h5>
-<pre>Antes:   АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Después: ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА</pre>
+<pre>
+Antes   : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Después : ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА
+</pre>
 
 <h5>Hiragana/Katakana Japonés</h5>
-<pre>Antes:   ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Después: ゔんをゑゐわゎろれるりらよょゆゅやゃもめむみまぽぼほぺべへぷぶふぴびひぱばはのねぬになどとでてづつっぢちだたぞそぜせずすじしざさごこげけぐくぎきがかおぉえぇうぅいぃあぁ</pre>
+<pre>
+Antes   : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Después : ゔんをゑゐわゎろれるりらよょゆゅやゃもめむみまぽぼほぺべへぷぶふぴびひぱばはのねぬになどとでてづつっぢちだたぞそぜせずすじしざさごこげけぐくぎきがかおぉえぇうぅいぃあぁ
+</pre>
 
-<pre>Antes:   ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Después: ヴンヲヱヰワヮロレルリラヨョユュヤャモメムミマポボホペベヘプブフピビヒパバハノネヌニナドトデテヅツッヂチダタゾソゼセズスジシザサゴコゲケグクギキガカオォエェウゥイィアァ</pre>
+<pre>
+Antes   : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Después : ヴンヲヱヰワヮロレルリラヨョユュヤャモメムミマポボホペベヘプブフピビヒパバハノネヌニナドトデテヅツッヂチダタゾソゼセズスジシザサゴコゲケグクギキガカオォエェウゥイィアァ
+</pre>
 
 <p>El orden de los caracteres se basa en el orden de definición de Unicode. Tenga en cuenta que "ゕ", "ゖ", "ヵ", "ヶ", "ヷ", "ヸ", "ヹ", y "ヺ" no están sujetos a cifrado.</p>

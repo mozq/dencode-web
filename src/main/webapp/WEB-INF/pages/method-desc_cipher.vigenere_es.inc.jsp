@@ -39,8 +39,10 @@
 
 <p>Por ejemplo, si el texto plano es "MESSAGE" y la clave es "SECRET", los caracteres se sustituyen y cifran de la siguiente manera. Dado que el primer carácter es "M" y la clave es "S", el carácter cifrado es "E".</p>
 
-<pre>Antes:   MESSAGE
-Clave:   SECRETS
-Después: EIUJEZW</pre>
+<pre>
+Antes   : MESSAGE
+Clave   : SECRETS
+Después : EIUJEZW
+</pre>
 
 <p>Se utiliza un carácter de la clave de cifrado para cada carácter del texto plano. Si la longitud de la clave es más corta que el texto plano, la clave se usa repetidamente.</p>

@@ -7,12 +7,14 @@
 <p>Par exemple, lorsque "THIS_IS_A_SECRET_MESSAGE" est chiffré avec 4 caractères par tour de scytale, cela donne ce qui suit.</p>
 
 <p>1. Placez les caractères en travers de la bande de parchemin.</p>
-<pre>-----------------------------------
+<pre>
+-----------------------------------
      | T | H | I | S | _ | I |___|
      | S | _ | A | _ | S | E |
   ___| C | R | E | T | _ | M |
  |   | E | S | S | A | G | E |
------------------------------------</pre>
+-----------------------------------
+</pre>
 
 <p>2. Il est chiffré en déroulant le parchemin de la scytale.</p>
 <pre>TSCEH_RSIAESS_TA_S_GIEME</pre>

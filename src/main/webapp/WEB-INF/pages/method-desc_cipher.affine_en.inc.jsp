@@ -30,8 +30,10 @@
 
 <p>The result of encrypting all letters with <var>a</var> = 5, <var>b</var> = 3 is as follows.</p>
 
-<pre>Plain : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Cipher: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
+<pre>
+Plain  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Cipher : DINSXCHMRWBGLQVAFKPUZEJOTY
+</pre>
 
 <p>Specifying <var>a</var> = 1, <var>b</var> = -3 gives the Caesar cipher, specifying <var>a</var> = 1, <var>b</var> = 13 gives the same result as ROT13, and specifying <var>a</var> = -1, <var>b</var> = -1 gives the same result as the Atbash cipher.</p>
 
@@ -44,17 +46,23 @@ Cipher: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
 <p>The results of encryption with <var>a</var> = 5 and <var>b</var> = 3 are as follows.</p>
 
 <h5>Cyrillic</h5>
-<pre>Plain : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Cipher: ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ</pre>
+<pre>
+Plain  : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Cipher : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ
+</pre>
 
 <p><var>m</var> = 32 (32 characters). </p>
 
 <h5>Japanese Hiragana / Katakana</h5>
-<pre>Plain : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Cipher: いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん</pre>
+<pre>
+Plain  : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Cipher : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん
+</pre>
 
-<pre>Plain : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Cipher: イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン</pre>
+<pre>
+Plain  : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Cipher : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン
+</pre>
 
 <p>The character order is the Unicode definition order. Please note that "ゕ", "ゖ", "ヵ", "ヶ", "ヷ", "ヸ", "ヹ", and "ヺ" are not subject to encryption.</p>
 

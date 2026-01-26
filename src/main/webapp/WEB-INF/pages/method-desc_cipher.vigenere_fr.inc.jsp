@@ -39,8 +39,10 @@
 
 <p>Par exemple, si le texte clair avant chiffrement est "MESSAGE" et la clé de chiffrement est "SECRET", les caractères sont remplacés et chiffrés comme suit. Puisque la première lettre est "M" et que la clé est "S", le caractère chiffré est "E".</p>
 
-<pre>Texte clair  : MESSAGE
-Clé          : SECRETS
-Texte chiffré: EIUJEZW</pre>
+<pre>
+Texte clair   : MESSAGE
+Clé           : SECRETS
+Texte chiffré : EIUJEZW
+</pre>
 
 <p>Un caractère de la clé de chiffrement est utilisé pour chaque caractère du texte clair. Si la longueur de la clé est plus courte que le texte clair, utilisez la clé de manière répétée.</p>

@@ -7,12 +7,14 @@
 <p>Por exemplo, se o número de caracteres que podem ser escritos ao redor do bastão for 4 e você criptografar "THIS_IS_A_SECRET_MESSAGE", ficará assim:</p>
 
 <p>1. Organize os caracteres ao longo do pergaminho. Como o número de caracteres ao redor do bastão é 4 e o texto a ser criptografado tem 24 caracteres, organizamos até 6 caracteres horizontalmente.</p>
-<pre>-----------------------------------
+<pre
+>-----------------------------------
      | T | H | I | S | _ | I |___|
      | S | _ | A | _ | S | E |
   ___| C | R | E | T | _ | M |
  |   | E | S | S | A | G | E |
------------------------------------</pre>
+-----------------------------------
+</pre>
 
 <p>2. O desenrolar do pergaminho do bastão resulta na criptografia.</p>
 <pre>TSCEH_RSIAESS_TA_S_GIEME</pre>

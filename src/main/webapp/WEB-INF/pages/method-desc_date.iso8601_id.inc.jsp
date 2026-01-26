@@ -8,11 +8,11 @@
 <p>Sebagai contoh, jika Anda mengonversi 23 Januari 2000, 01:23:45.678 (JST; +09:00) ke ISO 8601, hasilnya adalah sebagai berikut.</p>
 
 <div class="table-responsive">
-        <table class="table">
-                <tr><th>Format</th><th>Hasil Konversi</th></tr>
-                <tr><td>Format dasar</td><td>20000123T012345.678+0900</td></tr>
-                <tr><td>Format diperpanjang</td><td>2000-01-23T01:23:45.678+09:00</td></tr>
-                <tr><td>Minggu (Tahun-Minggu-Hari)</td><td>2000-W03-7T01:23:45.678+09:00</td></tr>
-                <tr><td>Hari (Tahun-Hari dalam setahun)</td><td>2000-023T01:23:45.678+09:00</td></tr>
-        </table>
+	<table class="table">
+		<tr><th>Format</th><th>Hasil Konversi</th></tr>
+		<tr><td>Format dasar</td><td>20000123T012345.678+0900</td></tr>
+		<tr><td>Format diperpanjang</td><td>2000-01-23T01:23:45.678+09:00</td></tr>
+		<tr><td>Minggu (Tahun-Minggu-Hari)</td><td>2000-W03-7T01:23:45.678+09:00</td></tr>
+		<tr><td>Hari (Tahun-Hari dalam setahun)</td><td>2000-023T01:23:45.678+09:00</td></tr>
+	</table>
 </div>

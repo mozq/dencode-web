@@ -7,12 +7,14 @@
 <p>Sebagai contoh, jika keliling adalah 4 karakter dan Anda mengenkripsi "THIS_IS_A_SECRET_MESSAGE":</p>
 
 <p>1. Susun karakter dengan baris baru setiap 4 karakter.</p>
-<pre>THIS
-_IS_
-A_SE
-CRET
-_MES
-SAGE</pre>
+<pre>
+-----------------------------------
+     | T | H | I | S | _ | I |___|
+     | S | _ | A | _ | S | E |
+  ___| C | R | E | T | _ | M |
+ |   | E | S | S | A | G | E |
+-----------------------------------
+</pre>
 
 <p>2. Baca karakter dari atas ke bawah.</p>
-<pre>T_AC_SHI_RMSGSSMEIEET</pre>
+<pre>TSCEH_RSIAESS_TA_S_GIEME</pre>

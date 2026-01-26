@@ -4,10 +4,14 @@
 <p>Character replacement is performed by shifting the characters from "A" to "Z" by 13 characters out of the 26 characters of "ABCDEFGHIJKLMNOPQRSTUVWXYZ".</p>
 <p>For example, "A" is encrypted to "N" and "Z" is encrypted to "M".</p>
 
-<pre>Plain : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Cipher: NOPQRSTUVWXYZABCDEFGHIJKLM</pre>
+<pre>
+Plain  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Cipher : NOPQRSTUVWXYZABCDEFGHIJKLM
+</pre>
 
-<pre>Plain text : THIS IS A SECRET MESSAGE
-Cipher text: GUVF VF N FRPERG ZRFFNTR</pre>
+<pre>
+Plain text  : THIS IS A SECRET MESSAGE
+Cipher text : GUVF VF N FRPERG ZRFFNTR
+</pre>
 
 <p>Since there is reciprocity that plaintext can be obtained by encrypting ciphertext again, decryption can be done in the same flow as encryption.</p>

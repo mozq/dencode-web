@@ -3,17 +3,19 @@
 <p>みかか変換は、文章の文字を他の文字に置換することで暗号化する単一換字式暗号のひとつです。基本的には日本のインターネット上において、隠語や難読化のために利用されています。</p>
 <p>文字の置換は、日本語のJISキーボード(JIS X4064 / OADG109A)に印字された英字とカナ文字を相互に変換することで行います。もとは日本の通信事業者のひとつである「<abbr title="Nippon Telegraph and Telephone corporation">NTT</abbr>」をJISキーボードでカナ入力した結果の「みかか」と呼んでいたネットスラングに由来します。</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>例えば、「t」は「か」、「h」は「く」に暗号化されます。DenCodeでは英字とカナ文字の変換を同時に行うため、暗号化と復号化は同じ意味となります。</p>
 
-<pre>暗号化前の文章　: this is a secret message
-暗号化後の文章　: かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+暗号化前の文章 : this is a secret message
+暗号化後の文章 : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>暗号化後の文章　: かくにと にと ち といそすいか もいととちきい
-再暗号化後の文章: this is a secret message</pre>
+<pre>
+暗号化後の文章   : かくにと にと ち といそすいか もいととちきい
+再暗号化後の文章 : this is a secret message
+</pre>
 
 <p>みかか変換で変換される文字のマッピングは以下の通りです。括弧内は寛容モードにおいて許容される文字です。</p>
 

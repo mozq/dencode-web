@@ -39,8 +39,10 @@
 
 <p>Ad esempio, se il testo in chiaro è "MESSAGE" e la chiave è "SECRET", i caratteri vengono sostituiti e cifrati come segue. Il primo carattere è "M" e la chiave è "S", quindi il carattere cifrato è "E".</p>
 
-<pre>Prima : MESSAGE
-Chiave: SECRETS
-Dopo  : EIUJEZW</pre>
+<pre>
+Prima  : MESSAGE
+Chiave : SECRETS
+Dopo   : EIUJEZW
+</pre>
 
 <p>Viene utilizzato un carattere della chiave di crittografia per ogni carattere del testo in chiaro. Se la lunghezza della chiave è inferiore a quella del testo in chiaro, la chiave viene usata ripetutamente.</p>

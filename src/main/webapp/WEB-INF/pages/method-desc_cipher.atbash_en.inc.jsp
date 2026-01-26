@@ -4,16 +4,22 @@
 <p>Character replacement is done by mapping the list of characters in reverse order.</p>
 <p>For example, in the alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "A" is encrypted to "Z" and "B" to "Y".</p>
 
-<pre>Plain : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Cipher: ZYXWVUTSRQPONMLKJIHGFEDCBA</pre>
+<pre>
+Plain  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Cipher : ZYXWVUTSRQPONMLKJIHGFEDCBA
+</pre>
 
-<pre>Plain text : THIS IS A SECRET MESSAGE
-Cipher text: GSRH RH Z HVXIVG NVHHZTV</pre>
+<pre>
+Plain text  : THIS IS A SECRET MESSAGE
+Cipher text : GSRH RH Z HVXIVG NVHHZTV
+</pre>
 
 <p>It was originally used as a Hebrew cipher. The Hebrew encryption is as follows.</p>
 
-<pre>Plain : אבגדהוזחטיכלמנסעפצקרשת
-Cipher: תשרקצפעסנמלכיטחזוהדגבא</pre>
+<pre>
+Plain  : אבגדהוזחטיכלמנסעפצקרשת
+Cipher : תשרקצפעסנמלכיטחזוהדגבא
+</pre>
 
 <p>Since there is reciprocity that plaintext can be obtained by encrypting ciphertext again, decryption can be done in the same flow as encryption.</p>
 
@@ -22,14 +28,20 @@ Cipher: תשרקצפעסנמלכיטחזוהדגבא</pre>
 <p>In addition to Latin and Hebrew letters, Cyrillic and Japanese Hiragana / Katakana are supported.</p>
 
 <h5>Cyrillic</h5>
-<pre>Plain : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Cipher: ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА</pre>
+<pre>
+Plain  : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Cipher : ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА
+</pre>
 
 <h5>Japanese Hiragana / Katakana</h5>
-<pre>Plain : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Cipher: ゔんをゑゐわゎろれるりらよょゆゅやゃもめむみまぽぼほぺべへぷぶふぴびひぱばはのねぬになどとでてづつっぢちだたぞそぜせずすじしざさごこげけぐくぎきがかおぉえぇうぅいぃあぁ</pre>
+<pre>
+Plain  : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Cipher : ゔんをゑゐわゎろれるりらよょゆゅやゃもめむみまぽぼほぺべへぷぶふぴびひぱばはのねぬになどとでてづつっぢちだたぞそぜせずすじしざさごこげけぐくぎきがかおぉえぇうぅいぃあぁ
+</pre>
 
-<pre>Plain : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Cipher: ヴンヲヱヰワヮロレルリラヨョユュヤャモメムミマポボホペベヘプブフピビヒパバハノネヌニナドトデテヅツッヂチダタゾソゼセズスジシザサゴコゲケグクギキガカオォエェウゥイィアァ</pre>
+<pre>
+Plain  : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Cipher : ヴンヲヱヰワヮロレルリラヨョユュヤャモメムミマポボホペベヘプブフピビヒパバハノネヌニナドトデテヅツッヂチダタゾソゼセズスジシザサゴコゲケグクギキガカオォエェウゥイィアァ
+</pre>
 
 <p>The character order is the Unicode definition order. Please note that "ゕ", "ゖ", "ヵ", "ヶ", "ヷ", "ヸ", "ヹ", and "ヺ" are not subject to encryption.</p>

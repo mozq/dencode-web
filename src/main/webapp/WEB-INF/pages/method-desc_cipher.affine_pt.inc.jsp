@@ -30,8 +30,10 @@
 
 <p>O resultado da criptografia de todas as letras do inglês com <var>a</var> = 5 e <var>b</var> = 3 é o seguinte:</p>
 
-<pre>Antes da Criptografia : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Depois da Criptografia: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
+<pre>
+Antes da Criptografia  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Depois da Criptografia : DINSXCHMRWBGLQVAFKPUZEJOTY
+</pre>
 
 <p>Especificar <var>a</var> = 1, <var>b</var> = -3 resulta na Cifra de César, especificar <var>a</var> = 1, <var>b</var> = 13 resulta em ROT13, e especificar <var>a</var> = -1, <var>b</var> = -1 resulta no mesmo que a Cifra Atbash.</p>
 
@@ -44,17 +46,23 @@ Depois da Criptografia: DINSXCHMRWBGLQVAFKPUZEJOTY</pre>
 <p>Os resultados da criptografia com <var>a</var> = 5 e <var>b</var> = 3 são os seguintes:</p>
 
 <h5>Cirílico</h5>
-<pre>Antes da Criptografia : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Depois da Criptografia: ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ</pre>
+<pre>
+Antes da Criptografia  : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Depois da Criptografia : ГИНТЧЬБЖЛРХЪЯДЙОУШЭВЗМСЦЫАЕКПФЩЮ
+</pre>
 
 <p><var>m</var> = 32 (32 caracteres).</p>
 
 <h5>Hiragana / Katakana Japonês</h5>
-<pre>Antes da Criptografia : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Depois da Criptografia: いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん</pre>
+<pre>
+Antes da Criptografia  : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Depois da Criptografia : いぉぎこじそぢでぬぱぶほむゅりわゔぅおくごすぞっとねひぷぼめゆるゐぁうかぐさずたつどのびへぽもょれゑあぇがけざせだづなはぴべまゃよろをぃえきげしぜちてにばふぺみやらゎん
+</pre>
 
-<pre>Antes da Criptografia : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Depois da Criptografia: イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン</pre>
+<pre>
+Antes da Criptografia  : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Depois da Criptografia : イォギコジソヂデヌパブホムュリワヴゥオクゴスゾットネヒプボメユルヰァウカグサズタツドノビヘポモョレヱアェガケザセダヅナハピベマャヨロヲィエキゲシゼチテニバフペミヤラヮン
+</pre>
 
 <p>A ordem dos caracteres é baseada na definição Unicode. Note que "ゕ", "ゖ", "ヵ", "ヶ", "ヷ", "ヸ", "ヹ", e "ヺ" não estão sujeitos a criptografia.</p>
 

@@ -3,17 +3,19 @@
 <p>Il cifrario da tastiera JIS (Mikaka) è un tipo di cifrario a sostituzione monoalfabetica che crittografa sostituendo i caratteri del testo con altri caratteri. Fondamentalmente, viene utilizzato su Internet in Giappone per slang e offuscamento.</p>
 <p>La sostituzione dei caratteri viene eseguita convertendo reciprocamente i caratteri alfanumerici e Kana stampati sulla tastiera JIS giapponese (JIS X4064 / OADG109A). L'origine del nome "Mikaka" deriva dallo slang di Internet che chiamava "Mikaka" il risultato dell'inserimento di "NTT" (un operatore di telecomunicazioni giapponese) tramite input Kana sulla tastiera JIS.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>Ad esempio, "t" viene cifrato in "か" e "h" in "く". In DenCode, la conversione tra caratteri alfanumerici e Kana viene eseguita contemporaneamente, quindi crittografia e decrittografia hanno lo stesso significato.</p>
 
-<pre>Testo in chiaro: this is a secret message
-Testo cifrato  : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Testo in chiaro : this is a secret message
+Testo cifrato   : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Testo cifrato  : かくにと にと ち といそすいか もいととちきい
-Testo ri-cifrato: this is a secret message</pre>
+<pre>
+Testo cifrato    : かくにと にと ち といそすいか もいととちきい
+Testo ri-cifrato : this is a secret message
+</pre>
 
 <p>La mappatura dei caratteri convertiti nel cifrario Mikaka è la seguente. I caratteri tra parentesi sono quelli consentiti in modalità Indulgente.</p>
 

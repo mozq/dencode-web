@@ -3,17 +3,19 @@
 <p>Konversi Keyboard JIS (Konversi Mikaka) adalah salah satu sandi substitusi tunggal yang mengenkripsi dengan mengganti karakter dalam teks dengan karakter lain. Pada dasarnya, ini digunakan untuk jargon dan penyamaran di Internet Jepang.</p>
 <p>Penggantian karakter dilakukan dengan mengonversi antara karakter Inggris dan karakter Jepang yang dicetak pada keyboard JIS Jepang (JIS X4064 / OADG109A). Awalnya, ini berasal dari slang Internet yang disebut "みかか" (Mikaka), yang merupakan hasil dari mengetik "<abbr title="Nippon Telegraph and Telephone corporation">NTT</abbr>", salah satu operator telekomunikasi Jepang, dengan keyboard JIS.</p>
 
-<p>
-<a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a>
-</p>
+<p><a title="StuartBrady (the first version) and others., GFDL &lt;http://www.gnu.org/copyleft/fdl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:KB_Japanese.svg"><img width="512" alt="KB Japanese" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/KB_Japanese.svg/512px-KB_Japanese.svg.png"></a></p>
 
 <p>Sebagai contoh, "t" dienkripsi menjadi "か" dan "h" menjadi "く". DenCode mengonversi karakter Inggris dan Jepang secara bersamaan, sehingga enkripsi dan dekripsi memiliki arti yang sama.</p>
 
-<pre>Teks asli     : this is a secret message
-Teks sandi    : かくにと にと ち といそすいか もいととちきい</pre>
+<pre>
+Teks asli  : this is a secret message
+Teks sandi : かくにと にと ち といそすいか もいととちきい
+</pre>
 
-<pre>Teks sandi    : かくにと にと ち といそすいか もいととちきい
-Enkripsi ulang: this is a secret message</pre>
+<pre>
+Teks sandi     : かくにと にと ち といそすいか もいととちきい
+Enkripsi ulang : this is a secret message
+</pre>
 
 <p>Pemetaan karakter yang dikonversi oleh konversi keyboard JIS adalah sebagai berikut. Karakter dalam tanda kurung adalah karakter yang diizinkan dalam mode toleran.</p>
 

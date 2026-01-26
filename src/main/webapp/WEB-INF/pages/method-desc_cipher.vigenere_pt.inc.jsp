@@ -40,8 +40,9 @@
 <p>Por exemplo, se o texto simples for "MESSAGE" e a chave for "SECRET", os caracteres são substituídos e criptografados da seguinte forma. Como o primeiro caractere é "M" e a chave é "S", o caractere criptografado é "E".</p>
 
 <pre>
-Antes da Criptografia : MESSAGE
-Chave　              　: SECRETS
-Depois da Criptografia: EIUJEZW</pre>
+Antes da Criptografia  : MESSAGE
+Chave　              　 : SECRETS
+Depois da Criptografia : EIUJEZW
+</pre>
 
 <p>Um caractere da chave de criptografia é usado para cada caractere do texto simples. Se o comprimento da chave for menor que o texto simples, a chave é usada repetidamente.</p>

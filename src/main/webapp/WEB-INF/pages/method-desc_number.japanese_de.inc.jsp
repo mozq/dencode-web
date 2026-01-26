@@ -73,4 +73,9 @@
 </div>
 
 <p>Bei 10, 100, 1000 wird das führende „Ein“ („一“) oft weggelassen (also „十“ statt „一十“). Bei Daiji wird „壱“ jedoch oft explizit geschrieben.</p>
+
 <p>Nachkommastellen werden nach einem „・“ Ziffer für Ziffer dargestellt.</p>
+
+<p>Von den oben genannten Daiji-Schriftzeichen sind im japanischen Recht nur „壱“, „弐“, „参“ und „拾“ festgelegt.</p>
+
+<p>In den Daiji-Schriftzeichen sind Ziffern ab „億“ (10<sup>8</sup>) nicht definiert, im DenCode werden sie jedoch mit denselben Ziffernnamen wie in den modernen japanischen Ziffern dargestellt.</p>

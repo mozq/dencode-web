@@ -6,4 +6,4 @@
 
 <p>Por ejemplo, convertir 2000-01-23 01:23:45.678 (JST) a Era Japonesa da el siguiente resultado:</p>
 
-<pre>Heisei 12-nen 01-gatsu 03-nichi 01-ji 23-fun 45.678-byō JST</pre>
+<pre>平成12年01月03日01時23分45.678秒 JST</pre>

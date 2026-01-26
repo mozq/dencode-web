@@ -4,11 +4,15 @@
 <p>Le remplacement des caractères est effectué en décalant les caractères de "A" à "Z" parmi les 26 caractères de "ABCDEFGHIJKLMNOPQRSTUVWXYZ".</p>
 <p>Par exemple, lors d'un décalage de -3 caractères, "A" est chiffré en "X" et "Z" est chiffré en "W".</p>
 
-<pre>Texte clair  : ABCDEFGHIJKLMNOPQRSTUVWXYZ
-Texte chiffré: XYZABCDEFGHIJKLMNOPQRSTUVW</pre>
+<pre>
+Texte clair   : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Texte chiffré : XYZABCDEFGHIJKLMNOPQRSTUVW
+</pre>
 
-<pre>Texte clair  : THIS IS A SECRET MESSAGE
-Texte chiffré: QEFP FP X PBZOBQ JBPPXDB</pre>
+<pre>
+Texte clair   : THIS IS A SECRET MESSAGE
+Texte chiffré : QEFP FP X PBZOBQ JBPPXDB
+</pre>
 
 <p>Le nombre de décalages est la clé du chiffrement.</p>
 <p>Seules les lettres sont chiffrées, pas les chiffres ou les symboles.</p>
@@ -23,18 +27,24 @@ Texte chiffré: QEFP FP X PBZOBQ JBPPXDB</pre>
 <h5>Cyrillique</h5>
 <p>Si vous souhaitez décaler le caractère cyrillique de -3 caractères, il sera chiffré comme suit.</p>
 
-<pre>Texte clair  : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-Texte chiffré: ЭЮЯАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬ</pre>
+<pre>
+Texte clair   : АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+Texte chiffré : ЭЮЯАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬ
+</pre>
 
 <p>Le signe diacritique décale le caractère tout en le maintenant. Ainsi, par exemple, la lettre russe "Ё" est chiffrée en "В̈". Les caractères "Й" et "й" sont traités comme des caractères uniques, et non comme les caractères "И" et "и" avec le signe diacritique " ̆" (brève).</p>
 
 <h5>Hiragana / Katakana japonais</h5>
 <p>Si vous souhaitez décaler le caractère Hiragana / Katakana japonais de -3 caractères, il sera chiffré comme suit.</p>
 
-<pre>Texte clair  : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
-Texte chiffré: をんゔぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑ</pre>
+<pre>
+Texte clair   : ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔ
+Texte chiffré : をんゔぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑ
+</pre>
 
-<pre>Texte clair  : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
-Texte chiffré: ヲンヴァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱ</pre>
+<pre>
+Texte clair   : ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴ
+Texte chiffré : ヲンヴァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱ
+</pre>
 
 <p>L'ordre des caractères est l'ordre de définition Unicode. Veuillez noter que «ゕ», «ゖ», «ヵ», «ヶ», «ヷ», «ヸ», «ヹ», et «ヺ» ne sont pas sujets au chiffrement.</p>
