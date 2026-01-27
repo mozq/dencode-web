@@ -275,7 +275,7 @@
 						<li><hr /></li>
 						<li data-oe="GB2312" tabindex="0">GB2312 (EUC-CN)</li>
 						<li data-oe="GB18030" tabindex="0">GB18030</li>
-						<li data-oe="Big5-HKSCS" tabindex="0">Big5-HKSCS</li>
+						<li data-oe="Big5-HKSCS" tabindex="0">Big5 / Big5-HKSCS</li>
 						<li><hr /></li>
 						<li data-oe="EUC-KR" tabindex="0">EUC-KR (KS X 1001)</li>
 						<li data-oe="ISO-2022-KR" tabindex="0">ISO-2022-KR</li>
