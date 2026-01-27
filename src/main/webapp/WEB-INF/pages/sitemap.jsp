@@ -9,7 +9,7 @@
 		<url>
 			<loc>${baseURL}${pageContext.request.contextPath}/${dc:h(path)}</loc>
 			<c:forEach var="loc" items="${supportedLocaleIDs}">
-				<xhtml:link rel="alternate" hreflang="${dc:h(loc)}" href="${baseURL}${pageContext.request.contextPath}/${dc:h(loc)}/${dc:h(path)}" />
+				<xhtml:link rel="alternate" hreflang="${dc:h(loc.toLowerCase())}" href="${baseURL}${pageContext.request.contextPath}/${dc:h(loc.toLowerCase())}/${dc:h(path)}" />
 			</c:forEach>
 		</url>
 	</c:forEach>

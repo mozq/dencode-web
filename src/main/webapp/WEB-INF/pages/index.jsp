@@ -22,7 +22,7 @@
 	</c:choose>
 	<meta property="og:description" content="${dc:h(msg[method += '.desc'])}" />
 	<c:forEach var="loc" items="${supportedLocaleMap}">
-		<link rel="alternate" hreflang="${dc:h(loc.key)}" href="${baseURL}${pageContext.request.contextPath}/${dc:h(loc.key)}/${dc:h(currentPath)}" />
+		<link rel="alternate" hreflang="${dc:h(loc.key.toLowerCase())}" href="${baseURL}${pageContext.request.contextPath}/${dc:h(loc.key.toLowerCase())}/${dc:h(currentPath)}" />
 	</c:forEach>
 	<link rel="alternate" hreflang="x-default" href="${baseURL}${pageContext.request.contextPath}/${dc:h(currentPath)}" />
 	<link rel="apple-touch-icon" type="image/png" href="${pageContext.request.contextPath}/apple-touch-icon.png" />
@@ -70,7 +70,7 @@
 					<li class="${(localeId eq null) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${dc:h(currentPath)}">${dc:h(msg['locale.name.default'])} (${dc:h(defaultLocaleName)})</a></li>
 					<li><hr /></li>
 					<c:forEach var="loc" items="${supportedLocaleMap}">
-						<li class="${(localeId eq loc.key) ? 'active' : ''}"><a href="${pageContext.request.contextPath}/${dc:h(loc.key)}/${dc:h(currentPath)}">${dc:h(loc.value)}</a></li>
+						<li class="${(localeId eq loc.key) ? 'active' : ''}"><a hreflang="${dc:h(loc.key.toLowerCase())}" href="${pageContext.request.contextPath}/${dc:h(loc.key.toLowerCase())}/${dc:h(currentPath)}">${dc:h(loc.value)}</a></li>
 					</c:forEach>
 				</ul>
 			</div>

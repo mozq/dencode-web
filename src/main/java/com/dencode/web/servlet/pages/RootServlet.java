@@ -39,7 +39,7 @@ public class RootServlet extends AbstractDencodeHttpServlet {
 		Matcher localePathMatcher = LOCALE_PATH_PATTERN.matcher(servletPath);
 		if (localePathMatcher.matches()) {
 			// Locale path
-			String localeId = localePathMatcher.group(1);
+			String localeId = normalizeLocaleId(localePathMatcher.group(1));
 			String subPath = localePathMatcher.group(2);
 			
 			if (SUPPORTED_LOCALE_IDS.contains(localeId)) {
@@ -53,5 +53,18 @@ public class RootServlet extends AbstractDencodeHttpServlet {
 		
 		// Forward to default servlet
 		getServletContext().getNamedDispatcher("default").forward(reqres().request(), reqres().response());
+	}
+	
+	private static String normalizeLocaleId(String localeId) {
+		if (localeId == null || localeId.isEmpty()) {
+			return localeId;
+		}
+		
+		int sepIdx = localeId.indexOf('-');
+		if (sepIdx == -1) {
+			return localeId;
+		}
+		
+		return localeId.substring(0, sepIdx + 1) + localeId.substring(sepIdx + 1).toUpperCase();
 	}
 }

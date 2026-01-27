@@ -72,7 +72,7 @@ public class IndexServlet extends AbstractDencodeHttpServlet {
 				.collect(Collectors.toMap(
 					Function.identity(),
 					id -> ResourceBundle.getBundle("messages", Locale.forLanguageTag(id)).getString("locale.name"),
-					(x, y) -> y,
+					(_, y) -> y,
 					LinkedHashMap::new
 				));
 	}
